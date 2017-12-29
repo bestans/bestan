@@ -3,13 +3,17 @@
 bin/
 tmp/
 *.tmp
-*.bak
 *.swp
 *~.nib
 local.properties
 .settings/
 .loadpath
 .recommenders
+
+#self
+mvntest
+*.bak
+
 
 # External tool builders
 .externalToolBuilders/
