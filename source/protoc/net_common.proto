@@ -1,6 +1,8 @@
 syntax = "proto3";
 
 package bestan.pb;
-message test_data{
-	int32 value = 1;
+
+message test_data
+{
+    int32 value = 1;
 }

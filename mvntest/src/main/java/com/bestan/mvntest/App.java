@@ -1,5 +1,9 @@
 package com.bestan.mvntest;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +14,10 @@ import com.alibaba.fastjson.JSON;
 import com.bestan.mvntest.Group;
 import com.bestan.mvntest.User;
 
+import org.rocksdb.RocksDB;
+import org.rocksdb.Options;
+import org.rocksdb.RocksDBException;
+
 /**
  * Hello world!
  *
@@ -18,9 +26,69 @@ public class App
 {
     public static void main( String[] args )
     {
-    	test3();
+    	test5();
     }
     
+    public static void test5()
+    {
+    	System.out.println(System.getProperty("os.arch"));
+    	System.out.println(System.getProperty("sun.arch.data.model")); 
+    	System.out.println(Convert.bytesToInt(null));
+    }
+    public static void test4()
+    {
+    	  // a static method that loads the RocksDB C++ library.
+    	  RocksDB.loadLibrary();
+
+    	  try (final Options options = new Options().setCreateIfMissing(true)) {
+    	    
+    	    // a factory method that returns a RocksDB instance
+    	    try (final RocksDB db = RocksDB.open(options, "db")) {
+    	    	
+    	        ByteArrayOutputStream baos = new ByteArrayOutputStream();    
+    	        DataOutputStream dos = new DataOutputStream(baos);
+    	        try {
+					dos.writeInt(123456);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    	        
+    	    	Integer key_int1 = 105;
+    	    	byte[] key1 = key_int1.toString().getBytes();
+    	    	byte[] src_value = baos.toByteArray();
+    	    	System.out.println(src_value);
+    	    	// some initialization for key1 and key2
+    	    	try {
+    	    	  final byte[] value = db.get(key1);
+    	    	  if (value != null) {  // value == null if key1 does not exist in db.
+    	    		  	System.out.println("find");
+    	    		  	
+    	    		    ByteArrayInputStream bais = new ByteArrayInputStream(value);    
+    	    		    DataInputStream dis = new DataInputStream(bais);
+    	    		    try {
+
+        	    	    	System.out.println(dis.readInt());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+    	    	  }
+    	    	  else
+    	    	  {
+    	    		  	System.out.println("not find");
+      	    	    	db.put(key1, src_value);
+    	    	  }
+    	    	} catch (RocksDBException e) {
+    	    	  // error handling
+    	    	}
+    	        // do something
+    	    }
+    	  } catch (RocksDBException e) {
+    	    // do some error handling
+    	  }
+
+    }
     public static void test3()
     {
     	try {
