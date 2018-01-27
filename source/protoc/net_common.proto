@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package bestan.pb;
+package bestan.common.protobuf;
 
 message test_data
 {

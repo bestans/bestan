@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Bestan.Pb {
+namespace Bestan.Common.Protobuf {
 
   /// <summary>Holder for reflection information generated from net_common.proto</summary>
   public static partial class NetCommonReflection {
@@ -24,12 +24,12 @@ namespace Bestan.Pb {
     static NetCommonReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBuZXRfY29tbW9uLnByb3RvEgliZXN0YW4ucGIiGgoJdGVzdF9kYXRhEg0K",
-            "BXZhbHVlGAEgASgFYgZwcm90bzM="));
+            "ChBuZXRfY29tbW9uLnByb3RvEhZiZXN0YW4uY29tbW9uLnByb3RvYnVmIhoK",
+            "CXRlc3RfZGF0YRINCgV2YWx1ZRgBIAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Bestan.Pb.test_data), global::Bestan.Pb.test_data.Parser, new[]{ "Value" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Bestan.Common.Protobuf.test_data), global::Bestan.Common.Protobuf.test_data.Parser, new[]{ "Value" }, null, null, null)
           }));
     }
     #endregion
@@ -44,7 +44,7 @@ namespace Bestan.Pb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Bestan.Pb.NetCommonReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Bestan.Common.Protobuf.NetCommonReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
