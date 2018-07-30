@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="bestan-db/src/main/java"/>
+	<classpathentry kind="src" path="bestan-db/src/test/java"/>
+	<classpathentry kind="src" path="bestan-global/src"/>
+	<classpathentry kind="src" path="bestan-log/src"/>
+	<classpathentry kind="src" path="bestan-server/source"/>
+	<classpathentry kind="src" path="bestan-server/src"/>
+	<classpathentry kind="src" path="bestan-test/src"/>
+	<classpathentry kind="src" path="mvntest/source"/>
+	<classpathentry kind="src" path="mvntest/src/main/java"/>
+	<classpathentry kind="src" path="mvntest/src/test/java"/>
+	<classpathentry excluding="jar/rocksdb/" kind="src" path="source"/>
+	<classpathentry kind="src" path="source/jar/rocksdb"/>
+	<classpathentry kind="output" path="bestan-db/target/classes"/>
+</classpath>
