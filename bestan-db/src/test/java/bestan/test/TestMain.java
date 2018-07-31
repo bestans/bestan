@@ -33,8 +33,6 @@ import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.db.util.Utils;
 import bestan.log.Glog;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-import jdk.nashorn.api.tree.WhileLoopTree;
 
 public class TestMain {
     private static void initLocalRocksDbDir() {
@@ -199,14 +197,6 @@ public class TestMain {
     	StorageEnv.init("d:/rocksdb_test1");
     	new PrintDB().baseHandle();
 		StorageEnv.close();
-		
-		var handle = new IDbHandle() {
-			@Override
-			public void handle(Transaction txn) throws RocksDBException {
-
-			}
-		};
-		handle.baseHandle();
     }
     
     private static void test9() {
@@ -218,9 +208,10 @@ public class TestMain {
     private static void test11() {
     	MergeTable.merge("d:/rocksdb_test1", "d:/rocksdb_test2");
     	test10();
+    	Glog.info("finish");
     }
 	public static void main(String[] args) {
-			test11();
+			Glog.info("test");
 	}
 
 }

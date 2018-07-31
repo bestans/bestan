@@ -537,8 +537,8 @@ public class Utils {
         return sb.toString();
     }
 
-    private static Map loadProperty(String prop) {
-        Map ret = new HashMap<>();
+    private static HashMap loadProperty(String prop) {
+    	HashMap ret = new HashMap<>();
         Properties properties = new Properties();
 
         try {
@@ -556,10 +556,8 @@ public class Utils {
         return ret;
     }
 
-    public static Map loadConf(String arg) {
-        Map ret;
-        ret = loadProperty(arg);
-        return ret;
+    public static HashMap loadConf(String arg) {
+        return loadProperty(arg);
     }
 
     public static String getVersion() {
