@@ -24,7 +24,7 @@ local map = {
         },
     },
     number = "aaa",
-    lvalue = "123123123123123",
+    --lvalue = "123123123123123",
 }
 print("aaaa")
 

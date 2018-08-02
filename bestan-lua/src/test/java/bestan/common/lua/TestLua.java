@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bestan.common.lua.ILuaConfig;
-import bestan.common.lua.LuaAnnotation;
-
 @LuaAnnotation(path="test.lua")
 public class TestLua implements ILuaConfig {
 	public int test = 11;
@@ -17,7 +14,8 @@ public class TestLua implements ILuaConfig {
 	public String string = "aaa";
 	public Map<Integer, Map<Integer, Integer>> dmap = new HashMap<>();
 	public List<Map<Integer, Map<Integer, Map<Integer, Integer>>>> dList = new ArrayList<>();
-	public long lvalue = 0L;
+	@LuaParamAnnotation(optional=true)
+	public long lvalue = 122313L;
 	
 	public static class ValueLua implements ILuaConfig{
 		public Integer v1 = 0;

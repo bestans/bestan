@@ -62,8 +62,16 @@ public interface ILuaConfig {
 		}
 		var fields = config.getClass().getFields();
 		for (var it : fields) {
-			LuaValue tempLuaValue = luaValue.get(LuaString.valueOf(it.getName()));
 			try {
+				LuaValue tempLuaValue = luaValue.get(LuaString.valueOf(it.getName()));
+				if (tempLuaValue == LuaValue.NIL) {
+					var annotation = it.getAnnotation(LuaParamAnnotation.class);
+					if (annotation != null && annotation.optional())
+						//配置项可选，跳过此项配置
+						continue;
+					
+					throw new LuaException("missing config");
+				}
 				var tempValue = parseLuaValue(tempLuaValue, null, it.getType(), it.getGenericType());
 				it.set(config, tempValue);
 			} catch (Exception e) {
