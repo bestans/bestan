@@ -10,6 +10,7 @@ import java.util.List;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.JsePlatform;
+
 import bestan.log.Glog;
 
 public class Test {
@@ -25,11 +26,10 @@ public class Test {
 			Glog.trace("bbbb={}", tvalue.toint());
 		}
 	}
-	
+
 	public static void test7() {
-		var cfg = new TestLua();
-		cfg.LoadLuaConfig("test.lua");
-		
+		LuaConfigs.loadConfig("bestan.lua");
+		var cfg = LuaConfigs.get(TestLua.class);
 		Glog.trace("test5={},{}", cfg.test, cfg.string);
 		for (var it : cfg.nums) {
 			System.out.println(it);
@@ -40,6 +40,10 @@ public class Test {
 		for (var it : cfg.lists) {
 			Glog.trace("v={},{}", it.v1, it.v2);
 		}
+		for (var it : cfg.dmap.entrySet()) {
+			Glog.trace("key={},value={}", it.getKey(), it.getValue());
+		}
+		Glog.trace("cfg.dList={},{}", cfg.dList, cfg.lvalue);
 	}
 	public static void test4() throws NoSuchFieldException, SecurityException {
         //Field stringListField = Test.class.getDeclaredField("stringList");
