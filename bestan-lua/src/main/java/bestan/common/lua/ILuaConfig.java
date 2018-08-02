@@ -1,4 +1,4 @@
-package bestan.lua;
+package bestan.common.lua;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;

@@ -1,4 +1,4 @@
-package bestan.lua;
+package bestan.common.lua;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -19,7 +19,7 @@ public class Test {
     
 	public static void test1() {
 		Globals globals = JsePlatform.standardGlobals();
-		LuaValue chunk = globals.loadfile("test.lua");
+		LuaValue chunk = globals.loadfile("test.common.lua");
 		var ret = chunk.call();
 		var tvalue = ret.get("test");
 		if (tvalue != null) {
@@ -28,7 +28,7 @@ public class Test {
 	}
 
 	public static void test7() {
-		LuaConfigs.loadConfig("bestan.lua");
+		LuaConfigs.loadConfig("bestan.common.lua");
 		var cfg = LuaConfigs.get(TestLua.class);
 		Glog.trace("test5={},{}", cfg.test, cfg.string);
 		for (var it : cfg.nums) {

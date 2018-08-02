@@ -1,4 +1,4 @@
-package bestan.lua;
+package bestan.common.lua;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

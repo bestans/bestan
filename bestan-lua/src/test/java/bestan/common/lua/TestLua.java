@@ -1,9 +1,12 @@
-package bestan.lua;
+package bestan.common.lua;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import bestan.common.lua.ILuaConfig;
+import bestan.common.lua.LuaAnnotation;
 
 @LuaAnnotation(path="test.lua")
 public class TestLua implements ILuaConfig {
