@@ -1,17 +1,11 @@
 package bestan.test;
 
-import org.rocksdb.ColumnFamilyHandle;
-import org.rocksdb.ReadOptions;
-import org.rocksdb.RocksDBException;
 import org.rocksdb.Transaction;
-import org.rocksdb.WriteOptions;
-import org.slf4j.Logger;
 
-import bestan.common.db.DBException;
-import bestan.common.db.RocksDbState;
-import bestan.common.db.StorageEnv;
 import bestan.common.db.DBConst.EM_DB;
-import bestan.log.Glog;
+import bestan.common.db.DBException;
+import bestan.common.db.StorageEnv;
+import bestan.common.log.Glog;
 
 public class Thread1 extends Thread {
 	public Thread1()

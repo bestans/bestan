@@ -1,4 +1,4 @@
-package bestan.log;
+package bestan.common.log;
 
 public class Test {
 	public static void test2()

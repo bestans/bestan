@@ -2,37 +2,26 @@ package bestan.test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.rocksdb.OptimisticTransactionDB;
 import org.rocksdb.Options;
-import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
-import org.rocksdb.StatisticsCollector;
 import org.rocksdb.Transaction;
 
 import com.google.common.collect.Lists;
-import com.google.common.primitives.Bytes;
 import com.google.common.primitives.Doubles;
-import com.google.common.primitives.Floats;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Shorts;
 
-import bestan.common.db.DBConst;
+import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.DBException;
 import bestan.common.db.IDbHandle;
 import bestan.common.db.MergeTable;
-import bestan.common.db.RocksDBOption;
-import bestan.common.db.RocksDbState;
 import bestan.common.db.StorageEnv;
-import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.util.JStormUtils;
-import bestan.common.db.util.Utils;
-import bestan.log.Glog;
+import bestan.common.log.Glog;
 
 public class TestMain {
     private static void initLocalRocksDbDir() {

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @LuaAnnotation(optional=true)
-public class TestLua implements ILuaConfig {
+public class TestLua {
 	public int test = 11;
 	public List<Integer> nums = new ArrayList<Integer>();
 	public Map<Integer, ValueLua> map = new HashMap<>();

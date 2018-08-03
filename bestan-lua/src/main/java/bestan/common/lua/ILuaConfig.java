@@ -66,13 +66,15 @@ public interface ILuaConfig {
 		}
 		var fields = config.getClass().getFields();
 		var luaAnnotation = config.getClass().getAnnotation(LuaAnnotation.class);
+		boolean isConfigOptional = luaAnnotation != null && luaAnnotation.optional();
 		for (var it : fields) {
 			try {
 				LuaValue tempLuaValue = luaValue.get(LuaString.valueOf(it.getName()));
-				if (tempLuaValue == LuaValue.NIL) {
+				if (tempLuaValue == LuaValue.NIL || tempLuaValue == null) {
 					var annotation = it.getAnnotation(LuaParamAnnotation.class);
-					if ((luaAnnotation != null && luaAnnotation.optional())
-						|| (annotation != null && annotation.optional())) {
+					boolean isRequired = annotation != null && annotation.required();
+					boolean isOptional = annotation != null && annotation.optional();
+					if (!isRequired && (isConfigOptional || isOptional)) {
 						//配置项可选，跳过此项配置
 						continue;
 					}

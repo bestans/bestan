@@ -2,10 +2,10 @@ package bestan.test;
 
 import org.rocksdb.Transaction;
 
+import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.DBException;
 import bestan.common.db.StorageEnv;
-import bestan.common.db.DBConst.EM_DB;
-import bestan.log.Glog;
+import bestan.common.log.Glog;
 
 public class Thread2 extends Thread {
 	public Thread2()

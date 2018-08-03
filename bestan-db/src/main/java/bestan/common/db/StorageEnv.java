@@ -10,7 +10,7 @@ import org.rocksdb.WriteOptions;
 
 import bestan.common.db.DBException.ErrorCode;
 import bestan.common.db.util.Utils;
-import bestan.log.Glog;
+import bestan.common.log.Glog;
 
 public class StorageEnv {
 	private static RocksDbState dbState;

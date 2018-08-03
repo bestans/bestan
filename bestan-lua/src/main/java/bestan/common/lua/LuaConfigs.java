@@ -49,6 +49,10 @@ public class LuaConfigs {
 				Set<Class<? extends ILuaConfig>> classes = reflections.getSubTypesOf(ILuaConfig.class);
 				Glog.trace("loadConfig={}", classes.size());
 				for (var cls : classes) {
+					if (cls.isMemberClass()) {
+						//嵌套类 不处理
+						continue;
+					}
 					if (!loadConfig(rootPath, cls))
 						return false;
 				}

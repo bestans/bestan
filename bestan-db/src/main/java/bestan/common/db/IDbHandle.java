@@ -2,7 +2,8 @@ package bestan.common.db;
 
 import org.rocksdb.RocksDBException;
 import org.rocksdb.Transaction;
-import bestan.log.Glog;
+
+import bestan.common.log.Glog;
 
 public interface IDbHandle {
 	default void baseHandle() {

@@ -22,15 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.rocksdb.*;
-import org.rocksdb.util.SizeUnit;
-
-import bestan.common.db.DBConst.EM_DB;
-import bestan.log.Glog;
-
-import org.slf4j.Logger;
+import org.rocksdb.BlockBasedTableConfig;
+import org.rocksdb.BloomFilter;
+import org.rocksdb.ColumnFamilyDescriptor;
+import org.rocksdb.ColumnFamilyHandle;
+import org.rocksdb.ColumnFamilyOptions;
+import org.rocksdb.DBOptions;
+import org.rocksdb.OptimisticTransactionDB;
+import org.rocksdb.Options;
+import org.rocksdb.RocksDB;
+import org.rocksdb.RocksDBException;
+import org.rocksdb.StringAppendOperator;
 
 import com.google.common.collect.Lists;
+
+import bestan.common.log.Glog;
 
 public class RocksDbOptionsFactory {
     private static final int DEFAULT_BLOOM_FILTER_BITS = 10;

@@ -29,7 +29,7 @@ public class Test {
 
 	public static void test7() {
 		LuaConfigs.loadConfig("bestan.common.lua");
-		var cfg = LuaConfigs.get(TestLua.class);
+		var cfg = LuaConfigs.get(TestSon.class);
 		Glog.trace("test5={},{}", cfg.test, cfg.string);
 		for (var it : cfg.nums) {
 			System.out.println(it);
@@ -69,16 +69,6 @@ public class Test {
 	public static void test3() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		var ob = (TestLua)(TestLua.class.getDeclaredConstructor().newInstance());
 		System.out.println(ob.test);
-	}
-	public static void test6() {
-		ILuaConfig config = new TestLua();
-		for (var it : config.getClass().getFields()) {
-			Glog.trace("test6={},{},{},{}", it.getName(), it.getType().getName(), it.getGenericType());
-			if (it.getGenericType() instanceof ParameterizedType) {
-				var p=  (ParameterizedType)it.getGenericType();
-				Glog.trace("test66={}", p.getActualTypeArguments()[0]);
-			}
-		}
 	}
 	public static void main(String[] args) {
 		int i = 0;

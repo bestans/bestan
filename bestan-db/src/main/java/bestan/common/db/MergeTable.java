@@ -3,7 +3,7 @@ package bestan.common.db;
 import org.rocksdb.RocksDBException;
 
 import bestan.common.db.DBConst.EM_DB;
-import bestan.log.Glog;
+import bestan.common.log.Glog;
 
 /**
  * @author Administrator
