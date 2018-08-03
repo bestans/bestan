@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="E:/bestan/source/jar/slf4j-log4j12-1.8.0-alpha2.jar"/>
 	<classpathentry kind="lib" path="E:/bestan/source/jar/rocksdbjni-jdk10-vs2007-20180706.jar"/>
 	<classpathentry kind="lib" path="E:/bestan/source/jar/glog.jar"/>
+	<classpathentry kind="lib" path="E:/bestan/source/jar/lua-config.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

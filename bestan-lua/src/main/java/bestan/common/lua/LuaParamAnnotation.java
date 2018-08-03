@@ -5,7 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * lua配置的参数所用注解
- * @author bestan
+ * @author yeyouhuan
  * @date:   2018年8月2日 下午8:44:00 
  */
 @Retention(RetentionPolicy.RUNTIME)

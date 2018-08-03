@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@LuaAnnotation(path="test.lua")
+@LuaAnnotation(optional=true)
 public class TestLua implements ILuaConfig {
 	public int test = 11;
 	public List<Integer> nums = new ArrayList<Integer>();

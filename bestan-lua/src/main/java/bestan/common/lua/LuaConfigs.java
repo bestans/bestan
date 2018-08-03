@@ -8,12 +8,14 @@ import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 import org.reflections.Reflections;
 
+import com.google.common.base.Strings;
+
 import bestan.log.Glog;
 
 /**
  * lua配置管理器，启动时调用loadConfig载入所有lua配置，
  * 
- * @author bestan
+ * @author yeyouhuan
  * @date:   2018年8月2日 下午7:53:04 
  */
 public class LuaConfigs {
@@ -102,9 +104,17 @@ public class LuaConfigs {
 	public static boolean loadConfig(String rootPath, Class<? extends ILuaConfig> cls) {
 		try {
 			var annotation = cls.getAnnotation(LuaAnnotation.class);
-			if (annotation != null && annotation.load()) {
+			String fileName = null;
+			if (annotation != null) {
+				fileName = annotation.fileName();
+			}
+			if (Strings.isNullOrEmpty(fileName)) {
+				//如果没有指定配置文件名，那么使用classname和.lua组合
+				fileName = cls.getSimpleName() + ".lua";
+			}
+			if (annotation == null || annotation.load()) {
 				ILuaConfig config = (ILuaConfig)cls.getDeclaredConstructor().newInstance();
-				if (!config.LoadLuaConfig(globals, rootPath + annotation.path())) {
+				if (!config.LoadLuaConfig(globals, rootPath + fileName)) {
 					return false;
 				}
 				instance.allConfigs.put(cls, config);

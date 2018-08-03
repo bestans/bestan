@@ -19,9 +19,13 @@ import bestan.log.Glog;
 /**
  * 提供一个接口，读取lua配置
  * 支持Integer/int/Boolean/boolean/Short/short/
- * String/string/Long/long/ILuaConfig/List<T>/map<T> 等类型
+ * String/Long/long/ILuaConfig/List<T>/map<T1, T2> 等类型
+ * <br>
+ * 每一种配置，可以通过LuaAnnotation指定配置项信息，比如配置文件名等
+ * <br>
+ * 如果没有指定配置文件名，那么采用classname.lua组合作为配置文件名
  * 
- * @author bestan
+ * @author yeyouhuan
  * @date:   2018年8月2日 下午7:50:27 
  */
 public interface ILuaConfig {
@@ -61,15 +65,18 @@ public interface ILuaConfig {
 			throw new LuaException("unexpected type:" + luaValue.typename());
 		}
 		var fields = config.getClass().getFields();
+		var luaAnnotation = config.getClass().getAnnotation(LuaAnnotation.class);
 		for (var it : fields) {
 			try {
 				LuaValue tempLuaValue = luaValue.get(LuaString.valueOf(it.getName()));
 				if (tempLuaValue == LuaValue.NIL) {
 					var annotation = it.getAnnotation(LuaParamAnnotation.class);
-					if (annotation != null && annotation.optional())
+					if ((luaAnnotation != null && luaAnnotation.optional())
+						|| (annotation != null && annotation.optional())) {
 						//配置项可选，跳过此项配置
 						continue;
-					
+					}
+
 					throw new LuaException("missing config");
 				}
 				var tempValue = parseLuaValue(tempLuaValue, null, it.getType(), it.getGenericType());
@@ -168,7 +175,7 @@ public interface ILuaConfig {
 	
 	default void LoadLuaConfig() {
 		var luaAnnotation = getClass().getAnnotation(LuaAnnotation.class);
-		String path = luaAnnotation != null ? luaAnnotation.path() : getClass().getSimpleName();
+		String path = luaAnnotation != null ? luaAnnotation.fileName() : getClass().getSimpleName() + ".lua";
 		LoadLuaConfig(path);
 	}
 	
