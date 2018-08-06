@@ -11,13 +11,24 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LuaParamAnnotation {
 	/**
-	 * @return 是否可选配置项，true表示lua中配置项不一定有
+	 * @return 指定配置项可选与否
 	 */
-	boolean optional() default false;
+	LuaParamPolicy policy() default LuaParamPolicy.NORMAL;
 	
-	/**
-	 * @return 必需的配置项，true表示lua中该配置项不可缺少，
-	 * 			不受LuaAnnotation中可选项约束
-	 */
-	boolean required() default false;
+	public enum LuaParamPolicy{
+		/**
+		 *表示配置项由class级别的注解optional控制是否需要配置 
+		 */
+		NORMAL,
+		
+		/**
+		 *表示该配置项是可选的 
+		 */
+		OPTIONAL,
+		
+		/**
+		 * 表示该配置项是不可缺少的
+		 */
+		REQUIRED,
+	}
 }

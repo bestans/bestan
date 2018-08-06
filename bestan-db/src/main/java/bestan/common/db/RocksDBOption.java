@@ -3,17 +3,17 @@ package bestan.common.db;
 import org.rocksdb.CompactionStyle;
 import org.rocksdb.util.SizeUnit;
 
-import bestan.common.lua.ILuaConfig;
+import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
 
-@LuaAnnotation(load = false)
-public class RocksDBOption implements ILuaConfig {
+@LuaAnnotation(load = false, optional = true)
+public class RocksDBOption extends BaseLuaConfig {
 	public static final RocksDBOption option = new RocksDBOption();
 	
 	/**
 	 * 数据库所在路径 
 	 */
-	public String path = null;
+	public String dbPath = null;
 	
 	/**
 	 * If true, the database will be created if it is missing

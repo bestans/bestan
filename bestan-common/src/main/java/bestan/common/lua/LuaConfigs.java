@@ -22,7 +22,7 @@ public class LuaConfigs {
 	private static LuaConfigs instance = new LuaConfigs();
 	private static Globals globals = JsePlatform.standardGlobals();
 	
-	private Map<Class<?>, ILuaConfig> allConfigs = new HashMap<>();
+	private Map<Class<?>, BaseLuaConfig> allConfigs = new HashMap<>();
 	
 	/**
 	 * 获取lua配置
@@ -31,7 +31,7 @@ public class LuaConfigs {
 	 * @return lua配置
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends ILuaConfig> T get(Class<T> cls) {
+	public static <T extends BaseLuaConfig> T get(Class<T> cls) {
 		return (T) instance.allConfigs.get(cls);
 	}
 	
@@ -47,7 +47,7 @@ public class LuaConfigs {
 			for (var pName : packageNames) {
 				Reflections.log = null;
 				Reflections reflections = new Reflections(pName);
-				Set<Class<? extends ILuaConfig>> classes = reflections.getSubTypesOf(ILuaConfig.class);
+				Set<Class<? extends BaseLuaConfig>> classes = reflections.getSubTypesOf(BaseLuaConfig.class);
 				Glog.trace("loadConfig={}", classes.size());
 				for (var cls : classes) {
 					if (cls.isMemberClass()) {
@@ -106,7 +106,7 @@ public class LuaConfigs {
 	 * @param cls lua配置class
 	 * @return 成功或失败
 	 */
-	public static boolean loadConfig(String rootPath, Class<? extends ILuaConfig> cls) {
+	public static boolean loadConfig(String rootPath, Class<? extends BaseLuaConfig> cls) {
 		try {
 			var annotation = cls.getAnnotation(LuaAnnotation.class);
 			String fileName = null;
@@ -118,7 +118,7 @@ public class LuaConfigs {
 				fileName = cls.getSimpleName() + ".lua";
 			}
 			if (annotation == null || annotation.load()) {
-				ILuaConfig config = (ILuaConfig)cls.getDeclaredConstructor().newInstance();
+				BaseLuaConfig config = (BaseLuaConfig)cls.getDeclaredConstructor().newInstance();
 				if (!config.LoadLuaConfig(globals, rootPath + fileName)) {
 					return false;
 				}
@@ -136,7 +136,7 @@ public class LuaConfigs {
 	 * @param cls lua配置class
 	 * @return 成功或失败
 	 */
-	public static boolean loadConfig(Class<? extends ILuaConfig> cls) {
+	public static boolean loadConfig(Class<? extends BaseLuaConfig> cls) {
 		return loadConfig("", cls);
 	}
 }

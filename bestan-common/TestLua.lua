@@ -1,5 +1,5 @@
 local map = {
-    test = 1111,
+    test = 2112345678,
     nums = { 1, 2, 3 },
     map = {
         [1] = { v1 = 11, v2 = 100,  },
@@ -24,7 +24,7 @@ local map = {
         },
     },
     number = "aaa",
-    --lvalue = "123123123123123",
+    lvalue = 9007199254740991,
 }
 print("aaaa")
 

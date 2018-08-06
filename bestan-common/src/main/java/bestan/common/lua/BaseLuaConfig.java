@@ -1,6 +1,7 @@
 package bestan.common.lua;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
 import bestan.common.log.Glog;
+import bestan.common.lua.LuaParamAnnotation.LuaParamPolicy;
 
 
 /**
@@ -25,11 +27,13 @@ import bestan.common.log.Glog;
  * 每一种配置，可以通过LuaAnnotation指定配置项信息，比如配置文件名等
  * <br>
  * 如果没有指定配置文件名，那么采用classname.lua组合作为配置文件名
- * 
+ * Tips list <br>
+ * (1) lua中long仅支持精度到2^53（9007199254740992，），大于等于此数值，需要配置成字符串<br>
+ * (2) 大于等于2^53需要配置成字符串<br>
  * @author yeyouhuan
  * @date:   2018年8月2日 下午7:50:27 
  */
-public interface ILuaConfig {
+public abstract class BaseLuaConfig {
 	private Integer parseInt(LuaValue luaValue) {
 		if (!luaValue.isnumber()) {
 			throw new LuaException("unexpected type:" + luaValue.typename());
@@ -55,13 +59,20 @@ public interface ILuaConfig {
 		return luaValue.toString();
 	}
 	private Long parseLong(LuaValue luaValue) {
+		if (luaValue.type() == LuaValue.TNUMBER) {
+			long temp = luaValue.tolong();
+			if (temp > LuaConst.MAX_LUA_VALUE) {
+				throw new LuaException("too big number(can not greater then 2^53-1),please change to string.current value:" + temp);
+			}
+			return temp;
+		}
 		if (!luaValue.isstring()) {
 			throw new LuaException("unexpected type:" + luaValue.typename());
 		}
 		String value = luaValue.toString();
 		return Long.valueOf(value);
 	}
-	private void parseLuaConfig(LuaValue luaValue, ILuaConfig config) {
+	private void parseLuaConfig(LuaValue luaValue, BaseLuaConfig config) {
 		if (!luaValue.istable()) {
 			throw new LuaException("unexpected type:" + luaValue.typename());
 		}
@@ -70,12 +81,17 @@ public interface ILuaConfig {
 		boolean isConfigOptional = luaAnnotation != null && luaAnnotation.optional();
 		for (var it : fields) {
 			try {
+				if (Modifier.isStatic(it.getModifiers())) {
+					continue;
+				}
 				LuaValue tempLuaValue = luaValue.get(LuaString.valueOf(it.getName()));
 				if (tempLuaValue == LuaValue.NIL || tempLuaValue == null) {
 					var annotation = it.getAnnotation(LuaParamAnnotation.class);
-					boolean isRequired = annotation != null && annotation.required();
-					boolean isOptional = annotation != null && annotation.optional();
-					if (!isRequired && (isConfigOptional || isOptional)) {
+					LuaParamPolicy policy = LuaParamPolicy.NORMAL;
+					if (annotation != null) {
+						policy = annotation.policy();
+					}
+					if (!(policy == LuaParamPolicy.REQUIRED || (policy == LuaParamPolicy.NORMAL && !isConfigOptional))) {
 						//配置项可选，跳过此项配置
 						continue;
 					}
@@ -119,11 +135,11 @@ public interface ILuaConfig {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private <T> T parseLuaValue(LuaValue luaValue, T value, Class<? extends T> cls,  Type type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		if (ILuaConfig.class.isAssignableFrom(cls)) {
+		if (BaseLuaConfig.class.isAssignableFrom(cls)) {
 			if (value == null) {
 				value = cls.getDeclaredConstructor().newInstance();
 			}
-			parseLuaConfig(luaValue, (ILuaConfig)value);
+			parseLuaConfig(luaValue, (BaseLuaConfig)value);
 		} else if (cls.equals(Integer.class) || cls.equals(int.class)) {
 			value = (T) parseInt(luaValue);
 		} else if (cls.equals(Boolean.class) || cls.equals(boolean.class)) {
@@ -158,7 +174,7 @@ public interface ILuaConfig {
 		return value;
 	}
 	
-	default boolean LoadLuaConfig(Globals globals, String path) {
+	public boolean LoadLuaConfig(Globals globals, String path) {
 		try {
 			LuaValue chunk = globals.loadfile(path);
 			var ret = chunk.call();
@@ -171,16 +187,41 @@ public interface ILuaConfig {
 		return true;
 	}
 
-	default boolean LoadLuaConfig(String path) {
+	public boolean LoadLuaConfig(String path) {
 		Globals globals = JsePlatform.standardGlobals();
 		return LoadLuaConfig(globals, path);
 	}
 	
-	default void LoadLuaConfig() {
+	public void LoadLuaConfig() {
 		var luaAnnotation = getClass().getAnnotation(LuaAnnotation.class);
 		String path = luaAnnotation != null ? luaAnnotation.fileName() : getClass().getSimpleName() + ".lua";
 		LoadLuaConfig(path);
 	}
 	
-	default void afterLoad() {}
+	public void afterLoad() {}
+
+	@Override
+	public String toString() {
+		var fields = getClass().getFields();
+		StringBuffer str = new StringBuffer();
+		str.append("{");
+		for (var field : fields) {
+			try {
+				if (Modifier.isStatic(field.getModifiers())) {
+					continue;
+				}
+				String fieldFormat = null;
+				if (getClass().isAssignableFrom(BaseLuaConfig.class)) {
+					fieldFormat = ((BaseLuaConfig)this).toString();
+				} else {
+					fieldFormat = field.get(this).toString();
+				}
+				str.append("[").append(field.getName()).append("=").append(fieldFormat).append("]");
+			} catch (Exception e) {
+				str.append("[").append(field.getName()).append("=Exception(").append(e.getMessage()).append(")]");
+			}
+		}
+		str.append("}");
+		return str.toString();
+	}
 }

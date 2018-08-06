@@ -13,7 +13,7 @@ public class DBModule implements IModule{
 	
 	@Override
 	public void startup() {
-		StorageEnv.init(config.path);
+		StorageEnv.init(config.dbPath);
 	}
 	
 	@Override

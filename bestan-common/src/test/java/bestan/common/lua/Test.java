@@ -30,21 +30,21 @@ public class Test {
 	public static void test7() {
 		LuaConfigs.loadConfig("bestan.common.lua");
 		var cfg = LuaConfigs.get(TestSon.class);
-		Glog.trace("test5={},{}", cfg.test, cfg.string);
-		for (var it : cfg.nums) {
-			System.out.println(it);
-		}
-		for (var it :cfg.map.entrySet()) {
-			Glog.trace("key={},value={},{}", it.getKey(), it.getValue().v1, it.getValue().v2);
-		}
-		for (var it : cfg.lists) {
-			Glog.trace("v={},{}", it.v1, it.v2);
-		}
-		for (var it : cfg.dmap.entrySet()) {
-			Glog.trace("key={},value={}", it.getKey(), it.getValue());
-		}
-		Glog.trace("cfg.dList={},{}", cfg.dList, cfg.lvalue);
-		System.out.println(cfg.dList);
+		Glog.trace("test5={}", cfg);
+//		for (var it : cfg.nums) {
+//			System.out.println(it);
+//		}
+//		for (var it :cfg.map.entrySet()) {
+//			Glog.trace("key={},value={},{}", it.getKey(), it.getValue().v1, it.getValue().v2);
+//		}
+//		for (var it : cfg.lists) {
+//			Glog.trace("v={},{}", it.v1, it.v2);
+//		}
+//		for (var it : cfg.dmap.entrySet()) {
+//			Glog.trace("key={},value={}", it.getKey(), it.getValue());
+//		}
+//		Glog.trace("cfg.dList={},{}", cfg.dList, cfg.lvalue);
+//		System.out.println(cfg.dList);
 	}
 	public static void test4() throws NoSuchFieldException, SecurityException {
         //Field stringListField = Test.class.getDeclaredField("stringList");
