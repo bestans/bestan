@@ -1,13 +1,14 @@
 package bestan.test;
 
-import bestan.log.GLog;
+import bestan.common.log.Glog;
 
 public class TestMain {
 	public static void main(String[] args){
-		GLog.log.debug("debuggggggggg");
-		GLog.log.info("infooooooooooo");
-		GLog.log.warn("warnnnnnnnnnnn");
-		GLog.log.trace("traceeeeeeeee");
-		GLog.log.error("errorrrrrrrrrrrr");
+		Glog.debug("xxx");
+		Glog.debug("debuggggggggg");
+		Glog.log.info("infooooooooooo");
+		Glog.log.warn("warnnnnnnnnnnn");
+		Glog.log.trace("traceeeeeeeee");
+		Glog.log.error("errorrrrrrrrrrrr");
 	}
 }
