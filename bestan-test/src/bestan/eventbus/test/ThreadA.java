@@ -1,10 +1,17 @@
 package bestan.eventbus.test;
 
-public class ThreadA extends Thread {
+import bestan.common.eventbus.IEvent;
+
+public class ThreadA implements IEvent {
 	private Player player;
 	
 	public ThreadA(Player player) {
 		this.player = player;
+	}
+	
+	@Override
+	public long getID() {
+		return player.id;
 	}
 	
 	public int getCount() {
@@ -12,7 +19,7 @@ public class ThreadA extends Thread {
 	}
 	@Override
 	public void run() {
-		//player.lock.lock();
+		player.lock.lock();
 //		try {
 //			Thread.sleep(1);
 //		} catch (InterruptedException e) {
@@ -20,6 +27,6 @@ public class ThreadA extends Thread {
 //			e.printStackTrace();
 //		}
 		player.CalcCount();
-		//player.lock.unlock();
+		player.lock.unlock();
 	}
 }

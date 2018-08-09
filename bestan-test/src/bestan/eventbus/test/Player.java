@@ -5,6 +5,11 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Player {
 	public ReentrantLock lock = new ReentrantLock();
 	private int count = 0;
+	public long id = 0;
+	
+	public Player(int id) {
+		this.id = id;
+	}
 	
 	public void CalcCount() {
 		float ftotal  = 0;
@@ -18,4 +23,5 @@ public class Player {
 	public int getCount() {
 		return count;
 	}
+
 }
