@@ -2,7 +2,6 @@ package bestan.common.thread;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +10,7 @@ import bestan.common.event.IEvent;
 import bestan.common.thread.BThreadPoolExecutors.BRejectedExecutionHandler;
 import bestan.common.thread.BThreadPoolExecutors.BThreadFactory;
 
-public class BThreadPoolExecutor implements Executor  {
+public class BThreadPoolExecutor implements BExecutor  {
 	private List<ThreadPoolExecutor> executors;
 	private int executorSize = 0;
 
@@ -42,20 +41,17 @@ public class BThreadPoolExecutor implements Executor  {
 	}
 	
 	@Override
-	public void execute(Runnable runEvent) {
-		if (runEvent instanceof IEvent) {
-			var event = (IEvent)runEvent;
-			int index = 0;
-			if (event.getID() == 0) {
-				index = getIdleExecutor();
-			} else {
-				index = (int) (event.getID() % executorSize);
-			}
-			executors.get(index).execute(runEvent);
+	public void execute(IEvent event) {
+		int index = 0;
+		if (event.getID() == 0) {
+			index = getIdleExecutorIndex();
+		} else {
+			index = (int) (event.getID() % executorSize);
 		}
+		executors.get(index).execute(event);
 	}
 	
-	private int getIdleExecutor() {
+	private int getIdleExecutorIndex() {
 		int index = 0;
 		int curQueueSize = -1;
 		for (int i = 0; i < executorSize; ++i) {
