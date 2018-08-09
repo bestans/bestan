@@ -1,8 +1,8 @@
-package bestan.common.eventbus;
+package bestan.common.event;
 
 import java.util.concurrent.Executor;
 
-public class BEventBus<T extends Runnable> implements IEventBus<T> {
+public class BEventBus<T extends IEvent> implements IEventBus<T> {
 	private Executor executor;
 	
 	public BEventBus(Executor executor) {

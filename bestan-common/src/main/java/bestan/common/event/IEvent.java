@@ -1,4 +1,4 @@
-package bestan.common.eventbus;
+package bestan.common.event;
 
 public interface IEvent extends Runnable {
 	default long getID() {

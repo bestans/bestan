@@ -1,4 +1,4 @@
-package bestan.common.eventbus;
+package bestan.common.event;
 
 import com.google.protobuf.Message;
 

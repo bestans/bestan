@@ -1,4 +1,4 @@
-package bestan.common.eventbus;
+package bestan.common.event;
 
 public class EventBusMannager {
 	public static void postEvent(IEventBus<Runnable> eventBus, Runnable event) {

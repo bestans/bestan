@@ -3,12 +3,11 @@ package bestan.common.thread;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import bestan.common.eventbus.IEvent;
+import bestan.common.event.IEvent;
 import bestan.common.thread.BThreadPoolExecutors.BRejectedExecutionHandler;
 import bestan.common.thread.BThreadPoolExecutors.BThreadFactory;
 
@@ -54,7 +53,6 @@ public class BThreadPoolExecutor implements Executor  {
 			}
 			executors.get(index).execute(runEvent);
 		}
-		Executors.newSingleThreadExecutor();
 	}
 	
 	private int getIdleExecutor() {
@@ -62,9 +60,9 @@ public class BThreadPoolExecutor implements Executor  {
 		int curQueueSize = -1;
 		for (int i = 0; i < executorSize; ++i) {
 			int tempSize = executors.get(i).getQueue().size();
-			if (tempSize <= 0)
-				return index;
-
+			if (tempSize <= 0) {
+				return i;
+			}
 			if (tempSize < curQueueSize) {
 				index = i;
 				curQueueSize = tempSize;
