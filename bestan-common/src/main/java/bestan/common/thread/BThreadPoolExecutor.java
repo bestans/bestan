@@ -43,10 +43,10 @@ public class BThreadPoolExecutor implements BExecutor  {
 	@Override
 	public void execute(IEvent event) {
 		int index = 0;
-		if (event.getID() == 0) {
+		if (event.getThreadIndex() == 0) {
 			index = getIdleExecutorIndex();
 		} else {
-			index = (int) (event.getID() % executorSize);
+			index = (int) (event.getThreadIndex() % executorSize);
 		}
 		executors.get(index).execute(event);
 	}

@@ -3,13 +3,12 @@ package bestan.common.net;
 import com.google.protobuf.Message;
 
 public abstract class AbstractRpc extends AbstractProtocol {
-	protected INetSession netSession;
-	protected BaseRpcHeader header;
+	protected RpcHeader header;
 	protected Message arg;
 	protected Message res;
 	
-	public AbstractRpc(INetSession netSession, BaseRpcHeader header, Message arg, Message res) {
-		this.netSession = netSession;
+	public AbstractRpc(RpcHeader header, Message arg, Message res) {
+		super(header);
 		this.header = header;
 		this.arg = arg;
 		this.res = res;
@@ -28,7 +27,7 @@ public abstract class AbstractRpc extends AbstractProtocol {
 		if (header.isRequest) {
 			header.isRequest = false; 
 			Server();
-			netSession.send(fillReplyMessage());
+			header.getChannelHandlerContext().writeAndFlush(fillReplyMessage());
 			return;
 		}
 
