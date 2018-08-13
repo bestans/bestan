@@ -16,7 +16,11 @@ public class ObjectManager {
 	private static class ObjectManagerHolder{
 		private static final ObjectManager INSTANCE = new ObjectManager();
 	}
-	
+	public void Tick() {
+		for (var it : objectMap.entrySet()) {
+			
+		}
+	}
 	public static final ObjectManager getInstance() {
 		return ObjectManagerHolder.INSTANCE;
 	}
