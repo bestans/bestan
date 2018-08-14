@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import bestan.common.logic.ServerConfig;
+
 /**
  * 模块管理器，管理所有模块的启动和关闭
  * @author yeyouhuan
@@ -44,9 +46,9 @@ public class ModuleManager {
 	/**
 	 * 按照注册顺序依次启动各个模块
 	 */
-	public static void startup() {
+	public static void startup(ServerConfig config) {
 		for (var module : modules) {
-			module.startup();
+			module.startup(config);
 		}
 	}
 	

@@ -35,6 +35,10 @@ public interface IObject {
 		}
 	}
 	
+	default void Tick() {
+		
+	}
+	
 	default void sendCallback(IObject dst, AbstractProtocol arg) {
 		ProtocolManager.getInstance().sendCallback(this, dst, arg);
 	}
