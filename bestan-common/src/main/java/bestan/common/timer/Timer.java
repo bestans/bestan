@@ -20,6 +20,7 @@ public class Timer implements IModule {
 	private static Multimap<Long, Observer> newObservers = ArrayListMultimap.create();
 	private static ReentrantLock lock = new ReentrantLock();
 	private static long tickNow = 0;
+	private static ReentrantLock tickLock = new ReentrantLock();
 	private static Executor timeExecutor = Executors.newFixedThreadPool(1);
 	private static boolean stop = false;
 	
@@ -36,7 +37,12 @@ public class Timer implements IModule {
 	}
 	
 	private static void calcTickNow() {
-		
+		tickLock.lock();
+		try {
+			tickNow = System.currentTimeMillis();
+		} finally {
+			tickLock.unlock();
+		}
 	}
 	
 	private static Multimap<Long, Observer> mergeNewObservers() {
@@ -51,14 +57,21 @@ public class Timer implements IModule {
 		return tempObServers;
 	}
 	
-	public void update() {
+	private static void update() {
 		calcTickNow();
 		
 		var tempObServers = mergeNewObservers();
 		observers.putAll(tempObServers);
 		for (var it : observers.entries()) {
+			if (tickNow < it.getKey()) {
+				break;
+			}
+			var observer = it.getValue();
+			observer.update();
 			observers.entries().remove(it);
-			attachObserver(it.getValue());
+			if (!observer.isValid()) {
+				attachObserver(observer);
+			}
 		}
 	}
 	
@@ -75,30 +88,49 @@ public class Timer implements IModule {
 		attachObserver(ob);
 	}
 	
+	public static void attach(ITimer timerObject, int delay) {
+		attach(new TimerObserver(timerObject), delay);
+	}
+	
 	private static class TimerObserver extends Observer {
-		private ITimer object;
-		
-		public TimerObserver(ITimer object) {
-			this.object = object;
+		public TimerObserver(ITimer timerObject) {
+			super(null);
+			this.timerObject = timerObject;
 		}
 
-		public boolean update() {
-			workExecutor.execute(new TickEvent(object));
-			return false;
+		public void update() {
+			workExecutor.execute(new TickEvent(timerObject));
+		}
+		
+		@Override
+		public boolean isValid() {
+			return timerObject.validTimer();
 		}
 	}
 	
 	public static abstract class Observer {
-		private AtomicBoolean valid = new AtomicBoolean(true);
+		private AtomicBoolean valid;
 		private int interval = 0;
+		protected ITimer timerObject = null;
 		
-		public abstract boolean update();
+		public Observer() {
+			 valid = new AtomicBoolean(true);
+		}
+		
+		public Observer(AtomicBoolean valid) {
+			this.valid = valid;
+		}
+		
+		public abstract void update();
 		public int getInterval() {
 			return interval; 
 		}
 		
 		public boolean isValid() {
 			return valid.get();
+		}
+		public void setInvalid() {
+			valid.set(false);
 		}
 	}
 	
@@ -123,14 +155,15 @@ public class Timer implements IModule {
 		}
 		
 		@Override
-		public boolean update() {
+		public void update() {
 			workExecutor.execute(event);
-			return false;
+			setInvalid();
 		}
 	}
 
 	@Override
 	public void startup(ServerConfig config) {
+		workExecutor = config.workExecutor;
 		stop = false;
 		timeExecutor.execute(new Runnable() {
 			@Override
@@ -147,17 +180,16 @@ public class Timer implements IModule {
 				}
 			}
 		});
-		workExecutor = config.workExecutor;
 	}
 	
 	@Override
 	public void close() {
-		stop = false;
+		stop = true;
 		
-		int maxTimes = 10;
+		int maxTimes = 100;
 		while ((maxTimes-- > 0) && (observers.size() > 0 || newObservers.size() > 0)) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				Glog.error("timer close error({})", e.getMessage());
 			}

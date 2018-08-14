@@ -26,6 +26,7 @@ public interface IObject {
 	default void processMessage(Message message) {
 		
 	}
+	
 	default void execute(Message message) {
 		lockObject();
 		try {

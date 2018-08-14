@@ -180,7 +180,6 @@ public abstract class BaseLuaConfig {
 			LuaValue chunk = globals.loadfile(path);
 			var ret = chunk.call();
 			parseLuaConfig(ret, this);
-			afterLoad();
 		} catch (Exception e) {
 			Glog.trace("LoadLuaConfig {} failed:message={}", path, e.getMessage());
 			return false;

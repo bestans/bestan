@@ -4,6 +4,9 @@ import bestan.common.logic.BaseObject;
 
 public interface ITimer {
 	default void executeTick() {
+		if (!validTimer()) {
+			return;
+		}
 		if (this instanceof BaseObject) {
 			var obj = (BaseObject)this;
 			obj.lockObject();
@@ -13,5 +16,9 @@ public interface ITimer {
 				obj.unlockObject();
 			}
 		}
+	}
+
+	default boolean validTimer() {
+		return true;
 	}
 }

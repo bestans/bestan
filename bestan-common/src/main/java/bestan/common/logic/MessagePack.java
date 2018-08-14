@@ -23,6 +23,11 @@ public class MessagePack implements IEvent {
 	}
 	
 	@Override
+	public long getThreadIndex() {
+		return guid.getValue();
+	}
+	
+	@Override
 	public void run() {
 		if (object != null) {
 			object.execute(message);

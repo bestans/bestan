@@ -1,6 +1,7 @@
 package bestan.common.logic;
 
 public class Gmatrix {
+	private ServerConfig config;
 	private int zoneId = -1;
 	private int managerType = 0;
 	
@@ -17,11 +18,15 @@ public class Gmatrix {
 		return true;
 	}
 	
+	public ServerConfig getServerConfig() {
+		return config;
+	}
+	
 	public int getZoneID() {
-		return zoneId;
+		return config.zoneId;
 	}
 	
 	public int getManagerObjectType() {
-		return managerType;
+		return config.managerType;
 	}
 }
