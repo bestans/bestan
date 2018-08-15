@@ -6,4 +6,7 @@ public class StartupException extends RuntimeException {
 	public StartupException(IModule startup) {
 		super(startup.getClass().getSimpleName() + " failed.");
 	}
+	public StartupException(IModule startup, String reason) {
+		super(startup.getClass().getSimpleName() + " failed. reason = " + reason);
+	}
 }

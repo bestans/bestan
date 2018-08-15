@@ -13,6 +13,7 @@ public abstract class BaseObject implements IObject, ITimer {
 
 	public BaseObject(Guid guid) {
 		this.guid = guid;
+		ObjectManager.getInstance().putObject(this);
 	}
 	
 	@Override

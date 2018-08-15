@@ -7,7 +7,7 @@ public class RpcHeader extends ProtocolHeader {
 	public long id = 0;
 	public boolean isRequest = true;
 	
-	public RpcHeader(Guid guid, ChannelHandlerContext ctx) {
-		super(guid, ctx);
+	public RpcHeader(int msgId, Guid guid, ChannelHandlerContext ctx) {
+		super(msgId, guid, ctx);
 	}
 }
