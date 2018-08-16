@@ -4,6 +4,10 @@ import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
 import bestan.common.thread.BExecutor;
 
+/**
+ * @author yeyouhuan
+ *
+ */
 @LuaAnnotation(optional = true)
 public class ServerConfig extends BaseLuaConfig{
 	public int zoneId = -1;
