@@ -19,4 +19,10 @@ public class CommonProtocol extends AbstractProtocol {
 			obj.executeProtocol(header, message);
 		}
 	}
+
+	@Override
+	public byte[] encode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

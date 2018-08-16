@@ -132,7 +132,9 @@ public class MessageFactory implements IModule {
 				continue;
 			}
 			
-			return register(cls);
+			if (!register(cls)) {
+				return false;
+			}
 		}
 		return true;
 	}
