@@ -2,6 +2,7 @@ package bestan.common.net.server;
 
 import java.net.InetSocketAddress;
 
+import bestan.common.net.INetManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
@@ -46,7 +47,7 @@ public abstract class BaseNetServerManager implements INetManager {
         
         serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
          			   .channel(NioServerSocketChannel.class)
-                       .childHandler(new NetServerInitializer())
+                       .childHandler(new NetServerInitializer(this))
                        .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                        .option(ChannelOption.SO_RCVBUF, config.optionRcvbuf)
                        .option(ChannelOption.SO_SNDBUF, config.optionSndbuf)
@@ -73,5 +74,9 @@ public abstract class BaseNetServerManager implements INetManager {
 		workerGroup.shutdownGracefully().sync();
 		
 		serverBootstrap = null;
+	}
+	
+	public NetServerConfig getConfig() {
+		return config;
 	}
 }

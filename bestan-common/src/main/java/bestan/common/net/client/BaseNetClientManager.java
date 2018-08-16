@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import bestan.common.log.Glog;
-import bestan.common.net.server.INetManager;
+import bestan.common.net.INetManager;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

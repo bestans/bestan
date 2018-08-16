@@ -1,18 +1,24 @@
 package bestan.common.net.client;
 
+import bestan.common.net.CommonProtocol;
+import bestan.common.thread.BExecutor;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 
-/**
- * @author yeyouhuan
- *
- */
-public class NetClientChannelHandleManager extends ChannelInboundHandlerAdapter {
+public class NetClientHandler extends SimpleChannelInboundHandler<CommonProtocol> {
 	private BaseNetClientManager client;
-	public NetClientChannelHandleManager(BaseNetClientManager client) {
+	private BExecutor workExecutor;
+	
+	public NetClientHandler(BaseNetClientManager client) {
 		this.client = client;
+		workExecutor = client.getConfig().workdExecutor;
 	}
 	
+	@Override
+	protected void channelRead0(ChannelHandlerContext ctx, CommonProtocol protocol) throws Exception {
+		workExecutor.execute(protocol);
+	}
+
 	@Override 
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 		super.channelRegistered(ctx);
@@ -26,7 +32,6 @@ public class NetClientChannelHandleManager extends ChannelInboundHandlerAdapter 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		this.client.setChannel(ctx);
-		//this.client.sendRegister();
 	}
 
 	@Override
