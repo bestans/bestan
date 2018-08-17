@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.base.Strings;
 
+import bestan.common.event.IEvent;
 import bestan.common.log.Glog;
 
 public class BThreadPoolExecutors {
@@ -46,6 +47,10 @@ public class BThreadPoolExecutors {
 		return executor;
 	}
 	
+	public static BExecutor newDirectExecutor() {
+		return new BDirectExecutor();
+	}
+	
 	static class BRejectedExecutionHandler implements RejectedExecutionHandler{
 		@Override
 		public void rejectedExecution(Runnable arg0, ThreadPoolExecutor arg1) {
@@ -77,5 +82,12 @@ public class BThreadPoolExecutors {
                 t.setPriority(Thread.NORM_PRIORITY);
             return t;
         }
+    }
+    
+    static class BDirectExecutor implements BExecutor {
+		@Override
+		public void execute(IEvent event) {
+			event.run();
+		}
     }
 }

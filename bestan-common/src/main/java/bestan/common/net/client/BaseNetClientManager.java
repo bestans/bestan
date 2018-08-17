@@ -3,6 +3,8 @@ package bestan.common.net.client;
 import java.net.InetSocketAddress;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.google.protobuf.Message;
+
 import bestan.common.log.Glog;
 import bestan.common.net.INetManager;
 import io.netty.bootstrap.Bootstrap;
@@ -19,7 +21,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @author yeyouhuan
  *
  */
-public abstract class BaseNetClientManager implements INetManager {
+public class BaseNetClientManager implements INetManager {
 	private AtomicBoolean connecting = new AtomicBoolean(false);
 	private Channel channel;
 	private ChannelHandlerContext ctx;
@@ -94,5 +96,9 @@ public abstract class BaseNetClientManager implements INetManager {
 		bossGroup.shutdownGracefully().sync();
 		workerGroup.shutdownGracefully().sync();
 		bootStrap = null;
+	}
+	
+	public void sendMessage(Message message) {
+		this.channel.writeAndFlush(message);
 	}
 }

@@ -6,7 +6,6 @@ import bestan.common.net.INetManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -30,15 +29,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author yeyouhuan
  *
  */
-public abstract class BaseNetServerManager implements INetManager {
+public class BaseNetServerManager implements INetManager {
 	private NetServerConfig config;
 	protected ServerBootstrap serverBootstrap;
 	protected EventLoopGroup bossGroup;
 	protected EventLoopGroup workerGroup;
 	protected Channel serverChannel;
-	
-	public abstract void onAddChannel(ChannelHandlerContext ctx);
-	public abstract void onDelChannel(ChannelHandlerContext ctx);
 
 	public BaseNetServerManager(NetServerConfig config) {
 		this.config = config;
