@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>bestan</groupId>
-  <artifactId>bestan-common</artifactId>
+  <artifactId>test1-6</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>bestan-common</name>
+  <name>test1-6</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -21,32 +21,12 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.luaj/luaj-jse -->
-	<dependency>
-	    <groupId>org.luaj</groupId>
-	    <artifactId>luaj-jse</artifactId>
-	    <version>3.0.1</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.reflections</groupId>
-	    <artifactId>reflections</artifactId>
-	    <version>0.9.11</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.google.guava</groupId>
-	    <artifactId>guava</artifactId>
-	    <version>24.0-jre</version>
-	</dependency>
-	<dependency>
-    	<groupId>com.google.protobuf</groupId>
-    	<artifactId>protobuf-java</artifactId>
-    	<version>3.5.1</version>
-	</dependency>
-	
+    
 	<dependency>
 	    <groupId>io.netty</groupId>
 	    <artifactId>netty-all</artifactId>
 	    <version>4.1.9.Final</version>
 	</dependency>
+	
   </dependencies>
 </project>

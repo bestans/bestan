@@ -31,4 +31,8 @@ public class CommonProtocol extends AbstractProtocol {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Message getMessage() {
+		return message;
+	}
 }

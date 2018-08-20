@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Bestan.Common.Protobuf {
+namespace Bestan.Common.Message {
 
   /// <summary>Holder for reflection information generated from net_common.proto</summary>
   public static partial class NetCommonReflection {
@@ -24,27 +24,30 @@ namespace Bestan.Common.Protobuf {
     static NetCommonReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBuZXRfY29tbW9uLnByb3RvEhZiZXN0YW4uY29tbW9uLnByb3RvYnVmIhoK",
-            "CXRlc3RfZGF0YRINCgV2YWx1ZRgBIAEoBWIGcHJvdG8z"));
+            "ChBuZXRfY29tbW9uLnByb3RvEhViZXN0YW4uY29tbW9uLm1lc3NhZ2UiIAoL",
+            "UHJvdG9IZWFkZXISEQoJbWVzc2FnZUlkGAEgASgFIlQKCUJhc2VQcm90bxIy",
+            "CgZoZWFkZXIYASABKAsyIi5iZXN0YW4uY29tbW9uLm1lc3NhZ2UuUHJvdG9I",
+            "ZWFkZXISEwoLbWVzc2FnZURhdGEYAiABKAxiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Bestan.Common.Protobuf.test_data), global::Bestan.Common.Protobuf.test_data.Parser, new[]{ "Value" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Bestan.Common.Message.ProtoHeader), global::Bestan.Common.Message.ProtoHeader.Parser, new[]{ "MessageId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Bestan.Common.Message.BaseProto), global::Bestan.Common.Message.BaseProto.Parser, new[]{ "Header", "MessageData" }, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class test_data : pb::IMessage<test_data> {
-    private static readonly pb::MessageParser<test_data> _parser = new pb::MessageParser<test_data>(() => new test_data());
+  public sealed partial class ProtoHeader : pb::IMessage<ProtoHeader> {
+    private static readonly pb::MessageParser<ProtoHeader> _parser = new pb::MessageParser<ProtoHeader>(() => new ProtoHeader());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<test_data> Parser { get { return _parser; } }
+    public static pb::MessageParser<ProtoHeader> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Bestan.Common.Protobuf.NetCommonReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Bestan.Common.Message.NetCommonReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -53,55 +56,55 @@ namespace Bestan.Common.Protobuf {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public test_data() {
+    public ProtoHeader() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public test_data(test_data other) : this() {
-      value_ = other.value_;
+    public ProtoHeader(ProtoHeader other) : this() {
+      messageId_ = other.messageId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public test_data Clone() {
-      return new test_data(this);
+    public ProtoHeader Clone() {
+      return new ProtoHeader(this);
     }
 
-    /// <summary>Field number for the "value" field.</summary>
-    public const int ValueFieldNumber = 1;
-    private int value_;
+    /// <summary>Field number for the "messageId" field.</summary>
+    public const int MessageIdFieldNumber = 1;
+    private int messageId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Value {
-      get { return value_; }
+    public int MessageId {
+      get { return messageId_; }
       set {
-        value_ = value;
+        messageId_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as test_data);
+      return Equals(other as ProtoHeader);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(test_data other) {
+    public bool Equals(ProtoHeader other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Value != other.Value) return false;
+      if (MessageId != other.MessageId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Value != 0) hash ^= Value.GetHashCode();
+      if (MessageId != 0) hash ^= MessageId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -115,9 +118,9 @@ namespace Bestan.Common.Protobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Value != 0) {
+      if (MessageId != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(Value);
+        output.WriteInt32(MessageId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -127,8 +130,8 @@ namespace Bestan.Common.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Value != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Value);
+      if (MessageId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MessageId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -137,12 +140,12 @@ namespace Bestan.Common.Protobuf {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(test_data other) {
+    public void MergeFrom(ProtoHeader other) {
       if (other == null) {
         return;
       }
-      if (other.Value != 0) {
-        Value = other.Value;
+      if (other.MessageId != 0) {
+        MessageId = other.MessageId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -156,7 +159,170 @@ namespace Bestan.Common.Protobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Value = input.ReadInt32();
+            MessageId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class BaseProto : pb::IMessage<BaseProto> {
+    private static readonly pb::MessageParser<BaseProto> _parser = new pb::MessageParser<BaseProto>(() => new BaseProto());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<BaseProto> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Bestan.Common.Message.NetCommonReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BaseProto() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BaseProto(BaseProto other) : this() {
+      Header = other.header_ != null ? other.Header.Clone() : null;
+      messageData_ = other.messageData_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BaseProto Clone() {
+      return new BaseProto(this);
+    }
+
+    /// <summary>Field number for the "header" field.</summary>
+    public const int HeaderFieldNumber = 1;
+    private global::Bestan.Common.Message.ProtoHeader header_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Bestan.Common.Message.ProtoHeader Header {
+      get { return header_; }
+      set {
+        header_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "messageData" field.</summary>
+    public const int MessageDataFieldNumber = 2;
+    private pb::ByteString messageData_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pb::ByteString MessageData {
+      get { return messageData_; }
+      set {
+        messageData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as BaseProto);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(BaseProto other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Header, other.Header)) return false;
+      if (MessageData != other.MessageData) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (header_ != null) hash ^= Header.GetHashCode();
+      if (MessageData.Length != 0) hash ^= MessageData.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (header_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Header);
+      }
+      if (MessageData.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(MessageData);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (header_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Header);
+      }
+      if (MessageData.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(MessageData);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(BaseProto other) {
+      if (other == null) {
+        return;
+      }
+      if (other.header_ != null) {
+        if (header_ == null) {
+          header_ = new global::Bestan.Common.Message.ProtoHeader();
+        }
+        Header.MergeFrom(other.Header);
+      }
+      if (other.MessageData.Length != 0) {
+        MessageData = other.MessageData;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (header_ == null) {
+              header_ = new global::Bestan.Common.Message.ProtoHeader();
+            }
+            input.ReadMessage(header_);
+            break;
+          }
+          case 18: {
+            MessageData = input.ReadBytes();
             break;
           }
         }

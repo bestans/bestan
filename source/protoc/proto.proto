@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package bestan.common.message;
+package bestan.common.protobuf;
 
 message ProtoHeader
 {
