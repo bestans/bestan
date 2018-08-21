@@ -2,8 +2,6 @@ package bestan.common.net;
 
 import java.util.List;
 
-import com.google.protobuf.Message;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -13,10 +11,10 @@ import io.netty.handler.codec.ByteToMessageDecoder;
  *
  */
 public class NetDecodeHandler extends ByteToMessageDecoder {
-	private Message baseMessage;
+	private IProtocol baseProtocol;
 
-	public NetDecodeHandler(Message baseMessage) {
-		this.baseMessage = baseMessage;
+	public NetDecodeHandler(IProtocol baseProtocol) {
+		this.baseProtocol = baseProtocol;
 	}
 	
 	@Override
@@ -32,8 +30,8 @@ public class NetDecodeHandler extends ByteToMessageDecoder {
 	        }
 	        byte[] data = new byte[dataLength];
 	        in.readBytes(data);
-	        var message = baseMessage.newBuilderForType().mergeFrom(data).build();
-	        out.add(new CommonProtocol(ctx, message));
+	        //var message = baseMessage.newBuilderForType().mergeFrom(data).build();
+	        out.add(baseProtocol.decode(ctx, data));
 		}
 	}
 

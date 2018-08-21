@@ -1,11 +1,11 @@
 package bestan.common.net.client;
 
-import bestan.common.net.CommonProtocol;
+import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class NetClientHandler extends SimpleChannelInboundHandler<CommonProtocol> {
+public class NetClientHandler extends SimpleChannelInboundHandler<IProtocol> {
 	private BaseNetClientManager client;
 	private BExecutor workExecutor;
 	
@@ -15,7 +15,7 @@ public class NetClientHandler extends SimpleChannelInboundHandler<CommonProtocol
 	}
 	
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, CommonProtocol protocol) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, IProtocol protocol) throws Exception {
 		workExecutor.execute(protocol);
 	}
 
@@ -37,5 +37,12 @@ public class NetClientHandler extends SimpleChannelInboundHandler<CommonProtocol
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		client.setChannel(null);
+	}
+	
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		// TODO Auto-generated method stub
+		client.exceptionCaught(ctx, cause);
+		ctx.close();
 	}
 }

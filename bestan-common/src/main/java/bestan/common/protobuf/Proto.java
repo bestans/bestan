@@ -14,478 +14,53 @@ public final class Proto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface ProtoHeaderOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.ProtoHeader)
+  public interface BaseProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.BaseProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>int32 messageId = 1;</code>
      */
     int getMessageId();
-  }
-  /**
-   * Protobuf type {@code bestan.common.protobuf.ProtoHeader}
-   */
-  public  static final class ProtoHeader extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.ProtoHeader)
-      ProtoHeaderOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use ProtoHeader.newBuilder() to construct.
-    private ProtoHeader(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ProtoHeader() {
-      messageId_ = 0;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ProtoHeader(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-
-              messageId_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ProtoHeader_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ProtoHeader_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              bestan.common.protobuf.Proto.ProtoHeader.class, bestan.common.protobuf.Proto.ProtoHeader.Builder.class);
-    }
-
-    public static final int MESSAGEID_FIELD_NUMBER = 1;
-    private int messageId_;
-    /**
-     * <code>int32 messageId = 1;</code>
-     */
-    public int getMessageId() {
-      return messageId_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (messageId_ != 0) {
-        output.writeInt32(1, messageId_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (messageId_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, messageId_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof bestan.common.protobuf.Proto.ProtoHeader)) {
-        return super.equals(obj);
-      }
-      bestan.common.protobuf.Proto.ProtoHeader other = (bestan.common.protobuf.Proto.ProtoHeader) obj;
-
-      boolean result = true;
-      result = result && (getMessageId()
-          == other.getMessageId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + MESSAGEID_FIELD_NUMBER;
-      hash = (53 * hash) + getMessageId();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static bestan.common.protobuf.Proto.ProtoHeader parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(bestan.common.protobuf.Proto.ProtoHeader prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code bestan.common.protobuf.ProtoHeader}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.ProtoHeader)
-        bestan.common.protobuf.Proto.ProtoHeaderOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ProtoHeader_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ProtoHeader_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                bestan.common.protobuf.Proto.ProtoHeader.class, bestan.common.protobuf.Proto.ProtoHeader.Builder.class);
-      }
-
-      // Construct using bestan.common.protobuf.Proto.ProtoHeader.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        messageId_ = 0;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ProtoHeader_descriptor;
-      }
-
-      public bestan.common.protobuf.Proto.ProtoHeader getDefaultInstanceForType() {
-        return bestan.common.protobuf.Proto.ProtoHeader.getDefaultInstance();
-      }
-
-      public bestan.common.protobuf.Proto.ProtoHeader build() {
-        bestan.common.protobuf.Proto.ProtoHeader result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public bestan.common.protobuf.Proto.ProtoHeader buildPartial() {
-        bestan.common.protobuf.Proto.ProtoHeader result = new bestan.common.protobuf.Proto.ProtoHeader(this);
-        result.messageId_ = messageId_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof bestan.common.protobuf.Proto.ProtoHeader) {
-          return mergeFrom((bestan.common.protobuf.Proto.ProtoHeader)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(bestan.common.protobuf.Proto.ProtoHeader other) {
-        if (other == bestan.common.protobuf.Proto.ProtoHeader.getDefaultInstance()) return this;
-        if (other.getMessageId() != 0) {
-          setMessageId(other.getMessageId());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        bestan.common.protobuf.Proto.ProtoHeader parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (bestan.common.protobuf.Proto.ProtoHeader) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private int messageId_ ;
-      /**
-       * <code>int32 messageId = 1;</code>
-       */
-      public int getMessageId() {
-        return messageId_;
-      }
-      /**
-       * <code>int32 messageId = 1;</code>
-       */
-      public Builder setMessageId(int value) {
-        
-        messageId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 messageId = 1;</code>
-       */
-      public Builder clearMessageId() {
-        
-        messageId_ = 0;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.ProtoHeader)
-    }
-
-    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.ProtoHeader)
-    private static final bestan.common.protobuf.Proto.ProtoHeader DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.ProtoHeader();
-    }
-
-    public static bestan.common.protobuf.Proto.ProtoHeader getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ProtoHeader>
-        PARSER = new com.google.protobuf.AbstractParser<ProtoHeader>() {
-      public ProtoHeader parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ProtoHeader(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ProtoHeader> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ProtoHeader> getParserForType() {
-      return PARSER;
-    }
-
-    public bestan.common.protobuf.Proto.ProtoHeader getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BaseProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.BaseProto)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-     */
-    boolean hasHeader();
-    /**
-     * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-     */
-    bestan.common.protobuf.Proto.ProtoHeader getHeader();
-    /**
-     * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-     */
-    bestan.common.protobuf.Proto.ProtoHeaderOrBuilder getHeaderOrBuilder();
 
     /**
      * <code>bytes messageData = 2;</code>
      */
     com.google.protobuf.ByteString getMessageData();
+
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+    int getTestInfoCount();
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+    boolean containsTestInfo(
+        int key);
+    /**
+     * Use {@link #getTestInfoMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.Integer, java.lang.Integer>
+    getTestInfo();
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+    java.util.Map<java.lang.Integer, java.lang.Integer>
+    getTestInfoMap();
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+
+    int getTestInfoOrDefault(
+        int key,
+        int defaultValue);
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+
+    int getTestInfoOrThrow(
+        int key);
   }
   /**
    * Protobuf type {@code bestan.common.protobuf.BaseProto}
@@ -500,6 +75,7 @@ public final class Proto {
       super(builder);
     }
     private BaseProto() {
+      messageId_ = 0;
       messageData_ = com.google.protobuf.ByteString.EMPTY;
     }
 
@@ -534,22 +110,27 @@ public final class Proto {
               }
               break;
             }
-            case 10: {
-              bestan.common.protobuf.Proto.ProtoHeader.Builder subBuilder = null;
-              if (header_ != null) {
-                subBuilder = header_.toBuilder();
-              }
-              header_ = input.readMessage(bestan.common.protobuf.Proto.ProtoHeader.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(header_);
-                header_ = subBuilder.buildPartial();
-              }
+            case 8: {
 
+              messageId_ = input.readInt32();
               break;
             }
             case 18: {
 
               messageData_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                testInfo_ = com.google.protobuf.MapField.newMapField(
+                    TestInfoDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000004;
+              }
+              com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
+              testInfo__ = input.readMessage(
+                  TestInfoDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              testInfo_.getMutableMap().put(
+                  testInfo__.getKey(), testInfo__.getValue());
               break;
             }
           }
@@ -569,6 +150,17 @@ public final class Proto {
       return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 3:
+          return internalGetTestInfo();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable
@@ -576,25 +168,14 @@ public final class Proto {
               bestan.common.protobuf.Proto.BaseProto.class, bestan.common.protobuf.Proto.BaseProto.Builder.class);
     }
 
-    public static final int HEADER_FIELD_NUMBER = 1;
-    private bestan.common.protobuf.Proto.ProtoHeader header_;
+    private int bitField0_;
+    public static final int MESSAGEID_FIELD_NUMBER = 1;
+    private int messageId_;
     /**
-     * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
+     * <code>int32 messageId = 1;</code>
      */
-    public boolean hasHeader() {
-      return header_ != null;
-    }
-    /**
-     * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-     */
-    public bestan.common.protobuf.Proto.ProtoHeader getHeader() {
-      return header_ == null ? bestan.common.protobuf.Proto.ProtoHeader.getDefaultInstance() : header_;
-    }
-    /**
-     * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-     */
-    public bestan.common.protobuf.Proto.ProtoHeaderOrBuilder getHeaderOrBuilder() {
-      return getHeader();
+    public int getMessageId() {
+      return messageId_;
     }
 
     public static final int MESSAGEDATA_FIELD_NUMBER = 2;
@@ -604,6 +185,82 @@ public final class Proto {
      */
     public com.google.protobuf.ByteString getMessageData() {
       return messageData_;
+    }
+
+    public static final int TESTINFO_FIELD_NUMBER = 3;
+    private static final class TestInfoDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.Integer, java.lang.Integer> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.Integer, java.lang.Integer>newDefaultInstance(
+                  bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.INT32,
+                  0,
+                  com.google.protobuf.WireFormat.FieldType.INT32,
+                  0);
+    }
+    private com.google.protobuf.MapField<
+        java.lang.Integer, java.lang.Integer> testInfo_;
+    private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
+    internalGetTestInfo() {
+      if (testInfo_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            TestInfoDefaultEntryHolder.defaultEntry);
+      }
+      return testInfo_;
+    }
+
+    public int getTestInfoCount() {
+      return internalGetTestInfo().getMap().size();
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+
+    public boolean containsTestInfo(
+        int key) {
+      
+      return internalGetTestInfo().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getTestInfoMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfo() {
+      return getTestInfoMap();
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+
+    public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfoMap() {
+      return internalGetTestInfo().getMap();
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+
+    public int getTestInfoOrDefault(
+        int key,
+        int defaultValue) {
+      
+      java.util.Map<java.lang.Integer, java.lang.Integer> map =
+          internalGetTestInfo().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     */
+
+    public int getTestInfoOrThrow(
+        int key) {
+      
+      java.util.Map<java.lang.Integer, java.lang.Integer> map =
+          internalGetTestInfo().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -618,12 +275,18 @@ public final class Proto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (header_ != null) {
-        output.writeMessage(1, getHeader());
+      if (messageId_ != 0) {
+        output.writeInt32(1, messageId_);
       }
       if (!messageData_.isEmpty()) {
         output.writeBytes(2, messageData_);
       }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeIntegerMapTo(
+          output,
+          internalGetTestInfo(),
+          TestInfoDefaultEntryHolder.defaultEntry,
+          3);
       unknownFields.writeTo(output);
     }
 
@@ -632,13 +295,23 @@ public final class Proto {
       if (size != -1) return size;
 
       size = 0;
-      if (header_ != null) {
+      if (messageId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getHeader());
+          .computeInt32Size(1, messageId_);
       }
       if (!messageData_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, messageData_);
+      }
+      for (java.util.Map.Entry<java.lang.Integer, java.lang.Integer> entry
+           : internalGetTestInfo().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
+        testInfo__ = TestInfoDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, testInfo__);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -656,13 +329,12 @@ public final class Proto {
       bestan.common.protobuf.Proto.BaseProto other = (bestan.common.protobuf.Proto.BaseProto) obj;
 
       boolean result = true;
-      result = result && (hasHeader() == other.hasHeader());
-      if (hasHeader()) {
-        result = result && getHeader()
-            .equals(other.getHeader());
-      }
+      result = result && (getMessageId()
+          == other.getMessageId());
       result = result && getMessageData()
           .equals(other.getMessageData());
+      result = result && internalGetTestInfo().equals(
+          other.internalGetTestInfo());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -674,12 +346,14 @@ public final class Proto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasHeader()) {
-        hash = (37 * hash) + HEADER_FIELD_NUMBER;
-        hash = (53 * hash) + getHeader().hashCode();
-      }
+      hash = (37 * hash) + MESSAGEID_FIELD_NUMBER;
+      hash = (53 * hash) + getMessageId();
       hash = (37 * hash) + MESSAGEDATA_FIELD_NUMBER;
       hash = (53 * hash) + getMessageData().hashCode();
+      if (!internalGetTestInfo().getMap().isEmpty()) {
+        hash = (37 * hash) + TESTINFO_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetTestInfo().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -785,6 +459,28 @@ public final class Proto {
         return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetTestInfo();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetMutableTestInfo();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable
@@ -809,14 +505,11 @@ public final class Proto {
       }
       public Builder clear() {
         super.clear();
-        if (headerBuilder_ == null) {
-          header_ = null;
-        } else {
-          header_ = null;
-          headerBuilder_ = null;
-        }
+        messageId_ = 0;
+
         messageData_ = com.google.protobuf.ByteString.EMPTY;
 
+        internalGetMutableTestInfo().clear();
         return this;
       }
 
@@ -839,12 +532,13 @@ public final class Proto {
 
       public bestan.common.protobuf.Proto.BaseProto buildPartial() {
         bestan.common.protobuf.Proto.BaseProto result = new bestan.common.protobuf.Proto.BaseProto(this);
-        if (headerBuilder_ == null) {
-          result.header_ = header_;
-        } else {
-          result.header_ = headerBuilder_.build();
-        }
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.messageId_ = messageId_;
         result.messageData_ = messageData_;
+        result.testInfo_ = internalGetTestInfo();
+        result.testInfo_.makeImmutable();
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -886,12 +580,14 @@ public final class Proto {
 
       public Builder mergeFrom(bestan.common.protobuf.Proto.BaseProto other) {
         if (other == bestan.common.protobuf.Proto.BaseProto.getDefaultInstance()) return this;
-        if (other.hasHeader()) {
-          mergeHeader(other.getHeader());
+        if (other.getMessageId() != 0) {
+          setMessageId(other.getMessageId());
         }
         if (other.getMessageData() != com.google.protobuf.ByteString.EMPTY) {
           setMessageData(other.getMessageData());
         }
+        internalGetMutableTestInfo().mergeFrom(
+            other.internalGetTestInfo());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -918,122 +614,32 @@ public final class Proto {
         }
         return this;
       }
+      private int bitField0_;
 
-      private bestan.common.protobuf.Proto.ProtoHeader header_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          bestan.common.protobuf.Proto.ProtoHeader, bestan.common.protobuf.Proto.ProtoHeader.Builder, bestan.common.protobuf.Proto.ProtoHeaderOrBuilder> headerBuilder_;
+      private int messageId_ ;
       /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
+       * <code>int32 messageId = 1;</code>
        */
-      public boolean hasHeader() {
-        return headerBuilder_ != null || header_ != null;
+      public int getMessageId() {
+        return messageId_;
       }
       /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
+       * <code>int32 messageId = 1;</code>
        */
-      public bestan.common.protobuf.Proto.ProtoHeader getHeader() {
-        if (headerBuilder_ == null) {
-          return header_ == null ? bestan.common.protobuf.Proto.ProtoHeader.getDefaultInstance() : header_;
-        } else {
-          return headerBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-       */
-      public Builder setHeader(bestan.common.protobuf.Proto.ProtoHeader value) {
-        if (headerBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          header_ = value;
-          onChanged();
-        } else {
-          headerBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-       */
-      public Builder setHeader(
-          bestan.common.protobuf.Proto.ProtoHeader.Builder builderForValue) {
-        if (headerBuilder_ == null) {
-          header_ = builderForValue.build();
-          onChanged();
-        } else {
-          headerBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-       */
-      public Builder mergeHeader(bestan.common.protobuf.Proto.ProtoHeader value) {
-        if (headerBuilder_ == null) {
-          if (header_ != null) {
-            header_ =
-              bestan.common.protobuf.Proto.ProtoHeader.newBuilder(header_).mergeFrom(value).buildPartial();
-          } else {
-            header_ = value;
-          }
-          onChanged();
-        } else {
-          headerBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-       */
-      public Builder clearHeader() {
-        if (headerBuilder_ == null) {
-          header_ = null;
-          onChanged();
-        } else {
-          header_ = null;
-          headerBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-       */
-      public bestan.common.protobuf.Proto.ProtoHeader.Builder getHeaderBuilder() {
+      public Builder setMessageId(int value) {
         
+        messageId_ = value;
         onChanged();
-        return getHeaderFieldBuilder().getBuilder();
+        return this;
       }
       /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
+       * <code>int32 messageId = 1;</code>
        */
-      public bestan.common.protobuf.Proto.ProtoHeaderOrBuilder getHeaderOrBuilder() {
-        if (headerBuilder_ != null) {
-          return headerBuilder_.getMessageOrBuilder();
-        } else {
-          return header_ == null ?
-              bestan.common.protobuf.Proto.ProtoHeader.getDefaultInstance() : header_;
-        }
-      }
-      /**
-       * <code>.bestan.common.protobuf.ProtoHeader header = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          bestan.common.protobuf.Proto.ProtoHeader, bestan.common.protobuf.Proto.ProtoHeader.Builder, bestan.common.protobuf.Proto.ProtoHeaderOrBuilder> 
-          getHeaderFieldBuilder() {
-        if (headerBuilder_ == null) {
-          headerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              bestan.common.protobuf.Proto.ProtoHeader, bestan.common.protobuf.Proto.ProtoHeader.Builder, bestan.common.protobuf.Proto.ProtoHeaderOrBuilder>(
-                  getHeader(),
-                  getParentForChildren(),
-                  isClean());
-          header_ = null;
-        }
-        return headerBuilder_;
+      public Builder clearMessageId() {
+        
+        messageId_ = 0;
+        onChanged();
+        return this;
       }
 
       private com.google.protobuf.ByteString messageData_ = com.google.protobuf.ByteString.EMPTY;
@@ -1062,6 +668,129 @@ public final class Proto {
         
         messageData_ = getDefaultInstance().getMessageData();
         onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.Integer, java.lang.Integer> testInfo_;
+      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
+      internalGetTestInfo() {
+        if (testInfo_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              TestInfoDefaultEntryHolder.defaultEntry);
+        }
+        return testInfo_;
+      }
+      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
+      internalGetMutableTestInfo() {
+        onChanged();;
+        if (testInfo_ == null) {
+          testInfo_ = com.google.protobuf.MapField.newMapField(
+              TestInfoDefaultEntryHolder.defaultEntry);
+        }
+        if (!testInfo_.isMutable()) {
+          testInfo_ = testInfo_.copy();
+        }
+        return testInfo_;
+      }
+
+      public int getTestInfoCount() {
+        return internalGetTestInfo().getMap().size();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+
+      public boolean containsTestInfo(
+          int key) {
+        
+        return internalGetTestInfo().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getTestInfoMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfo() {
+        return getTestInfoMap();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+
+      public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfoMap() {
+        return internalGetTestInfo().getMap();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+
+      public int getTestInfoOrDefault(
+          int key,
+          int defaultValue) {
+        
+        java.util.Map<java.lang.Integer, java.lang.Integer> map =
+            internalGetTestInfo().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+
+      public int getTestInfoOrThrow(
+          int key) {
+        
+        java.util.Map<java.lang.Integer, java.lang.Integer> map =
+            internalGetTestInfo().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearTestInfo() {
+        internalGetMutableTestInfo().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+
+      public Builder removeTestInfo(
+          int key) {
+        
+        internalGetMutableTestInfo().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.Integer, java.lang.Integer>
+      getMutableTestInfo() {
+        return internalGetMutableTestInfo().getMutableMap();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+      public Builder putTestInfo(
+          int key,
+          int value) {
+        
+        
+        internalGetMutableTestInfo().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       */
+
+      public Builder putAllTestInfo(
+          java.util.Map<java.lang.Integer, java.lang.Integer> values) {
+        internalGetMutableTestInfo().getMutableMap()
+            .putAll(values);
         return this;
       }
       public final Builder setUnknownFields(
@@ -1114,15 +843,15 @@ public final class Proto {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_bestan_common_protobuf_ProtoHeader_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_bestan_common_protobuf_ProtoHeader_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bestan_common_protobuf_BaseProto_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1132,11 +861,12 @@ public final class Proto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013proto.proto\022\026bestan.common.protobuf\" \n" +
-      "\013ProtoHeader\022\021\n\tmessageId\030\001 \001(\005\"U\n\tBaseP" +
-      "roto\0223\n\006header\030\001 \001(\0132#.bestan.common.pro" +
-      "tobuf.ProtoHeader\022\023\n\013messageData\030\002 \001(\014b\006" +
-      "proto3"
+      "\n\013proto.proto\022\026bestan.common.protobuf\"\247\001" +
+      "\n\tBaseProto\022\021\n\tmessageId\030\001 \001(\005\022\023\n\013messag" +
+      "eData\030\002 \001(\014\022A\n\010testInfo\030\003 \003(\0132/.bestan.c" +
+      "ommon.protobuf.BaseProto.TestInfoEntry\032/" +
+      "\n\rTestInfoEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 " +
+      "\001(\005:\0028\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1150,18 +880,18 @@ public final class Proto {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_bestan_common_protobuf_ProtoHeader_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_bestan_common_protobuf_ProtoHeader_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_bestan_common_protobuf_ProtoHeader_descriptor,
-        new java.lang.String[] { "MessageId", });
     internal_static_bestan_common_protobuf_BaseProto_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_BaseProto_descriptor,
-        new java.lang.String[] { "Header", "MessageData", });
+        new java.lang.String[] { "MessageId", "MessageData", "TestInfo", });
+    internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor =
+      internal_static_bestan_common_protobuf_BaseProto_descriptor.getNestedTypes().get(0);
+    internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

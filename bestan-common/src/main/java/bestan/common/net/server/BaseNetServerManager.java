@@ -45,8 +45,8 @@ public class BaseNetServerManager implements INetManager {
          			   .channel(NioServerSocketChannel.class)
                        .childHandler(new NetServerInitializer(this))
                        .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                       .option(ChannelOption.SO_RCVBUF, config.optionRcvbuf)
-                       .option(ChannelOption.SO_SNDBUF, config.optionSndbuf)
+                       //.option(ChannelOption.SO_RCVBUF, config.optionRcvbuf)
+                       //.option(ChannelOption.SO_SNDBUF, config.optionSndbuf)
                        .childOption(ChannelOption.TCP_NODELAY, true) //从而最小化报文传输延时
                        .childOption(ChannelOption.SO_RCVBUF, config.childOptionRcvbuf)
                        .childOption(ChannelOption.SO_SNDBUF, config.childOptionSndbuf)

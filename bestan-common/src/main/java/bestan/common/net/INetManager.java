@@ -22,4 +22,8 @@ public interface INetManager {
 	public default void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		
 	}
+	
+	public default void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		
+	}
 }

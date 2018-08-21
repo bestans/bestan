@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 
+import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
@@ -25,11 +26,11 @@ import bestan.common.module.StartupException;
  *
  */
 public class MessageFactory implements IModule {
-	private static Map<Class<? extends Message>, Integer> messageIndexMap;
-	private static Map<Class<? extends Message>, Message> messageInstanceMap;
-	private static Map<Integer, Message> indexMessageMap;
-	private static Map<String, Integer> messageNameIndexMap;
-	private static Map<Integer, IMessageHandle> messageHandleMap;
+	private static Map<Class<? extends Message>, Integer> messageIndexMap = Maps.newHashMap();
+	private static Map<Class<? extends Message>, Message> messageInstanceMap = Maps.newHashMap();
+	private static Map<Integer, Message> indexMessageMap = Maps.newHashMap();
+	private static Map<String, Integer> messageNameIndexMap = Maps.newHashMap();
+	private static Map<Integer, IMessageHandle> messageHandleMap = Maps.newHashMap();
 	
 	private static boolean register(Class<? extends Message> messageClass) {
 		int newIndex = makeMessageIndex(messageClass);
@@ -66,6 +67,12 @@ public class MessageFactory implements IModule {
 	public static int getMessageIndex(Class<? extends Message> messageClass) {
 		var messageIndex = messageIndexMap.get(messageClass);
 		return messageIndex != null ? messageIndex : -1;
+	}
+	
+	public static int getMessageIndex(Message message) {
+		if (message == null) return -1;
+		
+		return getMessageIndex(message.getClass());
 	}
 	
 	public static IMessageHandle getMessageHandle(int messageIndex) {
@@ -127,10 +134,10 @@ public class MessageFactory implements IModule {
 		Reflections reflections = new Reflections(packageName);
 		Set<Class<? extends Message>> classes = reflections.getSubTypesOf(Message.class);
 		for (var cls : classes) {
-			if (cls.isMemberClass()) {
-				//嵌套类 不处理
-				continue;
-			}
+//			if (cls.isMemberClass()) {
+//				//嵌套类 不处理
+//				continue;
+//			}
 			
 			if (!register(cls)) {
 				return false;

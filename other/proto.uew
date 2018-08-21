@@ -1,0 +1,29 @@
+/L23"Proto" Line Comment = // Escape Char = \ String Chars = "' File Extensions = proto
+/Open Fold Strings = "{"
+/Close Fold Strings = "}"
+/C1"Keywords"
+message
+enum
+package
+syntax
+import
+/C2"types"
+double
+float
+int32
+int64
+uint32
+uint64
+sint32
+sint64
+fixed32
+fixed64
+sfixed32
+sfixed64
+bool
+string
+bytes
+/C3"option"
+repeated
+reserved
+map

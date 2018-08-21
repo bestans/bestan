@@ -8,7 +8,7 @@ public abstract class AbstractRpc extends AbstractProtocol {
 	protected Message res;
 	
 	public AbstractRpc(RpcHeader header, Message arg, Message res) {
-		super(header);
+		super(null, null);
 		this.header = header;
 		this.arg = arg;
 		this.res = res;

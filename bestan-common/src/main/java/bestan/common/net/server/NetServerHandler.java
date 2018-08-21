@@ -1,12 +1,12 @@
 package bestan.common.net.server;
 
 import bestan.common.log.Glog;
-import bestan.common.net.CommonProtocol;
+import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class NetServerHandler extends SimpleChannelInboundHandler<CommonProtocol> {
+public class NetServerHandler extends SimpleChannelInboundHandler<IProtocol> {
 	private BExecutor workExecutor;
 	private BaseNetServerManager serverManager;
 	private NetServerConfig config;
@@ -18,13 +18,13 @@ public class NetServerHandler extends SimpleChannelInboundHandler<CommonProtocol
 	}
 	
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, CommonProtocol protocol) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, IProtocol protocol) throws Exception {
 		workExecutor.execute(protocol);
 	}
 	
 	@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-    	Glog.error("{} NetServerHandler exceptionCaught.error=", config.serverName, cause.getMessage());
+    	Glog.error("{} NetServerHandler exceptionCaught.error={}", config.serverName, cause);
         ctx.close();
     }
 	

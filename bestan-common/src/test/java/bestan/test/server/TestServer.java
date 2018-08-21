@@ -2,7 +2,6 @@ package bestan.test.server;
 
 import bestan.common.log.Glog;
 import bestan.common.lua.LuaConfigs;
-import bestan.common.protobuf.Proto;
 
 /**
  * @author yeyouhuan
@@ -16,7 +15,7 @@ public class TestServer {
 		LuaConfigs.loadConfig("E:/bestan/config/", "bestan.test.server");
 		var cfg = LuaConfigs.get(TestNetServerConfig.class);
 		cfg.workdExecutor = worker;
-		cfg.baseMessage = Proto.BaseProto.getDefaultInstance();
+		cfg.baseProtocol = new TestProtocol();
 		Glog.debug("TestNetServerConfig={}",cfg);
 		try {
 			new NetServer(cfg).start();

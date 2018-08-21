@@ -7,6 +7,7 @@ import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
 import bestan.common.net.INetManager;
+import bestan.common.net.IProtocol;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -30,9 +31,11 @@ public class BaseNetClientManager implements INetManager {
 	protected EventLoopGroup bossGroup;
 	protected EventLoopGroup workerGroup;
 	protected Bootstrap bootStrap;
+	protected IProtocol baseProtocol;
 
 	public BaseNetClientManager(NetClientConfig config) {
 		this.config = config;
+		this.baseProtocol = config.baseProtocol;
 		workerGroup = new NioEventLoopGroup(1);
 		bootStrap = new Bootstrap().group(workerGroup)
 		    	      .channel(NioSocketChannel.class)
@@ -99,6 +102,6 @@ public class BaseNetClientManager implements INetManager {
 	}
 	
 	public void sendMessage(Message message) {
-		this.channel.writeAndFlush(message);
+		this.channel.writeAndFlush(baseProtocol.encode(message));
 	}
 }

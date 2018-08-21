@@ -1,11 +1,10 @@
 package bestan.common.net.client;
 
-import com.google.protobuf.Message;
-
 import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
 import bestan.common.lua.LuaParamAnnotation;
 import bestan.common.lua.LuaParamAnnotation.LuaParamPolicy;
+import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 
 /**
@@ -20,7 +19,7 @@ public class NetClientConfig extends BaseLuaConfig {
 	public String serverIP;
 	public int serverPort;
 	@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
-	public Message baseMessage;
+	public IProtocol baseProtocol;
 	@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
 	public BExecutor workdExecutor;
 }

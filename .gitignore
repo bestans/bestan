@@ -55,3 +55,8 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+/source/jar/netty-parent-git.jar
+/source/jar/rocksdb.jar
+/source/jar/rocksdb/.project
+/source/jar/rocksdb_release.jar
+/source/jar/rocksdbjni-5.9.2.jar

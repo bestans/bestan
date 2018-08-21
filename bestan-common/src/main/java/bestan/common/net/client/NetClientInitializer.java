@@ -22,7 +22,7 @@ public class NetClientInitializer extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = ch.pipeline();
 
         // Add the message codec first,
-        pipeline.addLast(new NetDecodeHandler(client.getConfig().baseMessage));
+        pipeline.addLast(new NetDecodeHandler(client.getConfig().baseProtocol));
         pipeline.addLast(new NetEncodeHandler());
 
         // and then business logic.
