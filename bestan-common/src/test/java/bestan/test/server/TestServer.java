@@ -2,6 +2,7 @@ package bestan.test.server;
 
 import bestan.common.log.Glog;
 import bestan.common.lua.LuaConfigs;
+import bestan.common.message.MessageFactory;
 
 /**
  * @author yeyouhuan
@@ -17,6 +18,7 @@ public class TestServer {
 		cfg.workdExecutor = worker;
 		cfg.baseProtocol = new TestProtocol();
 		Glog.debug("TestNetServerConfig={}",cfg);
+		MessageFactory.loadMessage("bestan.common.protobuf");
 		try {
 			new NetServer(cfg).start();
 		} catch (InterruptedException e) {

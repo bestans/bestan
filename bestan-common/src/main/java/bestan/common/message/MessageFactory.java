@@ -1,5 +1,6 @@
 package bestan.common.message;
 
+import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,7 +51,7 @@ public class MessageFactory implements IModule {
 			messageInstanceMap.put(messageClass, (Message)message);
 			messageNameIndexMap.put(messageClass.getSimpleName(), newIndex);
 		} catch (Exception e) {
-			Glog.error("MessageFactory register error={}, message={}", e.getMessage(), messageClass.getSimpleName());
+			Glog.error("MessageFactory register error={}, message={}", e, messageClass.getSimpleName());
 			return false;
 		}
 		return true;
@@ -88,8 +89,11 @@ public class MessageFactory implements IModule {
 		int value = 0;
 		var name = className.getSimpleName().toLowerCase();
 		for (int i = 0; i < name.length(); ++i) {
+			int offset = (name.charAt(i) - Character.valueOf('a'));
+			Glog.debug("makeMessageIndex:offset={}", offset);
 			value += (name.charAt(i) - Character.valueOf('a')) * (int)Math.pow(26, i);
 		}
+		Glog.debug("makeMessageIndex:{},{}", name, value);
 		return value;
 	}
 
@@ -97,13 +101,13 @@ public class MessageFactory implements IModule {
 	 * 载入message handle类，message handle命名必须为xxxxHandle
 	 * @param packageName
 	 */
-	private static boolean loadMessageHandle(String packageName) {
+	public static boolean loadMessageHandle(String packageName) {
 		Reflections.log = null;
 		Reflections reflections = new Reflections(packageName);
 		Set<Class<? extends IMessageHandle>> classes = reflections.getSubTypesOf(IMessageHandle.class);
 		for (var cls : classes) {
-			if (cls.isMemberClass()) {
-				//嵌套类 不处理
+			if (Modifier.isAbstract(cls.getModifiers())) {
+				//抽象类
 				continue;
 			}
 			var handleName = cls.getSimpleName();
@@ -118,6 +122,8 @@ public class MessageFactory implements IModule {
 				return false;
 			}
 			try {
+
+				Glog.debug("loadMessageHandle:{}", cls.getSimpleName());
 				var handle = cls.getDeclaredConstructor().newInstance();
 				messageHandleMap.put(messageIndex, handle);
 			} catch (Exception e) {
@@ -129,16 +135,17 @@ public class MessageFactory implements IModule {
 		return true;
 	}
 
-	private static boolean loadMessage(String packageName) {
+	public static boolean loadMessage(String packageName) {
 		Reflections.log = null;
 		Reflections reflections = new Reflections(packageName);
 		Set<Class<? extends Message>> classes = reflections.getSubTypesOf(Message.class);
+		Glog.debug("loadmessage:size={}", classes.size());
 		for (var cls : classes) {
-//			if (cls.isMemberClass()) {
-//				//嵌套类 不处理
-//				continue;
-//			}
-			
+			if (Modifier.isAbstract(cls.getModifiers())) {
+				//抽象类
+				continue;
+			}
+			Glog.debug("loadMessage:{}", cls.getSimpleName());
 			if (!register(cls)) {
 				return false;
 			}

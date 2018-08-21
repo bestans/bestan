@@ -10,6 +10,7 @@ public class TestExecutor implements BExecutor {
 	@Override
 	public void execute(IEvent event) {
 		// TODO Auto-generated method stub
+		event.run();
 		if  (event instanceof AbstractProtocol) {
 			var p = (AbstractProtocol)event;
 			Glog.debug("event={}", p.getMessage());

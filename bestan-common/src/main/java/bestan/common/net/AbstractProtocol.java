@@ -2,6 +2,7 @@ package bestan.common.net;
 
 import com.google.protobuf.Message;
 
+import bestan.common.log.Glog;
 import bestan.common.message.MessageFactory;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -48,5 +49,21 @@ public abstract class AbstractProtocol implements IProtocol {
 	
 	public ChannelHandlerContext getChannelHandlerContext() {
 		return ctx;
+	}
+	@Override
+	public void run() {
+		try
+		{
+			var handle = MessageFactory.getMessageHandle(messageID);
+			if (handle == null) {
+				Glog.error("{} cannot find message handle:messageID={}", getClass().getSimpleName(), messageID);
+				return;
+			}
+		
+			handle.ProcessProtocol(this);
+		} catch (Exception e) {
+			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}",
+					getClass().getSimpleName(), messageID, e.getMessage());
+		}
 	}
 }
