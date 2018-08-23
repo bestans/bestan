@@ -110,6 +110,9 @@ public class MessageFactory implements IModule {
 				//抽象类
 				continue;
 			}
+			if (cls.getEnclosingClass().isMemberClass()) {
+				continue;
+			}
 			var handleName = cls.getSimpleName();
 			if (handleName.length() <= 6) {
 				Glog.error("loadMessageHandle erorr:invalid handle name({}), valid e.g xxxxHandle", handleName);
@@ -152,7 +155,7 @@ public class MessageFactory implements IModule {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public void startup(ServerConfig config) {
 		if (!loadMessage(config.messagePackage)) {

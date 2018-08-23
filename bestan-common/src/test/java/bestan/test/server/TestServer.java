@@ -3,6 +3,7 @@ package bestan.test.server;
 import bestan.common.log.Glog;
 import bestan.common.lua.LuaConfigs;
 import bestan.common.message.MessageFactory;
+import bestan.common.protobuf.MessageEnum;
 
 /**
  * @author yeyouhuan
@@ -11,6 +12,11 @@ import bestan.common.message.MessageFactory;
 public class TestServer {
 
 	public static void main(String[] args) {
+		Class<? extends Enum> cls = MessageEnum.class;
+		Glog.debug("aa={},{}", cls.getEnumConstants(), cls.getEnumConstants()[1].name());
+		if (2 != 1) {
+			return;
+		}
 		var worker = new TestExecutor();
 
 		LuaConfigs.loadConfig("E:/bestan/config/", "bestan.test.server");

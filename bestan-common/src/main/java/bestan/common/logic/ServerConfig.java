@@ -17,4 +17,6 @@ public class ServerConfig extends BaseLuaConfig{
 	public int playerTickInterval = 100;
 	public String messagePackage;
 	public String messageHandlerPackage;
+	@SuppressWarnings("rawtypes")
+	public Class<? extends Enum> messageIndex;
 }

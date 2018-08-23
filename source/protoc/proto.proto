@@ -4,6 +4,18 @@ package bestan.common.protobuf;
 
 message BaseProto
 {
+	message BaseProto33
+	{
+		int32 messageId				= 1;
+		bytes messageData			= 2;
+		map<int32, int32> testInfo	= 3;
+	}
+	int32 messageId				= 1;
+	bytes messageData			= 2;
+	map<int32, int32> testInfo	= 3;
+}
+message BaseProto22
+{
 	int32 messageId				= 1;
 	bytes messageData			= 2;
 	map<int32, int32> testInfo	= 3;
