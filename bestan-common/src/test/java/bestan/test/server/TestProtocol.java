@@ -2,8 +2,11 @@ package bestan.test.server;
 
 import com.google.protobuf.Message;
 
+import bestan.common.logic.FormatException;
 import bestan.common.message.MessageFactory;
 import bestan.common.net.AbstractProtocol;
+import bestan.common.net.IProtocol;
+import bestan.common.net.ProtocolHeader;
 import bestan.common.protobuf.Proto;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -14,11 +17,11 @@ import io.netty.channel.ChannelHandlerContext;
 public class TestProtocol extends AbstractProtocol {
 	private static final Proto.BaseProto baseMessageInstance = Proto.BaseProto.getDefaultInstance();
 	
-	public TestProtocol(ChannelHandlerContext ctx, Message message) {
-		super(ctx, message);
+	public TestProtocol(ProtocolHeader header, ChannelHandlerContext ctx, Message.Builder message) {
+		super(header, ctx, message);
 	}
 	public TestProtocol() {
-		super(null, null);
+		super(null, null, null);
 	}
 
 	@Override
@@ -30,18 +33,21 @@ public class TestProtocol extends AbstractProtocol {
 	}
 
 	@Override
-	public void run() {
+	public IProtocol decode(ChannelHandlerContext ctx, byte[] data) throws Exception {
+		var base = baseMessageInstance.newBuilderForType().mergeFrom(data);
+		int messageId = base.getMessageId();
+		var messageInstance = MessageFactory.getMessageInstance(messageId);
+		if (messageInstance == null) {
+			throw new FormatException("%s:cannot find message(%s)", getClass().getSimpleName(), messageId);
+		}
+		var messageBuilder = messageInstance.newBuilderForType().mergeFrom(base.getMessageData());
 		
+		return new TestProtocol(new ProtocolHeader(messageId), ctx, messageBuilder);
 	}
-
+	
 	@Override
-	protected Message getBaseMessage() {
-		return baseMessageInstance;
-	}
-
-	@Override
-	protected AbstractProtocol newProtocol(ChannelHandlerContext ctx, Message message) {
+	protected AbstractProtocol newProtocol(ProtocolHeader header, ChannelHandlerContext ctx, Message.Builder message) {
 		// TODO Auto-generated method stub
-		return new TestProtocol(ctx, message);
+		return null;
 	}
 }

@@ -88,6 +88,10 @@ public class Timer implements IModule {
 		attachObserver(ob);
 	}
 	
+	public static int getTime() {
+		return 0;
+	}
+	
 	public static void attach(ITimer timerObject, int delay) {
 		attach(new TimerObserver(timerObject), delay);
 	}

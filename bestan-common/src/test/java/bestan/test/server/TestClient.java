@@ -8,6 +8,7 @@ import com.google.protobuf.ByteString;
 import bestan.common.log.Glog;
 import bestan.common.lua.LuaConfigs;
 import bestan.common.message.MessageFactory;
+import bestan.common.protobuf.MessageEnum;
 import bestan.common.protobuf.Proto;
 
 public class TestClient {
@@ -22,7 +23,9 @@ public class TestClient {
 		cfg.workdExecutor = worker;
 		cfg.baseProtocol = new TestProtocol();
 		Glog.debug("TestNetServerConfig={}",cfg);
+		MessageFactory.loadMessageIndex(MessageEnum.class);
 		MessageFactory.loadMessage("bestan.common.protobuf");
+		MessageFactory.loadMessageHandle("bestan.test.server");
 		//MessageFactory.loadMessageHandle(packageName)
 		var client = new NetClient(cfg);
 		client.start();

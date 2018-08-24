@@ -6,6 +6,10 @@ import bestan.common.thread.BExecutor;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+/**
+ * @author yeyouhuan
+ *
+ */
 public class NetServerHandler extends SimpleChannelInboundHandler<IProtocol> {
 	private BExecutor workExecutor;
 	private BaseNetServerManager serverManager;

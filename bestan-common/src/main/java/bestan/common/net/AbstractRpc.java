@@ -2,16 +2,29 @@ package bestan.common.net;
 
 import com.google.protobuf.Message;
 
+import io.netty.channel.ChannelHandlerContext;
+
 public abstract class AbstractRpc extends AbstractProtocol {
-	protected RpcHeader header;
+	public AbstractRpc(ProtocolHeader header, ChannelHandlerContext ctx, Message message) {
+		
+	}
+
+	private boolean isRequest = false;
+	protected int argMessageId;
+	protected int resMessageId;
+	protected Object argParam;
 	protected Message arg;
 	protected Message res;
 	
-	public AbstractRpc(RpcHeader header, Message arg, Message res) {
-		super(null, null);
-		this.header = header;
-		this.arg = arg;
-		this.res = res;
+	public int getRpcIndex() {
+		return 0;
+	}
+	
+	public int getTimeout() {
+		return 0;
+	}
+	protected void decodeRpcMessage() {
+		
 	}
 	
 	public void Client() {
@@ -22,15 +35,21 @@ public abstract class AbstractRpc extends AbstractProtocol {
 		
 	}
 	
+	//public int 
 	@Override
 	public void run() {
-		if (header.isRequest) {
-			header.isRequest = false; 
+		if (isRequest) {
+			var rpc = RpcManager.getInstance().get(getRpcIndex());
+			if (rpc == null) {
+				return;
+			}
+			rpc.Server();
 			Server();
-			header.getChannelHandlerContext().writeAndFlush(fillReplyMessage());
+			getChannelHandlerContext().writeAndFlush(fillReplyMessage());
 			return;
 		}
 
+		RpcManager.getInstance().put(this);
 		Client();
 	}
 	

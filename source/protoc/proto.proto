@@ -4,16 +4,20 @@ package bestan.common.protobuf;
 
 message BaseProto
 {
-	message BaseProto33
-	{
-		int32 messageId				= 1;
-		bytes messageData			= 2;
-		map<int32, int32> testInfo	= 3;
-	}
 	int32 messageId				= 1;
 	bytes messageData			= 2;
 	map<int32, int32> testInfo	= 3;
 }
+
+message RpcMessage
+{
+	int32 resMessageId			= 1;
+	int32 argMessageId			= 2;
+	bool isRequest				= 3;
+	int32 rpcIndex				= 4;
+	bytes argMessageData		= 5;
+}
+
 message BaseProto22
 {
 	int32 messageId				= 1;

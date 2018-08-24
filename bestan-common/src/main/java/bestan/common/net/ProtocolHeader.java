@@ -1,24 +1,15 @@
 package bestan.common.net;
 
-import bestan.common.guid.Guid;
-import io.netty.channel.ChannelHandlerContext;
-
 public class ProtocolHeader {
-	protected int msgId;
-	protected Guid guid;
-	protected ChannelHandlerContext ctx;
+	protected int messageId;
+	protected boolean isRpc = false;
+	protected boolean isRequest = false;
 	
-	public ProtocolHeader(int msgId, Guid guid, ChannelHandlerContext channelHandlerContext) {
-		this.msgId = msgId;
-		this.guid = guid;
-		this.ctx = channelHandlerContext;
+	public ProtocolHeader(int messageId) {
+		this.messageId = messageId;
 	}
 	
-	public Guid getGuid() {
-		return guid;
-	}
-	
-	public ChannelHandlerContext getChannelHandlerContext() {
-		return ctx;
+	public int getMessageId() {
+		return messageId;
 	}
 }
