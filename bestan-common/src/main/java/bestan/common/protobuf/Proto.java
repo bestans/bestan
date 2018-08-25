@@ -867,9 +867,9 @@ public final class Proto {
     int getRpcIndex();
 
     /**
-     * <code>bytes argMessageData = 5;</code>
+     * <code>bytes messageData = 5;</code>
      */
-    com.google.protobuf.ByteString getArgMessageData();
+    com.google.protobuf.ByteString getMessageData();
   }
   /**
    * Protobuf type {@code bestan.common.protobuf.RpcMessage}
@@ -888,7 +888,7 @@ public final class Proto {
       argMessageId_ = 0;
       isRequest_ = false;
       rpcIndex_ = 0;
-      argMessageData_ = com.google.protobuf.ByteString.EMPTY;
+      messageData_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -944,7 +944,7 @@ public final class Proto {
             }
             case 42: {
 
-              argMessageData_ = input.readBytes();
+              messageData_ = input.readBytes();
               break;
             }
           }
@@ -1007,13 +1007,13 @@ public final class Proto {
       return rpcIndex_;
     }
 
-    public static final int ARGMESSAGEDATA_FIELD_NUMBER = 5;
-    private com.google.protobuf.ByteString argMessageData_;
+    public static final int MESSAGEDATA_FIELD_NUMBER = 5;
+    private com.google.protobuf.ByteString messageData_;
     /**
-     * <code>bytes argMessageData = 5;</code>
+     * <code>bytes messageData = 5;</code>
      */
-    public com.google.protobuf.ByteString getArgMessageData() {
-      return argMessageData_;
+    public com.google.protobuf.ByteString getMessageData() {
+      return messageData_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1040,8 +1040,8 @@ public final class Proto {
       if (rpcIndex_ != 0) {
         output.writeInt32(4, rpcIndex_);
       }
-      if (!argMessageData_.isEmpty()) {
-        output.writeBytes(5, argMessageData_);
+      if (!messageData_.isEmpty()) {
+        output.writeBytes(5, messageData_);
       }
       unknownFields.writeTo(output);
     }
@@ -1067,9 +1067,9 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, rpcIndex_);
       }
-      if (!argMessageData_.isEmpty()) {
+      if (!messageData_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, argMessageData_);
+          .computeBytesSize(5, messageData_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1095,8 +1095,8 @@ public final class Proto {
           == other.getIsRequest());
       result = result && (getRpcIndex()
           == other.getRpcIndex());
-      result = result && getArgMessageData()
-          .equals(other.getArgMessageData());
+      result = result && getMessageData()
+          .equals(other.getMessageData());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1117,8 +1117,8 @@ public final class Proto {
           getIsRequest());
       hash = (37 * hash) + RPCINDEX_FIELD_NUMBER;
       hash = (53 * hash) + getRpcIndex();
-      hash = (37 * hash) + ARGMESSAGEDATA_FIELD_NUMBER;
-      hash = (53 * hash) + getArgMessageData().hashCode();
+      hash = (37 * hash) + MESSAGEDATA_FIELD_NUMBER;
+      hash = (53 * hash) + getMessageData().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1256,7 +1256,7 @@ public final class Proto {
 
         rpcIndex_ = 0;
 
-        argMessageData_ = com.google.protobuf.ByteString.EMPTY;
+        messageData_ = com.google.protobuf.ByteString.EMPTY;
 
         return this;
       }
@@ -1284,7 +1284,7 @@ public final class Proto {
         result.argMessageId_ = argMessageId_;
         result.isRequest_ = isRequest_;
         result.rpcIndex_ = rpcIndex_;
-        result.argMessageData_ = argMessageData_;
+        result.messageData_ = messageData_;
         onBuilt();
         return result;
       }
@@ -1338,8 +1338,8 @@ public final class Proto {
         if (other.getRpcIndex() != 0) {
           setRpcIndex(other.getRpcIndex());
         }
-        if (other.getArgMessageData() != com.google.protobuf.ByteString.EMPTY) {
-          setArgMessageData(other.getArgMessageData());
+        if (other.getMessageData() != com.google.protobuf.ByteString.EMPTY) {
+          setMessageData(other.getMessageData());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1472,31 +1472,31 @@ public final class Proto {
         return this;
       }
 
-      private com.google.protobuf.ByteString argMessageData_ = com.google.protobuf.ByteString.EMPTY;
+      private com.google.protobuf.ByteString messageData_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes argMessageData = 5;</code>
+       * <code>bytes messageData = 5;</code>
        */
-      public com.google.protobuf.ByteString getArgMessageData() {
-        return argMessageData_;
+      public com.google.protobuf.ByteString getMessageData() {
+        return messageData_;
       }
       /**
-       * <code>bytes argMessageData = 5;</code>
+       * <code>bytes messageData = 5;</code>
        */
-      public Builder setArgMessageData(com.google.protobuf.ByteString value) {
+      public Builder setMessageData(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        argMessageData_ = value;
+        messageData_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bytes argMessageData = 5;</code>
+       * <code>bytes messageData = 5;</code>
        */
-      public Builder clearArgMessageData() {
+      public Builder clearMessageData() {
         
-        argMessageData_ = getDefaultInstance().getArgMessageData();
+        messageData_ = getDefaultInstance().getMessageData();
         onChanged();
         return this;
       }
@@ -2416,14 +2416,14 @@ public final class Proto {
       "eData\030\002 \001(\014\022A\n\010testInfo\030\003 \003(\0132/.bestan.c" +
       "ommon.protobuf.BaseProto.TestInfoEntry\032/" +
       "\n\rTestInfoEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 " +
-      "\001(\005:\0028\001\"u\n\nRpcMessage\022\024\n\014resMessageId\030\001 " +
+      "\001(\005:\0028\001\"r\n\nRpcMessage\022\024\n\014resMessageId\030\001 " +
       "\001(\005\022\024\n\014argMessageId\030\002 \001(\005\022\021\n\tisRequest\030\003" +
-      " \001(\010\022\020\n\010rpcIndex\030\004 \001(\005\022\026\n\016argMessageData" +
-      "\030\005 \001(\014\"\253\001\n\013BaseProto22\022\021\n\tmessageId\030\001 \001(" +
-      "\005\022\023\n\013messageData\030\002 \001(\014\022C\n\010testInfo\030\003 \003(\013" +
-      "21.bestan.common.protobuf.BaseProto22.Te" +
-      "stInfoEntry\032/\n\rTestInfoEntry\022\013\n\003key\030\001 \001(" +
-      "\005\022\r\n\005value\030\002 \001(\005:\0028\001b\006proto3"
+      " \001(\010\022\020\n\010rpcIndex\030\004 \001(\005\022\023\n\013messageData\030\005 " +
+      "\001(\014\"\253\001\n\013BaseProto22\022\021\n\tmessageId\030\001 \001(\005\022\023" +
+      "\n\013messageData\030\002 \001(\014\022C\n\010testInfo\030\003 \003(\01321." +
+      "bestan.common.protobuf.BaseProto22.TestI" +
+      "nfoEntry\032/\n\rTestInfoEntry\022\013\n\003key\030\001 \001(\005\022\r" +
+      "\n\005value\030\002 \001(\005:\0028\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2454,7 +2454,7 @@ public final class Proto {
     internal_static_bestan_common_protobuf_RpcMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_RpcMessage_descriptor,
-        new java.lang.String[] { "ResMessageId", "ArgMessageId", "IsRequest", "RpcIndex", "ArgMessageData", });
+        new java.lang.String[] { "ResMessageId", "ArgMessageId", "IsRequest", "RpcIndex", "MessageData", });
     internal_static_bestan_common_protobuf_BaseProto22_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_bestan_common_protobuf_BaseProto22_fieldAccessorTable = new

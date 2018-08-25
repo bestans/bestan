@@ -5,8 +5,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.google.common.collect.Maps;
+import com.google.protobuf.Message;
 
 import bestan.common.logic.BaseManager;
+import bestan.common.protobuf.Proto;
 import bestan.common.timer.ITimer;
 import bestan.common.timer.Timer;
 
@@ -35,20 +37,25 @@ public class RpcManager extends BaseManager implements ITimer {
 		return RpcManagerHolder.INSTANCE;
 	}
 	
-	public void put(AbstractRpc rpc) {
+	public void put(Proto.RpcMessage.Builder rpc, Message arg, Object param, int timeout) {
+		put(new RpcObject(rpc, arg, param, timeout));
+	}
+	
+	public void put(RpcObject rpc) {
 		lock.lock();
-		try {
-			map.put(rpc.getRpcIndex(), new RpcObject(rpc));
+		try
+		{
+			rpc.resetEndtime();
+			map.put(rpc.getRpcMessage().getRpcIndex(), rpc);
 		} finally {
 			lock.unlock();
 		}
 	}
 	
-	public AbstractRpc get(int index) {
+	public RpcObject get(int index) {
 		lock.lock();
 		try {
-			var rpcObj = map.get(index);
-			return rpcObj != null ? rpcObj.getRpc() : null;
+			return map.get(index);
 		} finally {
 			lock.unlock();
 		}
@@ -69,19 +76,33 @@ public class RpcManager extends BaseManager implements ITimer {
 		}
 	}
 	
-	private static class RpcObject {
-		private AbstractRpc rpc;
+	public static class RpcObject {
+		private Proto.RpcMessage.Builder rpc;
+		private Message arg;
 		private long endTime;
+		private Object param;
+		private int timeout;
 		
-		private RpcObject(AbstractRpc rpc) {
+		private RpcObject(Proto.RpcMessage.Builder rpc, Message arg, Object param, int timeout) {
 			this.rpc = rpc;
-			endTime = Timer.getTime() + rpc.getTimeout();
+			this.param = param;
+			this.arg = arg;
+			this.timeout = timeout;
+		}
+		private void resetEndtime() {
+			endTime = Timer.getTime() + timeout;
 		}
 		public long getEndTime() {
 			return endTime;
 		}
-		public AbstractRpc getRpc() {
+		public Proto.RpcMessage.Builder getRpcMessage() {
 			return rpc;
+		}
+		public Object getParam() {
+			return param;
+		}
+		public Message getArgMessage() {
+			return arg;
 		}
 	}
 }

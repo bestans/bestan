@@ -15,7 +15,7 @@ message RpcMessage
 	int32 argMessageId			= 2;
 	bool isRequest				= 3;
 	int32 rpcIndex				= 4;
-	bytes argMessageData		= 5;
+	bytes messageData			= 5;
 }
 
 message BaseProto22

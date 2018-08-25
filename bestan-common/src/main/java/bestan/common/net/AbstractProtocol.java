@@ -7,13 +7,13 @@ import bestan.common.message.MessageFactory;
 import io.netty.channel.ChannelHandlerContext;
 
 public abstract class AbstractProtocol implements IProtocol {
-	protected ProtocolHeader header;
-	protected int messageID;
-	protected Message.Builder message;
 	protected ChannelHandlerContext ctx;
+	protected int messageId;
+	protected Message message;
 	
-	public AbstractProtocol(ProtocolHeader header, ChannelHandlerContext ctx, Message.Builder message) {
+	public AbstractProtocol(ChannelHandlerContext ctx, int messageId, Message message) {
 		this.ctx = ctx;
+		this.messageId = messageId;
 		this.message = message;
 	}
 	
@@ -22,12 +22,12 @@ public abstract class AbstractProtocol implements IProtocol {
 		return 0;
 	}
 	
-	public Message.Builder getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 	
-	public int getMessageID() {
-		return messageID;
+	public int getMessageId() {
+		return messageId;
 	}
 	
 	public ChannelHandlerContext getChannelHandlerContext() {
@@ -36,26 +36,18 @@ public abstract class AbstractProtocol implements IProtocol {
 	
 	@Override
 	public void run() {
-		if (header.isRpc) {
-			//runRpc();
-		} else {
-			runProtocol();
-		}
-	}
-	
-	public void runProtocol() {
 		try
 		{
-			var handle = MessageFactory.getMessageHandle(messageID);
+			var handle = MessageFactory.getMessageHandle(messageId);
 			if (handle == null) {
-				Glog.error("{} cannot find message handle:messageID={}", getClass().getSimpleName(), messageID);
+				Glog.error("{} cannot find message handle:messageID={}", getClass().getSimpleName(), messageId);
 				return;
 			}
 		
 			handle.ProcessProtocol(this);
 		} catch (Exception e) {
 			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}",
-					getClass().getSimpleName(), messageID, e.getMessage());
+					getClass().getSimpleName(), messageId, e.getMessage());
 		}
 	}
 }
