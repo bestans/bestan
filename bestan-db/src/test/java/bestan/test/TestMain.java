@@ -17,7 +17,7 @@ import com.google.common.primitives.Shorts;
 
 import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.DBException;
-import bestan.common.db.IDbHandle;
+import bestan.common.db.IDBHandle;
 import bestan.common.db.MergeTable;
 import bestan.common.db.StorageEnv;
 import bestan.common.db.util.JStormUtils;
@@ -148,7 +148,7 @@ public class TestMain {
 		Glog.debug("interval={},total={}", cur - begin, total);
 		Glog.debug("interval2={}, total2={}", System.currentTimeMillis() - cur, total2);
     }
-    public static class InitDb implements IDbHandle{
+    public static class InitDb implements IDBHandle{
     	private int start = 0;
     	
     	public InitDb(int key) {
@@ -160,7 +160,7 @@ public class TestMain {
 			var player = StorageEnv.getStorage(EM_DB.PLAYER);
 			int key = start;
 			for (int i = 0; i < 20; ++i, ++key) {
-				Glog.debug("key={},value={}", key, player.get(txn, key));
+				Glog.debug("key={},value={}", key, player.getInt(txn, key));
 				player.put(txn, key, key + 1000);
 			}
     	}
@@ -170,10 +170,10 @@ public class TestMain {
     	new InitDb(key).baseHandle();
     	StorageEnv.close();
     }
-    public static class PrintDB implements IDbHandle {
+    public static class PrintDB implements IDBHandle {
     	@Override
     	public void handle(Transaction txn) throws RocksDBException {
-			var player = StorageEnv.getStorage(EM_DB.PLAYER);
+			var player = StorageEnv.getStorage("player");
 			var it = player.newIterator();
 			it.seekToFirst();
 			while (it.isValid()) {
@@ -182,9 +182,25 @@ public class TestMain {
 			}
 		}
     }
+
+    public static class SetDB implements IDBHandle {
+    	@Override
+    	public void handle(Transaction txn) throws RocksDBException {
+			var player = StorageEnv.getStorage("player");
+			for (int i = 10; i < 20; ++i) {
+				player.put(txn, i, i);
+			}
+		}
+    }
     private static void test10() {
     	StorageEnv.init("d:/rocksdb_test1");
     	new PrintDB().baseHandle();
+		StorageEnv.close();
+    }
+
+    private static void test20() {
+    	StorageEnv.init("d:/rocksdb_test2");
+    	new SetDB().baseHandle();
 		StorageEnv.close();
     }
     
@@ -201,6 +217,7 @@ public class TestMain {
     }
 	public static void main(String[] args) {
 			Glog.info("test");
+			test11();
 	}
 
 }

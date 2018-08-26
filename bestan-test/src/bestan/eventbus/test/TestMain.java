@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.eventbus.AsyncEventBus;
 
-import bestan.common.eventbus.BEventBus;
-import bestan.common.eventbus.IEvent;
+import bestan.common.event.BEventBus;
+import bestan.common.event.IEvent;
 import bestan.common.log.Glog;
 import bestan.common.thread.BThreadPoolExecutors;
 

@@ -1,6 +1,6 @@
 package bestan.eventbus.test;
 
-import bestan.common.eventbus.IEvent;
+import bestan.common.event.IEvent;
 
 public class ThreadA implements IEvent {
 	private Player player;
@@ -9,7 +9,6 @@ public class ThreadA implements IEvent {
 		this.player = player;
 	}
 	
-	@Override
 	public long getID() {
 		return player.id;
 	}

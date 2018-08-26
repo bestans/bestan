@@ -37,12 +37,14 @@ import org.rocksdb.StringAppendOperator;
 import com.google.common.collect.Lists;
 
 import bestan.common.log.Glog;
+import bestan.common.logic.FormatException;
+import bestan.common.message.MessageFactory;
 
-public class RocksDbOptionsFactory {
+public class RocksDBOptionsFactory {
     private static final int DEFAULT_BLOOM_FILTER_BITS = 10;
     private static final String DEFAULT_COLUMN_FAMILY = "default";
 
-    public static Options createOptions(RocksDBOption cfg) {
+    public static Options createOptions(RocksDBConfig cfg) {
     	var option = new Options();
     	option.setCreateIfMissing(cfg.createIfMissing);
     	option.setCreateMissingColumnFamilies(cfg.createMissingColumnFamilies);
@@ -69,7 +71,7 @@ public class RocksDbOptionsFactory {
     	return option;
     }
     public static Options createOptions() {
-    	return createOptions(RocksDBOption.option);
+    	return createOptions(RocksDBConfig.option);
     }
 
     public static DBOptions createDefaultDbOptions(DBOptions currentOptions) {
@@ -86,7 +88,7 @@ public class RocksDbOptionsFactory {
         return currentOptions;
     }
 
-    public static ColumnFamilyOptions createColumnFamilyOptions(RocksDBOption cfg) {
+    public static ColumnFamilyOptions createColumnFamilyOptions(RocksDBConfig cfg) {
     	var option = new ColumnFamilyOptions();
     	option.setMergeOperator(new StringAppendOperator());
     	option.setMaxWriteBufferNumber(cfg.maxWriteBufferNumber);
@@ -108,7 +110,43 @@ public class RocksDbOptionsFactory {
     	return option;
     }
     public static ColumnFamilyOptions createColumnFamilyOptions() {
-    	return createColumnFamilyOptions(RocksDBOption.option);
+    	return createColumnFamilyOptions(RocksDBConfig.option);
+    }
+    public static List<ColumnFamilyDescriptor> getExistingColumnFamilyDescFinal(RocksDBConfig config, Options options, String rocksDbDir) {
+        try {
+            List<String> strfamilies = Lists.newArrayList();
+            List<byte[]> oldFamilies = RocksDB.listColumnFamilies(options, rocksDbDir);
+            List<byte[]> families = Lists.newArrayList();
+            if (oldFamilies != null) {
+            	families.addAll(oldFamilies);
+            }
+            for (byte[] temp_b : oldFamilies) {
+            	strfamilies.add(new String(temp_b));
+            }
+        	for (var it : config.tables.entrySet()) {
+        		String dbName = it.getKey();
+        		boolean find = false;
+        		for (String old_db : strfamilies) {
+	        		if (old_db.equals(dbName)) {
+	        			find = true;
+	        			break;
+	        		}
+        		}
+        		if (!find) {
+        			families.add(dbName.getBytes());
+        		}
+        	}
+
+            ColumnFamilyOptions familyOptions = RocksDBOptionsFactory.createColumnFamilyOptions();
+            List<ColumnFamilyDescriptor> columnFamilyDescriptors = new ArrayList<>();
+            for (byte[] bytes : families) {
+                columnFamilyDescriptors.add(new ColumnFamilyDescriptor(bytes, familyOptions));
+                Glog.info("Load column family of {}", new String(bytes));
+            }
+            return columnFamilyDescriptors;
+        } catch (RocksDBException e) {
+            throw new RuntimeException("Failed to retrieve existing column families.", e);
+        }
     }
     
     public static List<ColumnFamilyDescriptor> getExistingColumnFamilyDesc(Options options, String rocksDbDir) {
@@ -135,7 +173,7 @@ public class RocksDbOptionsFactory {
         		}
         	}
 
-            ColumnFamilyOptions familyOptions = RocksDbOptionsFactory.createColumnFamilyOptions();
+            ColumnFamilyOptions familyOptions = RocksDBOptionsFactory.createColumnFamilyOptions();
             List<ColumnFamilyDescriptor> columnFamilyDescriptors = new ArrayList<>();
             for (byte[] bytes : families) {
                 columnFamilyDescriptors.add(new ColumnFamilyDescriptor(bytes, familyOptions));
@@ -147,41 +185,41 @@ public class RocksDbOptionsFactory {
         }
     }
     
-    public static RocksDB createWithColumnFamily(final Map conf, String rocksDbDir, final List<ColumnFamilyHandle> columnFamilyHandles, final List<Storage> storages) throws IOException {
-        Options options = RocksDbOptionsFactory.createOptions();
-        DBOptions dbOptions = RocksDbOptionsFactory.createDefaultDbOptions(null);
-        List<ColumnFamilyDescriptor> columnFamilyDescriptors = getExistingColumnFamilyDesc(options, rocksDbDir);
+    public static OptimisticTransactionDB createWithColumnFamily(final RocksDBConfig config, String rocksDbDir, Map<String, ColumnFamilyHandle> columnFamilyHandles, final Map<String, Storage> storages) throws Exception {
+        final Options options = new Options()
+                .setCreateIfMissing(true);
+        DBOptions dbOptions = RocksDBOptionsFactory.createDefaultDbOptions(null);
+        List<ColumnFamilyDescriptor> columnFamilyDescriptors = getExistingColumnFamilyDescFinal(config, options, rocksDbDir);
 
         try {
         	List<ColumnFamilyHandle> srcColumnFamilyHandles = Lists.newArrayList();
-            RocksDB rocksDb = RocksDB.open(dbOptions, rocksDbDir, columnFamilyDescriptors, srcColumnFamilyHandles);
+            var txnDb = OptimisticTransactionDB.open(dbOptions, rocksDbDir, columnFamilyDescriptors, srcColumnFamilyHandles);
             int n = Math.min(columnFamilyDescriptors.size(), srcColumnFamilyHandles.size());
             for (int i = 0; i < n; i++) {
                 ColumnFamilyDescriptor descriptor = columnFamilyDescriptors.get(i);
                 String tableName = new String(descriptor.getName());
-                if (tableName.equals(DBConst.DEFAULT_COLUMN_FAMILY)) {
+                String messageName = config.tables.get(tableName);
+                if (null == messageName) {
                 	continue;
                 }
-                var tableType = DBConst.dbDescMap.get(tableName);
-                var tableIndex = tableType.ordinal();
-                if (columnFamilyHandles.get(tableIndex) != null) {
-                	throw new IOException("Failed to initialize RocksDb. duplicate family");
-                }
-                columnFamilyHandles.set(tableIndex, srcColumnFamilyHandles.get(i));
-                storages.set(tableIndex, new Storage(tableType, srcColumnFamilyHandles.get(i), rocksDb));
-            }
-            for (ColumnFamilyHandle handle : columnFamilyHandles) {
-            	if (handle == null) {
+                if (srcColumnFamilyHandles.get(i) == null) {
             		throw new IOException("Failed to initialize RocksDb. empty family handle.");
-            	}
+                }
+                var messageInstance = MessageFactory.getMessageInstance(tableName);
+        		if (messageInstance == null)
+        			throw new FormatException("Storage construct failed: invalid table value message, table=%s, message=%s", 
+        					tableName, messageName);
+        		
+                columnFamilyHandles.put(tableName, srcColumnFamilyHandles.get(i));
+                storages.put(tableName, new Storage(tableName, messageInstance, srcColumnFamilyHandles.get(i), txnDb));
             }
-            Glog.info("Finished loading RocksDB with existing column dbPath={},desc_size={},handle_size={}",
-            		rocksDbDir, columnFamilyDescriptors.size(), columnFamilyHandles.size());
+            Glog.info("Finished loading RocksDB with existing column dbPath={},desc_size={}",
+            		rocksDbDir, columnFamilyDescriptors.size());
             // enable compaction
-            rocksDb.compactRange();
-            return rocksDb;
+            txnDb.compactRange();
+            return txnDb;
         } catch (RocksDBException e) {
-            throw new IOException("Failed to initialize RocksDb.", e);
+            throw new IOException("Failed to initialize RocksDb." + e.getMessage());
         }
     }
     
@@ -189,7 +227,7 @@ public class RocksDbOptionsFactory {
         //Options options = RocksDbOptionsFactory.createDefaultOptions(null);
         final Options options = new Options()
                 .setCreateIfMissing(true);
-        DBOptions dbOptions = RocksDbOptionsFactory.createDefaultDbOptions(null);
+        DBOptions dbOptions = RocksDBOptionsFactory.createDefaultDbOptions(null);
         List<ColumnFamilyDescriptor> columnFamilyDescriptors = getExistingColumnFamilyDesc(options, rocksDbDir);
 
         try {
@@ -208,7 +246,7 @@ public class RocksDbOptionsFactory {
                 	throw new IOException("Failed to initialize RocksDb. duplicate family");
                 }
                 columnFamilyHandles.set(tableIndex, srcColumnFamilyHandles.get(i));
-                storages.set(tableIndex, new Storage(tableType, srcColumnFamilyHandles.get(i), txnDb));
+                //storages.set(tableIndex, new Storage(tableType, srcColumnFamilyHandles.get(i), txnDb));
             }
             for (ColumnFamilyHandle handle : columnFamilyHandles) {
             	if (handle == null) {

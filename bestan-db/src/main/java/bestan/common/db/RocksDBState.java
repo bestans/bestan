@@ -26,6 +26,7 @@ import org.rocksdb.WriteBatch;
 import org.rocksdb.WriteOptions;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.util.JStormUtils;
@@ -33,13 +34,14 @@ import bestan.common.db.util.Utils;
 import bestan.common.log.Glog;
 import cn.hutool.core.date.DateUtil;
 
-public class RocksDbState {
+public class RocksDBState {
     protected static final String ROCKSDB_DATA_FILE_EXT = "sst";
     protected static final String SST_FILE_LIST = "sstFile.list";
     protected static final String ENABLE_METRICS = "rocksdb.hdfs.state.metrics";
 
     protected String topoGlogyName;
     protected Map conf;
+    protected RocksDBConfig config = RocksDBConfig.option;
 
     protected String stateName;
 
@@ -56,20 +58,28 @@ public class RocksDbState {
 
     protected long lastSuccessBatchId;
     
-    protected final List<ColumnFamilyHandle> columnFamilyHandles;
-    protected final List<Storage> storages;
+    protected final Map<String, ColumnFamilyHandle> columnFamilyHandles = Maps.newHashMap();
+    protected final Map<String, Storage> storages = Maps.newHashMap();
     
-    public RocksDbState(){
-    	columnFamilyHandles = Lists.newArrayList(new ColumnFamilyHandle[EM_DB.values().length]);
-    	storages = Lists.newArrayList(new Storage[EM_DB.values().length]);
+    public RocksDBState(){
+    	config.tables.put("player", "player");
+    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, DBConst.DEFAULT_COLUMN_FAMILY);
     }
     
     public ColumnFamilyHandle GetHandle(EM_DB dbType) {
     	return columnFamilyHandles.get(dbType.ordinal());
     }
+
+    public ColumnFamilyHandle GetHandle(String tableName) {
+    	return columnFamilyHandles.get(tableName);
+    }
     
     public Storage getStorage(EM_DB tableType) {
     	return storages.get(tableType.ordinal());
+    }
+    
+    public Storage getStorage(String tableName) {
+    	return storages.get(tableName);
     }
     
     public void initEnv(String topoGlogyName, Map conf, String workerDir) {
@@ -79,17 +89,17 @@ public class RocksDbState {
         this.rocksDbDir = workerDir + "/db";
         this.rocksDbCheckpointDir = workerDir + "/checkpoint";
         initLocalRocksDbDir();
-        initRocksDb2();
+        initRocksDb();
 
         Glog.info("Local: dataDir={}, checkpointDir={}", rocksDbDir, rocksDbCheckpointDir);
     }
     
     protected void initRocksDb() {
-        var options = RocksDbOptionsFactory.createOptions();
+        var options = RocksDBOptionsFactory.createOptions();
         try {
-        	rocksDb = RocksDbOptionsFactory.createWithColumnFamily(conf, rocksDbDir, columnFamilyHandles, storages);
+        	txnDb = RocksDBOptionsFactory.createWithColumnFamily(config, rocksDbDir, columnFamilyHandles, storages);
             Glog.info("Finish the initialization of RocksDB");
-        } catch (IOException e) {
+        } catch (Exception e) {
             Glog.error("Failed to open rocksdb located at {}, error={}", rocksDbDir, e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
@@ -100,11 +110,11 @@ public class RocksDbState {
     }
 
     protected void initRocksDb2() {
-        var options = RocksDbOptionsFactory.createOptions();
+        var options = RocksDBOptionsFactory.createOptions();
         try {
-        	txnDb = RocksDbOptionsFactory.createWithColumnFamily2(conf, rocksDbDir, columnFamilyHandles, storages);
+        	//txnDb = RocksDbOptionsFactory.createWithColumnFamily2(conf, rocksDbDir, columnFamilyHandles, storages);
             Glog.info("Finish the initialization of RocksDB");
-        } catch (IOException e) {
+        } catch (Exception e) {
             Glog.error("Failed to open rocksdb located at {}, error={}", rocksDbDir, e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
@@ -113,7 +123,6 @@ public class RocksDbState {
         lastCleanTime = System.currentTimeMillis();
         lastSuccessBatchId = -1;
     }
-    
     
     /**
      * 初始化db目录
@@ -139,7 +148,7 @@ public class RocksDbState {
                 families.add(RocksDB.DEFAULT_COLUMN_FAMILY);
             }
 
-            ColumnFamilyOptions familyOptions = RocksDbOptionsFactory.createColumnFamilyOptions();
+            ColumnFamilyOptions familyOptions = RocksDBOptionsFactory.createColumnFamilyOptions();
             List<ColumnFamilyDescriptor> columnFamilyDescriptors = new ArrayList<>();
             for (byte[] bytes : families) {
                 columnFamilyDescriptors.add(new ColumnFamilyDescriptor(bytes, familyOptions));
@@ -243,7 +252,7 @@ public class RocksDbState {
         Map conf = new HashMap<Object, Object>();
         conf.putAll(Utils.loadConf("conf.property"));
         DBConst.init();
-        RocksDbState state = new RocksDbState();
+        RocksDBState state = new RocksDBState();
         state.initEnv("test", conf, "d:/rocksdb_test");
         ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
         RocksIterator itr = state.rocksDb.newIterator(handle);
@@ -287,7 +296,7 @@ public class RocksDbState {
         Map conf = new HashMap<Object, Object>();
         conf.putAll(Utils.loadConf("conf.property"));
         DBConst.init();
-        RocksDbState state = new RocksDbState();
+        RocksDBState state = new RocksDBState();
         state.initEnv("test", conf, "d:/rocksdb_test");
         ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
         var txnDb = state.txnDb;
@@ -314,7 +323,7 @@ public class RocksDbState {
       Map conf = new HashMap<Object, Object>();
       conf.putAll(Utils.loadConf("conf.property"));
       DBConst.init();
-      RocksDbState state = new RocksDbState();
+      RocksDBState state = new RocksDBState();
       state.initEnv("test", conf, "d:/rocksdb_test");
       ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
       var txnDb = state.txnDb;

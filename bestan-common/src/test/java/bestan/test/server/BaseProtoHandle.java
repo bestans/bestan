@@ -11,7 +11,7 @@ import bestan.common.net.AbstractProtocol;
 public class BaseProtoHandle implements IMessageHandle {
 
 	@Override
-	public void ProcessProtocol(AbstractProtocol protocol) {
+	public void processProtocol(AbstractProtocol protocol) {
 		Glog.debug("BaseProtoHandle:message={}", protocol.getMessage());
 	}
 }

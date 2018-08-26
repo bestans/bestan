@@ -5,5 +5,13 @@ public enum MessageEnum {
 	INVALID,
 	BaseProto,		//1
 	RpcMessage,		//2
-	BaseProto22,		//3
+	DBTableDefine,		//3
+	DBCommonKey,		//4
+	CommonSave,		//5
+	RpcCommonSaveOp,		//6
+	RpcCommonSaveOpRes,		//7
+	CommonSaveOp,		//8
+	CommonLoadRes,		//9
+	RpcCommonLoadOp,		//10
+	RpcCommonLoadOpRes,		//11
 }

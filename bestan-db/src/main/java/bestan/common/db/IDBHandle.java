@@ -5,7 +5,7 @@ import org.rocksdb.Transaction;
 
 import bestan.common.log.Glog;
 
-public interface IDbHandle {
+public interface IDBHandle {
 	default void baseHandle() {
 		Transaction txn = null;
 		try {

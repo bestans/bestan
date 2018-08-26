@@ -8,25 +8,31 @@ import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
+
 import com.google.common.primitives.Ints;
+import com.google.protobuf.Message;
+
+import bestan.common.logic.FormatException;
 
 public class Storage implements Comparable<Object> {
 	private ReentrantLock lock = new ReentrantLock();
-	
-	private DBConst.EM_DB tableType;
+
+	private String tableName;
 	private ColumnFamilyHandle handle;
 	private ReadOptions rOptions;
 	private RocksDB db;
+	private Message messageInstance;
 	
-	public Storage(DBConst.EM_DB tableType, ColumnFamilyHandle handle, RocksDB db) {
+	public Storage(String tableName, Message messageInstance, ColumnFamilyHandle handle, RocksDB db) throws FormatException {
 		this.handle = handle;
-		this.tableType = tableType;
+		this.tableName = tableName;
 		this.db = db;
+		this.messageInstance = messageInstance;
 		rOptions = new ReadOptions();
 	}
 	
-	public DBConst.EM_DB getTableType(){
-		return tableType;
+	public String getTableType(){
+		return tableName;
 	}
 	public void lock() {
 		lock.lock();
@@ -53,21 +59,34 @@ public class Storage implements Comparable<Object> {
 	public void put(Transaction txn, int key, int value) throws RocksDBException {
 		put(txn, Ints.toByteArray(key), Ints.toByteArray(value));
 	}
-	public int get(Transaction txn, int key) throws RocksDBException {
+
+	public void put(Transaction txn, int key, Message message) throws RocksDBException {
+		put(txn, Ints.toByteArray(key), message.toByteArray());
+	}
+	
+	public int getInt(Transaction txn, int key) throws RocksDBException {
 		var value = get(txn, Ints.toByteArray(key));
 		return value != null ? Ints.fromByteArray(value) : 0;
 	}
+	
+	public Message.Builder get(Transaction txn, int key) throws Exception {
+		var value = get(txn, Ints.toByteArray(key));
+		if (value == null)
+			return null;
+		
+		return messageInstance.newBuilderForType().mergeFrom(value);
+	}
+	
 	public void delete(Transaction txn, int key) throws RocksDBException {
 		delete(txn, Ints.toByteArray(key));
 	}
 
+	public void delete(Transaction txn, Message key) throws RocksDBException {
+		delete(txn, key.toByteArray());
+	}
+	
 	@Override
 	public int compareTo(Object arg) {
-		if (((Storage)arg).getTableType() == this.getTableType()) {
-			return 0;
-		} else if (this.getTableType().ordinal() > ((Storage)arg).getTableType().ordinal()) {
-			return 1;
-		} else
-			return -1;
+		return getTableType().compareTo(((Storage)arg).getTableType());
 	}
 }

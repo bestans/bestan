@@ -2,7 +2,6 @@ package bestan.common.db;
 
 import org.rocksdb.RocksDBException;
 
-import bestan.common.db.DBConst.EM_DB;
 import bestan.common.log.Glog;
 
 /**
@@ -10,10 +9,10 @@ import bestan.common.log.Glog;
  *
  */
 public class MergeTable {
-	private RocksDbState dstDB;
-	private RocksDbState srcDB;
+	private RocksDBState dstDB;
+	private RocksDBState srcDB;
 	
-	public MergeTable(RocksDbState dstDB, RocksDbState srcDB) {
+	public MergeTable(RocksDBState dstDB, RocksDBState srcDB) {
 		this.dstDB = dstDB;
 		this.srcDB = srcDB;
 	}
@@ -27,7 +26,7 @@ public class MergeTable {
 	
 	public void mergeAllDB() {
 		try {
-			mergeByCombine(EM_DB.PLAYER);
+			mergeByCombine("player");
 			
 			dstDB.txnDb.compactRange();
 		} catch (RocksDBException e) {
@@ -39,9 +38,9 @@ public class MergeTable {
 	}
 	
 	//直接合并
-	public void mergeByCombine(EM_DB tableType) throws RocksDBException {
-		var dstHandle = dstDB.GetHandle(tableType);
-		var srcHandle = srcDB.GetHandle(tableType);
+	public void mergeByCombine(String tableName) throws RocksDBException {
+		var dstHandle = dstDB.GetHandle(tableName);
+		var srcHandle = srcDB.GetHandle(tableName);
 		if (dstHandle == null || srcHandle == null)
 			throw new RuntimeException("not found table");
 		
@@ -53,7 +52,7 @@ public class MergeTable {
 			src_it.next();
 			++count;
 		}
-		Glog.debug("merge table({}) count num = {}", tableType.name(), count);
+		Glog.debug("merge table({}) count num = {}", tableName, count);
 		dstDB.txnDb.compactRange();
 	}
 }

@@ -30,7 +30,7 @@ public class MessageFactory implements IModule {
 	private static Map<Class<? extends Message>, Message> messageInstanceMap = Maps.newHashMap();
 	private static Map<Integer, Message> indexMessageMap = Maps.newHashMap();
 	private static Map<String, Integer> messageNameIndexMap = Maps.newHashMap();
-	
+	private static Map<String, Message> nameMessageMap = Maps.newHashMap();
 	
 	/**
 	 * 消息对应的handler
@@ -53,7 +53,8 @@ public class MessageFactory implements IModule {
 		if (newIndex == null) {
 			return false;
 		}
-		if (indexMessageMap.containsKey(newIndex) || messageIndexMap.containsKey(messageClass)) {
+		String messageName = messageClass.getSimpleName();
+		if (indexMessageMap.containsKey(newIndex) || messageIndexMap.containsKey(messageClass) || nameMessageMap.containsKey(messageName)) {
 			Glog.error("MessageFactory register error index, class={}, index{}, duplicate with {}",
 					messageClass.getSimpleName(), newIndex,
 					getMessageInstance(newIndex).getClass().getSimpleName());  
@@ -63,11 +64,11 @@ public class MessageFactory implements IModule {
 			var method = messageClass.getMethod("getDefaultInstance");
 			var message = method.invoke(null);
 			if (!(message instanceof Message)) return false;
-			
 
 			indexMessageMap.put(newIndex, (Message) message);
 			messageIndexMap.put(messageClass, newIndex);
 			messageInstanceMap.put(messageClass, (Message)message);
+			nameMessageMap.put(messageName, (Message)message);
 		} catch (Exception e) {
 			Glog.error("MessageFactory register error={}, message={}", e, messageClass.getSimpleName());
 			return false;
@@ -142,6 +143,10 @@ public class MessageFactory implements IModule {
 	
 	public static Message getMessageInstance(Class<? extends Message> messageClass) {
 		return messageInstanceMap.get(messageClass);
+	}
+	
+	public static Message getMessageInstance(String messageName) {
+		return nameMessageMap.get(messageName);
 	}
 	
 	public static int getMessageIndex(Class<? extends Message> messageClass) {

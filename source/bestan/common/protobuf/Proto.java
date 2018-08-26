@@ -27,40 +27,6 @@ public final class Proto {
      * <code>bytes messageData = 2;</code>
      */
     com.google.protobuf.ByteString getMessageData();
-
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-    int getTestInfoCount();
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-    boolean containsTestInfo(
-        int key);
-    /**
-     * Use {@link #getTestInfoMap()} instead.
-     */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.Integer, java.lang.Integer>
-    getTestInfo();
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-    java.util.Map<java.lang.Integer, java.lang.Integer>
-    getTestInfoMap();
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    int getTestInfoOrDefault(
-        int key,
-        int defaultValue);
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    int getTestInfoOrThrow(
-        int key);
   }
   /**
    * Protobuf type {@code bestan.common.protobuf.BaseProto}
@@ -120,19 +86,6 @@ public final class Proto {
               messageData_ = input.readBytes();
               break;
             }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                testInfo_ = com.google.protobuf.MapField.newMapField(
-                    TestInfoDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000004;
-              }
-              com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
-              testInfo__ = input.readMessage(
-                  TestInfoDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              testInfo_.getMutableMap().put(
-                  testInfo__.getKey(), testInfo__.getValue());
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -150,17 +103,6 @@ public final class Proto {
       return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_descriptor;
     }
 
-    @SuppressWarnings({"rawtypes"})
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 3:
-          return internalGetTestInfo();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable
@@ -168,7 +110,6 @@ public final class Proto {
               bestan.common.protobuf.Proto.BaseProto.class, bestan.common.protobuf.Proto.BaseProto.Builder.class);
     }
 
-    private int bitField0_;
     public static final int MESSAGEID_FIELD_NUMBER = 1;
     private int messageId_;
     /**
@@ -185,82 +126,6 @@ public final class Proto {
      */
     public com.google.protobuf.ByteString getMessageData() {
       return messageData_;
-    }
-
-    public static final int TESTINFO_FIELD_NUMBER = 3;
-    private static final class TestInfoDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.Integer, java.lang.Integer> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.Integer, java.lang.Integer>newDefaultInstance(
-                  bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.INT32,
-                  0,
-                  com.google.protobuf.WireFormat.FieldType.INT32,
-                  0);
-    }
-    private com.google.protobuf.MapField<
-        java.lang.Integer, java.lang.Integer> testInfo_;
-    private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-    internalGetTestInfo() {
-      if (testInfo_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            TestInfoDefaultEntryHolder.defaultEntry);
-      }
-      return testInfo_;
-    }
-
-    public int getTestInfoCount() {
-      return internalGetTestInfo().getMap().size();
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public boolean containsTestInfo(
-        int key) {
-      
-      return internalGetTestInfo().getMap().containsKey(key);
-    }
-    /**
-     * Use {@link #getTestInfoMap()} instead.
-     */
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfo() {
-      return getTestInfoMap();
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfoMap() {
-      return internalGetTestInfo().getMap();
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public int getTestInfoOrDefault(
-        int key,
-        int defaultValue) {
-      
-      java.util.Map<java.lang.Integer, java.lang.Integer> map =
-          internalGetTestInfo().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public int getTestInfoOrThrow(
-        int key) {
-      
-      java.util.Map<java.lang.Integer, java.lang.Integer> map =
-          internalGetTestInfo().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
-      }
-      return map.get(key);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -281,12 +146,6 @@ public final class Proto {
       if (!messageData_.isEmpty()) {
         output.writeBytes(2, messageData_);
       }
-      com.google.protobuf.GeneratedMessageV3
-        .serializeIntegerMapTo(
-          output,
-          internalGetTestInfo(),
-          TestInfoDefaultEntryHolder.defaultEntry,
-          3);
       unknownFields.writeTo(output);
     }
 
@@ -302,16 +161,6 @@ public final class Proto {
       if (!messageData_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, messageData_);
-      }
-      for (java.util.Map.Entry<java.lang.Integer, java.lang.Integer> entry
-           : internalGetTestInfo().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
-        testInfo__ = TestInfoDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
-        size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, testInfo__);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -333,8 +182,6 @@ public final class Proto {
           == other.getMessageId());
       result = result && getMessageData()
           .equals(other.getMessageData());
-      result = result && internalGetTestInfo().equals(
-          other.internalGetTestInfo());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -350,10 +197,6 @@ public final class Proto {
       hash = (53 * hash) + getMessageId();
       hash = (37 * hash) + MESSAGEDATA_FIELD_NUMBER;
       hash = (53 * hash) + getMessageData().hashCode();
-      if (!internalGetTestInfo().getMap().isEmpty()) {
-        hash = (37 * hash) + TESTINFO_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetTestInfo().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -459,28 +302,6 @@ public final class Proto {
         return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_descriptor;
       }
 
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 3:
-            return internalGetTestInfo();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 3:
-            return internalGetMutableTestInfo();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable
@@ -509,7 +330,6 @@ public final class Proto {
 
         messageData_ = com.google.protobuf.ByteString.EMPTY;
 
-        internalGetMutableTestInfo().clear();
         return this;
       }
 
@@ -532,13 +352,8 @@ public final class Proto {
 
       public bestan.common.protobuf.Proto.BaseProto buildPartial() {
         bestan.common.protobuf.Proto.BaseProto result = new bestan.common.protobuf.Proto.BaseProto(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.messageId_ = messageId_;
         result.messageData_ = messageData_;
-        result.testInfo_ = internalGetTestInfo();
-        result.testInfo_.makeImmutable();
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -586,8 +401,6 @@ public final class Proto {
         if (other.getMessageData() != com.google.protobuf.ByteString.EMPTY) {
           setMessageData(other.getMessageData());
         }
-        internalGetMutableTestInfo().mergeFrom(
-            other.internalGetTestInfo());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -614,7 +427,6 @@ public final class Proto {
         }
         return this;
       }
-      private int bitField0_;
 
       private int messageId_ ;
       /**
@@ -668,129 +480,6 @@ public final class Proto {
         
         messageData_ = getDefaultInstance().getMessageData();
         onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.MapField<
-          java.lang.Integer, java.lang.Integer> testInfo_;
-      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-      internalGetTestInfo() {
-        if (testInfo_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              TestInfoDefaultEntryHolder.defaultEntry);
-        }
-        return testInfo_;
-      }
-      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-      internalGetMutableTestInfo() {
-        onChanged();;
-        if (testInfo_ == null) {
-          testInfo_ = com.google.protobuf.MapField.newMapField(
-              TestInfoDefaultEntryHolder.defaultEntry);
-        }
-        if (!testInfo_.isMutable()) {
-          testInfo_ = testInfo_.copy();
-        }
-        return testInfo_;
-      }
-
-      public int getTestInfoCount() {
-        return internalGetTestInfo().getMap().size();
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public boolean containsTestInfo(
-          int key) {
-        
-        return internalGetTestInfo().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getTestInfoMap()} instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfo() {
-        return getTestInfoMap();
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfoMap() {
-        return internalGetTestInfo().getMap();
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public int getTestInfoOrDefault(
-          int key,
-          int defaultValue) {
-        
-        java.util.Map<java.lang.Integer, java.lang.Integer> map =
-            internalGetTestInfo().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public int getTestInfoOrThrow(
-          int key) {
-        
-        java.util.Map<java.lang.Integer, java.lang.Integer> map =
-            internalGetTestInfo().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      public Builder clearTestInfo() {
-        internalGetMutableTestInfo().getMutableMap()
-            .clear();
-        return this;
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public Builder removeTestInfo(
-          int key) {
-        
-        internalGetMutableTestInfo().getMutableMap()
-            .remove(key);
-        return this;
-      }
-      /**
-       * Use alternate mutation accessors instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.Integer, java.lang.Integer>
-      getMutableTestInfo() {
-        return internalGetMutableTestInfo().getMutableMap();
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-      public Builder putTestInfo(
-          int key,
-          int value) {
-        
-        
-        internalGetMutableTestInfo().getMutableMap()
-            .put(key, value);
-        return this;
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public Builder putAllTestInfo(
-          java.util.Map<java.lang.Integer, java.lang.Integer> values) {
-        internalGetMutableTestInfo().getMutableMap()
-            .putAll(values);
         return this;
       }
       public final Builder setUnknownFields(
@@ -1549,69 +1238,52 @@ public final class Proto {
 
   }
 
-  public interface BaseProto22OrBuilder extends
-      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.BaseProto22)
+  public interface DBTableDefineOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.DBTableDefine)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 messageId = 1;</code>
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
      */
-    int getMessageId();
-
+    java.util.List<bestan.common.protobuf.Proto.DBTableDefine.TableDefine> 
+        getTablesList();
     /**
-     * <code>bytes messageData = 2;</code>
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
      */
-    com.google.protobuf.ByteString getMessageData();
-
+    bestan.common.protobuf.Proto.DBTableDefine.TableDefine getTables(int index);
     /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
      */
-    int getTestInfoCount();
+    int getTablesCount();
     /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
      */
-    boolean containsTestInfo(
-        int key);
+    java.util.List<? extends bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder> 
+        getTablesOrBuilderList();
     /**
-     * Use {@link #getTestInfoMap()} instead.
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
      */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.Integer, java.lang.Integer>
-    getTestInfo();
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-    java.util.Map<java.lang.Integer, java.lang.Integer>
-    getTestInfoMap();
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    int getTestInfoOrDefault(
-        int key,
-        int defaultValue);
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    int getTestInfoOrThrow(
-        int key);
+    bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder getTablesOrBuilder(
+        int index);
   }
   /**
-   * Protobuf type {@code bestan.common.protobuf.BaseProto22}
+   * <pre>
+   *db数据库表格定义
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.DBTableDefine}
    */
-  public  static final class BaseProto22 extends
+  public  static final class DBTableDefine extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.BaseProto22)
-      BaseProto22OrBuilder {
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.DBTableDefine)
+      DBTableDefineOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use BaseProto22.newBuilder() to construct.
-    private BaseProto22(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use DBTableDefine.newBuilder() to construct.
+    private DBTableDefine(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private BaseProto22() {
-      messageId_ = 0;
-      messageData_ = com.google.protobuf.ByteString.EMPTY;
+    private DBTableDefine() {
+      tables_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1619,7 +1291,7 @@ public final class Proto {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private BaseProto22(
+    private DBTableDefine(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1645,27 +1317,13 @@ public final class Proto {
               }
               break;
             }
-            case 8: {
-
-              messageId_ = input.readInt32();
-              break;
-            }
-            case 18: {
-
-              messageData_ = input.readBytes();
-              break;
-            }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                testInfo_ = com.google.protobuf.MapField.newMapField(
-                    TestInfoDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000004;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                tables_ = new java.util.ArrayList<bestan.common.protobuf.Proto.DBTableDefine.TableDefine>();
+                mutable_bitField0_ |= 0x00000001;
               }
-              com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
-              testInfo__ = input.readMessage(
-                  TestInfoDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              testInfo_.getMutableMap().put(
-                  testInfo__.getKey(), testInfo__.getValue());
+              tables_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.DBTableDefine.TableDefine.parser(), extensionRegistry));
               break;
             }
           }
@@ -1676,126 +1334,618 @@ public final class Proto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          tables_ = java.util.Collections.unmodifiableList(tables_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto22_descriptor;
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_descriptor;
     }
 
-    @SuppressWarnings({"rawtypes"})
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 3:
-          return internalGetTestInfo();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto22_fieldAccessorTable
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              bestan.common.protobuf.Proto.BaseProto22.class, bestan.common.protobuf.Proto.BaseProto22.Builder.class);
+              bestan.common.protobuf.Proto.DBTableDefine.class, bestan.common.protobuf.Proto.DBTableDefine.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int MESSAGEID_FIELD_NUMBER = 1;
-    private int messageId_;
+    public interface TableDefineOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.DBTableDefine.TableDefine)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <pre>
+       *表名
+       * </pre>
+       *
+       * <code>bytes tableName = 1;</code>
+       */
+      com.google.protobuf.ByteString getTableName();
+
+      /**
+       * <pre>
+       *表数据对应message名
+       * </pre>
+       *
+       * <code>bytes tableValueMessage = 2;</code>
+       */
+      com.google.protobuf.ByteString getTableValueMessage();
+    }
     /**
-     * <code>int32 messageId = 1;</code>
+     * Protobuf type {@code bestan.common.protobuf.DBTableDefine.TableDefine}
      */
-    public int getMessageId() {
-      return messageId_;
-    }
-
-    public static final int MESSAGEDATA_FIELD_NUMBER = 2;
-    private com.google.protobuf.ByteString messageData_;
-    /**
-     * <code>bytes messageData = 2;</code>
-     */
-    public com.google.protobuf.ByteString getMessageData() {
-      return messageData_;
-    }
-
-    public static final int TESTINFO_FIELD_NUMBER = 3;
-    private static final class TestInfoDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.Integer, java.lang.Integer> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.Integer, java.lang.Integer>newDefaultInstance(
-                  bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto22_TestInfoEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.INT32,
-                  0,
-                  com.google.protobuf.WireFormat.FieldType.INT32,
-                  0);
-    }
-    private com.google.protobuf.MapField<
-        java.lang.Integer, java.lang.Integer> testInfo_;
-    private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-    internalGetTestInfo() {
-      if (testInfo_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            TestInfoDefaultEntryHolder.defaultEntry);
+    public  static final class TableDefine extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:bestan.common.protobuf.DBTableDefine.TableDefine)
+        TableDefineOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use TableDefine.newBuilder() to construct.
+      private TableDefine(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
       }
-      return testInfo_;
-    }
-
-    public int getTestInfoCount() {
-      return internalGetTestInfo().getMap().size();
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public boolean containsTestInfo(
-        int key) {
-      
-      return internalGetTestInfo().getMap().containsKey(key);
-    }
-    /**
-     * Use {@link #getTestInfoMap()} instead.
-     */
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfo() {
-      return getTestInfoMap();
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfoMap() {
-      return internalGetTestInfo().getMap();
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public int getTestInfoOrDefault(
-        int key,
-        int defaultValue) {
-      
-      java.util.Map<java.lang.Integer, java.lang.Integer> map =
-          internalGetTestInfo().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
-    }
-    /**
-     * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-     */
-
-    public int getTestInfoOrThrow(
-        int key) {
-      
-      java.util.Map<java.lang.Integer, java.lang.Integer> map =
-          internalGetTestInfo().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
+      private TableDefine() {
+        tableName_ = com.google.protobuf.ByteString.EMPTY;
+        tableValueMessage_ = com.google.protobuf.ByteString.EMPTY;
       }
-      return map.get(key);
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private TableDefine(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 10: {
+
+                tableName_ = input.readBytes();
+                break;
+              }
+              case 18: {
+
+                tableValueMessage_ = input.readBytes();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.DBTableDefine.TableDefine.class, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder.class);
+      }
+
+      public static final int TABLENAME_FIELD_NUMBER = 1;
+      private com.google.protobuf.ByteString tableName_;
+      /**
+       * <pre>
+       *表名
+       * </pre>
+       *
+       * <code>bytes tableName = 1;</code>
+       */
+      public com.google.protobuf.ByteString getTableName() {
+        return tableName_;
+      }
+
+      public static final int TABLEVALUEMESSAGE_FIELD_NUMBER = 2;
+      private com.google.protobuf.ByteString tableValueMessage_;
+      /**
+       * <pre>
+       *表数据对应message名
+       * </pre>
+       *
+       * <code>bytes tableValueMessage = 2;</code>
+       */
+      public com.google.protobuf.ByteString getTableValueMessage() {
+        return tableValueMessage_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!tableName_.isEmpty()) {
+          output.writeBytes(1, tableName_);
+        }
+        if (!tableValueMessage_.isEmpty()) {
+          output.writeBytes(2, tableValueMessage_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!tableName_.isEmpty()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(1, tableName_);
+        }
+        if (!tableValueMessage_.isEmpty()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(2, tableValueMessage_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof bestan.common.protobuf.Proto.DBTableDefine.TableDefine)) {
+          return super.equals(obj);
+        }
+        bestan.common.protobuf.Proto.DBTableDefine.TableDefine other = (bestan.common.protobuf.Proto.DBTableDefine.TableDefine) obj;
+
+        boolean result = true;
+        result = result && getTableName()
+            .equals(other.getTableName());
+        result = result && getTableValueMessage()
+            .equals(other.getTableValueMessage());
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + TABLENAME_FIELD_NUMBER;
+        hash = (53 * hash) + getTableName().hashCode();
+        hash = (37 * hash) + TABLEVALUEMESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getTableValueMessage().hashCode();
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(bestan.common.protobuf.Proto.DBTableDefine.TableDefine prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code bestan.common.protobuf.DBTableDefine.TableDefine}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.DBTableDefine.TableDefine)
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  bestan.common.protobuf.Proto.DBTableDefine.TableDefine.class, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder.class);
+        }
+
+        // Construct using bestan.common.protobuf.Proto.DBTableDefine.TableDefine.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        public Builder clear() {
+          super.clear();
+          tableName_ = com.google.protobuf.ByteString.EMPTY;
+
+          tableValueMessage_ = com.google.protobuf.ByteString.EMPTY;
+
+          return this;
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_descriptor;
+        }
+
+        public bestan.common.protobuf.Proto.DBTableDefine.TableDefine getDefaultInstanceForType() {
+          return bestan.common.protobuf.Proto.DBTableDefine.TableDefine.getDefaultInstance();
+        }
+
+        public bestan.common.protobuf.Proto.DBTableDefine.TableDefine build() {
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefine result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public bestan.common.protobuf.Proto.DBTableDefine.TableDefine buildPartial() {
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefine result = new bestan.common.protobuf.Proto.DBTableDefine.TableDefine(this);
+          result.tableName_ = tableName_;
+          result.tableValueMessage_ = tableValueMessage_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof bestan.common.protobuf.Proto.DBTableDefine.TableDefine) {
+            return mergeFrom((bestan.common.protobuf.Proto.DBTableDefine.TableDefine)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(bestan.common.protobuf.Proto.DBTableDefine.TableDefine other) {
+          if (other == bestan.common.protobuf.Proto.DBTableDefine.TableDefine.getDefaultInstance()) return this;
+          if (other.getTableName() != com.google.protobuf.ByteString.EMPTY) {
+            setTableName(other.getTableName());
+          }
+          if (other.getTableValueMessage() != com.google.protobuf.ByteString.EMPTY) {
+            setTableValueMessage(other.getTableValueMessage());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefine parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (bestan.common.protobuf.Proto.DBTableDefine.TableDefine) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private com.google.protobuf.ByteString tableName_ = com.google.protobuf.ByteString.EMPTY;
+        /**
+         * <pre>
+         *表名
+         * </pre>
+         *
+         * <code>bytes tableName = 1;</code>
+         */
+        public com.google.protobuf.ByteString getTableName() {
+          return tableName_;
+        }
+        /**
+         * <pre>
+         *表名
+         * </pre>
+         *
+         * <code>bytes tableName = 1;</code>
+         */
+        public Builder setTableName(com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          tableName_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *表名
+         * </pre>
+         *
+         * <code>bytes tableName = 1;</code>
+         */
+        public Builder clearTableName() {
+          
+          tableName_ = getDefaultInstance().getTableName();
+          onChanged();
+          return this;
+        }
+
+        private com.google.protobuf.ByteString tableValueMessage_ = com.google.protobuf.ByteString.EMPTY;
+        /**
+         * <pre>
+         *表数据对应message名
+         * </pre>
+         *
+         * <code>bytes tableValueMessage = 2;</code>
+         */
+        public com.google.protobuf.ByteString getTableValueMessage() {
+          return tableValueMessage_;
+        }
+        /**
+         * <pre>
+         *表数据对应message名
+         * </pre>
+         *
+         * <code>bytes tableValueMessage = 2;</code>
+         */
+        public Builder setTableValueMessage(com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          tableValueMessage_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *表数据对应message名
+         * </pre>
+         *
+         * <code>bytes tableValueMessage = 2;</code>
+         */
+        public Builder clearTableValueMessage() {
+          
+          tableValueMessage_ = getDefaultInstance().getTableValueMessage();
+          onChanged();
+          return this;
+        }
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.DBTableDefine.TableDefine)
+      }
+
+      // @@protoc_insertion_point(class_scope:bestan.common.protobuf.DBTableDefine.TableDefine)
+      private static final bestan.common.protobuf.Proto.DBTableDefine.TableDefine DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.DBTableDefine.TableDefine();
+      }
+
+      public static bestan.common.protobuf.Proto.DBTableDefine.TableDefine getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<TableDefine>
+          PARSER = new com.google.protobuf.AbstractParser<TableDefine>() {
+        public TableDefine parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new TableDefine(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<TableDefine> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<TableDefine> getParserForType() {
+        return PARSER;
+      }
+
+      public bestan.common.protobuf.Proto.DBTableDefine.TableDefine getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int TABLES_FIELD_NUMBER = 1;
+    private java.util.List<bestan.common.protobuf.Proto.DBTableDefine.TableDefine> tables_;
+    /**
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+     */
+    public java.util.List<bestan.common.protobuf.Proto.DBTableDefine.TableDefine> getTablesList() {
+      return tables_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+     */
+    public java.util.List<? extends bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder> 
+        getTablesOrBuilderList() {
+      return tables_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+     */
+    public int getTablesCount() {
+      return tables_.size();
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBTableDefine.TableDefine getTables(int index) {
+      return tables_.get(index);
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder getTablesOrBuilder(
+        int index) {
+      return tables_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1810,18 +1960,9 @@ public final class Proto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (messageId_ != 0) {
-        output.writeInt32(1, messageId_);
+      for (int i = 0; i < tables_.size(); i++) {
+        output.writeMessage(1, tables_.get(i));
       }
-      if (!messageData_.isEmpty()) {
-        output.writeBytes(2, messageData_);
-      }
-      com.google.protobuf.GeneratedMessageV3
-        .serializeIntegerMapTo(
-          output,
-          internalGetTestInfo(),
-          TestInfoDefaultEntryHolder.defaultEntry,
-          3);
       unknownFields.writeTo(output);
     }
 
@@ -1830,23 +1971,9 @@ public final class Proto {
       if (size != -1) return size;
 
       size = 0;
-      if (messageId_ != 0) {
+      for (int i = 0; i < tables_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, messageId_);
-      }
-      if (!messageData_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, messageData_);
-      }
-      for (java.util.Map.Entry<java.lang.Integer, java.lang.Integer> entry
-           : internalGetTestInfo().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
-        testInfo__ = TestInfoDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
-        size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, testInfo__);
+          .computeMessageSize(1, tables_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1858,18 +1985,14 @@ public final class Proto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof bestan.common.protobuf.Proto.BaseProto22)) {
+      if (!(obj instanceof bestan.common.protobuf.Proto.DBTableDefine)) {
         return super.equals(obj);
       }
-      bestan.common.protobuf.Proto.BaseProto22 other = (bestan.common.protobuf.Proto.BaseProto22) obj;
+      bestan.common.protobuf.Proto.DBTableDefine other = (bestan.common.protobuf.Proto.DBTableDefine) obj;
 
       boolean result = true;
-      result = result && (getMessageId()
-          == other.getMessageId());
-      result = result && getMessageData()
-          .equals(other.getMessageData());
-      result = result && internalGetTestInfo().equals(
-          other.internalGetTestInfo());
+      result = result && getTablesList()
+          .equals(other.getTablesList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1881,82 +2004,78 @@ public final class Proto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + MESSAGEID_FIELD_NUMBER;
-      hash = (53 * hash) + getMessageId();
-      hash = (37 * hash) + MESSAGEDATA_FIELD_NUMBER;
-      hash = (53 * hash) + getMessageData().hashCode();
-      if (!internalGetTestInfo().getMap().isEmpty()) {
-        hash = (37 * hash) + TESTINFO_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetTestInfo().hashCode();
+      if (getTablesCount() > 0) {
+        hash = (37 * hash) + TABLES_FIELD_NUMBER;
+        hash = (53 * hash) + getTablesList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(byte[] data)
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(java.io.InputStream input)
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseDelimitedFrom(java.io.InputStream input)
+    public static bestan.common.protobuf.Proto.DBTableDefine parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseDelimitedFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static bestan.common.protobuf.Proto.BaseProto22 parseFrom(
+    public static bestan.common.protobuf.Proto.DBTableDefine parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1968,7 +2087,7 @@ public final class Proto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(bestan.common.protobuf.Proto.BaseProto22 prototype) {
+    public static Builder newBuilder(bestan.common.protobuf.Proto.DBTableDefine prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1983,47 +2102,29 @@ public final class Proto {
       return builder;
     }
     /**
-     * Protobuf type {@code bestan.common.protobuf.BaseProto22}
+     * <pre>
+     *db数据库表格定义
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.DBTableDefine}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.BaseProto22)
-        bestan.common.protobuf.Proto.BaseProto22OrBuilder {
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.DBTableDefine)
+        bestan.common.protobuf.Proto.DBTableDefineOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto22_descriptor;
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_descriptor;
       }
 
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 3:
-            return internalGetTestInfo();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 3:
-            return internalGetMutableTestInfo();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto22_fieldAccessorTable
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                bestan.common.protobuf.Proto.BaseProto22.class, bestan.common.protobuf.Proto.BaseProto22.Builder.class);
+                bestan.common.protobuf.Proto.DBTableDefine.class, bestan.common.protobuf.Proto.DBTableDefine.Builder.class);
       }
 
-      // Construct using bestan.common.protobuf.Proto.BaseProto22.newBuilder()
+      // Construct using bestan.common.protobuf.Proto.DBTableDefine.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2036,44 +2137,49 @@ public final class Proto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getTablesFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
-        messageId_ = 0;
-
-        messageData_ = com.google.protobuf.ByteString.EMPTY;
-
-        internalGetMutableTestInfo().clear();
+        if (tablesBuilder_ == null) {
+          tables_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          tablesBuilder_.clear();
+        }
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_BaseProto22_descriptor;
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBTableDefine_descriptor;
       }
 
-      public bestan.common.protobuf.Proto.BaseProto22 getDefaultInstanceForType() {
-        return bestan.common.protobuf.Proto.BaseProto22.getDefaultInstance();
+      public bestan.common.protobuf.Proto.DBTableDefine getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.DBTableDefine.getDefaultInstance();
       }
 
-      public bestan.common.protobuf.Proto.BaseProto22 build() {
-        bestan.common.protobuf.Proto.BaseProto22 result = buildPartial();
+      public bestan.common.protobuf.Proto.DBTableDefine build() {
+        bestan.common.protobuf.Proto.DBTableDefine result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public bestan.common.protobuf.Proto.BaseProto22 buildPartial() {
-        bestan.common.protobuf.Proto.BaseProto22 result = new bestan.common.protobuf.Proto.BaseProto22(this);
+      public bestan.common.protobuf.Proto.DBTableDefine buildPartial() {
+        bestan.common.protobuf.Proto.DBTableDefine result = new bestan.common.protobuf.Proto.DBTableDefine(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        result.messageId_ = messageId_;
-        result.messageData_ = messageData_;
-        result.testInfo_ = internalGetTestInfo();
-        result.testInfo_.makeImmutable();
-        result.bitField0_ = to_bitField0_;
+        if (tablesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            tables_ = java.util.Collections.unmodifiableList(tables_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.tables_ = tables_;
+        } else {
+          result.tables_ = tablesBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -2105,24 +2211,42 @@ public final class Proto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof bestan.common.protobuf.Proto.BaseProto22) {
-          return mergeFrom((bestan.common.protobuf.Proto.BaseProto22)other);
+        if (other instanceof bestan.common.protobuf.Proto.DBTableDefine) {
+          return mergeFrom((bestan.common.protobuf.Proto.DBTableDefine)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(bestan.common.protobuf.Proto.BaseProto22 other) {
-        if (other == bestan.common.protobuf.Proto.BaseProto22.getDefaultInstance()) return this;
-        if (other.getMessageId() != 0) {
-          setMessageId(other.getMessageId());
+      public Builder mergeFrom(bestan.common.protobuf.Proto.DBTableDefine other) {
+        if (other == bestan.common.protobuf.Proto.DBTableDefine.getDefaultInstance()) return this;
+        if (tablesBuilder_ == null) {
+          if (!other.tables_.isEmpty()) {
+            if (tables_.isEmpty()) {
+              tables_ = other.tables_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureTablesIsMutable();
+              tables_.addAll(other.tables_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.tables_.isEmpty()) {
+            if (tablesBuilder_.isEmpty()) {
+              tablesBuilder_.dispose();
+              tablesBuilder_ = null;
+              tables_ = other.tables_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              tablesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTablesFieldBuilder() : null;
+            } else {
+              tablesBuilder_.addAllMessages(other.tables_);
+            }
+          }
         }
-        if (other.getMessageData() != com.google.protobuf.ByteString.EMPTY) {
-          setMessageData(other.getMessageData());
-        }
-        internalGetMutableTestInfo().mergeFrom(
-            other.internalGetTestInfo());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2136,11 +2260,11 @@ public final class Proto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        bestan.common.protobuf.Proto.BaseProto22 parsedMessage = null;
+        bestan.common.protobuf.Proto.DBTableDefine parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (bestan.common.protobuf.Proto.BaseProto22) e.getUnfinishedMessage();
+          parsedMessage = (bestan.common.protobuf.Proto.DBTableDefine) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2151,181 +2275,1260 @@ public final class Proto {
       }
       private int bitField0_;
 
-      private int messageId_ ;
+      private java.util.List<bestan.common.protobuf.Proto.DBTableDefine.TableDefine> tables_ =
+        java.util.Collections.emptyList();
+      private void ensureTablesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          tables_ = new java.util.ArrayList<bestan.common.protobuf.Proto.DBTableDefine.TableDefine>(tables_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefine, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder, bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder> tablesBuilder_;
+
       /**
-       * <code>int32 messageId = 1;</code>
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
        */
-      public int getMessageId() {
-        return messageId_;
+      public java.util.List<bestan.common.protobuf.Proto.DBTableDefine.TableDefine> getTablesList() {
+        if (tablesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(tables_);
+        } else {
+          return tablesBuilder_.getMessageList();
+        }
       }
       /**
-       * <code>int32 messageId = 1;</code>
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
        */
-      public Builder setMessageId(int value) {
-        
-        messageId_ = value;
-        onChanged();
+      public int getTablesCount() {
+        if (tablesBuilder_ == null) {
+          return tables_.size();
+        } else {
+          return tablesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBTableDefine.TableDefine getTables(int index) {
+        if (tablesBuilder_ == null) {
+          return tables_.get(index);
+        } else {
+          return tablesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder setTables(
+          int index, bestan.common.protobuf.Proto.DBTableDefine.TableDefine value) {
+        if (tablesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTablesIsMutable();
+          tables_.set(index, value);
+          onChanged();
+        } else {
+          tablesBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
-       * <code>int32 messageId = 1;</code>
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
        */
-      public Builder clearMessageId() {
-        
-        messageId_ = 0;
+      public Builder setTables(
+          int index, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder builderForValue) {
+        if (tablesBuilder_ == null) {
+          ensureTablesIsMutable();
+          tables_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          tablesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder addTables(bestan.common.protobuf.Proto.DBTableDefine.TableDefine value) {
+        if (tablesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTablesIsMutable();
+          tables_.add(value);
+          onChanged();
+        } else {
+          tablesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder addTables(
+          int index, bestan.common.protobuf.Proto.DBTableDefine.TableDefine value) {
+        if (tablesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTablesIsMutable();
+          tables_.add(index, value);
+          onChanged();
+        } else {
+          tablesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder addTables(
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder builderForValue) {
+        if (tablesBuilder_ == null) {
+          ensureTablesIsMutable();
+          tables_.add(builderForValue.build());
+          onChanged();
+        } else {
+          tablesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder addTables(
+          int index, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder builderForValue) {
+        if (tablesBuilder_ == null) {
+          ensureTablesIsMutable();
+          tables_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          tablesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder addAllTables(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.DBTableDefine.TableDefine> values) {
+        if (tablesBuilder_ == null) {
+          ensureTablesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, tables_);
+          onChanged();
+        } else {
+          tablesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder clearTables() {
+        if (tablesBuilder_ == null) {
+          tables_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          tablesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public Builder removeTables(int index) {
+        if (tablesBuilder_ == null) {
+          ensureTablesIsMutable();
+          tables_.remove(index);
+          onChanged();
+        } else {
+          tablesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder getTablesBuilder(
+          int index) {
+        return getTablesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder getTablesOrBuilder(
+          int index) {
+        if (tablesBuilder_ == null) {
+          return tables_.get(index);  } else {
+          return tablesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public java.util.List<? extends bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder> 
+           getTablesOrBuilderList() {
+        if (tablesBuilder_ != null) {
+          return tablesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(tables_);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder addTablesBuilder() {
+        return getTablesFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.DBTableDefine.TableDefine.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder addTablesBuilder(
+          int index) {
+        return getTablesFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBTableDefine.TableDefine tables = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder> 
+           getTablesBuilderList() {
+        return getTablesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBTableDefine.TableDefine, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder, bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder> 
+          getTablesFieldBuilder() {
+        if (tablesBuilder_ == null) {
+          tablesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              bestan.common.protobuf.Proto.DBTableDefine.TableDefine, bestan.common.protobuf.Proto.DBTableDefine.TableDefine.Builder, bestan.common.protobuf.Proto.DBTableDefine.TableDefineOrBuilder>(
+                  tables_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          tables_ = null;
+        }
+        return tablesBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.DBTableDefine)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.DBTableDefine)
+    private static final bestan.common.protobuf.Proto.DBTableDefine DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.DBTableDefine();
+    }
+
+    public static bestan.common.protobuf.Proto.DBTableDefine getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DBTableDefine>
+        PARSER = new com.google.protobuf.AbstractParser<DBTableDefine>() {
+      public DBTableDefine parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DBTableDefine(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DBTableDefine> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DBTableDefine> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.DBTableDefine getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DBCommonKeyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.DBCommonKey)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+     */
+    int getKeyTypeValue();
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE getKeyType();
+
+    /**
+     * <pre>
+     *指定是哪个表
+     * </pre>
+     *
+     * <code>bytes tableName = 2;</code>
+     */
+    com.google.protobuf.ByteString getTableName();
+
+    /**
+     * <pre>
+     *指定是保存数据消息ID
+     * </pre>
+     *
+     * <code>int32 valueMessageId = 3;</code>
+     */
+    int getValueMessageId();
+
+    /**
+     * <pre>
+     *int索引
+     * </pre>
+     *
+     * <code>int32 intKey = 4;</code>
+     */
+    int getIntKey();
+
+    /**
+     * <pre>
+     *long索引
+     * </pre>
+     *
+     * <code>int64 longKey = 5;</code>
+     */
+    long getLongKey();
+
+    /**
+     * <pre>
+     *message索引
+     * </pre>
+     *
+     * <code>bytes messagekey = 6;</code>
+     */
+    com.google.protobuf.ByteString getMessagekey();
+  }
+  /**
+   * <pre>
+   *通用保存操作key
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.DBCommonKey}
+   */
+  public  static final class DBCommonKey extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.DBCommonKey)
+      DBCommonKeyOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DBCommonKey.newBuilder() to construct.
+    private DBCommonKey(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DBCommonKey() {
+      keyType_ = 0;
+      tableName_ = com.google.protobuf.ByteString.EMPTY;
+      valueMessageId_ = 0;
+      intKey_ = 0;
+      longKey_ = 0L;
+      messagekey_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DBCommonKey(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+
+              keyType_ = rawValue;
+              break;
+            }
+            case 18: {
+
+              tableName_ = input.readBytes();
+              break;
+            }
+            case 24: {
+
+              valueMessageId_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              intKey_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              longKey_ = input.readInt64();
+              break;
+            }
+            case 50: {
+
+              messagekey_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBCommonKey_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBCommonKey_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.DBCommonKey.class, bestan.common.protobuf.Proto.DBCommonKey.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code bestan.common.protobuf.DBCommonKey.KEY_TYPE}
+     */
+    public enum KEY_TYPE
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>INT = 0;</code>
+       */
+      INT(0),
+      /**
+       * <code>LONG = 1;</code>
+       */
+      LONG(1),
+      /**
+       * <code>MESSAGE = 2;</code>
+       */
+      MESSAGE(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>INT = 0;</code>
+       */
+      public static final int INT_VALUE = 0;
+      /**
+       * <code>LONG = 1;</code>
+       */
+      public static final int LONG_VALUE = 1;
+      /**
+       * <code>MESSAGE = 2;</code>
+       */
+      public static final int MESSAGE_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static KEY_TYPE valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static KEY_TYPE forNumber(int value) {
+        switch (value) {
+          case 0: return INT;
+          case 1: return LONG;
+          case 2: return MESSAGE;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<KEY_TYPE>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          KEY_TYPE> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<KEY_TYPE>() {
+              public KEY_TYPE findValueByNumber(int number) {
+                return KEY_TYPE.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.DBCommonKey.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final KEY_TYPE[] VALUES = values();
+
+      public static KEY_TYPE valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private KEY_TYPE(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:bestan.common.protobuf.DBCommonKey.KEY_TYPE)
+    }
+
+    public static final int KEYTYPE_FIELD_NUMBER = 1;
+    private int keyType_;
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+     */
+    public int getKeyTypeValue() {
+      return keyType_;
+    }
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE getKeyType() {
+      bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE result = bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE.valueOf(keyType_);
+      return result == null ? bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE.UNRECOGNIZED : result;
+    }
+
+    public static final int TABLENAME_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString tableName_;
+    /**
+     * <pre>
+     *指定是哪个表
+     * </pre>
+     *
+     * <code>bytes tableName = 2;</code>
+     */
+    public com.google.protobuf.ByteString getTableName() {
+      return tableName_;
+    }
+
+    public static final int VALUEMESSAGEID_FIELD_NUMBER = 3;
+    private int valueMessageId_;
+    /**
+     * <pre>
+     *指定是保存数据消息ID
+     * </pre>
+     *
+     * <code>int32 valueMessageId = 3;</code>
+     */
+    public int getValueMessageId() {
+      return valueMessageId_;
+    }
+
+    public static final int INTKEY_FIELD_NUMBER = 4;
+    private int intKey_;
+    /**
+     * <pre>
+     *int索引
+     * </pre>
+     *
+     * <code>int32 intKey = 4;</code>
+     */
+    public int getIntKey() {
+      return intKey_;
+    }
+
+    public static final int LONGKEY_FIELD_NUMBER = 5;
+    private long longKey_;
+    /**
+     * <pre>
+     *long索引
+     * </pre>
+     *
+     * <code>int64 longKey = 5;</code>
+     */
+    public long getLongKey() {
+      return longKey_;
+    }
+
+    public static final int MESSAGEKEY_FIELD_NUMBER = 6;
+    private com.google.protobuf.ByteString messagekey_;
+    /**
+     * <pre>
+     *message索引
+     * </pre>
+     *
+     * <code>bytes messagekey = 6;</code>
+     */
+    public com.google.protobuf.ByteString getMessagekey() {
+      return messagekey_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (keyType_ != bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE.INT.getNumber()) {
+        output.writeEnum(1, keyType_);
+      }
+      if (!tableName_.isEmpty()) {
+        output.writeBytes(2, tableName_);
+      }
+      if (valueMessageId_ != 0) {
+        output.writeInt32(3, valueMessageId_);
+      }
+      if (intKey_ != 0) {
+        output.writeInt32(4, intKey_);
+      }
+      if (longKey_ != 0L) {
+        output.writeInt64(5, longKey_);
+      }
+      if (!messagekey_.isEmpty()) {
+        output.writeBytes(6, messagekey_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (keyType_ != bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE.INT.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, keyType_);
+      }
+      if (!tableName_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, tableName_);
+      }
+      if (valueMessageId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, valueMessageId_);
+      }
+      if (intKey_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, intKey_);
+      }
+      if (longKey_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, longKey_);
+      }
+      if (!messagekey_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, messagekey_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.DBCommonKey)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.DBCommonKey other = (bestan.common.protobuf.Proto.DBCommonKey) obj;
+
+      boolean result = true;
+      result = result && keyType_ == other.keyType_;
+      result = result && getTableName()
+          .equals(other.getTableName());
+      result = result && (getValueMessageId()
+          == other.getValueMessageId());
+      result = result && (getIntKey()
+          == other.getIntKey());
+      result = result && (getLongKey()
+          == other.getLongKey());
+      result = result && getMessagekey()
+          .equals(other.getMessagekey());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + KEYTYPE_FIELD_NUMBER;
+      hash = (53 * hash) + keyType_;
+      hash = (37 * hash) + TABLENAME_FIELD_NUMBER;
+      hash = (53 * hash) + getTableName().hashCode();
+      hash = (37 * hash) + VALUEMESSAGEID_FIELD_NUMBER;
+      hash = (53 * hash) + getValueMessageId();
+      hash = (37 * hash) + INTKEY_FIELD_NUMBER;
+      hash = (53 * hash) + getIntKey();
+      hash = (37 * hash) + LONGKEY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLongKey());
+      hash = (37 * hash) + MESSAGEKEY_FIELD_NUMBER;
+      hash = (53 * hash) + getMessagekey().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.DBCommonKey parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.DBCommonKey prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *通用保存操作key
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.DBCommonKey}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.DBCommonKey)
+        bestan.common.protobuf.Proto.DBCommonKeyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBCommonKey_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBCommonKey_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.DBCommonKey.class, bestan.common.protobuf.Proto.DBCommonKey.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.DBCommonKey.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        keyType_ = 0;
+
+        tableName_ = com.google.protobuf.ByteString.EMPTY;
+
+        valueMessageId_ = 0;
+
+        intKey_ = 0;
+
+        longKey_ = 0L;
+
+        messagekey_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_DBCommonKey_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.DBCommonKey getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.DBCommonKey build() {
+        bestan.common.protobuf.Proto.DBCommonKey result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.DBCommonKey buildPartial() {
+        bestan.common.protobuf.Proto.DBCommonKey result = new bestan.common.protobuf.Proto.DBCommonKey(this);
+        result.keyType_ = keyType_;
+        result.tableName_ = tableName_;
+        result.valueMessageId_ = valueMessageId_;
+        result.intKey_ = intKey_;
+        result.longKey_ = longKey_;
+        result.messagekey_ = messagekey_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.DBCommonKey) {
+          return mergeFrom((bestan.common.protobuf.Proto.DBCommonKey)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.DBCommonKey other) {
+        if (other == bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance()) return this;
+        if (other.keyType_ != 0) {
+          setKeyTypeValue(other.getKeyTypeValue());
+        }
+        if (other.getTableName() != com.google.protobuf.ByteString.EMPTY) {
+          setTableName(other.getTableName());
+        }
+        if (other.getValueMessageId() != 0) {
+          setValueMessageId(other.getValueMessageId());
+        }
+        if (other.getIntKey() != 0) {
+          setIntKey(other.getIntKey());
+        }
+        if (other.getLongKey() != 0L) {
+          setLongKey(other.getLongKey());
+        }
+        if (other.getMessagekey() != com.google.protobuf.ByteString.EMPTY) {
+          setMessagekey(other.getMessagekey());
+        }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      private com.google.protobuf.ByteString messageData_ = com.google.protobuf.ByteString.EMPTY;
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.DBCommonKey parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.DBCommonKey) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int keyType_ = 0;
       /**
-       * <code>bytes messageData = 2;</code>
+       * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
        */
-      public com.google.protobuf.ByteString getMessageData() {
-        return messageData_;
+      public int getKeyTypeValue() {
+        return keyType_;
       }
       /**
-       * <code>bytes messageData = 2;</code>
+       * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
        */
-      public Builder setMessageData(com.google.protobuf.ByteString value) {
+      public Builder setKeyTypeValue(int value) {
+        keyType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE getKeyType() {
+        bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE result = bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE.valueOf(keyType_);
+        return result == null ? bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+       */
+      public Builder setKeyType(bestan.common.protobuf.Proto.DBCommonKey.KEY_TYPE value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        keyType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey.KEY_TYPE keyType = 1;</code>
+       */
+      public Builder clearKeyType() {
+        
+        keyType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString tableName_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       *指定是哪个表
+       * </pre>
+       *
+       * <code>bytes tableName = 2;</code>
+       */
+      public com.google.protobuf.ByteString getTableName() {
+        return tableName_;
+      }
+      /**
+       * <pre>
+       *指定是哪个表
+       * </pre>
+       *
+       * <code>bytes tableName = 2;</code>
+       */
+      public Builder setTableName(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        messageData_ = value;
+        tableName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bytes messageData = 2;</code>
+       * <pre>
+       *指定是哪个表
+       * </pre>
+       *
+       * <code>bytes tableName = 2;</code>
        */
-      public Builder clearMessageData() {
+      public Builder clearTableName() {
         
-        messageData_ = getDefaultInstance().getMessageData();
+        tableName_ = getDefaultInstance().getTableName();
         onChanged();
         return this;
       }
 
-      private com.google.protobuf.MapField<
-          java.lang.Integer, java.lang.Integer> testInfo_;
-      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-      internalGetTestInfo() {
-        if (testInfo_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              TestInfoDefaultEntryHolder.defaultEntry);
-        }
-        return testInfo_;
-      }
-      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-      internalGetMutableTestInfo() {
-        onChanged();;
-        if (testInfo_ == null) {
-          testInfo_ = com.google.protobuf.MapField.newMapField(
-              TestInfoDefaultEntryHolder.defaultEntry);
-        }
-        if (!testInfo_.isMutable()) {
-          testInfo_ = testInfo_.copy();
-        }
-        return testInfo_;
-      }
-
-      public int getTestInfoCount() {
-        return internalGetTestInfo().getMap().size();
+      private int valueMessageId_ ;
+      /**
+       * <pre>
+       *指定是保存数据消息ID
+       * </pre>
+       *
+       * <code>int32 valueMessageId = 3;</code>
+       */
+      public int getValueMessageId() {
+        return valueMessageId_;
       }
       /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       * <pre>
+       *指定是保存数据消息ID
+       * </pre>
+       *
+       * <code>int32 valueMessageId = 3;</code>
        */
-
-      public boolean containsTestInfo(
-          int key) {
+      public Builder setValueMessageId(int value) {
         
-        return internalGetTestInfo().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getTestInfoMap()} instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfo() {
-        return getTestInfoMap();
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public java.util.Map<java.lang.Integer, java.lang.Integer> getTestInfoMap() {
-        return internalGetTestInfo().getMap();
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public int getTestInfoOrDefault(
-          int key,
-          int defaultValue) {
-        
-        java.util.Map<java.lang.Integer, java.lang.Integer> map =
-            internalGetTestInfo().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
-       */
-
-      public int getTestInfoOrThrow(
-          int key) {
-        
-        java.util.Map<java.lang.Integer, java.lang.Integer> map =
-            internalGetTestInfo().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      public Builder clearTestInfo() {
-        internalGetMutableTestInfo().getMutableMap()
-            .clear();
+        valueMessageId_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       * <pre>
+       *指定是保存数据消息ID
+       * </pre>
+       *
+       * <code>int32 valueMessageId = 3;</code>
        */
-
-      public Builder removeTestInfo(
-          int key) {
+      public Builder clearValueMessageId() {
         
-        internalGetMutableTestInfo().getMutableMap()
-            .remove(key);
+        valueMessageId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int intKey_ ;
+      /**
+       * <pre>
+       *int索引
+       * </pre>
+       *
+       * <code>int32 intKey = 4;</code>
+       */
+      public int getIntKey() {
+        return intKey_;
+      }
+      /**
+       * <pre>
+       *int索引
+       * </pre>
+       *
+       * <code>int32 intKey = 4;</code>
+       */
+      public Builder setIntKey(int value) {
+        
+        intKey_ = value;
+        onChanged();
         return this;
       }
       /**
-       * Use alternate mutation accessors instead.
+       * <pre>
+       *int索引
+       * </pre>
+       *
+       * <code>int32 intKey = 4;</code>
        */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.Integer, java.lang.Integer>
-      getMutableTestInfo() {
-        return internalGetMutableTestInfo().getMutableMap();
+      public Builder clearIntKey() {
+        
+        intKey_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long longKey_ ;
+      /**
+       * <pre>
+       *long索引
+       * </pre>
+       *
+       * <code>int64 longKey = 5;</code>
+       */
+      public long getLongKey() {
+        return longKey_;
       }
       /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       * <pre>
+       *long索引
+       * </pre>
+       *
+       * <code>int64 longKey = 5;</code>
        */
-      public Builder putTestInfo(
-          int key,
-          int value) {
+      public Builder setLongKey(long value) {
         
-        
-        internalGetMutableTestInfo().getMutableMap()
-            .put(key, value);
+        longKey_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>map&lt;int32, int32&gt; testInfo = 3;</code>
+       * <pre>
+       *long索引
+       * </pre>
+       *
+       * <code>int64 longKey = 5;</code>
        */
+      public Builder clearLongKey() {
+        
+        longKey_ = 0L;
+        onChanged();
+        return this;
+      }
 
-      public Builder putAllTestInfo(
-          java.util.Map<java.lang.Integer, java.lang.Integer> values) {
-        internalGetMutableTestInfo().getMutableMap()
-            .putAll(values);
+      private com.google.protobuf.ByteString messagekey_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       *message索引
+       * </pre>
+       *
+       * <code>bytes messagekey = 6;</code>
+       */
+      public com.google.protobuf.ByteString getMessagekey() {
+        return messagekey_;
+      }
+      /**
+       * <pre>
+       *message索引
+       * </pre>
+       *
+       * <code>bytes messagekey = 6;</code>
+       */
+      public Builder setMessagekey(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        messagekey_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *message索引
+       * </pre>
+       *
+       * <code>bytes messagekey = 6;</code>
+       */
+      public Builder clearMessagekey() {
+        
+        messagekey_ = getDefaultInstance().getMessagekey();
+        onChanged();
         return this;
       }
       public final Builder setUnknownFields(
@@ -2339,39 +3542,5269 @@ public final class Proto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.BaseProto22)
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.DBCommonKey)
     }
 
-    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.BaseProto22)
-    private static final bestan.common.protobuf.Proto.BaseProto22 DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.DBCommonKey)
+    private static final bestan.common.protobuf.Proto.DBCommonKey DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.BaseProto22();
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.DBCommonKey();
     }
 
-    public static bestan.common.protobuf.Proto.BaseProto22 getDefaultInstance() {
+    public static bestan.common.protobuf.Proto.DBCommonKey getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<BaseProto22>
-        PARSER = new com.google.protobuf.AbstractParser<BaseProto22>() {
-      public BaseProto22 parsePartialFrom(
+    private static final com.google.protobuf.Parser<DBCommonKey>
+        PARSER = new com.google.protobuf.AbstractParser<DBCommonKey>() {
+      public DBCommonKey parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new BaseProto22(input, extensionRegistry);
+        return new DBCommonKey(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<BaseProto22> parser() {
+    public static com.google.protobuf.Parser<DBCommonKey> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<BaseProto22> getParserForType() {
+    public com.google.protobuf.Parser<DBCommonKey> getParserForType() {
       return PARSER;
     }
 
-    public bestan.common.protobuf.Proto.BaseProto22 getDefaultInstanceForType() {
+    public bestan.common.protobuf.Proto.DBCommonKey getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CommonSaveOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.CommonSave)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *数据key
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    boolean hasKey();
+    /**
+     * <pre>
+     *数据key
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKey getKey();
+    /**
+     * <pre>
+     *数据key
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeyOrBuilder();
+
+    /**
+     * <pre>
+     *数据value
+     * </pre>
+     *
+     * <code>bytes value = 2;</code>
+     */
+    com.google.protobuf.ByteString getValue();
+  }
+  /**
+   * <pre>
+   *一个保存操作，key和value
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.CommonSave}
+   */
+  public  static final class CommonSave extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.CommonSave)
+      CommonSaveOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CommonSave.newBuilder() to construct.
+    private CommonSave(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CommonSave() {
+      value_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CommonSave(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bestan.common.protobuf.Proto.DBCommonKey.Builder subBuilder = null;
+              if (key_ != null) {
+                subBuilder = key_.toBuilder();
+              }
+              key_ = input.readMessage(bestan.common.protobuf.Proto.DBCommonKey.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(key_);
+                key_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+
+              value_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSave_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSave_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.CommonSave.class, bestan.common.protobuf.Proto.CommonSave.Builder.class);
+    }
+
+    public static final int KEY_FIELD_NUMBER = 1;
+    private bestan.common.protobuf.Proto.DBCommonKey key_;
+    /**
+     * <pre>
+     *数据key
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    public boolean hasKey() {
+      return key_ != null;
+    }
+    /**
+     * <pre>
+     *数据key
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKey getKey() {
+      return key_ == null ? bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance() : key_;
+    }
+    /**
+     * <pre>
+     *数据key
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeyOrBuilder() {
+      return getKey();
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString value_;
+    /**
+     * <pre>
+     *数据value
+     * </pre>
+     *
+     * <code>bytes value = 2;</code>
+     */
+    public com.google.protobuf.ByteString getValue() {
+      return value_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (key_ != null) {
+        output.writeMessage(1, getKey());
+      }
+      if (!value_.isEmpty()) {
+        output.writeBytes(2, value_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (key_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getKey());
+      }
+      if (!value_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, value_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.CommonSave)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.CommonSave other = (bestan.common.protobuf.Proto.CommonSave) obj;
+
+      boolean result = true;
+      result = result && (hasKey() == other.hasKey());
+      if (hasKey()) {
+        result = result && getKey()
+            .equals(other.getKey());
+      }
+      result = result && getValue()
+          .equals(other.getValue());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasKey()) {
+        hash = (37 * hash) + KEY_FIELD_NUMBER;
+        hash = (53 * hash) + getKey().hashCode();
+      }
+      hash = (37 * hash) + VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + getValue().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonSave parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.CommonSave prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *一个保存操作，key和value
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.CommonSave}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.CommonSave)
+        bestan.common.protobuf.Proto.CommonSaveOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSave_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSave_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.CommonSave.class, bestan.common.protobuf.Proto.CommonSave.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.CommonSave.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (keyBuilder_ == null) {
+          key_ = null;
+        } else {
+          key_ = null;
+          keyBuilder_ = null;
+        }
+        value_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSave_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.CommonSave getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.CommonSave.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.CommonSave build() {
+        bestan.common.protobuf.Proto.CommonSave result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.CommonSave buildPartial() {
+        bestan.common.protobuf.Proto.CommonSave result = new bestan.common.protobuf.Proto.CommonSave(this);
+        if (keyBuilder_ == null) {
+          result.key_ = key_;
+        } else {
+          result.key_ = keyBuilder_.build();
+        }
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.CommonSave) {
+          return mergeFrom((bestan.common.protobuf.Proto.CommonSave)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.CommonSave other) {
+        if (other == bestan.common.protobuf.Proto.CommonSave.getDefaultInstance()) return this;
+        if (other.hasKey()) {
+          mergeKey(other.getKey());
+        }
+        if (other.getValue() != com.google.protobuf.ByteString.EMPTY) {
+          setValue(other.getValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.CommonSave parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.CommonSave) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private bestan.common.protobuf.Proto.DBCommonKey key_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> keyBuilder_;
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public boolean hasKey() {
+        return keyBuilder_ != null || key_ != null;
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey getKey() {
+        if (keyBuilder_ == null) {
+          return key_ == null ? bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance() : key_;
+        } else {
+          return keyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder setKey(bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          key_ = value;
+          onChanged();
+        } else {
+          keyBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder setKey(
+          bestan.common.protobuf.Proto.DBCommonKey.Builder builderForValue) {
+        if (keyBuilder_ == null) {
+          key_ = builderForValue.build();
+          onChanged();
+        } else {
+          keyBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder mergeKey(bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keyBuilder_ == null) {
+          if (key_ != null) {
+            key_ =
+              bestan.common.protobuf.Proto.DBCommonKey.newBuilder(key_).mergeFrom(value).buildPartial();
+          } else {
+            key_ = value;
+          }
+          onChanged();
+        } else {
+          keyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder clearKey() {
+        if (keyBuilder_ == null) {
+          key_ = null;
+          onChanged();
+        } else {
+          key_ = null;
+          keyBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey.Builder getKeyBuilder() {
+        
+        onChanged();
+        return getKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeyOrBuilder() {
+        if (keyBuilder_ != null) {
+          return keyBuilder_.getMessageOrBuilder();
+        } else {
+          return key_ == null ?
+              bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance() : key_;
+        }
+      }
+      /**
+       * <pre>
+       *数据key
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> 
+          getKeyFieldBuilder() {
+        if (keyBuilder_ == null) {
+          keyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder>(
+                  getKey(),
+                  getParentForChildren(),
+                  isClean());
+          key_ = null;
+        }
+        return keyBuilder_;
+      }
+
+      private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       *数据value
+       * </pre>
+       *
+       * <code>bytes value = 2;</code>
+       */
+      public com.google.protobuf.ByteString getValue() {
+        return value_;
+      }
+      /**
+       * <pre>
+       *数据value
+       * </pre>
+       *
+       * <code>bytes value = 2;</code>
+       */
+      public Builder setValue(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        value_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据value
+       * </pre>
+       *
+       * <code>bytes value = 2;</code>
+       */
+      public Builder clearValue() {
+        
+        value_ = getDefaultInstance().getValue();
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.CommonSave)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.CommonSave)
+    private static final bestan.common.protobuf.Proto.CommonSave DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.CommonSave();
+    }
+
+    public static bestan.common.protobuf.Proto.CommonSave getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CommonSave>
+        PARSER = new com.google.protobuf.AbstractParser<CommonSave>() {
+      public CommonSave parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CommonSave(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CommonSave> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CommonSave> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.CommonSave getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RpcCommonSaveOpOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.RpcCommonSaveOp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    java.util.List<bestan.common.protobuf.Proto.CommonSave> 
+        getSaveOpsList();
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    bestan.common.protobuf.Proto.CommonSave getSaveOps(int index);
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    int getSaveOpsCount();
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    java.util.List<? extends bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+        getSaveOpsOrBuilderList();
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    bestan.common.protobuf.Proto.CommonSaveOrBuilder getSaveOpsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   *rpc保存协议
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.RpcCommonSaveOp}
+   */
+  public  static final class RpcCommonSaveOp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.RpcCommonSaveOp)
+      RpcCommonSaveOpOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RpcCommonSaveOp.newBuilder() to construct.
+    private RpcCommonSaveOp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RpcCommonSaveOp() {
+      saveOps_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RpcCommonSaveOp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                saveOps_ = new java.util.ArrayList<bestan.common.protobuf.Proto.CommonSave>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              saveOps_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.CommonSave.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          saveOps_ = java.util.Collections.unmodifiableList(saveOps_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOp_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.RpcCommonSaveOp.class, bestan.common.protobuf.Proto.RpcCommonSaveOp.Builder.class);
+    }
+
+    public static final int SAVEOPS_FIELD_NUMBER = 1;
+    private java.util.List<bestan.common.protobuf.Proto.CommonSave> saveOps_;
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public java.util.List<bestan.common.protobuf.Proto.CommonSave> getSaveOpsList() {
+      return saveOps_;
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public java.util.List<? extends bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+        getSaveOpsOrBuilderList() {
+      return saveOps_;
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public int getSaveOpsCount() {
+      return saveOps_.size();
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.CommonSave getSaveOps(int index) {
+      return saveOps_.get(index);
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.CommonSaveOrBuilder getSaveOpsOrBuilder(
+        int index) {
+      return saveOps_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < saveOps_.size(); i++) {
+        output.writeMessage(1, saveOps_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < saveOps_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, saveOps_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.RpcCommonSaveOp)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.RpcCommonSaveOp other = (bestan.common.protobuf.Proto.RpcCommonSaveOp) obj;
+
+      boolean result = true;
+      result = result && getSaveOpsList()
+          .equals(other.getSaveOpsList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSaveOpsCount() > 0) {
+        hash = (37 * hash) + SAVEOPS_FIELD_NUMBER;
+        hash = (53 * hash) + getSaveOpsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.RpcCommonSaveOp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *rpc保存协议
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.RpcCommonSaveOp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.RpcCommonSaveOp)
+        bestan.common.protobuf.Proto.RpcCommonSaveOpOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOp_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.RpcCommonSaveOp.class, bestan.common.protobuf.Proto.RpcCommonSaveOp.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.RpcCommonSaveOp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSaveOpsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (saveOpsBuilder_ == null) {
+          saveOps_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          saveOpsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOp_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonSaveOp getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.RpcCommonSaveOp.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonSaveOp build() {
+        bestan.common.protobuf.Proto.RpcCommonSaveOp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonSaveOp buildPartial() {
+        bestan.common.protobuf.Proto.RpcCommonSaveOp result = new bestan.common.protobuf.Proto.RpcCommonSaveOp(this);
+        int from_bitField0_ = bitField0_;
+        if (saveOpsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            saveOps_ = java.util.Collections.unmodifiableList(saveOps_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.saveOps_ = saveOps_;
+        } else {
+          result.saveOps_ = saveOpsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.RpcCommonSaveOp) {
+          return mergeFrom((bestan.common.protobuf.Proto.RpcCommonSaveOp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.RpcCommonSaveOp other) {
+        if (other == bestan.common.protobuf.Proto.RpcCommonSaveOp.getDefaultInstance()) return this;
+        if (saveOpsBuilder_ == null) {
+          if (!other.saveOps_.isEmpty()) {
+            if (saveOps_.isEmpty()) {
+              saveOps_ = other.saveOps_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSaveOpsIsMutable();
+              saveOps_.addAll(other.saveOps_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.saveOps_.isEmpty()) {
+            if (saveOpsBuilder_.isEmpty()) {
+              saveOpsBuilder_.dispose();
+              saveOpsBuilder_ = null;
+              saveOps_ = other.saveOps_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              saveOpsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSaveOpsFieldBuilder() : null;
+            } else {
+              saveOpsBuilder_.addAllMessages(other.saveOps_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.RpcCommonSaveOp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.RpcCommonSaveOp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<bestan.common.protobuf.Proto.CommonSave> saveOps_ =
+        java.util.Collections.emptyList();
+      private void ensureSaveOpsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          saveOps_ = new java.util.ArrayList<bestan.common.protobuf.Proto.CommonSave>(saveOps_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.CommonSave, bestan.common.protobuf.Proto.CommonSave.Builder, bestan.common.protobuf.Proto.CommonSaveOrBuilder> saveOpsBuilder_;
+
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.CommonSave> getSaveOpsList() {
+        if (saveOpsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(saveOps_);
+        } else {
+          return saveOpsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public int getSaveOpsCount() {
+        if (saveOpsBuilder_ == null) {
+          return saveOps_.size();
+        } else {
+          return saveOpsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave getSaveOps(int index) {
+        if (saveOpsBuilder_ == null) {
+          return saveOps_.get(index);
+        } else {
+          return saveOpsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder setSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave value) {
+        if (saveOpsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSaveOpsIsMutable();
+          saveOps_.set(index, value);
+          onChanged();
+        } else {
+          saveOpsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder setSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave.Builder builderForValue) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          saveOpsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(bestan.common.protobuf.Proto.CommonSave value) {
+        if (saveOpsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSaveOpsIsMutable();
+          saveOps_.add(value);
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave value) {
+        if (saveOpsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSaveOpsIsMutable();
+          saveOps_.add(index, value);
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(
+          bestan.common.protobuf.Proto.CommonSave.Builder builderForValue) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.add(builderForValue.build());
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave.Builder builderForValue) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addAllSaveOps(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.CommonSave> values) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, saveOps_);
+          onChanged();
+        } else {
+          saveOpsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder clearSaveOps() {
+        if (saveOpsBuilder_ == null) {
+          saveOps_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          saveOpsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder removeSaveOps(int index) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.remove(index);
+          onChanged();
+        } else {
+          saveOpsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave.Builder getSaveOpsBuilder(
+          int index) {
+        return getSaveOpsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSaveOrBuilder getSaveOpsOrBuilder(
+          int index) {
+        if (saveOpsBuilder_ == null) {
+          return saveOps_.get(index);  } else {
+          return saveOpsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public java.util.List<? extends bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+           getSaveOpsOrBuilderList() {
+        if (saveOpsBuilder_ != null) {
+          return saveOpsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(saveOps_);
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave.Builder addSaveOpsBuilder() {
+        return getSaveOpsFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.CommonSave.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave.Builder addSaveOpsBuilder(
+          int index) {
+        return getSaveOpsFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.CommonSave.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.CommonSave.Builder> 
+           getSaveOpsBuilderList() {
+        return getSaveOpsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.CommonSave, bestan.common.protobuf.Proto.CommonSave.Builder, bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+          getSaveOpsFieldBuilder() {
+        if (saveOpsBuilder_ == null) {
+          saveOpsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              bestan.common.protobuf.Proto.CommonSave, bestan.common.protobuf.Proto.CommonSave.Builder, bestan.common.protobuf.Proto.CommonSaveOrBuilder>(
+                  saveOps_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          saveOps_ = null;
+        }
+        return saveOpsBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.RpcCommonSaveOp)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.RpcCommonSaveOp)
+    private static final bestan.common.protobuf.Proto.RpcCommonSaveOp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.RpcCommonSaveOp();
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RpcCommonSaveOp>
+        PARSER = new com.google.protobuf.AbstractParser<RpcCommonSaveOp>() {
+      public RpcCommonSaveOp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RpcCommonSaveOp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RpcCommonSaveOp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RpcCommonSaveOp> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.RpcCommonSaveOp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RpcCommonSaveOpResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.RpcCommonSaveOpRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+     */
+    int getRetcodeValue();
+    /**
+     * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+     */
+    bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE getRetcode();
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.RpcCommonSaveOpRes}
+   */
+  public  static final class RpcCommonSaveOpRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.RpcCommonSaveOpRes)
+      RpcCommonSaveOpResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RpcCommonSaveOpRes.newBuilder() to construct.
+    private RpcCommonSaveOpRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RpcCommonSaveOpRes() {
+      retcode_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RpcCommonSaveOpRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+
+              retcode_ = rawValue;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.RpcCommonSaveOpRes.class, bestan.common.protobuf.Proto.RpcCommonSaveOpRes.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE}
+     */
+    public enum RETCODE
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>SUCCESS = 0;</code>
+       */
+      SUCCESS(0),
+      /**
+       * <code>FAILED = 1;</code>
+       */
+      FAILED(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>SUCCESS = 0;</code>
+       */
+      public static final int SUCCESS_VALUE = 0;
+      /**
+       * <code>FAILED = 1;</code>
+       */
+      public static final int FAILED_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static RETCODE valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static RETCODE forNumber(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return FAILED;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<RETCODE>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          RETCODE> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<RETCODE>() {
+              public RETCODE findValueByNumber(int number) {
+                return RETCODE.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.RpcCommonSaveOpRes.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final RETCODE[] VALUES = values();
+
+      public static RETCODE valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private RETCODE(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE)
+    }
+
+    public static final int RETCODE_FIELD_NUMBER = 1;
+    private int retcode_;
+    /**
+     * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+     */
+    public int getRetcodeValue() {
+      return retcode_;
+    }
+    /**
+     * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE getRetcode() {
+      bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE result = bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE.valueOf(retcode_);
+      return result == null ? bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (retcode_ != bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE.SUCCESS.getNumber()) {
+        output.writeEnum(1, retcode_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (retcode_ != bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE.SUCCESS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, retcode_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.RpcCommonSaveOpRes)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.RpcCommonSaveOpRes other = (bestan.common.protobuf.Proto.RpcCommonSaveOpRes) obj;
+
+      boolean result = true;
+      result = result && retcode_ == other.retcode_;
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RETCODE_FIELD_NUMBER;
+      hash = (53 * hash) + retcode_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.RpcCommonSaveOpRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.RpcCommonSaveOpRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.RpcCommonSaveOpRes)
+        bestan.common.protobuf.Proto.RpcCommonSaveOpResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.RpcCommonSaveOpRes.class, bestan.common.protobuf.Proto.RpcCommonSaveOpRes.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.RpcCommonSaveOpRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        retcode_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonSaveOpRes getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.RpcCommonSaveOpRes.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonSaveOpRes build() {
+        bestan.common.protobuf.Proto.RpcCommonSaveOpRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonSaveOpRes buildPartial() {
+        bestan.common.protobuf.Proto.RpcCommonSaveOpRes result = new bestan.common.protobuf.Proto.RpcCommonSaveOpRes(this);
+        result.retcode_ = retcode_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.RpcCommonSaveOpRes) {
+          return mergeFrom((bestan.common.protobuf.Proto.RpcCommonSaveOpRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.RpcCommonSaveOpRes other) {
+        if (other == bestan.common.protobuf.Proto.RpcCommonSaveOpRes.getDefaultInstance()) return this;
+        if (other.retcode_ != 0) {
+          setRetcodeValue(other.getRetcodeValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.RpcCommonSaveOpRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.RpcCommonSaveOpRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int retcode_ = 0;
+      /**
+       * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+       */
+      public int getRetcodeValue() {
+        return retcode_;
+      }
+      /**
+       * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+       */
+      public Builder setRetcodeValue(int value) {
+        retcode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE getRetcode() {
+        bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE result = bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE.valueOf(retcode_);
+        return result == null ? bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+       */
+      public Builder setRetcode(bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        retcode_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.RpcCommonSaveOpRes.RETCODE retcode = 1;</code>
+       */
+      public Builder clearRetcode() {
+        
+        retcode_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.RpcCommonSaveOpRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.RpcCommonSaveOpRes)
+    private static final bestan.common.protobuf.Proto.RpcCommonSaveOpRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.RpcCommonSaveOpRes();
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonSaveOpRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RpcCommonSaveOpRes>
+        PARSER = new com.google.protobuf.AbstractParser<RpcCommonSaveOpRes>() {
+      public RpcCommonSaveOpRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RpcCommonSaveOpRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RpcCommonSaveOpRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RpcCommonSaveOpRes> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.RpcCommonSaveOpRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CommonSaveOpOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.CommonSaveOp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    java.util.List<bestan.common.protobuf.Proto.CommonSave> 
+        getSaveOpsList();
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    bestan.common.protobuf.Proto.CommonSave getSaveOps(int index);
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    int getSaveOpsCount();
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    java.util.List<? extends bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+        getSaveOpsOrBuilderList();
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    bestan.common.protobuf.Proto.CommonSaveOrBuilder getSaveOpsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   *普通保存协议
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.CommonSaveOp}
+   */
+  public  static final class CommonSaveOp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.CommonSaveOp)
+      CommonSaveOpOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CommonSaveOp.newBuilder() to construct.
+    private CommonSaveOp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CommonSaveOp() {
+      saveOps_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CommonSaveOp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                saveOps_ = new java.util.ArrayList<bestan.common.protobuf.Proto.CommonSave>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              saveOps_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.CommonSave.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          saveOps_ = java.util.Collections.unmodifiableList(saveOps_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSaveOp_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSaveOp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.CommonSaveOp.class, bestan.common.protobuf.Proto.CommonSaveOp.Builder.class);
+    }
+
+    public static final int SAVEOPS_FIELD_NUMBER = 1;
+    private java.util.List<bestan.common.protobuf.Proto.CommonSave> saveOps_;
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public java.util.List<bestan.common.protobuf.Proto.CommonSave> getSaveOpsList() {
+      return saveOps_;
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public java.util.List<? extends bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+        getSaveOpsOrBuilderList() {
+      return saveOps_;
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public int getSaveOpsCount() {
+      return saveOps_.size();
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.CommonSave getSaveOps(int index) {
+      return saveOps_.get(index);
+    }
+    /**
+     * <pre>
+     *保存操作列表
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.CommonSaveOrBuilder getSaveOpsOrBuilder(
+        int index) {
+      return saveOps_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < saveOps_.size(); i++) {
+        output.writeMessage(1, saveOps_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < saveOps_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, saveOps_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.CommonSaveOp)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.CommonSaveOp other = (bestan.common.protobuf.Proto.CommonSaveOp) obj;
+
+      boolean result = true;
+      result = result && getSaveOpsList()
+          .equals(other.getSaveOpsList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSaveOpsCount() > 0) {
+        hash = (37 * hash) + SAVEOPS_FIELD_NUMBER;
+        hash = (53 * hash) + getSaveOpsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonSaveOp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.CommonSaveOp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *普通保存协议
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.CommonSaveOp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.CommonSaveOp)
+        bestan.common.protobuf.Proto.CommonSaveOpOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSaveOp_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSaveOp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.CommonSaveOp.class, bestan.common.protobuf.Proto.CommonSaveOp.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.CommonSaveOp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSaveOpsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (saveOpsBuilder_ == null) {
+          saveOps_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          saveOpsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonSaveOp_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.CommonSaveOp getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.CommonSaveOp.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.CommonSaveOp build() {
+        bestan.common.protobuf.Proto.CommonSaveOp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.CommonSaveOp buildPartial() {
+        bestan.common.protobuf.Proto.CommonSaveOp result = new bestan.common.protobuf.Proto.CommonSaveOp(this);
+        int from_bitField0_ = bitField0_;
+        if (saveOpsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            saveOps_ = java.util.Collections.unmodifiableList(saveOps_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.saveOps_ = saveOps_;
+        } else {
+          result.saveOps_ = saveOpsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.CommonSaveOp) {
+          return mergeFrom((bestan.common.protobuf.Proto.CommonSaveOp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.CommonSaveOp other) {
+        if (other == bestan.common.protobuf.Proto.CommonSaveOp.getDefaultInstance()) return this;
+        if (saveOpsBuilder_ == null) {
+          if (!other.saveOps_.isEmpty()) {
+            if (saveOps_.isEmpty()) {
+              saveOps_ = other.saveOps_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSaveOpsIsMutable();
+              saveOps_.addAll(other.saveOps_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.saveOps_.isEmpty()) {
+            if (saveOpsBuilder_.isEmpty()) {
+              saveOpsBuilder_.dispose();
+              saveOpsBuilder_ = null;
+              saveOps_ = other.saveOps_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              saveOpsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSaveOpsFieldBuilder() : null;
+            } else {
+              saveOpsBuilder_.addAllMessages(other.saveOps_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.CommonSaveOp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.CommonSaveOp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<bestan.common.protobuf.Proto.CommonSave> saveOps_ =
+        java.util.Collections.emptyList();
+      private void ensureSaveOpsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          saveOps_ = new java.util.ArrayList<bestan.common.protobuf.Proto.CommonSave>(saveOps_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.CommonSave, bestan.common.protobuf.Proto.CommonSave.Builder, bestan.common.protobuf.Proto.CommonSaveOrBuilder> saveOpsBuilder_;
+
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.CommonSave> getSaveOpsList() {
+        if (saveOpsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(saveOps_);
+        } else {
+          return saveOpsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public int getSaveOpsCount() {
+        if (saveOpsBuilder_ == null) {
+          return saveOps_.size();
+        } else {
+          return saveOpsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave getSaveOps(int index) {
+        if (saveOpsBuilder_ == null) {
+          return saveOps_.get(index);
+        } else {
+          return saveOpsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder setSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave value) {
+        if (saveOpsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSaveOpsIsMutable();
+          saveOps_.set(index, value);
+          onChanged();
+        } else {
+          saveOpsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder setSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave.Builder builderForValue) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          saveOpsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(bestan.common.protobuf.Proto.CommonSave value) {
+        if (saveOpsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSaveOpsIsMutable();
+          saveOps_.add(value);
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave value) {
+        if (saveOpsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSaveOpsIsMutable();
+          saveOps_.add(index, value);
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(
+          bestan.common.protobuf.Proto.CommonSave.Builder builderForValue) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.add(builderForValue.build());
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addSaveOps(
+          int index, bestan.common.protobuf.Proto.CommonSave.Builder builderForValue) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          saveOpsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder addAllSaveOps(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.CommonSave> values) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, saveOps_);
+          onChanged();
+        } else {
+          saveOpsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder clearSaveOps() {
+        if (saveOpsBuilder_ == null) {
+          saveOps_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          saveOpsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public Builder removeSaveOps(int index) {
+        if (saveOpsBuilder_ == null) {
+          ensureSaveOpsIsMutable();
+          saveOps_.remove(index);
+          onChanged();
+        } else {
+          saveOpsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave.Builder getSaveOpsBuilder(
+          int index) {
+        return getSaveOpsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSaveOrBuilder getSaveOpsOrBuilder(
+          int index) {
+        if (saveOpsBuilder_ == null) {
+          return saveOps_.get(index);  } else {
+          return saveOpsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public java.util.List<? extends bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+           getSaveOpsOrBuilderList() {
+        if (saveOpsBuilder_ != null) {
+          return saveOpsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(saveOps_);
+        }
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave.Builder addSaveOpsBuilder() {
+        return getSaveOpsFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.CommonSave.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonSave.Builder addSaveOpsBuilder(
+          int index) {
+        return getSaveOpsFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.CommonSave.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *保存操作列表
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.CommonSave saveOps = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.CommonSave.Builder> 
+           getSaveOpsBuilderList() {
+        return getSaveOpsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.CommonSave, bestan.common.protobuf.Proto.CommonSave.Builder, bestan.common.protobuf.Proto.CommonSaveOrBuilder> 
+          getSaveOpsFieldBuilder() {
+        if (saveOpsBuilder_ == null) {
+          saveOpsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              bestan.common.protobuf.Proto.CommonSave, bestan.common.protobuf.Proto.CommonSave.Builder, bestan.common.protobuf.Proto.CommonSaveOrBuilder>(
+                  saveOps_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          saveOps_ = null;
+        }
+        return saveOpsBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.CommonSaveOp)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.CommonSaveOp)
+    private static final bestan.common.protobuf.Proto.CommonSaveOp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.CommonSaveOp();
+    }
+
+    public static bestan.common.protobuf.Proto.CommonSaveOp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CommonSaveOp>
+        PARSER = new com.google.protobuf.AbstractParser<CommonSaveOp>() {
+      public CommonSaveOp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CommonSaveOp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CommonSaveOp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CommonSaveOp> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.CommonSaveOp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CommonLoadResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.CommonLoadRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    boolean hasKey();
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKey getKey();
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeyOrBuilder();
+
+    /**
+     * <code>bytes value = 2;</code>
+     */
+    com.google.protobuf.ByteString getValue();
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.CommonLoadRes}
+   */
+  public  static final class CommonLoadRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.CommonLoadRes)
+      CommonLoadResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CommonLoadRes.newBuilder() to construct.
+    private CommonLoadRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CommonLoadRes() {
+      value_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CommonLoadRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bestan.common.protobuf.Proto.DBCommonKey.Builder subBuilder = null;
+              if (key_ != null) {
+                subBuilder = key_.toBuilder();
+              }
+              key_ = input.readMessage(bestan.common.protobuf.Proto.DBCommonKey.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(key_);
+                key_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+
+              value_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonLoadRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonLoadRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.CommonLoadRes.class, bestan.common.protobuf.Proto.CommonLoadRes.Builder.class);
+    }
+
+    public static final int KEY_FIELD_NUMBER = 1;
+    private bestan.common.protobuf.Proto.DBCommonKey key_;
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    public boolean hasKey() {
+      return key_ != null;
+    }
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKey getKey() {
+      return key_ == null ? bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance() : key_;
+    }
+    /**
+     * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeyOrBuilder() {
+      return getKey();
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString value_;
+    /**
+     * <code>bytes value = 2;</code>
+     */
+    public com.google.protobuf.ByteString getValue() {
+      return value_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (key_ != null) {
+        output.writeMessage(1, getKey());
+      }
+      if (!value_.isEmpty()) {
+        output.writeBytes(2, value_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (key_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getKey());
+      }
+      if (!value_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, value_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.CommonLoadRes)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.CommonLoadRes other = (bestan.common.protobuf.Proto.CommonLoadRes) obj;
+
+      boolean result = true;
+      result = result && (hasKey() == other.hasKey());
+      if (hasKey()) {
+        result = result && getKey()
+            .equals(other.getKey());
+      }
+      result = result && getValue()
+          .equals(other.getValue());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasKey()) {
+        hash = (37 * hash) + KEY_FIELD_NUMBER;
+        hash = (53 * hash) + getKey().hashCode();
+      }
+      hash = (37 * hash) + VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + getValue().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.CommonLoadRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.CommonLoadRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.CommonLoadRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.CommonLoadRes)
+        bestan.common.protobuf.Proto.CommonLoadResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonLoadRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonLoadRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.CommonLoadRes.class, bestan.common.protobuf.Proto.CommonLoadRes.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.CommonLoadRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (keyBuilder_ == null) {
+          key_ = null;
+        } else {
+          key_ = null;
+          keyBuilder_ = null;
+        }
+        value_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_CommonLoadRes_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.CommonLoadRes getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.CommonLoadRes.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.CommonLoadRes build() {
+        bestan.common.protobuf.Proto.CommonLoadRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.CommonLoadRes buildPartial() {
+        bestan.common.protobuf.Proto.CommonLoadRes result = new bestan.common.protobuf.Proto.CommonLoadRes(this);
+        if (keyBuilder_ == null) {
+          result.key_ = key_;
+        } else {
+          result.key_ = keyBuilder_.build();
+        }
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.CommonLoadRes) {
+          return mergeFrom((bestan.common.protobuf.Proto.CommonLoadRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.CommonLoadRes other) {
+        if (other == bestan.common.protobuf.Proto.CommonLoadRes.getDefaultInstance()) return this;
+        if (other.hasKey()) {
+          mergeKey(other.getKey());
+        }
+        if (other.getValue() != com.google.protobuf.ByteString.EMPTY) {
+          setValue(other.getValue());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.CommonLoadRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.CommonLoadRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private bestan.common.protobuf.Proto.DBCommonKey key_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> keyBuilder_;
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public boolean hasKey() {
+        return keyBuilder_ != null || key_ != null;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey getKey() {
+        if (keyBuilder_ == null) {
+          return key_ == null ? bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance() : key_;
+        } else {
+          return keyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder setKey(bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          key_ = value;
+          onChanged();
+        } else {
+          keyBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder setKey(
+          bestan.common.protobuf.Proto.DBCommonKey.Builder builderForValue) {
+        if (keyBuilder_ == null) {
+          key_ = builderForValue.build();
+          onChanged();
+        } else {
+          keyBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder mergeKey(bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keyBuilder_ == null) {
+          if (key_ != null) {
+            key_ =
+              bestan.common.protobuf.Proto.DBCommonKey.newBuilder(key_).mergeFrom(value).buildPartial();
+          } else {
+            key_ = value;
+          }
+          onChanged();
+        } else {
+          keyBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public Builder clearKey() {
+        if (keyBuilder_ == null) {
+          key_ = null;
+          onChanged();
+        } else {
+          key_ = null;
+          keyBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey.Builder getKeyBuilder() {
+        
+        onChanged();
+        return getKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeyOrBuilder() {
+        if (keyBuilder_ != null) {
+          return keyBuilder_.getMessageOrBuilder();
+        } else {
+          return key_ == null ?
+              bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance() : key_;
+        }
+      }
+      /**
+       * <code>.bestan.common.protobuf.DBCommonKey key = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> 
+          getKeyFieldBuilder() {
+        if (keyBuilder_ == null) {
+          keyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder>(
+                  getKey(),
+                  getParentForChildren(),
+                  isClean());
+          key_ = null;
+        }
+        return keyBuilder_;
+      }
+
+      private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes value = 2;</code>
+       */
+      public com.google.protobuf.ByteString getValue() {
+        return value_;
+      }
+      /**
+       * <code>bytes value = 2;</code>
+       */
+      public Builder setValue(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        value_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes value = 2;</code>
+       */
+      public Builder clearValue() {
+        
+        value_ = getDefaultInstance().getValue();
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.CommonLoadRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.CommonLoadRes)
+    private static final bestan.common.protobuf.Proto.CommonLoadRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.CommonLoadRes();
+    }
+
+    public static bestan.common.protobuf.Proto.CommonLoadRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CommonLoadRes>
+        PARSER = new com.google.protobuf.AbstractParser<CommonLoadRes>() {
+      public CommonLoadRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CommonLoadRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CommonLoadRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CommonLoadRes> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.CommonLoadRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RpcCommonLoadOpOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.RpcCommonLoadOp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    java.util.List<bestan.common.protobuf.Proto.DBCommonKey> 
+        getKeysList();
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKey getKeys(int index);
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    int getKeysCount();
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    java.util.List<? extends bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> 
+        getKeysOrBuilderList();
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeysOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.RpcCommonLoadOp}
+   */
+  public  static final class RpcCommonLoadOp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.RpcCommonLoadOp)
+      RpcCommonLoadOpOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RpcCommonLoadOp.newBuilder() to construct.
+    private RpcCommonLoadOp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RpcCommonLoadOp() {
+      keys_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RpcCommonLoadOp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                keys_ = new java.util.ArrayList<bestan.common.protobuf.Proto.DBCommonKey>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              keys_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.DBCommonKey.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          keys_ = java.util.Collections.unmodifiableList(keys_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOp_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.RpcCommonLoadOp.class, bestan.common.protobuf.Proto.RpcCommonLoadOp.Builder.class);
+    }
+
+    public static final int KEYS_FIELD_NUMBER = 1;
+    private java.util.List<bestan.common.protobuf.Proto.DBCommonKey> keys_;
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    public java.util.List<bestan.common.protobuf.Proto.DBCommonKey> getKeysList() {
+      return keys_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    public java.util.List<? extends bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> 
+        getKeysOrBuilderList() {
+      return keys_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    public int getKeysCount() {
+      return keys_.size();
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKey getKeys(int index) {
+      return keys_.get(index);
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeysOrBuilder(
+        int index) {
+      return keys_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < keys_.size(); i++) {
+        output.writeMessage(1, keys_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < keys_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, keys_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.RpcCommonLoadOp)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.RpcCommonLoadOp other = (bestan.common.protobuf.Proto.RpcCommonLoadOp) obj;
+
+      boolean result = true;
+      result = result && getKeysList()
+          .equals(other.getKeysList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getKeysCount() > 0) {
+        hash = (37 * hash) + KEYS_FIELD_NUMBER;
+        hash = (53 * hash) + getKeysList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.RpcCommonLoadOp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.RpcCommonLoadOp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.RpcCommonLoadOp)
+        bestan.common.protobuf.Proto.RpcCommonLoadOpOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOp_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.RpcCommonLoadOp.class, bestan.common.protobuf.Proto.RpcCommonLoadOp.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.RpcCommonLoadOp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getKeysFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (keysBuilder_ == null) {
+          keys_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          keysBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOp_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonLoadOp getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.RpcCommonLoadOp.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonLoadOp build() {
+        bestan.common.protobuf.Proto.RpcCommonLoadOp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonLoadOp buildPartial() {
+        bestan.common.protobuf.Proto.RpcCommonLoadOp result = new bestan.common.protobuf.Proto.RpcCommonLoadOp(this);
+        int from_bitField0_ = bitField0_;
+        if (keysBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            keys_ = java.util.Collections.unmodifiableList(keys_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.keys_ = keys_;
+        } else {
+          result.keys_ = keysBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.RpcCommonLoadOp) {
+          return mergeFrom((bestan.common.protobuf.Proto.RpcCommonLoadOp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.RpcCommonLoadOp other) {
+        if (other == bestan.common.protobuf.Proto.RpcCommonLoadOp.getDefaultInstance()) return this;
+        if (keysBuilder_ == null) {
+          if (!other.keys_.isEmpty()) {
+            if (keys_.isEmpty()) {
+              keys_ = other.keys_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureKeysIsMutable();
+              keys_.addAll(other.keys_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.keys_.isEmpty()) {
+            if (keysBuilder_.isEmpty()) {
+              keysBuilder_.dispose();
+              keysBuilder_ = null;
+              keys_ = other.keys_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              keysBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getKeysFieldBuilder() : null;
+            } else {
+              keysBuilder_.addAllMessages(other.keys_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.RpcCommonLoadOp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.RpcCommonLoadOp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<bestan.common.protobuf.Proto.DBCommonKey> keys_ =
+        java.util.Collections.emptyList();
+      private void ensureKeysIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          keys_ = new java.util.ArrayList<bestan.common.protobuf.Proto.DBCommonKey>(keys_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> keysBuilder_;
+
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.DBCommonKey> getKeysList() {
+        if (keysBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(keys_);
+        } else {
+          return keysBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public int getKeysCount() {
+        if (keysBuilder_ == null) {
+          return keys_.size();
+        } else {
+          return keysBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey getKeys(int index) {
+        if (keysBuilder_ == null) {
+          return keys_.get(index);
+        } else {
+          return keysBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder setKeys(
+          int index, bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keysBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureKeysIsMutable();
+          keys_.set(index, value);
+          onChanged();
+        } else {
+          keysBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder setKeys(
+          int index, bestan.common.protobuf.Proto.DBCommonKey.Builder builderForValue) {
+        if (keysBuilder_ == null) {
+          ensureKeysIsMutable();
+          keys_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          keysBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder addKeys(bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keysBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureKeysIsMutable();
+          keys_.add(value);
+          onChanged();
+        } else {
+          keysBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder addKeys(
+          int index, bestan.common.protobuf.Proto.DBCommonKey value) {
+        if (keysBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureKeysIsMutable();
+          keys_.add(index, value);
+          onChanged();
+        } else {
+          keysBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder addKeys(
+          bestan.common.protobuf.Proto.DBCommonKey.Builder builderForValue) {
+        if (keysBuilder_ == null) {
+          ensureKeysIsMutable();
+          keys_.add(builderForValue.build());
+          onChanged();
+        } else {
+          keysBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder addKeys(
+          int index, bestan.common.protobuf.Proto.DBCommonKey.Builder builderForValue) {
+        if (keysBuilder_ == null) {
+          ensureKeysIsMutable();
+          keys_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          keysBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder addAllKeys(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.DBCommonKey> values) {
+        if (keysBuilder_ == null) {
+          ensureKeysIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, keys_);
+          onChanged();
+        } else {
+          keysBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder clearKeys() {
+        if (keysBuilder_ == null) {
+          keys_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          keysBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public Builder removeKeys(int index) {
+        if (keysBuilder_ == null) {
+          ensureKeysIsMutable();
+          keys_.remove(index);
+          onChanged();
+        } else {
+          keysBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey.Builder getKeysBuilder(
+          int index) {
+        return getKeysFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKeyOrBuilder getKeysOrBuilder(
+          int index) {
+        if (keysBuilder_ == null) {
+          return keys_.get(index);  } else {
+          return keysBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public java.util.List<? extends bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> 
+           getKeysOrBuilderList() {
+        if (keysBuilder_ != null) {
+          return keysBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(keys_);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey.Builder addKeysBuilder() {
+        return getKeysFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.DBCommonKey.Builder addKeysBuilder(
+          int index) {
+        return getKeysFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.DBCommonKey.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.DBCommonKey keys = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.DBCommonKey.Builder> 
+           getKeysBuilderList() {
+        return getKeysFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder> 
+          getKeysFieldBuilder() {
+        if (keysBuilder_ == null) {
+          keysBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              bestan.common.protobuf.Proto.DBCommonKey, bestan.common.protobuf.Proto.DBCommonKey.Builder, bestan.common.protobuf.Proto.DBCommonKeyOrBuilder>(
+                  keys_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          keys_ = null;
+        }
+        return keysBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.RpcCommonLoadOp)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.RpcCommonLoadOp)
+    private static final bestan.common.protobuf.Proto.RpcCommonLoadOp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.RpcCommonLoadOp();
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RpcCommonLoadOp>
+        PARSER = new com.google.protobuf.AbstractParser<RpcCommonLoadOp>() {
+      public RpcCommonLoadOp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RpcCommonLoadOp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RpcCommonLoadOp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RpcCommonLoadOp> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.RpcCommonLoadOp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RpcCommonLoadOpResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.RpcCommonLoadOpRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    java.util.List<bestan.common.protobuf.Proto.CommonLoadRes> 
+        getResList();
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    bestan.common.protobuf.Proto.CommonLoadRes getRes(int index);
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    int getResCount();
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    java.util.List<? extends bestan.common.protobuf.Proto.CommonLoadResOrBuilder> 
+        getResOrBuilderList();
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    bestan.common.protobuf.Proto.CommonLoadResOrBuilder getResOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.RpcCommonLoadOpRes}
+   */
+  public  static final class RpcCommonLoadOpRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.RpcCommonLoadOpRes)
+      RpcCommonLoadOpResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RpcCommonLoadOpRes.newBuilder() to construct.
+    private RpcCommonLoadOpRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RpcCommonLoadOpRes() {
+      res_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RpcCommonLoadOpRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                res_ = new java.util.ArrayList<bestan.common.protobuf.Proto.CommonLoadRes>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              res_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.CommonLoadRes.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          res_ = java.util.Collections.unmodifiableList(res_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.RpcCommonLoadOpRes.class, bestan.common.protobuf.Proto.RpcCommonLoadOpRes.Builder.class);
+    }
+
+    public static final int RES_FIELD_NUMBER = 2;
+    private java.util.List<bestan.common.protobuf.Proto.CommonLoadRes> res_;
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    public java.util.List<bestan.common.protobuf.Proto.CommonLoadRes> getResList() {
+      return res_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    public java.util.List<? extends bestan.common.protobuf.Proto.CommonLoadResOrBuilder> 
+        getResOrBuilderList() {
+      return res_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    public int getResCount() {
+      return res_.size();
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    public bestan.common.protobuf.Proto.CommonLoadRes getRes(int index) {
+      return res_.get(index);
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+     */
+    public bestan.common.protobuf.Proto.CommonLoadResOrBuilder getResOrBuilder(
+        int index) {
+      return res_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < res_.size(); i++) {
+        output.writeMessage(2, res_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < res_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, res_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.RpcCommonLoadOpRes)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.RpcCommonLoadOpRes other = (bestan.common.protobuf.Proto.RpcCommonLoadOpRes) obj;
+
+      boolean result = true;
+      result = result && getResList()
+          .equals(other.getResList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getResCount() > 0) {
+        hash = (37 * hash) + RES_FIELD_NUMBER;
+        hash = (53 * hash) + getResList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.RpcCommonLoadOpRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.RpcCommonLoadOpRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.RpcCommonLoadOpRes)
+        bestan.common.protobuf.Proto.RpcCommonLoadOpResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.RpcCommonLoadOpRes.class, bestan.common.protobuf.Proto.RpcCommonLoadOpRes.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.RpcCommonLoadOpRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getResFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (resBuilder_ == null) {
+          res_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          resBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonLoadOpRes getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.RpcCommonLoadOpRes.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonLoadOpRes build() {
+        bestan.common.protobuf.Proto.RpcCommonLoadOpRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.RpcCommonLoadOpRes buildPartial() {
+        bestan.common.protobuf.Proto.RpcCommonLoadOpRes result = new bestan.common.protobuf.Proto.RpcCommonLoadOpRes(this);
+        int from_bitField0_ = bitField0_;
+        if (resBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            res_ = java.util.Collections.unmodifiableList(res_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.res_ = res_;
+        } else {
+          result.res_ = resBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.RpcCommonLoadOpRes) {
+          return mergeFrom((bestan.common.protobuf.Proto.RpcCommonLoadOpRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.RpcCommonLoadOpRes other) {
+        if (other == bestan.common.protobuf.Proto.RpcCommonLoadOpRes.getDefaultInstance()) return this;
+        if (resBuilder_ == null) {
+          if (!other.res_.isEmpty()) {
+            if (res_.isEmpty()) {
+              res_ = other.res_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureResIsMutable();
+              res_.addAll(other.res_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.res_.isEmpty()) {
+            if (resBuilder_.isEmpty()) {
+              resBuilder_.dispose();
+              resBuilder_ = null;
+              res_ = other.res_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              resBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getResFieldBuilder() : null;
+            } else {
+              resBuilder_.addAllMessages(other.res_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.RpcCommonLoadOpRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.RpcCommonLoadOpRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<bestan.common.protobuf.Proto.CommonLoadRes> res_ =
+        java.util.Collections.emptyList();
+      private void ensureResIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          res_ = new java.util.ArrayList<bestan.common.protobuf.Proto.CommonLoadRes>(res_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.CommonLoadRes, bestan.common.protobuf.Proto.CommonLoadRes.Builder, bestan.common.protobuf.Proto.CommonLoadResOrBuilder> resBuilder_;
+
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.CommonLoadRes> getResList() {
+        if (resBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(res_);
+        } else {
+          return resBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public int getResCount() {
+        if (resBuilder_ == null) {
+          return res_.size();
+        } else {
+          return resBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonLoadRes getRes(int index) {
+        if (resBuilder_ == null) {
+          return res_.get(index);
+        } else {
+          return resBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder setRes(
+          int index, bestan.common.protobuf.Proto.CommonLoadRes value) {
+        if (resBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResIsMutable();
+          res_.set(index, value);
+          onChanged();
+        } else {
+          resBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder setRes(
+          int index, bestan.common.protobuf.Proto.CommonLoadRes.Builder builderForValue) {
+        if (resBuilder_ == null) {
+          ensureResIsMutable();
+          res_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          resBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder addRes(bestan.common.protobuf.Proto.CommonLoadRes value) {
+        if (resBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResIsMutable();
+          res_.add(value);
+          onChanged();
+        } else {
+          resBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder addRes(
+          int index, bestan.common.protobuf.Proto.CommonLoadRes value) {
+        if (resBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResIsMutable();
+          res_.add(index, value);
+          onChanged();
+        } else {
+          resBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder addRes(
+          bestan.common.protobuf.Proto.CommonLoadRes.Builder builderForValue) {
+        if (resBuilder_ == null) {
+          ensureResIsMutable();
+          res_.add(builderForValue.build());
+          onChanged();
+        } else {
+          resBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder addRes(
+          int index, bestan.common.protobuf.Proto.CommonLoadRes.Builder builderForValue) {
+        if (resBuilder_ == null) {
+          ensureResIsMutable();
+          res_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          resBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder addAllRes(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.CommonLoadRes> values) {
+        if (resBuilder_ == null) {
+          ensureResIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, res_);
+          onChanged();
+        } else {
+          resBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder clearRes() {
+        if (resBuilder_ == null) {
+          res_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          resBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public Builder removeRes(int index) {
+        if (resBuilder_ == null) {
+          ensureResIsMutable();
+          res_.remove(index);
+          onChanged();
+        } else {
+          resBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonLoadRes.Builder getResBuilder(
+          int index) {
+        return getResFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonLoadResOrBuilder getResOrBuilder(
+          int index) {
+        if (resBuilder_ == null) {
+          return res_.get(index);  } else {
+          return resBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public java.util.List<? extends bestan.common.protobuf.Proto.CommonLoadResOrBuilder> 
+           getResOrBuilderList() {
+        if (resBuilder_ != null) {
+          return resBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(res_);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonLoadRes.Builder addResBuilder() {
+        return getResFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.CommonLoadRes.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.CommonLoadRes.Builder addResBuilder(
+          int index) {
+        return getResFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.CommonLoadRes.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.CommonLoadRes res = 2;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.CommonLoadRes.Builder> 
+           getResBuilderList() {
+        return getResFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.CommonLoadRes, bestan.common.protobuf.Proto.CommonLoadRes.Builder, bestan.common.protobuf.Proto.CommonLoadResOrBuilder> 
+          getResFieldBuilder() {
+        if (resBuilder_ == null) {
+          resBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              bestan.common.protobuf.Proto.CommonLoadRes, bestan.common.protobuf.Proto.CommonLoadRes.Builder, bestan.common.protobuf.Proto.CommonLoadResOrBuilder>(
+                  res_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          res_ = null;
+        }
+        return resBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.RpcCommonLoadOpRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.RpcCommonLoadOpRes)
+    private static final bestan.common.protobuf.Proto.RpcCommonLoadOpRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.RpcCommonLoadOpRes();
+    }
+
+    public static bestan.common.protobuf.Proto.RpcCommonLoadOpRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RpcCommonLoadOpRes>
+        PARSER = new com.google.protobuf.AbstractParser<RpcCommonLoadOpRes>() {
+      public RpcCommonLoadOpRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RpcCommonLoadOpRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RpcCommonLoadOpRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RpcCommonLoadOpRes> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.RpcCommonLoadOpRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2383,25 +8816,60 @@ public final class Proto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bestan_common_protobuf_RpcMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bestan_common_protobuf_RpcMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_bestan_common_protobuf_BaseProto22_descriptor;
+    internal_static_bestan_common_protobuf_DBTableDefine_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_bestan_common_protobuf_BaseProto22_fieldAccessorTable;
+      internal_static_bestan_common_protobuf_DBTableDefine_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_bestan_common_protobuf_BaseProto22_TestInfoEntry_descriptor;
+    internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_bestan_common_protobuf_BaseProto22_TestInfoEntry_fieldAccessorTable;
+      internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_DBCommonKey_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_DBCommonKey_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_CommonSave_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_CommonSave_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_RpcCommonSaveOp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_RpcCommonSaveOp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_CommonSaveOp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_CommonSaveOp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_CommonLoadRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_CommonLoadRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_RpcCommonLoadOp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_RpcCommonLoadOp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2411,19 +8879,35 @@ public final class Proto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013proto.proto\022\026bestan.common.protobuf\"\247\001" +
-      "\n\tBaseProto\022\021\n\tmessageId\030\001 \001(\005\022\023\n\013messag" +
-      "eData\030\002 \001(\014\022A\n\010testInfo\030\003 \003(\0132/.bestan.c" +
-      "ommon.protobuf.BaseProto.TestInfoEntry\032/" +
-      "\n\rTestInfoEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 " +
-      "\001(\005:\0028\001\"r\n\nRpcMessage\022\024\n\014resMessageId\030\001 " +
-      "\001(\005\022\024\n\014argMessageId\030\002 \001(\005\022\021\n\tisRequest\030\003" +
-      " \001(\010\022\020\n\010rpcIndex\030\004 \001(\005\022\023\n\013messageData\030\005 " +
-      "\001(\014\"\253\001\n\013BaseProto22\022\021\n\tmessageId\030\001 \001(\005\022\023" +
-      "\n\013messageData\030\002 \001(\014\022C\n\010testInfo\030\003 \003(\01321." +
-      "bestan.common.protobuf.BaseProto22.TestI" +
-      "nfoEntry\032/\n\rTestInfoEntry\022\013\n\003key\030\001 \001(\005\022\r" +
-      "\n\005value\030\002 \001(\005:\0028\001b\006proto3"
+      "\n\013proto.proto\022\026bestan.common.protobuf\"3\n" +
+      "\tBaseProto\022\021\n\tmessageId\030\001 \001(\005\022\023\n\013message" +
+      "Data\030\002 \001(\014\"r\n\nRpcMessage\022\024\n\014resMessageId" +
+      "\030\001 \001(\005\022\024\n\014argMessageId\030\002 \001(\005\022\021\n\tisReques" +
+      "t\030\003 \001(\010\022\020\n\010rpcIndex\030\004 \001(\005\022\023\n\013messageData" +
+      "\030\005 \001(\014\"\217\001\n\rDBTableDefine\022A\n\006tables\030\001 \003(\013" +
+      "21.bestan.common.protobuf.DBTableDefine." +
+      "TableDefine\032;\n\013TableDefine\022\021\n\ttableName\030" +
+      "\001 \001(\014\022\031\n\021tableValueMessage\030\002 \001(\014\"\330\001\n\013DBC" +
+      "ommonKey\022=\n\007keyType\030\001 \001(\0162,.bestan.commo" +
+      "n.protobuf.DBCommonKey.KEY_TYPE\022\021\n\ttable" +
+      "Name\030\002 \001(\014\022\026\n\016valueMessageId\030\003 \001(\005\022\016\n\006in" +
+      "tKey\030\004 \001(\005\022\017\n\007longKey\030\005 \001(\003\022\022\n\nmessageke" +
+      "y\030\006 \001(\014\"*\n\010KEY_TYPE\022\007\n\003INT\020\000\022\010\n\004LONG\020\001\022\013" +
+      "\n\007MESSAGE\020\002\"M\n\nCommonSave\0220\n\003key\030\001 \001(\0132#" +
+      ".bestan.common.protobuf.DBCommonKey\022\r\n\005v" +
+      "alue\030\002 \001(\014\"F\n\017RpcCommonSaveOp\0223\n\007saveOps" +
+      "\030\001 \003(\0132\".bestan.common.protobuf.CommonSa" +
+      "ve\"}\n\022RpcCommonSaveOpRes\022C\n\007retcode\030\001 \001(" +
+      "\01622.bestan.common.protobuf.RpcCommonSave" +
+      "OpRes.RETCODE\"\"\n\007RETCODE\022\013\n\007SUCCESS\020\000\022\n\n" +
+      "\006FAILED\020\001\"C\n\014CommonSaveOp\0223\n\007saveOps\030\001 \003" +
+      "(\0132\".bestan.common.protobuf.CommonSave\"P" +
+      "\n\rCommonLoadRes\0220\n\003key\030\001 \001(\0132#.bestan.co" +
+      "mmon.protobuf.DBCommonKey\022\r\n\005value\030\002 \001(\014" +
+      "\"D\n\017RpcCommonLoadOp\0221\n\004keys\030\001 \003(\0132#.best" +
+      "an.common.protobuf.DBCommonKey\"H\n\022RpcCom" +
+      "monLoadOpRes\0222\n\003res\030\002 \003(\0132%.bestan.commo" +
+      "n.protobuf.CommonLoadResb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2442,31 +8926,73 @@ public final class Proto {
     internal_static_bestan_common_protobuf_BaseProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_BaseProto_descriptor,
-        new java.lang.String[] { "MessageId", "MessageData", "TestInfo", });
-    internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor =
-      internal_static_bestan_common_protobuf_BaseProto_descriptor.getNestedTypes().get(0);
-    internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_bestan_common_protobuf_BaseProto_TestInfoEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
+        new java.lang.String[] { "MessageId", "MessageData", });
     internal_static_bestan_common_protobuf_RpcMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_bestan_common_protobuf_RpcMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_RpcMessage_descriptor,
         new java.lang.String[] { "ResMessageId", "ArgMessageId", "IsRequest", "RpcIndex", "MessageData", });
-    internal_static_bestan_common_protobuf_BaseProto22_descriptor =
+    internal_static_bestan_common_protobuf_DBTableDefine_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_bestan_common_protobuf_BaseProto22_fieldAccessorTable = new
+    internal_static_bestan_common_protobuf_DBTableDefine_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_bestan_common_protobuf_BaseProto22_descriptor,
-        new java.lang.String[] { "MessageId", "MessageData", "TestInfo", });
-    internal_static_bestan_common_protobuf_BaseProto22_TestInfoEntry_descriptor =
-      internal_static_bestan_common_protobuf_BaseProto22_descriptor.getNestedTypes().get(0);
-    internal_static_bestan_common_protobuf_BaseProto22_TestInfoEntry_fieldAccessorTable = new
+        internal_static_bestan_common_protobuf_DBTableDefine_descriptor,
+        new java.lang.String[] { "Tables", });
+    internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_descriptor =
+      internal_static_bestan_common_protobuf_DBTableDefine_descriptor.getNestedTypes().get(0);
+    internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_bestan_common_protobuf_BaseProto22_TestInfoEntry_descriptor,
+        internal_static_bestan_common_protobuf_DBTableDefine_TableDefine_descriptor,
+        new java.lang.String[] { "TableName", "TableValueMessage", });
+    internal_static_bestan_common_protobuf_DBCommonKey_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_bestan_common_protobuf_DBCommonKey_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_DBCommonKey_descriptor,
+        new java.lang.String[] { "KeyType", "TableName", "ValueMessageId", "IntKey", "LongKey", "Messagekey", });
+    internal_static_bestan_common_protobuf_CommonSave_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_bestan_common_protobuf_CommonSave_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_CommonSave_descriptor,
         new java.lang.String[] { "Key", "Value", });
+    internal_static_bestan_common_protobuf_RpcCommonSaveOp_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_bestan_common_protobuf_RpcCommonSaveOp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_RpcCommonSaveOp_descriptor,
+        new java.lang.String[] { "SaveOps", });
+    internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_RpcCommonSaveOpRes_descriptor,
+        new java.lang.String[] { "Retcode", });
+    internal_static_bestan_common_protobuf_CommonSaveOp_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_bestan_common_protobuf_CommonSaveOp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_CommonSaveOp_descriptor,
+        new java.lang.String[] { "SaveOps", });
+    internal_static_bestan_common_protobuf_CommonLoadRes_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_bestan_common_protobuf_CommonLoadRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_CommonLoadRes_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_bestan_common_protobuf_RpcCommonLoadOp_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_bestan_common_protobuf_RpcCommonLoadOp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_RpcCommonLoadOp_descriptor,
+        new java.lang.String[] { "Keys", });
+    internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor,
+        new java.lang.String[] { "Res", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -11,7 +11,7 @@ import bestan.common.protobuf.Proto;
  */
 public class RpcHandle implements IMessageHandle {
 	@Override
-	public void ProcessProtocol(AbstractProtocol protocol) throws Exception {
+	public void processProtocol(AbstractProtocol protocol) throws Exception {
 		var message = (Proto.RpcMessage.Builder)protocol.getMessage().toBuilder();
 
 		var res = MessageFactory.getMessageInstance(message.getResMessageId());

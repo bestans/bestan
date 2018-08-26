@@ -6,7 +6,6 @@ message BaseProto
 {
 	int32 messageId				= 1;
 	bytes messageData			= 2;
-	map<int32, int32> testInfo	= 3;
 }
 
 message RpcMessage
@@ -18,9 +17,77 @@ message RpcMessage
 	bytes messageData			= 5;
 }
 
-message BaseProto22
+//db数据库表格定义
+message DBTableDefine
 {
-	int32 messageId				= 1;
-	bytes messageData			= 2;
-	map<int32, int32> testInfo	= 3;
+	message TableDefine
+	{
+		bytes tableName			= 1;	//表名
+		bytes tableValueMessage	= 2;	//表数据对应message名
+	}
+	
+	repeated TableDefine tables	= 1;
+}
+
+//通用保存操作key
+message DBCommonKey
+{
+	enum KEY_TYPE {
+		INT			= 0;
+		LONG		= 1;
+		MESSAGE		= 2;
+	}
+	
+	KEY_TYPE keyType		= 1;
+	bytes tableName			= 2;	//指定是哪个表
+	int32 valueMessageId	= 3;	//指定是保存数据消息ID
+	int32 intKey			= 4;	//int索引
+	int64 longKey			= 5;	//long索引
+	bytes messagekey		= 6;	//message索引
+	
+}
+
+//一个保存操作，key和value
+message CommonSave
+{
+	DBCommonKey key		= 1;	//数据key
+	bytes value			= 2;	//数据value
+}
+
+//rpc保存协议
+message RpcCommonSaveOp
+{
+	repeated CommonSave saveOps	= 1;	//保存操作列表
+}
+
+message RpcCommonSaveOpRes
+{
+	enum RETCODE
+	{
+		SUCCESS		= 0;
+		FAILED		= 1;
+	}
+	RETCODE retcode	= 1;
+}
+
+//普通保存协议
+message CommonSaveOp
+{
+	repeated CommonSave saveOps	= 1;	//保存操作列表
+}
+
+message CommonLoadRes
+{
+	DBCommonKey key	= 1;
+	bytes value		= 2;
+}
+
+message RpcCommonLoadOp
+{
+	repeated DBCommonKey keys	= 1;
+}
+
+message RpcCommonLoadOpRes
+{
+	repeated CommonLoadRes res	= 2;
 }

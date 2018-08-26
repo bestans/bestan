@@ -13,15 +13,15 @@ import bestan.common.db.util.Utils;
 import bestan.common.log.Glog;
 
 public class StorageEnv {
-	private static RocksDbState dbState;
+	private static RocksDBState dbState;
 	private static WriteOptions wOp;
 	
 	@SuppressWarnings("unchecked")
-	public static RocksDbState initDB(String path) {
+	public static RocksDBState initDB(String path) {
         var conf = new HashMap<Object, Object>();
         conf.putAll(Utils.loadConf("conf.property"));
         DBConst.init();
-        var state = new RocksDbState();
+        var state = new RocksDBState();
         state.initEnv("test", conf, path);
         return state;
 	}
@@ -53,6 +53,13 @@ public class StorageEnv {
 		return storage;
 	}
 	
+	public static Storage getStorage(String tableName) {
+		if (ThreadContext.getInstance().isLocked())
+			return null;
+		Storage storage = dbState.getStorage(tableName);
+		ThreadContext.getInstance().addStorage(storage);
+		return storage;
+	}
 	public static Transaction start() {
 		if (ThreadContext.getInstance().isLocked())
 			throw new DBException(ErrorCode.DB_RELOCK, "lock when start");

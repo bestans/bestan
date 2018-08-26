@@ -8,5 +8,5 @@ import bestan.common.net.AbstractProtocol;
  *
  */
 public interface IMessageHandle {
-	void ProcessProtocol(AbstractProtocol protocol) throws Exception;
+	void processProtocol(AbstractProtocol protocol) throws Exception;
 }

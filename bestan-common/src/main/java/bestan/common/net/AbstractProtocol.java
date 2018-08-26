@@ -44,7 +44,7 @@ public abstract class AbstractProtocol implements IProtocol {
 				return;
 			}
 		
-			handle.ProcessProtocol(this);
+			handle.processProtocol(this);
 		} catch (Exception e) {
 			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}",
 					getClass().getSimpleName(), messageId, e.getMessage());

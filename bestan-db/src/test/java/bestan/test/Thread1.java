@@ -19,8 +19,8 @@ public class Thread1 extends Thread {
 			var tb1 = StorageEnv.getStorage(EM_DB.PLAYER);
 			var tb2 = StorageEnv.getStorage(EM_DB.PLAYER2);
 			for (int i = 0; i < 1; ++i) {
-				tb1.put(txn, i, tb1.get(txn, i) + 10);
-				tb2.put(txn, i, tb2.get(txn, i) + 100);
+				tb1.put(txn, i, tb1.getInt(txn, i) + 10);
+				tb2.put(txn, i, tb2.getInt(txn, i) + 100);
 			}
 			txn.commit();
 		} catch (DBException e) {

@@ -1,19 +1,31 @@
 package bestan.common.db;
 
+import java.util.Map;
+
 import org.rocksdb.CompactionStyle;
 import org.rocksdb.util.SizeUnit;
 
+import com.google.common.collect.Maps;
+
 import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
+import bestan.common.lua.LuaParamAnnotation;
+import bestan.common.lua.LuaParamAnnotation.LuaParamPolicy;
 
 @LuaAnnotation(load = false, optional = true)
-public class RocksDBOption extends BaseLuaConfig {
-	public static final RocksDBOption option = new RocksDBOption();
+public class RocksDBConfig extends BaseLuaConfig {
+	public static final RocksDBConfig option = new RocksDBConfig();
 	
 	/**
 	 * 数据库所在路径 
 	 */
 	public String dbPath = null;
+	
+	/**
+	 * 数据库table表，key是数据库表名，value是解析的数据格式
+	 */
+	@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
+	public Map<String, String> tables = Maps.newHashMap();
 	
 	/**
 	 * If true, the database will be created if it is missing
