@@ -1,9 +1,11 @@
-package bestan.common.logic;
+package bestan.common.message.pack;
 
 import com.google.protobuf.Message;
 
 import bestan.common.event.IEvent;
 import bestan.common.guid.Guid;
+import bestan.common.logic.IObject;
+import bestan.common.logic.ObjectManager;
 
 public class MessagePack implements IEvent {
 	protected Guid guid;

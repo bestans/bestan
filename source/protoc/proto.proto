@@ -57,7 +57,8 @@ message CommonSave
 //rpc保存协议
 message RpcCommonSaveOp
 {
-	repeated CommonSave saveOps	= 1;	//保存操作列表
+	int32 opType				= 1;	//操作类型
+	repeated CommonSave saveOps	= 2;	//保存操作列表
 }
 
 message RpcCommonSaveOpRes

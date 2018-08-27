@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
+import bestan.common.message.pack.MessagePack;
 import bestan.common.thread.BExecutor;
 
 public class ObjectManager {

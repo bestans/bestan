@@ -3,14 +3,25 @@ package bestan.common.logic;
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
+import bestan.common.message.pack.CommonSaveRetcode;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.ProtocolHeader;
+import bestan.common.protobuf.Proto.RpcCommonSaveOp;
 
 public interface IObject {
 	Guid getGuid();
 	void lockObject();
 	void unlockObject();
 
+	/**
+	 * 通用保存操作结果，已经在上层加锁了
+	 * @param arg
+	 * @param res
+	 * @param opType
+	 */
+	default void commonSaveReply(RpcCommonSaveOp arg, int opType, CommonSaveRetcode retcode) {
+		
+	}
 	default void processProtocol(ProtocolHeader header, Message message) {
 		
 	}

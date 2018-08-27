@@ -1,9 +1,10 @@
-package bestan.common.net;
+package bestan.common.net.operation;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Message;
 
 import bestan.common.message.MessageFactory;
+import bestan.common.protobuf.Proto;
 import bestan.common.protobuf.Proto.DBCommonKey;
 
 /**
@@ -11,13 +12,15 @@ import bestan.common.protobuf.Proto.DBCommonKey;
  *
  */
 public class CommonSave {
-	private Message value;
+	private Proto.CommonSave.Builder saveBuilder = Proto.CommonSave.newBuilder();
 	private DBCommonKey.Builder builder = DBCommonKey.newBuilder();
 	
 	private void initBuilder(String tableName, Message value) {
 		builder.setTableName(ByteString.copyFrom(tableName.getBytes()));
 		builder.setValueMessageId(MessageFactory.getMessageIndex(value));
-		this.value = value;
+		
+		saveBuilder.setKey(builder);
+		saveBuilder.setValue(value.toByteString());
 	}
 	
 	public CommonSave(String tableName, int key, Message value) {
@@ -38,7 +41,7 @@ public class CommonSave {
 		initBuilder(tableName, value);
 	}
 	
-	public Message getValue() {
-		return value;
+	public Proto.CommonSave.Builder getBuilder() {
+		return saveBuilder;
 	}
 }
