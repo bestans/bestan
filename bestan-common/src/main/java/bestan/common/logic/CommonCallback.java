@@ -1,14 +1,14 @@
 package bestan.common.logic;
 
-import bestan.common.net.AbstractProtocol;
+import com.google.protobuf.Message;
 
-public class CommonCallback implements ICallback<AbstractProtocol>{
+public class CommonCallback implements ICallback<Message>{
 	protected IObject srcObject;
 	protected IObject dstObject;
-	protected AbstractProtocol arg;
-	protected AbstractProtocol res;
+	protected Message arg;
+	protected Message res;
 	
-	public CommonCallback(IObject src, IObject dst, AbstractProtocol arg) {
+	public CommonCallback(IObject src, IObject dst, Message arg) {
 		this.srcObject = src;
 		this.dstObject = dst;
 		this.arg = arg;
@@ -16,13 +16,13 @@ public class CommonCallback implements ICallback<AbstractProtocol>{
 	}
 	
 	@Override
-	public AbstractProtocol call() throws Exception {
-		res = dstObject.call(arg);
+	public Message call() throws Exception {
+		res = dstObject.callbackExecute(arg);
 		return null;
 	}
 
 	@Override
-	public void onSuccess(AbstractProtocol result) {
+	public void onSuccess(Message result) {
 		
 	}
 

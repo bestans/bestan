@@ -5,7 +5,7 @@ package bestan.common.message.pack;
  *
  */
 public enum CommonSaveRetcode {
-	SUCCESS,
-	FAILED,
-	TIMEOUT,
+	SUCCESS,	//成功
+	FAILED,		//失败
+	TIMEOUT,	//超时
 }

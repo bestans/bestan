@@ -32,13 +32,13 @@ public class MessagePack implements IEvent {
 	@Override
 	public void run() {
 		if (object != null) {
-			object.execute(message);
+			object.executeMessage(message);
 			return;
 		}
 
 		var obj = ObjectManager.getInstance().getObject(guid);
 		if (obj != null) {
-			obj.execute(message);
+			obj.executeMessage(message);
 		}
 	}
 }

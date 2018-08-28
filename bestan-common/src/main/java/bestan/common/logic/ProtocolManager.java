@@ -5,8 +5,7 @@ import java.util.concurrent.ExecutorService;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-
-import bestan.common.net.AbstractProtocol;
+import com.google.protobuf.Message;
 
 public class ProtocolManager {
 	private static class ProtocolManagerHolder{
@@ -31,7 +30,7 @@ public class ProtocolManager {
 		return true;
 	}
 	
-	public void sendCallback(IObject src, IObject dst, AbstractProtocol arg) {
+	public void sendCallback(IObject src, IObject dst, Message arg) {
 		var callback = new CommonCallback(src, dst, arg);
 		Futures.addCallback(threadPoolService.submit(callback), callback, threadPoolService);
 	}

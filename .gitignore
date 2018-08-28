@@ -60,3 +60,4 @@ local.properties
 /source/jar/rocksdb/.project
 /source/jar/rocksdb_release.jar
 /source/jar/rocksdbjni-5.9.2.jar
+/target/

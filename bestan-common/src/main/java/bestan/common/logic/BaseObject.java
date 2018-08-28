@@ -3,7 +3,10 @@ package bestan.common.logic;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.google.protobuf.Message;
+
 import bestan.common.guid.Guid;
+import bestan.common.message.MessageFactory;
 import bestan.common.timer.ITimer;
 
 public abstract class BaseObject implements IObject, ITimer {
@@ -36,5 +39,15 @@ public abstract class BaseObject implements IObject, ITimer {
 	
 	public void setTimerInvalid() {
 		isTimerValid.set(false);
+	}
+
+	@Override
+	public final void executeMessage(Message message) {
+		lockObject();
+		try {
+			processMessage(MessageFactory.getMessageIndex(message.getClass()), message);
+		}finally {
+			unlockObject();
+		}
 	}
 }

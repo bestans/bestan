@@ -5,7 +5,6 @@ import com.google.protobuf.Message;
 import bestan.common.guid.Guid;
 import bestan.common.message.pack.CommonSaveRetcode;
 import bestan.common.net.AbstractProtocol;
-import bestan.common.net.ProtocolHeader;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
 
 public interface IObject {
@@ -22,36 +21,23 @@ public interface IObject {
 	default void commonSaveReply(RpcCommonSaveOp arg, int opType, CommonSaveRetcode retcode) {
 		
 	}
-	default void processProtocol(ProtocolHeader header, Message message) {
-		
-	}
-	default void executeProtocol(ProtocolHeader header, Message message) {
-		lockObject();
-		try {
-			processProtocol(header, message);
-		}finally {
-			unlockObject();
-		}
+
+	/**
+	 * 处理消息，已经加锁了
+	 * @param messageId
+	 * @param message
+	 */
+	default void processMessage(int messageId, Message message) {
 	}
 	
-	default void processMessage(Message message) {
-		
-	}
-	
-	default void execute(Message message) {
-		lockObject();
-		try {
-			processMessage(message);
-		}finally {
-			unlockObject();
-		}
+	default void executeMessage(Message message) {
 	}
 	
 	default void Tick() {
 		
 	}
 	
-	default void sendCallback(IObject dst, AbstractProtocol arg) {
+	default void sendCallback(IObject dst, Message arg) {
 		ProtocolManager.getInstance().sendCallback(this, dst, arg);
 	}
 
@@ -63,11 +49,11 @@ public interface IObject {
 		ObjectManager.getInstance().sendMessage(guid, message);
 	}
 	
-	default AbstractProtocol call(AbstractProtocol protocol) {
+	default Message callbackExecute(Message protocol) {
 		return null;
 	}
 	
-	default void callReply(boolean success, Throwable t, AbstractProtocol arg, AbstractProtocol res) {
+	default void callbackReply(boolean success, Throwable t, AbstractProtocol arg, AbstractProtocol res) {
 		
 	}
 }
