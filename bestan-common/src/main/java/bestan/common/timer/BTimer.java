@@ -1,6 +1,6 @@
 package bestan.common.timer;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
@@ -14,14 +14,14 @@ import bestan.common.logic.ServerConfig;
 import bestan.common.module.IModule;
 import bestan.common.thread.BExecutor;
 
-public class Timer implements IModule {
+public class BTimer {
 	private static BExecutor workExecutor;
 	private static Multimap<Long, Observer> observers = ArrayListMultimap.create();
 	private static Multimap<Long, Observer> newObservers = ArrayListMultimap.create();
 	private static ReentrantLock lock = new ReentrantLock();
 	private static long tickNow = 0;
 	private static ReentrantLock tickLock = new ReentrantLock();
-	private static Executor timeExecutor = Executors.newFixedThreadPool(1);
+	private static ExecutorService timeExecutor;
 	private static boolean stop = false;
 	
 	private static void attachObserver(Observer ob) {
@@ -165,38 +165,42 @@ public class Timer implements IModule {
 		}
 	}
 
-	@Override
-	public void startup(ServerConfig config) {
-		workExecutor = config.workExecutor;
-		stop = false;
-		timeExecutor.execute(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					update();
-					try {
-						Thread.sleep(config.tickInterval);
-					} catch (InterruptedException e) {
-						Glog.error("timeExecutor run error({})", e.getMessage());
-						timeExecutor.execute(this);
-						break;
+	public static class TimerModule implements IModule {
+		@Override
+		public void startup(ServerConfig config) {
+			stop = false;
+			workExecutor = config.workExecutor;
+			timeExecutor = Executors.newFixedThreadPool(1);
+			timeExecutor.execute(new Runnable() {
+				@Override
+				public void run() {
+					while (true) {
+						update();
+						try {
+							Thread.sleep(config.tickInterval);
+						} catch (InterruptedException e) {
+							Glog.info("timeExecutor run error, maybe close({})", e.getMessage());
+							timeExecutor.execute(this);
+							break;
+						}
 					}
 				}
-			}
-		});
-	}
-	
-	@Override
-	public void close() {
-		stop = true;
+			});
+		}
 		
-		int maxTimes = 100;
-		while ((maxTimes-- > 0) && (observers.size() > 0 || newObservers.size() > 0)) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				Glog.error("timer close error({})", e.getMessage());
+		@Override
+		public void close() {
+			stop = true;
+			
+			int maxTimes = 100;
+			while ((maxTimes-- > 0) && (observers.size() > 0 || newObservers.size() > 0)) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					Glog.error("timer close error({})", e.getMessage());
+				}
 			}
+			timeExecutor.shutdownNow();
 		}
 	}
 }

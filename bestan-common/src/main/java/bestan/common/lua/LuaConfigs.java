@@ -122,6 +122,12 @@ public class LuaConfigs {
 				if (!config.LoadLuaConfig(globals, rootPath + fileName)) {
 					return false;
 				}
+
+				//设置配置单例
+				var method = cls.getMethod("setInstance");
+				if (method != null) {
+					method.invoke(null, config);	
+				}
 				instance.allConfigs.put(cls, config);
 			}
 		} catch (Exception e) {

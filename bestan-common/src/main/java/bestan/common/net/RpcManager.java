@@ -10,7 +10,7 @@ import com.google.protobuf.Message;
 import bestan.common.logic.BaseManager;
 import bestan.common.protobuf.Proto;
 import bestan.common.timer.ITimer;
-import bestan.common.timer.Timer;
+import bestan.common.timer.BTimer;
 
 /**
  * @author yeyouhuan
@@ -26,7 +26,7 @@ public class RpcManager extends BaseManager implements ITimer {
 	}
 	
 	private RpcManager() {
-		Timer.attach(this, 100);
+		BTimer.attach(this, 100);
 	}
 	
 	public int getAndIncrementIndex() {
@@ -65,7 +65,7 @@ public class RpcManager extends BaseManager implements ITimer {
 	public void Tick() {
 		lock.lock();
 		try {
-			var curTime = Timer.getTime();
+			var curTime = BTimer.getTime();
 			for (var it : map.entrySet()) {
 				if (curTime >= it.getValue().getEndTime()) {
 					map.entrySet().remove(it);	
@@ -90,7 +90,7 @@ public class RpcManager extends BaseManager implements ITimer {
 			this.timeout = timeout;
 		}
 		private void resetEndtime() {
-			endTime = Timer.getTime() + timeout;
+			endTime = BTimer.getTime() + timeout;
 		}
 		public long getEndTime() {
 			return endTime;

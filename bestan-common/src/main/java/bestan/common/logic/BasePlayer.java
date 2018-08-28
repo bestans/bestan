@@ -3,7 +3,7 @@ package bestan.common.logic;
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
-import bestan.common.timer.Timer;
+import bestan.common.timer.BTimer;
 import io.netty.channel.Channel;
 
 public abstract class BasePlayer extends BaseObject {
@@ -11,7 +11,7 @@ public abstract class BasePlayer extends BaseObject {
 	
 	public BasePlayer(Guid guid) {
 		super(guid);
-		Timer.attach(this, Gmatrix.getInstance().getServerConfig().playerTickInterval);
+		BTimer.attach(this, Gmatrix.getInstance().getServerConfig().playerTickInterval);
 	}
 	
 	public void setChannel(Channel channel) {
