@@ -41,7 +41,7 @@ public abstract class BaseLuaConfig {
 		return luaValue.toint();
 	}
 	private Boolean parseBool(LuaValue luaValue) {
-		if (!luaValue.isnumber()) {
+		if (!luaValue.isboolean()) {
 			throw new LuaException("unexpected type:" + luaValue.typename());
 		}
 		return luaValue.toboolean();

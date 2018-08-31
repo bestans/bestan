@@ -17,4 +17,16 @@ public class TestExecutor implements BExecutor {
 		}
 	}
 
+	@Override
+	public void shutdown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shutdownNow() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

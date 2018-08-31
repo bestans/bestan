@@ -89,5 +89,13 @@ public class BThreadPoolExecutors {
 		public void execute(IEvent event) {
 			event.run();
 		}
+
+		@Override
+		public void shutdown() {
+		}
+
+		@Override
+		public void shutdownNow() {
+		}
     }
 }

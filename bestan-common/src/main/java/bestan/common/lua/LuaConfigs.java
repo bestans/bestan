@@ -124,14 +124,14 @@ public class LuaConfigs {
 				}
 
 				//设置配置单例
-				var method = cls.getMethod("setInstance");
+				var method = cls.getMethod("setInstance", BaseLuaConfig.class);
 				if (method != null) {
 					method.invoke(null, config);	
 				}
 				instance.allConfigs.put(cls, config);
 			}
 		} catch (Exception e) {
-			Glog.trace("LuaConfigs init failed.error={}", e.getMessage());
+			Glog.trace("LuaConfigs init failed.error={},{}", e.getClass().getSimpleName(), e.getMessage());
 		}
 		return true;
 	}

@@ -61,6 +61,12 @@ public class RocksDBState {
     protected final Map<String, ColumnFamilyHandle> columnFamilyHandles = Maps.newHashMap();
     protected final Map<String, Storage> storages = Maps.newHashMap();
     
+    public RocksDBState(RocksDBConfig config){
+    	this.config = config;
+    	config.tables.put("player", "player");
+    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, DBConst.DEFAULT_COLUMN_FAMILY);
+    }
+
     public RocksDBState(){
     	config.tables.put("player", "player");
     	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, DBConst.DEFAULT_COLUMN_FAMILY);
@@ -88,6 +94,15 @@ public class RocksDBState {
         // init local rocksdb even
         this.rocksDbDir = workerDir + "/db";
         this.rocksDbCheckpointDir = workerDir + "/checkpoint";
+        initLocalRocksDbDir();
+        initRocksDb();
+
+        Glog.info("Local: dataDir={}, checkpointDir={}", rocksDbDir, rocksDbCheckpointDir);
+    }
+    public void initEnv() {
+        // init local rocksdb even
+        this.rocksDbDir = config.dbPath + "/db";
+        this.rocksDbCheckpointDir = config.dbPath + "/checkpoint";
         initLocalRocksDbDir();
         initRocksDb();
 

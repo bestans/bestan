@@ -20,8 +20,10 @@ import bestan.common.db.DBException;
 import bestan.common.db.IDBHandle;
 import bestan.common.db.MergeTable;
 import bestan.common.db.StorageEnv;
+import bestan.common.db.util.DBModule;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.log.Glog;
+import bestan.common.lua.LuaConfigs;
 
 public class TestMain {
     private static void initLocalRocksDbDir() {
@@ -215,9 +217,28 @@ public class TestMain {
     	test10();
     	Glog.info("finish");
     }
+    
+    private static void test21() {
+    	LuaConfigs.loadConfig("bestan.test");
+    	var dbConfig = LuaConfigs.get(DBConfig.class);
+    	Glog.debug("dbConfig={}", dbConfig);
+    	var startup = new DBModule(dbConfig);
+    	startup.startup(null);
+    	new SetDB().baseHandle();
+    	startup.close();
+    }
+    private static void test22() {
+    	LuaConfigs.loadConfig("bestan.test");
+    	var dbConfig = LuaConfigs.get(DBConfig.class);
+    	Glog.debug("dbConfig={}", dbConfig);
+    	var startup = new DBModule(dbConfig);
+    	startup.startup(null);
+    	new PrintDB().baseHandle();
+    	startup.close();
+    }
 	public static void main(String[] args) {
 			Glog.info("test");
-			test11();
+			test22();
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
+import bestan.common.logic.ServerConfig;
+import bestan.common.module.IModule;
 import bestan.common.net.INetManager;
 import bestan.common.net.IProtocol;
 import io.netty.bootstrap.Bootstrap;
@@ -22,7 +24,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @author yeyouhuan
  *
  */
-public class BaseNetClientManager implements INetManager {
+public class BaseNetClientManager implements INetManager, IModule {
 	private AtomicBoolean connecting = new AtomicBoolean(false);
 	private Channel channel;
 	private ChannelHandlerContext ctx;
@@ -103,5 +105,15 @@ public class BaseNetClientManager implements INetManager {
 	
 	public void sendMessage(Message message) {
 		this.channel.writeAndFlush(baseProtocol.encode(message));
+	}
+
+	@Override
+	public void startup(ServerConfig config) {
+		start();
+	}
+	
+	@Override
+	public void close() {
+		close();
 	}
 }

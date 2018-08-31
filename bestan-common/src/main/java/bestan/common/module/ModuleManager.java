@@ -1,9 +1,12 @@
 package bestan.common.module;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import bestan.common.log.Glog;
 import bestan.common.logic.ServerConfig;
 
 /**
@@ -12,44 +15,37 @@ import bestan.common.logic.ServerConfig;
  * @date:   2018年8月3日 下午3:58:32 
  */
 public class ModuleManager {
-	private static List<IModule> modules = new ArrayList<>();
-	private static Class<? extends IModule>[] closeOrders = null;
-	private static Map<Class<? extends IModule>, IModule> moduleMap;
-	
-	/**
-	 * 注册一个模块，另外startup将会按照注册顺序，依次启动模块
-	 * @param module 注册的模块
-	 */
-	public static void register(IModule module) {
-		modules.add(module);
-		moduleMap.put(module.getClass(), module);
-	}
-	
+	private static List<IModule> modules = null;
+	private static List<IModule> closeModules = null;
+	private static Map<IModule, Boolean> openMap = Maps.newHashMap();
+
 	/**
 	 * 注册多个模块，另外startup将会按照注册顺序，依次启动模块
 	 * @param modules 多个模块
 	 */
-	public static void register(IModule[] modules) {
-		for (var module : modules) {
-			register(module);
-		}
-	}
-	
-	/**
-	 * 注册模块关闭顺序
-	 * @param moduleClassArr 模块关闭顺序
-	 */
-	public static void registeCloseOrder(Class<? extends IModule>[] moduleClassArr) {
-		closeOrders = moduleClassArr;
+	public static void register(IModule[] startupModulesArg, IModule[] closeModulesArg) {
+		modules = Lists.newArrayList(startupModulesArg);
+		closeModules = Lists.newArrayList(closeModulesArg);
 	}
 	
 	/**
 	 * 按照注册顺序依次启动各个模块
 	 */
-	public static void startup(ServerConfig config) {
+	public static boolean startup(ServerConfig config) {
+		if (modules == null)
+			return false;
+		
 		for (var module : modules) {
-			module.startup(config);
+			try {
+				module.startup(config);
+				openMap.put(module, true);
+			} catch (Exception e) {
+				Glog.error("startup failed:module={},error_clas={},error={}",
+						module.getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage());
+				return false;
+			}
 		}
+		return true;
 	}
 	
 	/**
@@ -57,17 +53,20 @@ public class ModuleManager {
 	 * 否则按照启动倒序进行
 	 */
 	public static void close() {
-		if (closeOrders == null) {
-			//如果没有指定关闭顺序，那么按照启动倒序来关闭
-			var it = modules.listIterator(modules.size());
-			while (it.hasPrevious()) {
-				it.previous().close();
-			}
-			return;
-		}
+		if (closeModules == null) return;
+		
 		//按照指定的关闭顺序，逐一关闭各个模块
-		for (var cls : closeOrders) {
-			moduleMap.get(cls).close();
+		for (var module : closeModules) {
+			if (openMap.get(module)) {
+				//没有开过
+				continue;
+			}
+			try {
+				module.close();
+			} catch (Exception e) {
+				Glog.error("close module failed:module={},error_clas={},error={}",
+						module.getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage());
+			}
 		}
 	}
 }

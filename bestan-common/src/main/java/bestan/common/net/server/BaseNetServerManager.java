@@ -2,6 +2,8 @@ package bestan.common.net.server;
 
 import java.net.InetSocketAddress;
 
+import bestan.common.logic.ServerConfig;
+import bestan.common.module.IModule;
 import bestan.common.net.INetManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -29,7 +31,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author yeyouhuan
  *
  */
-public class BaseNetServerManager implements INetManager {
+public class BaseNetServerManager implements INetManager, IModule {
 	private NetServerConfig config;
 	protected ServerBootstrap serverBootstrap;
 	protected EventLoopGroup bossGroup;
@@ -74,5 +76,9 @@ public class BaseNetServerManager implements INetManager {
 	
 	public NetServerConfig getConfig() {
 		return config;
+	}
+	@Override
+	public void startup(ServerConfig config) throws Exception {
+		start();
 	}
 }

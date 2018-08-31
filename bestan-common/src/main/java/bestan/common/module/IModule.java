@@ -6,10 +6,10 @@ public interface IModule {
 	/**
 	 * 启动模块
 	 */
-	void startup(ServerConfig config);
+	void startup(ServerConfig config) throws Exception;
 
 	/**
 	 * 关闭模块
 	 */
-	default void close() { }
+	default void close() throws Exception { }
 }

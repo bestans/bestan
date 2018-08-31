@@ -19,13 +19,18 @@ public class RocksDBConfig extends BaseLuaConfig {
 	/**
 	 * 数据库所在路径 
 	 */
-	public String dbPath = null;
-	
+	public String dbPath;
+
 	/**
 	 * 数据库table表，key是数据库表名，value是解析的数据格式
 	 */
 	@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
 	public Map<String, String> tables = Maps.newHashMap();
+
+	/**
+	 * 检查表message有效性
+	 */
+	public boolean checkTableMessageValid = false;
 	
 	/**
 	 * If true, the database will be created if it is missing
@@ -167,6 +172,7 @@ public class RocksDBConfig extends BaseLuaConfig {
 	 */
 	public int maxBackgroundJobs = 2;
 
+	@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
 	public CompactionStyle compactionStyle = CompactionStyle.LEVEL;
 	
 	/**

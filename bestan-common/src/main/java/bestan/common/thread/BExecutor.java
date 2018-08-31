@@ -4,4 +4,6 @@ import bestan.common.event.IEvent;
 
 public interface BExecutor {
 	void execute(IEvent event);
+	void shutdown();
+	void shutdownNow();
 }

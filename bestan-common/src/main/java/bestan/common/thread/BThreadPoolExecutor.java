@@ -66,4 +66,15 @@ public class BThreadPoolExecutor implements BExecutor  {
 		}
 		return index;
 	}
+	
+	public void shutdown() {
+		for (var t : executors) {
+			t.shutdown();
+		}
+	}
+	public void shutdownNow() {
+		for (var t : executors) {
+			t.shutdownNow();
+		}
+	}
 }

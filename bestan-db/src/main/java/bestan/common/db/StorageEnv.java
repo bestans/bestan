@@ -26,6 +26,15 @@ public class StorageEnv {
         return state;
 	}
 	
+	private static RocksDBState initDB(RocksDBConfig config) {
+        var state = new RocksDBState(config);
+        state.initEnv();
+        return state;
+	}
+	public static void init(RocksDBConfig config) {
+		dbState = initDB(config);
+		wOp = new WriteOptions();
+	}
 	public static void init() {
 		dbState = initDB("d:/rocksdb_test");
 		wOp = new WriteOptions();

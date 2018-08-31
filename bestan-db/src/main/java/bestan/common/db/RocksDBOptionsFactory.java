@@ -37,7 +37,6 @@ import org.rocksdb.StringAppendOperator;
 import com.google.common.collect.Lists;
 
 import bestan.common.log.Glog;
-import bestan.common.logic.FormatException;
 import bestan.common.message.MessageFactory;
 
 public class RocksDBOptionsFactory {
@@ -205,10 +204,10 @@ public class RocksDBOptionsFactory {
                 if (srcColumnFamilyHandles.get(i) == null) {
             		throw new IOException("Failed to initialize RocksDb. empty family handle.");
                 }
-                var messageInstance = MessageFactory.getMessageInstance(tableName);
-        		if (messageInstance == null)
-        			throw new FormatException("Storage construct failed: invalid table value message, table=%s, message=%s", 
-        					tableName, messageName);
+                var messageInstance = MessageFactory.getMessageInstance(messageName);
+//        		if (messageInstance == null)
+//        			throw new FormatException("Storage construct failed: invalid table value message, table=%s, message=%s", 
+//        					tableName, messageName);
         		
                 columnFamilyHandles.put(tableName, srcColumnFamilyHandles.get(i));
                 storages.put(tableName, new Storage(tableName, messageInstance, srcColumnFamilyHandles.get(i), txnDb));
