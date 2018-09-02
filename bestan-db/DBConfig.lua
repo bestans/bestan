@@ -8,9 +8,11 @@ local config =
     --数据库路径
     dbPath = "d:/db_test1",
     
-    --数据库表(key：表名，value：对应解析的message名)
+    --数据库表
+    --key：表名
+    --value：keyType指key类型，valueType指value类型，valueName和keyName仅在类型为message时有效
     tables = {
-		player = "test",
+		player = { keyType = "INT", valueType = "INT" },
     },
     
     --检查table解析的message是否有效

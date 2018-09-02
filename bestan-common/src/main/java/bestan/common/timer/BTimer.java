@@ -3,6 +3,7 @@ package bestan.common.timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -19,10 +20,9 @@ public class BTimer {
 	private static Multimap<Long, Observer> observers = ArrayListMultimap.create();
 	private static Multimap<Long, Observer> newObservers = ArrayListMultimap.create();
 	private static ReentrantLock lock = new ReentrantLock();
-	private static long tickNow = 0;
-	private static ReentrantLock tickLock = new ReentrantLock();
 	private static ExecutorService timeExecutor;
 	private static boolean stop = false;
+	private static AtomicLong timeNow = new AtomicLong();
 	
 	private static void attachObserver(Observer ob) {
 		if (stop) {
@@ -30,19 +30,14 @@ public class BTimer {
 		}
 		lock.lock();
 		try {
-			newObservers.put(ob.getInterval() + tickNow, ob);
+			newObservers.put(ob.getInterval() + timeNow.get(), ob);
 		} finally {
 			lock.unlock();
 		}
 	}
 	
-	private static void calcTickNow() {
-		tickLock.lock();
-		try {
-			tickNow = System.currentTimeMillis();
-		} finally {
-			tickLock.unlock();
-		}
+	private static void calcTimeNow() {
+		timeNow.set(System.currentTimeMillis());
 	}
 	
 	private static Multimap<Long, Observer> mergeNewObservers() {
@@ -58,10 +53,11 @@ public class BTimer {
 	}
 	
 	private static void update() {
-		calcTickNow();
+		calcTimeNow();
 		
 		var tempObServers = mergeNewObservers();
 		observers.putAll(tempObServers);
+		var tickNow = timeNow.get();
 		for (var it : observers.entries()) {
 			if (tickNow < it.getKey()) {
 				break;
@@ -88,8 +84,12 @@ public class BTimer {
 		attachObserver(ob);
 	}
 	
-	public static int getTime() {
-		return 0;
+	public static long getTime() {
+		return timeNow.get() / 1000;
+	}
+	
+	public static long getTimeMillis() {
+		return timeNow.get();
 	}
 	
 	public static void attach(ITimer timerObject, int delay) {
@@ -169,6 +169,7 @@ public class BTimer {
 		@Override
 		public void startup(ServerConfig config) {
 			stop = false;
+			calcTimeNow();
 			workExecutor = config.workExecutor;
 			timeExecutor = Executors.newFixedThreadPool(1);
 			timeExecutor.execute(new Runnable() {

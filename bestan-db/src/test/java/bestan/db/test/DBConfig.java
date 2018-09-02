@@ -1,4 +1,4 @@
-package bestan.test;
+package bestan.db.test;
 
 import bestan.common.db.RocksDBConfig;
 import bestan.common.log.Glog;

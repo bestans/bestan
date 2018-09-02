@@ -1,4 +1,4 @@
-package bestan.test;
+package bestan.db.test;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,15 +17,15 @@ import com.google.common.primitives.Shorts;
 
 import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.DBException;
+import bestan.common.db.DBModule;
 import bestan.common.db.IDBHandle;
 import bestan.common.db.MergeTable;
 import bestan.common.db.StorageEnv;
-import bestan.common.db.util.DBModule;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.log.Glog;
 import bestan.common.lua.LuaConfigs;
 
-public class TestMain {
+public class TestMainDB {
     private static void initLocalRocksDbDir() {
         try {
             File file = new File("d:/test");
@@ -179,7 +179,7 @@ public class TestMain {
 			var it = player.newIterator();
 			it.seekToFirst();
 			while (it.isValid()) {
-				Glog.debug("key={},value={}", Ints.fromByteArray(it.key()), Ints.fromByteArray(it.value()));
+				Glog.debug("key={},value={}", player.getKeyObject(it.key()), player.getValueObject(it.value()));
 				it.next();
 			}
 		}
@@ -190,7 +190,7 @@ public class TestMain {
     	public void handle(Transaction txn) throws RocksDBException {
 			var player = StorageEnv.getStorage("player");
 			for (int i = 10; i < 20; ++i) {
-				player.put(txn, i, i);
+				player.put(txn, (long)i, i);
 			}
 		}
     }
@@ -219,7 +219,7 @@ public class TestMain {
     }
     
     private static void test21() {
-    	LuaConfigs.loadConfig("bestan.test");
+    	LuaConfigs.loadConfig("bestan.db.test");
     	var dbConfig = LuaConfigs.get(DBConfig.class);
     	Glog.debug("dbConfig={}", dbConfig);
     	var startup = new DBModule(dbConfig);
@@ -228,7 +228,7 @@ public class TestMain {
     	startup.close();
     }
     private static void test22() {
-    	LuaConfigs.loadConfig("bestan.test");
+    	LuaConfigs.loadConfig("bestan.db.test");
     	var dbConfig = LuaConfigs.get(DBConfig.class);
     	Glog.debug("dbConfig={}", dbConfig);
     	var startup = new DBModule(dbConfig);
@@ -238,7 +238,6 @@ public class TestMain {
     }
 	public static void main(String[] args) {
 			Glog.info("test");
-			test22();
+			test21();
 	}
-
 }

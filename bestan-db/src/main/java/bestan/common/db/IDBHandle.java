@@ -13,10 +13,10 @@ public interface IDBHandle {
 			handle(txn);
 			txn.commit();
 		} catch (DBException e) {
-			Glog.debug("DbHandle:{}:DBException:errcode={},message={}", getClass().getSimpleName(), e.getErrorCodeMessage(), e.getMessage());
+			Glog.debug("DbHandle:{}:DBException:errcode={},message={},stack={},", getClass().getSimpleName(), e.getErrorCodeMessage(), e.getMessage(), e.getStackTrace());
 			StorageEnv.rollback(txn);
 		} catch (Exception e) {
-			Glog.debug("DbHandle:{}:Exception:message={}", getClass().getSimpleName(), e.getMessage());
+			Glog.debug("DbHandle:{}:Exception:message={},stack={}", getClass().getSimpleName(), e.getMessage(), e.getStackTrace());
 			StorageEnv.rollback(txn);
 		} finally {
 			StorageEnv.end();

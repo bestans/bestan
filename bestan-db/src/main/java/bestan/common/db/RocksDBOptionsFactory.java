@@ -37,7 +37,6 @@ import org.rocksdb.StringAppendOperator;
 import com.google.common.collect.Lists;
 
 import bestan.common.log.Glog;
-import bestan.common.message.MessageFactory;
 
 public class RocksDBOptionsFactory {
     private static final int DEFAULT_BLOOM_FILTER_BITS = 10;
@@ -122,8 +121,10 @@ public class RocksDBOptionsFactory {
             for (byte[] temp_b : oldFamilies) {
             	strfamilies.add(new String(temp_b));
             }
+    		Glog.debug("dbName_config={}", config.tables);
         	for (var it : config.tables.entrySet()) {
         		String dbName = it.getKey();
+        		Glog.debug("dbName={}", dbName);
         		boolean find = false;
         		for (String old_db : strfamilies) {
 	        		if (old_db.equals(dbName)) {
@@ -197,20 +198,17 @@ public class RocksDBOptionsFactory {
             for (int i = 0; i < n; i++) {
                 ColumnFamilyDescriptor descriptor = columnFamilyDescriptors.get(i);
                 String tableName = new String(descriptor.getName());
-                String messageName = config.tables.get(tableName);
-                if (null == messageName) {
+                var tableStruct = config.tables.get(tableName);
+                if (null == tableStruct) {
+                	Glog.error("not find tableName:{},{}", tableName, config.tables);
                 	continue;
                 }
                 if (srcColumnFamilyHandles.get(i) == null) {
             		throw new IOException("Failed to initialize RocksDb. empty family handle.");
                 }
-                var messageInstance = MessageFactory.getMessageInstance(messageName);
-//        		if (messageInstance == null)
-//        			throw new FormatException("Storage construct failed: invalid table value message, table=%s, message=%s", 
-//        					tableName, messageName);
-        		
+
                 columnFamilyHandles.put(tableName, srcColumnFamilyHandles.get(i));
-                storages.put(tableName, new Storage(tableName, messageInstance, srcColumnFamilyHandles.get(i), txnDb));
+                storages.put(tableName, new Storage(tableName, tableStruct, srcColumnFamilyHandles.get(i), txnDb));
             }
             Glog.info("Finished loading RocksDB with existing column dbPath={},desc_size={}",
             		rocksDbDir, columnFamilyDescriptors.size());

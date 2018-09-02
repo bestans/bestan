@@ -29,6 +29,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import bestan.common.db.DBConst.EM_DB;
+import bestan.common.db.RocksDBConfig.TableStruct;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.db.util.Utils;
 import bestan.common.log.Glog;
@@ -63,13 +64,13 @@ public class RocksDBState {
     
     public RocksDBState(RocksDBConfig config){
     	this.config = config;
-    	config.tables.put("player", "player");
-    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, DBConst.DEFAULT_COLUMN_FAMILY);
+    	//config.tables.put("player", "player");
+    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, new TableStruct());
     }
 
     public RocksDBState(){
-    	config.tables.put("player", "player");
-    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, DBConst.DEFAULT_COLUMN_FAMILY);
+    	//config.tables.put("player", "player");
+    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, new TableStruct());
     }
     
     public ColumnFamilyHandle GetHandle(EM_DB dbType) {

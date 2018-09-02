@@ -45,6 +45,7 @@ public class LuaConfigs {
 	public static boolean loadConfig(String rootPath, String[] packageNames) {
 		try {
 			for (var pName : packageNames) {
+				Glog.debug("loadConfig rootPath={},package={}", rootPath, pName);
 				Reflections.log = null;
 				Reflections reflections = new Reflections(pName);
 				Set<Class<? extends BaseLuaConfig>> classes = reflections.getSubTypesOf(BaseLuaConfig.class);
@@ -108,6 +109,7 @@ public class LuaConfigs {
 	 */
 	public static boolean loadConfig(String rootPath, Class<? extends BaseLuaConfig> cls) {
 		try {
+			Glog.debug("loadConfig rootPath={},class={}", rootPath, cls);
 			var annotation = cls.getAnnotation(LuaAnnotation.class);
 			String fileName = null;
 			if (annotation != null) {
@@ -124,9 +126,14 @@ public class LuaConfigs {
 				}
 
 				//设置配置单例
-				var method = cls.getMethod("setInstance", BaseLuaConfig.class);
-				if (method != null) {
-					method.invoke(null, config);	
+				try
+				{
+					var method = cls.getDeclaredMethod("setInstance", BaseLuaConfig.class);
+					if (method != null) {
+						method.invoke(null, config);	
+					}
+				} catch (NoSuchMethodException e) {
+				
 				}
 				instance.allConfigs.put(cls, config);
 			}

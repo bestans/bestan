@@ -1,12 +1,14 @@
 package bestan.common.message;
 
 import java.lang.reflect.Modifier;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.reflections.Reflections;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 
@@ -32,6 +34,7 @@ public class MessageFactory implements IModule {
 	private static Map<String, Integer> messageNameIndexMap = Maps.newHashMap();
 	private static Map<String, Message> nameMessageMap = Maps.newHashMap();
 	
+	private static List<IMessageLoadFinishCallback> loadFinishCallbackList = Lists.newArrayList();
 	/**
 	 * 消息对应的handler
 	 */
@@ -242,6 +245,10 @@ public class MessageFactory implements IModule {
 		return true;
 	}
 	
+	public static void registerLoadFinishCallback(IMessageLoadFinishCallback object) {
+		loadFinishCallbackList.add(object);
+	}
+	
 	@Override
 	public void startup(ServerConfig config) {
 		//载入messageName->index映射关系
@@ -252,5 +259,14 @@ public class MessageFactory implements IModule {
 		if (!loadMessageHandle(config.messageHandlerPackage)) {
 			throw new StartupException(this, "loadMessageHandle failed");
 		}
+		
+		for (var obj : loadFinishCallbackList) {
+			try {
+				obj.onMessageLoadFinish();
+			} catch (Exception e) {
+				throw new StartupException(this, "loadFinishCallback failed:" + e.getMessage());
+			}
+		}
+		loadFinishCallbackList.clear();
 	}
 }

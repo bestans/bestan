@@ -34,6 +34,18 @@ import bestan.common.lua.LuaParamAnnotation.LuaParamPolicy;
  * @date:   2018年8月2日 下午7:50:27 
  */
 public abstract class BaseLuaConfig {
+	@SuppressWarnings("rawtypes")
+	private Enum parseEnum(LuaValue luaValue, Class<? extends Enum> cls) {
+		if (!luaValue.isstring()) {
+			throw new LuaException("unexpected type:" + luaValue.typename());
+		}
+		try {
+			var method = cls.getMethod("valueOf", String.class);
+			return (Enum)method.invoke(null, luaValue.toString());
+		} catch (Exception e) {
+			throw new LuaException("parse enum failed:error=" + e.getMessage() + ",enum_desc=" + luaValue.toString());
+		}
+	}
 	private Integer parseInt(LuaValue luaValue) {
 		if (!luaValue.isnumber()) {
 			throw new LuaException("unexpected type:" + luaValue.typename());
@@ -106,7 +118,9 @@ public abstract class BaseLuaConfig {
 				throw new LuaException(stringBuffer.toString());
 			}
 		}
-		afterLoad();
+		Glog.debug("before:afterLoad:{}", config.getClass().getSimpleName());
+		config.afterLoad();
+		Glog.debug("after:afterLoad:{}", config.getClass().getSimpleName());
 	}
 	private <T> void parseList(LuaValue luaValue, List<T> arr, Class<T> tClass, Type tType) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		if (!luaValue.istable()) {
@@ -151,6 +165,8 @@ public abstract class BaseLuaConfig {
 			value = (T) parseString(luaValue);
 		} else if (cls.equals(Long.class) || cls.equals(long.class)) {
 			value = (T) parseLong(luaValue);
+		} else if (Enum.class.isAssignableFrom(cls)) {
+			value = (T) parseEnum(luaValue, (Class<? extends Enum>)cls);
 		} else if (cls.equals(List.class)) {
 			if (value == null) {
 				value = (T) new ArrayList<>();
@@ -198,7 +214,7 @@ public abstract class BaseLuaConfig {
 		LoadLuaConfig(path);
 	}
 	
-	public void afterLoad() {}
+	public void afterLoad() throws LuaException {}
 
 	@Override
 	public String toString() {

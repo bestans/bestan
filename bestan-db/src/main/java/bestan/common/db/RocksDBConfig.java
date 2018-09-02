@@ -7,10 +7,16 @@ import org.rocksdb.util.SizeUnit;
 
 import com.google.common.collect.Maps;
 
+import bestan.common.db.TableDataProcess.TableDataType;
+import bestan.common.log.Glog;
+import bestan.common.logic.FormatException;
 import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
+import bestan.common.lua.LuaException;
 import bestan.common.lua.LuaParamAnnotation;
 import bestan.common.lua.LuaParamAnnotation.LuaParamPolicy;
+import bestan.common.message.IMessageLoadFinishCallback;
+import bestan.common.message.MessageFactory;
 
 @LuaAnnotation(load = false, optional = true)
 public class RocksDBConfig extends BaseLuaConfig {
@@ -25,7 +31,7 @@ public class RocksDBConfig extends BaseLuaConfig {
 	 * 数据库table表，key是数据库表名，value是解析的数据格式
 	 */
 	@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
-	public Map<String, String> tables = Maps.newHashMap();
+	public Map<String, TableStruct> tables = Maps.newHashMap();
 
 	/**
 	 * 检查表message有效性
@@ -225,4 +231,48 @@ public class RocksDBConfig extends BaseLuaConfig {
 	public long blockCacheSize = 64 * SizeUnit.MB;
 	
 	public boolean cacheIndexAndFilterBlocks = true;
+
+	public final static class TableStruct extends BaseLuaConfig implements IMessageLoadFinishCallback {
+		@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
+		public TableDataType keyType;
+		@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
+		public TableDataType valueType;
+		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
+		public String keyName = "";
+		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
+		public String valueName = "";
+		
+		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
+		public TableDataProcess keyProcess;
+		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
+		public TableDataProcess valueProcess;
+
+		@Override
+		public void afterLoad() throws LuaException {
+			Glog.debug("afterLoad,{},{}", keyType, valueType);
+			keyProcess = new TableDataProcess(keyType);
+			valueProcess = new TableDataProcess(valueType);
+			
+			//注册回调，当message载入后，回调计算message
+			MessageFactory.registerLoadFinishCallback(this);
+		}
+
+		@Override
+		public void onMessageLoadFinish() throws Exception {
+			if (keyType == TableDataType.MESSAGE) {
+				var instance = MessageFactory.getMessageInstance(keyName);
+				if (null == instance) {
+					throw new FormatException("TableStruct parse key message type failed:invalid keyName=%s", keyName); 
+				}
+				keyProcess.setMessageInstance(instance);
+			}
+			if (valueType == TableDataType.MESSAGE) {
+				var instance = MessageFactory.getMessageInstance(valueName);
+				if (null == instance) {
+					throw new FormatException("TableStruct parse value message type failed:invalid valueName=%s", valueName); 
+				}
+				valueProcess.setMessageInstance(instance);
+			}
+		}
+	}
 }

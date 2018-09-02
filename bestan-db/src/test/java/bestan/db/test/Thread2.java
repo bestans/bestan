@@ -1,4 +1,4 @@
-package bestan.test;
+package bestan.db.test;
 
 import org.rocksdb.Transaction;
 

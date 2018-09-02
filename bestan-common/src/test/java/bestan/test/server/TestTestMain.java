@@ -12,6 +12,10 @@ import bestan.common.protobuf.MessageFixedEnum;
  */
 public class TestTestMain {
 	public enum TestEnum {
+		INT,
+		LONG;
+		
+		public String value;
 	}
 	public static void test1() throws FormatException {
 		throw new FormatException("aaaa%s,%s", "aa");
@@ -60,9 +64,17 @@ public class TestTestMain {
 		t.shutdownNow();
 	}
 	
+	public static void test4() {
+		TestEnum v1 = TestEnum.INT;
+		v1.value = "1111";
+		TestEnum v2 = TestEnum.INT;
+		v2.value = "22222";
+		System.out.println(v1.value);
+		System.out.println(v2.value);
+	}
 	public static void main(String[] args) {
 		try {
-			test3();
+			test4();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

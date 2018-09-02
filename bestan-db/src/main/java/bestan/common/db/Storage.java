@@ -9,9 +9,7 @@ import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
 
-import com.google.common.primitives.Ints;
-import com.google.protobuf.Message;
-
+import bestan.common.db.RocksDBConfig.TableStruct;
 import bestan.common.logic.FormatException;
 
 public class Storage implements Comparable<Object> {
@@ -21,14 +19,18 @@ public class Storage implements Comparable<Object> {
 	private ColumnFamilyHandle handle;
 	private ReadOptions rOptions;
 	private RocksDB db;
-	private Message messageInstance;
+
+	private TableDataProcess keyProcess;
+	private TableDataProcess valueProcess;
 	
-	public Storage(String tableName, Message messageInstance, ColumnFamilyHandle handle, RocksDB db) throws FormatException {
+	public Storage(String tableName, TableStruct tableStruct, ColumnFamilyHandle handle, RocksDB db) throws FormatException {
 		this.handle = handle;
 		this.tableName = tableName;
 		this.db = db;
-		this.messageInstance = messageInstance;
 		rOptions = new ReadOptions();
+		
+		this.keyProcess = tableStruct.keyProcess;
+		this.valueProcess = tableStruct.valueProcess;
 	}
 	
 	public String getTableType(){
@@ -56,33 +58,33 @@ public class Storage implements Comparable<Object> {
 		StorageEnv.lock();
 		return db.newIterator(handle);
 	}
-	public void put(Transaction txn, int key, int value) throws RocksDBException {
-		put(txn, Ints.toByteArray(key), Ints.toByteArray(value));
-	}
-
-	public void put(Transaction txn, int key, Message message) throws RocksDBException {
-		put(txn, Ints.toByteArray(key), message.toByteArray());
+	
+	public void put(Transaction txn, Object key, Object value) throws RocksDBException {
+		put(txn, keyProcess.getBytes(key), valueProcess.getBytes(value));
 	}
 	
-	public int getInt(Transaction txn, int key) throws RocksDBException {
-		var value = get(txn, Ints.toByteArray(key));
-		return value != null ? Ints.fromByteArray(value) : 0;
+	public void delete(Transaction txn, Object key) throws RocksDBException {
+		delete(txn, keyProcess.getBytes(key));
 	}
 	
-	public Message.Builder get(Transaction txn, int key) throws Exception {
-		var value = get(txn, Ints.toByteArray(key));
-		if (value == null)
+	public Object get(Transaction txn, Object key) throws RocksDBException {
+		var value = get(txn, keyProcess.getBytes(key));
+		if (value == null) {
 			return null;
-		
-		return messageInstance.newBuilderForType().mergeFrom(value);
+		}
+		return valueProcess.convert(value);
 	}
 	
-	public void delete(Transaction txn, int key) throws RocksDBException {
-		delete(txn, Ints.toByteArray(key));
+	public Integer getInt(Transaction txn, Object key) throws RocksDBException {
+		return (Integer)get(txn, key);
 	}
-
-	public void delete(Transaction txn, Message key) throws RocksDBException {
-		delete(txn, key.toByteArray());
+	
+	public Object getKeyObject(byte[] bytes) throws RocksDBException {
+		return keyProcess.convert(bytes);
+	}
+	
+	public Object getValueObject(byte[] bytes) throws RocksDBException {
+		return valueProcess.convert(bytes);
 	}
 	
 	@Override
