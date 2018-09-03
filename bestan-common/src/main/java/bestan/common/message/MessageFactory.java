@@ -251,6 +251,9 @@ public class MessageFactory implements IModule {
 	
 	@Override
 	public void startup(ServerConfig config) {
+		if (!loadFixedMessage()) {
+			throw new StartupException(this, "loadFixedMessage failed");
+		}
 		//载入messageName->index映射关系
 		loadMessageIndex(config.messageIndex);
 		if (!loadMessage(config.messagePackage)) {
