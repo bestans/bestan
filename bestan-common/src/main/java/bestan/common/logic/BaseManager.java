@@ -1,6 +1,7 @@
 package bestan.common.logic;
 
 import bestan.common.guid.Guid;
+import bestan.common.guid.GuidFixedType;
 
 public abstract class BaseManager extends BaseObject {
 	public BaseManager() {
@@ -10,7 +11,7 @@ public abstract class BaseManager extends BaseObject {
 	public void initManger() {
 		int uniqueId = ObjectManager.getInstance().incrementAndGetManagerIndex();
 		Guid guid = Guid.newGUID(Gmatrix.getInstance().getZoneID(),
-				Gmatrix.getInstance().getManagerObjectType(), uniqueId);
+				GuidFixedType.MANAGER.GetGUIDType(), uniqueId);
 		this.guid = guid;
 		ObjectManager.getInstance().putObject(this);
 	}
