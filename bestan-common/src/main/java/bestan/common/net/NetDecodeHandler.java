@@ -30,7 +30,6 @@ public class NetDecodeHandler extends ByteToMessageDecoder {
 	        }
 	        byte[] data = new byte[dataLength];
 	        in.readBytes(data);
-	        //var message = baseMessage.newBuilderForType().mergeFrom(data).build();
 	        out.add(baseProtocol.decode(ctx, data));
 		}
 	}

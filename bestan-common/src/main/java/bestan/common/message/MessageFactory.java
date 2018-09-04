@@ -96,9 +96,10 @@ public class MessageFactory {
 				Glog.error("loadMessageHandle erorr:invalid handle name({}), valid e.g xxxxHandle", handleName);
 				return false;
 			}
-			messageName = handleName.substring(0, handleName.length() - 6);
+			messageName = handleName.substring(0, handleName.length() - 7);
 		}
 		var messageIndex = messageNameIndexMap.get(messageName);
+		Glog.debug("messageName={},messageNameIndexMap={}", messageName, messageNameIndexMap);
 		return registerMessagehandler(cls, messageIndex);
 	}
 	private static boolean registerMessagehandler(Class<? extends IMessageHandler> cls, Integer messageIndex) {
