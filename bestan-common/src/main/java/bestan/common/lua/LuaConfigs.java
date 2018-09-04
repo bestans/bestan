@@ -126,9 +126,14 @@ public class LuaConfigs {
 				}
 
 				//设置配置单例
-				var configInstance = cls.getField("instance");
-				if (configInstance != null) {
-					configInstance.set(null, config);	
+				try
+				{
+					var configInstance = cls.getField("instance");
+					if (configInstance != null) {
+						configInstance.set(null, config);	
+					}
+				} catch (NoSuchFieldException e) {
+					
 				}
 				instance.allConfigs.put(cls, config);
 			}

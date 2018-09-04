@@ -37,8 +37,10 @@ public class ModuleManager {
 		
 		for (var module : modules) {
 			try {
-				module.startup(config);
+				Glog.debug("begin startup module({})", module.getClass().getSimpleName());
+				module.startup();
 				openMap.put(module, true);
+				Glog.debug("finish startup module({})", module.getClass().getSimpleName());
 			} catch (Exception e) {
 				Glog.error("startup failed:module={},error_clas={},error={}",
 						module.getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage());

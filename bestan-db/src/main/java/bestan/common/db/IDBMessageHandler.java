@@ -3,14 +3,14 @@ package bestan.common.db;
 import org.rocksdb.Transaction;
 
 import bestan.common.log.Glog;
-import bestan.common.message.IMessageHandle;
+import bestan.common.message.IMessageHandler;
 import bestan.common.net.AbstractProtocol;
 
 /**
  * @author yeyouhuan
  *
  */
-public interface IDBMessageHandler extends IMessageHandle {
+public interface IDBMessageHandler extends IMessageHandler {
 	@Override
 	default void processProtocol(AbstractProtocol protocol) throws Exception {
 		Transaction txn = null;

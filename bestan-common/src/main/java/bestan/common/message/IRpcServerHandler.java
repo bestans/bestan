@@ -8,7 +8,7 @@ import bestan.common.net.AbstractProtocol;
  * @author yeyouhuan
  *
  */
-public interface IRpcServerHandler extends IMessageHandle {
+public interface IRpcServerHandler extends IMessageHandler {
 	void server(AbstractProtocol protocol, Message arg, Message.Builder res);
 	
 	@Override

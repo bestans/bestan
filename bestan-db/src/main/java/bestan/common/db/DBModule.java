@@ -1,6 +1,5 @@
 package bestan.common.db;
 
-import bestan.common.logic.ServerConfig;
 import bestan.common.module.IModule;
 
 public class DBModule implements IModule{
@@ -11,7 +10,7 @@ public class DBModule implements IModule{
 	}
 	
 	@Override
-	public void startup(ServerConfig config) {
+	public void startup() {
 		StorageEnv.init(dbConfig);
 	}
 	

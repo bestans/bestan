@@ -13,7 +13,7 @@ import bestan.common.net.NetConst;
  * @author yeyouhuan
  *
  */
-public interface IObjectHandler extends IMessageHandle {
+public interface IObjectHandler extends IMessageHandler {
 	@Override
 	default void processProtocol(AbstractProtocol protocol) throws Exception{
 		var channel = protocol.getChannelHandlerContext().channel();

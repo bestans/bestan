@@ -6,10 +6,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
-import bestan.common.logic.ServerConfig;
 import bestan.common.module.IModule;
 import bestan.common.net.INetManager;
 import bestan.common.net.IProtocol;
+import bestan.common.thread.BExecutor;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -35,8 +35,15 @@ public class BaseNetClientManager implements INetManager, IModule {
 	protected Bootstrap bootStrap;
 	protected IProtocol baseProtocol;
 
-	public BaseNetClientManager(NetClientConfig config) {
+	/**
+	 * @param config client配置
+	 * @param executor 消息处理的工作线程池
+	 * @param protocol 解析/编码消息的方式
+	 */
+	public BaseNetClientManager(NetClientConfig config, BExecutor executor, IProtocol protocol) {
 		this.config = config;
+		this.config.baseProtocol = protocol;
+		this.config.workdExecutor = executor;
 		this.baseProtocol = config.baseProtocol;
 		workerGroup = new NioEventLoopGroup(1);
 		bootStrap = new Bootstrap().group(workerGroup)
@@ -108,7 +115,7 @@ public class BaseNetClientManager implements INetManager, IModule {
 	}
 
 	@Override
-	public void startup(ServerConfig config) {
+	public void startup() {
 		start();
 	}
 	

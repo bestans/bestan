@@ -8,7 +8,6 @@ import org.rocksdb.util.SizeUnit;
 import com.google.common.collect.Maps;
 
 import bestan.common.db.TableDataProcess.TableDataType;
-import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
@@ -249,7 +248,6 @@ public class RocksDBConfig extends BaseLuaConfig {
 
 		@Override
 		public void afterLoad() throws LuaException {
-			Glog.debug("afterLoad,{},{}", keyType, valueType);
 			keyProcess = new TableDataProcess(keyType);
 			valueProcess = new TableDataProcess(valueType);
 			

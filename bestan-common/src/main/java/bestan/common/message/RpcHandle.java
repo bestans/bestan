@@ -9,7 +9,7 @@ import bestan.common.protobuf.Proto;
  * @author yeyouhuan
  *
  */
-public class RpcHandle implements IMessageHandle {
+public class RpcHandle implements IMessageHandler {
 	@Override
 	public void processProtocol(AbstractProtocol protocol) throws Exception {
 		var message = (Proto.RpcMessage.Builder)protocol.getMessage().toBuilder();

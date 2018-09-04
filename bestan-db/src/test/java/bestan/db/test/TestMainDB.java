@@ -223,7 +223,7 @@ public class TestMainDB {
     	var dbConfig = LuaConfigs.get(DBConfig.class);
     	Glog.debug("dbConfig={}", dbConfig);
     	var startup = new DBModule(dbConfig);
-    	startup.startup(null);
+    	startup.startup();
     	new SetDB().baseHandle();
     	startup.close();
     }
@@ -232,7 +232,7 @@ public class TestMainDB {
     	var dbConfig = LuaConfigs.get(DBConfig.class);
     	Glog.debug("dbConfig={}", dbConfig);
     	var startup = new DBModule(dbConfig);
-    	startup.startup(null);
+    	startup.startup();
     	new PrintDB().baseHandle();
     	startup.close();
     }

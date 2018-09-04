@@ -9,6 +9,6 @@ import bestan.common.net.server.NetServerConfig;
  */
 public class NetServer extends BaseNetServerManager {
 	public NetServer(NetServerConfig config) {
-		super(config);
+		super(config, config.workdExecutor, config.baseProtocol);
 	}
 }

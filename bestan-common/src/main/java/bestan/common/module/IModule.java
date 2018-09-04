@@ -1,12 +1,10 @@
 package bestan.common.module;
 
-import bestan.common.logic.ServerConfig;
-
 public interface IModule {
 	/**
 	 * 启动模块
 	 */
-	void startup(ServerConfig config) throws Exception;
+	void startup() throws Exception;
 
 	/**
 	 * 关闭模块

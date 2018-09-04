@@ -13,7 +13,6 @@ import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
-import bestan.common.logic.ServerConfig;
 import bestan.common.module.IModule;
 import bestan.common.module.StartupException;
 import bestan.common.protobuf.MessageFixedEnum;
@@ -22,12 +21,12 @@ import bestan.common.protobuf.MessageFixedEnum;
  * message索引是生成的，按照messageName编号<p>
  * message、messageHandle相关都是根据所在包名通过反射建立的<p>
  * 新增的message、messageHandle只要在指定包里，就自动载入到factory<p>
- * 另外messageHandle必须按照xxxHandle命名规则进行命名
+ * 另外messageHandle必须按照xxxhandler命名规则进行命名
  * 
  * @author yeyouhuan
  *
  */
-public class MessageFactory implements IModule {
+public class MessageFactory {
 	private static Map<Class<? extends Message>, Integer> messageIndexMap = Maps.newHashMap();
 	private static Map<Class<? extends Message>, Message> messageInstanceMap = Maps.newHashMap();
 	private static Map<Integer, Message> indexMessageMap = Maps.newHashMap();
@@ -38,7 +37,7 @@ public class MessageFactory implements IModule {
 	/**
 	 * 消息对应的handler
 	 */
-	private static Map<Integer, IMessageHandle> messageHandleMap = Maps.newHashMap();
+	private static Map<Integer, IMessageHandler> messageHandleMap = Maps.newHashMap();
 	/**
 	 * rpc消息对应的clientHandle
 	 */
@@ -79,7 +78,7 @@ public class MessageFactory implements IModule {
 		return true;
 	}
 	
-	private static boolean registerMessagehandler(Class<? extends IMessageHandle> cls) {
+	private static boolean registerMessagehandler(Class<? extends IMessageHandler> cls) {
 		var note = cls.getAnnotation(NoteMessageHandle.class);
 		if (note != null && note.discard()) {
 			//废弃的handle
@@ -92,8 +91,8 @@ public class MessageFactory implements IModule {
 		}
 		var handleName = cls.getSimpleName();
 		if (messageName == null) {
-			//根据handle名解析出messageName
-			if (handleName.length() <= 6) {
+			//根据handler名解析出messageName
+			if (handleName.length() <= 7) {
 				Glog.error("loadMessageHandle erorr:invalid handle name({}), valid e.g xxxxHandle", handleName);
 				return false;
 			}
@@ -102,7 +101,7 @@ public class MessageFactory implements IModule {
 		var messageIndex = messageNameIndexMap.get(messageName);
 		return registerMessagehandler(cls, messageIndex);
 	}
-	private static boolean registerMessagehandler(Class<? extends IMessageHandle> cls, Integer messageIndex) {
+	private static boolean registerMessagehandler(Class<? extends IMessageHandler> cls, Integer messageIndex) {
 		var handleName = cls.getSimpleName();
 		if (messageIndex == null) {
 			Glog.error("loadMessageHandle erorr:can not find messageindex, handle=({}), valid e.g xxxxHandle", handleName);
@@ -168,7 +167,7 @@ public class MessageFactory implements IModule {
 		return getMessageIndex(message.getClass());
 	}
 	
-	public static IMessageHandle getMessageHandle(int messageIndex) {
+	public static IMessageHandler getMessageHandle(int messageIndex) {
 		return messageHandleMap.get(messageIndex);
 	}
 	
@@ -187,7 +186,7 @@ public class MessageFactory implements IModule {
 	public static boolean loadMessageHandle(String packageName) {
 		Reflections.log = null;
 		Reflections reflections = new Reflections(packageName);
-		Set<Class<? extends IMessageHandle>> classes = reflections.getSubTypesOf(IMessageHandle.class);
+		Set<Class<? extends IMessageHandler>> classes = reflections.getSubTypesOf(IMessageHandler.class);
 		for (var cls : classes) {
 			if (Modifier.isAbstract(cls.getModifiers())) {
 				//抽象类
@@ -249,27 +248,48 @@ public class MessageFactory implements IModule {
 		loadFinishCallbackList.add(object);
 	}
 	
-	@Override
-	public void startup(ServerConfig config) {
-		if (!loadFixedMessage()) {
-			throw new StartupException(this, "loadFixedMessage failed");
-		}
-		//载入messageName->index映射关系
-		loadMessageIndex(config.messageIndex);
-		if (!loadMessage(config.messagePackage)) {
-			throw new StartupException(this, "loadMessage failed");
-		}
-		if (!loadMessageHandle(config.messageHandlerPackage)) {
-			throw new StartupException(this, "loadMessageHandle failed");
+	public static class MessageModule implements IModule {
+		@SuppressWarnings("rawtypes")
+		private Class<? extends Enum> messageIndex;
+		private List<String> messagePackages;
+		private List<String> messageHandlerPackages;
+		
+		@SuppressWarnings("rawtypes")
+		public MessageModule(Class<? extends Enum> messageIndex, List<String> messagePackages, List<String> messageHandlerPackages) {
+			this.messageIndex = messageIndex;
+			this.messagePackages = messagePackages;
+			this.messageHandlerPackages = messageHandlerPackages;
 		}
 		
-		for (var obj : loadFinishCallbackList) {
-			try {
-				obj.onMessageLoadFinish();
-			} catch (Exception e) {
-				throw new StartupException(this, "loadFinishCallback failed:" + e.getMessage());
+		@Override
+		public void startup() {
+			if (!loadFixedMessage()) {
+				throw new StartupException(this, "loadFixedMessage failed");
 			}
+			//载入messageName->index映射关系
+			loadMessageIndex(messageIndex);
+			//载入message
+			for (var it : messagePackages) {
+				if (!loadMessage(it)) {
+					throw new StartupException(this, "loadMessage failed:messagePackage=" + it);
+				}
+			}
+			//载入messsageHandler
+			for (var it : messageHandlerPackages) {
+				if (!loadMessageHandle(it)) {
+					throw new StartupException(this, "loadMessageHandle failed:messageHandlerPackage=" + it);
+				}
+			}
+			
+			//执行回调
+			for (var obj : loadFinishCallbackList) {
+				try {
+					obj.onMessageLoadFinish();
+				} catch (Exception e) {
+					throw new StartupException(this, "loadFinishCallback failed:" + e.getMessage());
+				}
+			}
+			loadFinishCallbackList.clear();
 		}
-		loadFinishCallbackList.clear();
 	}
 }

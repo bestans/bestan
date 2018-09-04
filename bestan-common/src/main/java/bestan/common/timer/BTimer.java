@@ -11,7 +11,6 @@ import com.google.common.collect.Multimap;
 
 import bestan.common.event.IEvent;
 import bestan.common.log.Glog;
-import bestan.common.logic.ServerConfig;
 import bestan.common.module.IModule;
 import bestan.common.thread.BExecutor;
 
@@ -166,11 +165,23 @@ public class BTimer {
 	}
 
 	public static class TimerModule implements IModule {
+		private BExecutor executor;
+		private int timerIickInterval;
+		
+		/**
+		 * @param executor 工作线程
+		 * @param timerIickInterval timer更新间隔时间（微秒）
+		 */
+		public TimerModule(BExecutor executor, int timerIickInterval) {
+			this.executor = executor;
+			this.timerIickInterval = timerIickInterval;
+		}
+		
 		@Override
-		public void startup(ServerConfig config) {
+		public void startup() {
 			stop = false;
 			calcTimeNow();
-			workExecutor = config.workExecutor;
+			workExecutor = executor;
 			timeExecutor = Executors.newFixedThreadPool(1);
 			timeExecutor.execute(new Runnable() {
 				@Override
@@ -178,7 +189,7 @@ public class BTimer {
 					while (true) {
 						update();
 						try {
-							Thread.sleep(config.tickInterval);
+							Thread.sleep(timerIickInterval);
 						} catch (InterruptedException e) {
 							Glog.info("timeExecutor run error, maybe close({})", e.getMessage());
 							timeExecutor.execute(this);

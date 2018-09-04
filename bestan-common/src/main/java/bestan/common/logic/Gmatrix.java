@@ -1,8 +1,9 @@
 package bestan.common.logic;
 
+import bestan.common.module.IModule;
+
 public class Gmatrix {
 	private ServerConfig config;
-	private int zoneId = -1;
 	
 	private final static class GmatrixHolder {
 		private static final Gmatrix INSTANCE = new Gmatrix();
@@ -11,16 +12,25 @@ public class Gmatrix {
 		return GmatrixHolder.INSTANCE;
 	}
 	
-	public boolean init(ServerConfig config) {
-		zoneId = config.zoneId;
-		return true;
-	}
-	
 	public ServerConfig getServerConfig() {
 		return config;
 	}
 	
+	public void setServerConfig(ServerConfig config) {
+		this.config = config;
+	}
+	
 	public int getZoneID() {
 		return config.zoneId;
+	}
+	
+	public static class GmatrixModule implements IModule {
+		public GmatrixModule(ServerConfig config) {
+			Gmatrix.getInstance().setServerConfig(config);
+		}
+		@Override
+		public void startup() throws Exception {
+		}
+		
 	}
 }

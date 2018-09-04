@@ -118,9 +118,7 @@ public abstract class BaseLuaConfig {
 				throw new LuaException(stringBuffer.toString());
 			}
 		}
-		Glog.debug("before:afterLoad:{}", config.getClass().getSimpleName());
 		config.afterLoad();
-		Glog.debug("after:afterLoad:{}", config.getClass().getSimpleName());
 	}
 	private <T> void parseList(LuaValue luaValue, List<T> arr, Class<T> tClass, Type tType) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		if (!luaValue.istable()) {

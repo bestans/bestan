@@ -9,7 +9,7 @@ import bestan.common.net.RpcManager.RpcObject;
  * @author yeyouhuan
  *
  */
-public interface IRpcClientHandler extends IMessageHandle {
+public interface IRpcClientHandler extends IMessageHandler {
 	void client(AbstractProtocol protocol, Message arg, Message res, Object param);
 	default void OnTimeout(AbstractProtocol protocol, RpcObject rpc, Message arg, Object param) {
 		

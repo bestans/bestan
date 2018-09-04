@@ -2,9 +2,10 @@ package bestan.common.net.server;
 
 import java.net.InetSocketAddress;
 
-import bestan.common.logic.ServerConfig;
 import bestan.common.module.IModule;
 import bestan.common.net.INetManager;
+import bestan.common.net.IProtocol;
+import bestan.common.thread.BExecutor;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
@@ -38,8 +39,15 @@ public class BaseNetServerManager implements INetManager, IModule {
 	protected EventLoopGroup workerGroup;
 	protected Channel serverChannel;
 
-	public BaseNetServerManager(NetServerConfig config) {
+	/**
+	 * @param config 服务器配置
+	 * @param executor 消息处理的工作线程池
+	 * @param protocol 解析/编码消息的方式
+	 */
+	public BaseNetServerManager(NetServerConfig config, BExecutor executor, IProtocol protocol) {
 		this.config = config;
+		this.config.workdExecutor = executor;
+		this.config.baseProtocol = protocol;
 		bossGroup = new NioEventLoopGroup(config.bossGroupThreadCount);
         workerGroup = new NioEventLoopGroup();
         
@@ -78,7 +86,7 @@ public class BaseNetServerManager implements INetManager, IModule {
 		return config;
 	}
 	@Override
-	public void startup(ServerConfig config) throws Exception {
+	public void startup() throws Exception {
 		start();
 	}
 }

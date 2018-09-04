@@ -2,7 +2,7 @@ package bestan.common.protobuf;
 
 import com.google.protobuf.Message;
 
-import bestan.common.message.IMessageHandle;
+import bestan.common.message.IMessageHandler;
 import bestan.common.message.RpcHandle;
 
 /**
@@ -16,8 +16,8 @@ public enum MessageFixedEnum {
 	
 	private int messageId;
 	private Class<? extends Message> messageCls;
-	private Class<? extends IMessageHandle> handleCls;
-	MessageFixedEnum(Class<? extends Message> messageCls, Class<? extends IMessageHandle> handleCls) {
+	private Class<? extends IMessageHandler> handleCls;
+	MessageFixedEnum(Class<? extends Message> messageCls, Class<? extends IMessageHandler> handleCls) {
 		this.messageId = this.ordinal() * -1;
 		this.messageCls = messageCls;
 		this.handleCls = handleCls;
@@ -31,7 +31,7 @@ public enum MessageFixedEnum {
 		return messageCls;
 	}
 	
-	public Class<? extends IMessageHandle> getMessageHandleClass() {
+	public Class<? extends IMessageHandler> getMessageHandleClass() {
 		return handleCls;
 	}
 }

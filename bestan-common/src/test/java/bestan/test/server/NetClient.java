@@ -9,6 +9,6 @@ import bestan.common.net.client.NetClientConfig;
  */
 public class NetClient extends BaseNetClientManager {
 	public NetClient(NetClientConfig config) {
-		super(config);
+		super(config, config.workdExecutor, config.baseProtocol);
 	}
 }
