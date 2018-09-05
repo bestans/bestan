@@ -2,6 +2,7 @@ package bestan.common.net;
 
 import com.google.protobuf.Message;
 
+import bestan.common.log.Glog;
 import bestan.common.message.MessageFactory;
 import bestan.common.net.RpcManager.RpcObject;
 import bestan.common.protobuf.Proto;
@@ -29,7 +30,7 @@ public interface INetManager {
 	}
 	
 	public default void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		
+		Glog.debug("exceptionCaught:cause={}", cause);
 	}
 
 	public static void sendRpc(ChannelHandlerContext ctx, Message arg, Class<? extends Message> resCls, Object param) {

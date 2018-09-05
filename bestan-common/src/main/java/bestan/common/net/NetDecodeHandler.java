@@ -23,6 +23,7 @@ public class NetDecodeHandler extends ByteToMessageDecoder {
 			return;
 		}
 		while (in.readableBytes() >= 4) {
+			in.markReaderIndex();
 	        int dataLength = in.readInt();
 	        if (in.readableBytes() < dataLength) {
 	            in.resetReaderIndex();

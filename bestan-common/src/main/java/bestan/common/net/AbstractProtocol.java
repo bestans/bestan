@@ -40,14 +40,14 @@ public abstract class AbstractProtocol implements IProtocol {
 		{
 			var handle = MessageFactory.getMessageHandle(messageId);
 			if (handle == null) {
-				Glog.error("{} cannot find message handle:messageID={}", getClass().getSimpleName(), messageId);
+				Glog.error("{} cannot find message handle:messageID={},message={}", getClass().getSimpleName(), messageId, message);
 				return;
 			}
 		
 			handle.processProtocol(this);
 		} catch (Exception e) {
-			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}",
-					getClass().getSimpleName(), messageId, e.getMessage());
+			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}, StackTrace={}",
+					getClass().getSimpleName(), messageId, e.getMessage(), e.getStackTrace());
 		}
 	}
 }

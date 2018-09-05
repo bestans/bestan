@@ -9,8 +9,8 @@ import com.google.protobuf.Message;
 
 import bestan.common.logic.BaseManager;
 import bestan.common.protobuf.Proto;
-import bestan.common.timer.ITimer;
 import bestan.common.timer.BTimer;
+import bestan.common.timer.ITimer;
 
 /**
  * @author yeyouhuan
@@ -66,9 +66,11 @@ public class RpcManager extends BaseManager implements ITimer {
 		lock.lock();
 		try {
 			var curTime = BTimer.getTime();
-			for (var it : map.entrySet()) {
-				if (curTime >= it.getValue().getEndTime()) {
-					map.entrySet().remove(it);	
+			var it = map.entrySet().iterator();
+			while (it.hasNext()) {
+				var entry = it.next();
+				if (curTime >= entry.getValue().getEndTime()) {
+					it.remove();
 				}
 			}
 		} finally {

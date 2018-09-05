@@ -2,6 +2,7 @@ package bestan.common.net;
 
 import com.google.protobuf.Message;
 
+import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.message.MessageFactory;
 import bestan.common.protobuf.Proto;
@@ -24,6 +25,7 @@ public class CommonProtocol extends AbstractProtocol {
 	
 	@Override
 	public Message encode(Message message) {
+		Glog.debug("CommonProtocol:encode={}", message);
 		var builder = baseMessageInstance.newBuilderForType();
 		builder.setMessageId(MessageFactory.getMessageIndex(message));
 		builder.setMessageData(message.toByteString());
@@ -32,6 +34,7 @@ public class CommonProtocol extends AbstractProtocol {
 
 	@Override
 	public IProtocol decode(ChannelHandlerContext ctx, byte[] data) throws Exception {
+		Glog.debug("decode={}", message);
 		var base = baseMessageInstance.newBuilderForType().mergeFrom(data);
 		int messageId = base.getMessageId();
 		var messageInstance = MessageFactory.getMessageInstance(messageId);

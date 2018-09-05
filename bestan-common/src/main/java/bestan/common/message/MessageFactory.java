@@ -111,14 +111,14 @@ public class MessageFactory {
 		try {
 			Glog.debug("loadMessageHandle:{}", cls.getSimpleName());
 			var handle = cls.getDeclaredConstructor().newInstance();
-			if (cls.isAssignableFrom(IRpcClientHandler.class)) {
+			if (IRpcClientHandler.class.isAssignableFrom(cls)) {
 				if (rpcClientHandleMap.get(messageIndex) != null) {
 					Glog.error("loadMessageHandle error: duplicate rpcClientHandle:messageIndex={}, oldHandler={}, newHandler={}",
 							messageIndex, rpcClientHandleMap.get(messageIndex).getClass().getSimpleName(), handleName);
 					return false;
 				}
 				rpcClientHandleMap.put(messageIndex, (IRpcClientHandler)handle);
-			} else if (cls.isAssignableFrom(IRpcServerHandler.class)) {
+			} else if (IRpcServerHandler.class.isAssignableFrom(cls)) {
 				if (rpcserverHandleMap.get(messageIndex) != null) {
 					Glog.error("loadMessageHandle error: duplicate rpcserverHandle:messageIndex={}, oldHandler={}, newHandler={}",
 							messageIndex, rpcserverHandleMap.get(messageIndex).getClass().getSimpleName(), handleName);
@@ -177,7 +177,7 @@ public class MessageFactory {
 	}
 	
 	public static IRpcServerHandler getRpcServerHandler(int messageIndex) {
-		return null;
+		return rpcserverHandleMap.get(messageIndex);
 	}
 
 	/**
@@ -188,6 +188,7 @@ public class MessageFactory {
 		Reflections.log = null;
 		Reflections reflections = new Reflections(packageName);
 		Set<Class<? extends IMessageHandler>> classes = reflections.getSubTypesOf(IMessageHandler.class);
+		Glog.debug("loadMessageHandle:packageName={},size={},{}", packageName, classes.size(), classes);
 		for (var cls : classes) {
 			if (Modifier.isAbstract(cls.getModifiers())) {
 				//抽象类

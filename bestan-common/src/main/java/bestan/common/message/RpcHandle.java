@@ -1,9 +1,15 @@
 package bestan.common.message;
 
+import com.google.protobuf.Message;
+
+import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.RpcManager;
 import bestan.common.protobuf.Proto;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 /**
  * @author yeyouhuan
@@ -12,6 +18,7 @@ import bestan.common.protobuf.Proto;
 public class RpcHandle implements IMessageHandler {
 	@Override
 	public void processProtocol(AbstractProtocol protocol) throws Exception {
+		Glog.debug("RpcHandle:id={},message={}", protocol.getMessageId(), protocol.getMessage());
 		var message = (Proto.RpcMessage.Builder)protocol.getMessage().toBuilder();
 
 		var res = MessageFactory.getMessageInstance(message.getResMessageId());
@@ -27,16 +34,26 @@ public class RpcHandle implements IMessageHandler {
 			}
 			var argMessage = arg.newBuilderForType().mergeFrom(message.getMessageData()).build();
 			
-			var serverHandler = MessageFactory.getRpcServerHandler(message.getResMessageId());
+			var serverHandler = MessageFactory.getRpcServerHandler(message.getArgMessageId());
 			if (serverHandler == null) {
-				throw new FormatException("RpcHandle:ProcessProtocol failed:cannot find serverHandler:resMessageId=%s,", message.getResMessageId());
+				throw new FormatException("RpcHandle:ProcessProtocol failed:cannot find serverHandler:argMessageId=%s,", message.getArgMessageId());
 			}
 			serverHandler.server(protocol, argMessage, resBuilder);
 			
 			//将结果返回给client
 			message.setIsRequest(false);
 			message.setMessageData(resBuilder.build().toByteString());
-			protocol.getChannelHandlerContext().writeAndFlush(message.build());
+			ChannelHandlerContext channel = protocol.getChannelHandlerContext();
+			Glog.debug("rpchandle:ctx={},message={},pipe={}", protocol.getChannelHandlerContext(), message, 
+					channel.pipeline());
+			var future = protocol.getChannelHandlerContext().writeAndFlush((Message)message.build());
+			future.addListener( new GenericFutureListener<Future<? super Void>>() {
+				@Override
+				public void operationComplete(Future<? super Void> future) throws Exception {
+					// TODO Auto-generated method stub
+					Glog.debug("operationComplete={}", future);
+				}
+			});
 		} else {
 			var rpcObject = RpcManager.getInstance().get(message.getRpcIndex());
 			if (rpcObject == null) {

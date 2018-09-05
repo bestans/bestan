@@ -123,4 +123,8 @@ public class BaseNetClientManager implements INetManager, IModule {
 	public void close() {
 		close();
 	}
+	
+	public ChannelHandlerContext GetChannel() {
+		return ctx;
+	}
 }

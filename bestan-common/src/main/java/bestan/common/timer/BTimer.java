@@ -57,16 +57,18 @@ public class BTimer {
 		var tempObServers = mergeNewObservers();
 		observers.putAll(tempObServers);
 		var tickNow = timeNow.get();
-		for (var it : observers.entries()) {
-			if (tickNow < it.getKey()) {
+		var it = observers.entries().iterator();
+		while (it.hasNext()) {
+			var entry = it.next();
+			if (tickNow < entry.getKey()) {
 				break;
 			}
-			var observer = it.getValue();
+			var observer = entry.getValue();
 			observer.update();
-			observers.entries().remove(it);
-			if (!observer.isValid()) {
+			if (observer.isValid()) {
 				attachObserver(observer);
 			}
+			it.remove();
 		}
 	}
 	

@@ -49,7 +49,7 @@ public class BaseNetServerManager implements INetManager, IModule {
 		this.config.workdExecutor = executor;
 		this.config.baseProtocol = protocol;
 		bossGroup = new NioEventLoopGroup(config.bossGroupThreadCount);
-        workerGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup(config.workerGroupThreadCount);
         
         serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
          			   .channel(NioServerSocketChannel.class)

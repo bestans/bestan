@@ -14,7 +14,6 @@ public @interface LuaParamAnnotation {
 	 * @return 指定配置项可选与否
 	 */
 	LuaParamPolicy policy() default LuaParamPolicy.NORMAL;
-	boolean skip() default false;
 	
 	public enum LuaParamPolicy{
 		/**
