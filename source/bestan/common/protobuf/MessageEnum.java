@@ -6,12 +6,13 @@ public enum MessageEnum {
 	BaseProto,		//1
 	RpcMessage,		//2
 	DBTableDefine,		//3
-	DBCommonKey,		//4
-	CommonSave,		//5
-	RpcCommonSaveOp,		//6
-	RpcCommonSaveOpRes,		//7
-	CommonSaveOp,		//8
-	CommonLoadRes,		//9
-	RpcCommonLoadOp,		//10
-	RpcCommonLoadOpRes,		//11
+	DBCommonData,		//4
+	DBCommonKey,		//5
+	CommonSave,		//6
+	RpcCommonSaveOp,		//7
+	RpcCommonSaveOpRes,		//8
+	CommonSaveOp,		//9
+	CommonLoadRes,		//10
+	RpcCommonLoadOp,		//11
+	RpcCommonLoadOpRes,		//12
 }

@@ -2,14 +2,10 @@ package bestan.common.message;
 
 import com.google.protobuf.Message;
 
-import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.RpcManager;
 import bestan.common.protobuf.Proto;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 
 /**
  * @author yeyouhuan
@@ -18,7 +14,6 @@ import io.netty.util.concurrent.GenericFutureListener;
 public class RpcHandle implements IMessageHandler {
 	@Override
 	public void processProtocol(AbstractProtocol protocol) throws Exception {
-		Glog.debug("RpcHandle:id={},message={}", protocol.getMessageId(), protocol.getMessage());
 		var message = (Proto.RpcMessage.Builder)protocol.getMessage().toBuilder();
 
 		var res = MessageFactory.getMessageInstance(message.getResMessageId());
@@ -43,17 +38,7 @@ public class RpcHandle implements IMessageHandler {
 			//将结果返回给client
 			message.setIsRequest(false);
 			message.setMessageData(resBuilder.build().toByteString());
-			ChannelHandlerContext channel = protocol.getChannelHandlerContext();
-			Glog.debug("rpchandle:ctx={},message={},pipe={}", protocol.getChannelHandlerContext(), message, 
-					channel.pipeline());
-			var future = protocol.getChannelHandlerContext().writeAndFlush((Message)message.build());
-			future.addListener( new GenericFutureListener<Future<? super Void>>() {
-				@Override
-				public void operationComplete(Future<? super Void> future) throws Exception {
-					// TODO Auto-generated method stub
-					Glog.debug("operationComplete={}", future);
-				}
-			});
+			protocol.getChannelHandlerContext().writeAndFlush((Message)message.build());
 		} else {
 			var rpcObject = RpcManager.getInstance().get(message.getRpcIndex());
 			if (rpcObject == null) {

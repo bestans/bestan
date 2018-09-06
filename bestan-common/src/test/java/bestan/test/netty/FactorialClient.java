@@ -15,6 +15,7 @@
  */
 package bestan.test.netty;
 
+import bestan.common.log.Glog;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -59,6 +60,7 @@ public final class FactorialClient {
             FactorialClientHandler handler =
                 (FactorialClientHandler) f.channel().pipeline().last();
 
+            Glog.debug("xxxxx={}", handler.getFactorial());
             // Print out the answer.
             System.err.format("Factorial of %,d is: %,d", COUNT, handler.getFactorial());
         } finally {

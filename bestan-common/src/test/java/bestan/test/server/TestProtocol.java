@@ -7,6 +7,7 @@ import bestan.common.message.MessageFactory;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.IProtocol;
 import bestan.common.protobuf.Proto;
+import bestan.common.protobuf.Proto.BaseProto;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -32,8 +33,13 @@ public class TestProtocol extends AbstractProtocol {
 	}
 
 	@Override
-	public IProtocol decode(ChannelHandlerContext ctx, byte[] data) throws Exception {
-		var base = baseMessageInstance.newBuilderForType().mergeFrom(data);
+	public Message decode(byte[] data) throws Exception {
+		return baseMessageInstance.newBuilderForType().mergeFrom(data).build();
+	}
+	
+	@Override
+	public IProtocol makeProtocol(ChannelHandlerContext ctx, Message message) throws Exception {
+		var base = (BaseProto)message;
 		int messageId = base.getMessageId();
 		var messageInstance = MessageFactory.getMessageInstance(messageId);
 		if (messageInstance == null) {

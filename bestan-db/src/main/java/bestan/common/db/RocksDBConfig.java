@@ -6,8 +6,9 @@ import org.rocksdb.CompactionStyle;
 import org.rocksdb.util.SizeUnit;
 
 import com.google.common.collect.Maps;
+import com.google.protobuf.Message;
 
-import bestan.common.db.TableDataProcess.TableDataType;
+import bestan.common.db.TableDataType.DataProcess;
 import bestan.common.logic.FormatException;
 import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
@@ -231,46 +232,41 @@ public class RocksDBConfig extends BaseLuaConfig {
 	
 	public boolean cacheIndexAndFilterBlocks = true;
 
+	@LuaAnnotation(optional=true)
 	public final static class TableStruct extends BaseLuaConfig implements IMessageLoadFinishCallback {
 		@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
 		public TableDataType keyType;
 		@LuaParamAnnotation(policy=LuaParamPolicy.REQUIRED)
 		public TableDataType valueType;
-		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
 		public String keyName = "";
-		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
 		public String valueName = "";
-		
-		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
-		public TableDataProcess keyProcess;
-		@LuaParamAnnotation(policy=LuaParamPolicy.OPTIONAL)
-		public TableDataProcess valueProcess;
+		public DataProcess keyProcess;
+		public DataProcess valueProcess;
 
 		@Override
 		public void afterLoad() throws LuaException {
-			keyProcess = new TableDataProcess(keyType);
-			valueProcess = new TableDataProcess(valueType);
-			
 			//注册回调，当message载入后，回调计算message
 			MessageFactory.registerLoadFinishCallback(this);
 		}
 
 		@Override
 		public void onMessageLoadFinish() throws Exception {
+			Message keyInstance = null;
 			if (keyType == TableDataType.MESSAGE) {
-				var instance = MessageFactory.getMessageInstance(keyName);
-				if (null == instance) {
+				keyInstance = MessageFactory.getMessageInstance(keyName);
+				if (null == keyInstance) {
 					throw new FormatException("TableStruct parse key message type failed:invalid keyName=%s", keyName); 
 				}
-				keyProcess.setMessageInstance(instance);
 			}
+			Message valueInstance = null;
 			if (valueType == TableDataType.MESSAGE) {
-				var instance = MessageFactory.getMessageInstance(valueName);
-				if (null == instance) {
+				valueInstance = MessageFactory.getMessageInstance(valueName);
+				if (null == valueInstance) {
 					throw new FormatException("TableStruct parse value message type failed:invalid valueName=%s", valueName); 
 				}
-				valueProcess.setMessageInstance(instance);
 			}
+			keyProcess = keyType.getProcess(keyInstance);
+			valueProcess = valueType.getProcess(valueInstance);
 		}
 	}
 }

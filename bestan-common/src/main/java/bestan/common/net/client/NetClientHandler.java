@@ -1,22 +1,26 @@
 package bestan.common.net.client;
 
+import com.google.protobuf.Message;
+
 import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class NetClientHandler extends SimpleChannelInboundHandler<IProtocol> {
+public class NetClientHandler extends SimpleChannelInboundHandler<Message> {
 	private BaseNetClientManager client;
 	private BExecutor workExecutor;
+	private IProtocol baseProtocol;
 	
 	public NetClientHandler(BaseNetClientManager client) {
 		this.client = client;
 		workExecutor = client.getConfig().workdExecutor;
+		baseProtocol = client.getConfig().baseProtocol;
 	}
 	
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, IProtocol protocol) throws Exception {
-		workExecutor.execute(protocol);
+	protected void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
+		workExecutor.execute(baseProtocol.makeProtocol(ctx, message));
 	}
 
 	@Override 

@@ -29,6 +29,21 @@ message DBTableDefine
 	repeated TableDefine tables	= 1;
 }
 
+message DBCommonData
+{
+	enum DATA_TYPE
+	{
+		INT		= 0;
+		LONG	= 1;
+		BOOL	= 2;
+		STRING	= 3;
+		MESSAGE	= 4;
+	}
+	DATA_TYPE dataType		= 1;
+	bytes data				= 2;
+	int32 dataMessageID	= 3;
+}
+
 //通用保存操作key
 message DBCommonKey
 {
@@ -50,8 +65,9 @@ message DBCommonKey
 //一个保存操作，key和value
 message CommonSave
 {
-	DBCommonKey key		= 1;	//数据key
-	bytes value			= 2;	//数据value
+	DBCommonData key	= 1;	//数据key
+	DBCommonData value	= 2;	//数据value
+	bytes tableName		= 3;	//指定是哪个表
 }
 
 //rpc保存协议
@@ -79,8 +95,8 @@ message CommonSaveOp
 
 message CommonLoadRes
 {
-	DBCommonKey key	= 1;
-	bytes value		= 2;
+	DBCommonData key	= 1;
+	DBCommonData value	= 2;
 }
 
 message RpcCommonLoadOp

@@ -2,8 +2,6 @@ package bestan.common.net.operation;
 
 import java.util.List;
 
-import com.google.protobuf.Message;
-
 import bestan.common.net.INetManager;
 import bestan.common.protobuf.Proto.CommonSaveOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
@@ -15,13 +13,7 @@ import io.netty.channel.ChannelHandlerContext;
  *
  */
 public class DBOperationUtil {
-	public static void commonSave(ChannelHandlerContext ctx, String tableName, int key, Message value) {
-		commonSave(ctx, new CommonSave(tableName, key, value));
-	}
-	public static void commonSave(ChannelHandlerContext ctx, String tableName, Long key, Message value) {
-		commonSave(ctx, new CommonSave(tableName, key, value));
-	}
-	public static void commonSave(ChannelHandlerContext ctx, String tableName, Message key, Message value) {
+	public static void commonSave(ChannelHandlerContext ctx, String tableName, Object key, Object value) {
 		commonSave(ctx, new CommonSave(tableName, key, value));
 	}
 	public static void commonSave(ChannelHandlerContext ctx, CommonSave op) {
@@ -40,13 +32,7 @@ public class DBOperationUtil {
 		ctx.writeAndFlush(message.build());
 	}
 	
-	public static void RpcCommonSave(ChannelHandlerContext ctx, String tableName, int key, Message value, CommonSaveParam param) {
-		RpcCommonSave(ctx, new CommonSave(tableName, key, value), param);
-	}
-	public static void RpcCommonSave(ChannelHandlerContext ctx, String tableName, Long key, Message value, CommonSaveParam param) {
-		RpcCommonSave(ctx, new CommonSave(tableName, key, value), param);
-	}
-	public static void RpcCommonSave(ChannelHandlerContext ctx, String tableName, Message key, Message value, CommonSaveParam param) {
+	public static void RpcCommonSave(ChannelHandlerContext ctx, String tableName, Object key, Object value, CommonSaveParam param) {
 		RpcCommonSave(ctx, new CommonSave(tableName, key, value), param);
 	}
 	public static void RpcCommonSave(ChannelHandlerContext ctx, CommonSave op, CommonSaveParam param) {

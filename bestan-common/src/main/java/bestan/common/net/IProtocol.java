@@ -6,6 +6,7 @@ import bestan.common.event.IEvent;
 import io.netty.channel.ChannelHandlerContext;
 
 public interface IProtocol extends IEvent{
-	IProtocol decode(ChannelHandlerContext ctx, byte[] data) throws Exception;
+	Message decode(byte[] data) throws Exception;
 	Message encode(Message message);
+	IProtocol makeProtocol(ChannelHandlerContext ctx, Message message) throws Exception;
 }

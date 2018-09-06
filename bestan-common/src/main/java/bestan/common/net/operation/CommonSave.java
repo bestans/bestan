@@ -3,9 +3,8 @@ package bestan.common.net.operation;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Message;
 
-import bestan.common.message.MessageFactory;
 import bestan.common.protobuf.Proto;
-import bestan.common.protobuf.Proto.DBCommonKey;
+import bestan.common.protobuf.Proto.DBCommonData;
 
 /**
  * @author yeyouhuan
@@ -13,35 +12,36 @@ import bestan.common.protobuf.Proto.DBCommonKey;
  */
 public class CommonSave {
 	private Proto.CommonSave.Builder saveBuilder = Proto.CommonSave.newBuilder();
-	private DBCommonKey.Builder builder = DBCommonKey.newBuilder();
 	
-	private void initBuilder(String tableName, Message value) {
-		builder.setTableName(ByteString.copyFrom(tableName.getBytes()));
-		builder.setValueMessageId(MessageFactory.getMessageIndex(value));
-		
-		saveBuilder.setKey(builder);
-		saveBuilder.setValue(value.toByteString());
-	}
-	
-	public CommonSave(String tableName, int key, Message value) {
-		builder.setKeyType(DBCommonKey.KEY_TYPE.INT);
-		builder.setIntKey(key);
-		initBuilder(tableName, value);
-	}
-	
-	public CommonSave(String tableName, Long key, Message value) {
-		builder.setKeyType(DBCommonKey.KEY_TYPE.LONG);
-		builder.setLongKey(key);
-		initBuilder(tableName, value);
-	}
-	
-	public CommonSave(String tableName, Message key, Message value) {
-		builder.setKeyType(DBCommonKey.KEY_TYPE.MESSAGE);
-		builder.setMessagekey(key.toByteString());
-		initBuilder(tableName, value);
+	public CommonSave(String tableName, Object key, Object value) {
+		saveBuilder.setKey(toBuider(key));
+		saveBuilder.setValue(toBuider(value));
+		saveBuilder.setTableName(ByteString.copyFromUtf8(tableName));
 	}
 	
 	public Proto.CommonSave.Builder getBuilder() {
 		return saveBuilder;
+	}
+	
+	public static TableDataType getTableDataType(Class<?> cls) {
+		if (cls.equals(Integer.class)) {
+			return TableDataType.INT;
+		}
+		if (cls.equals(Long.class)) {
+			return TableDataType.LONG;
+		}
+		if (cls.equals(Message.class)) {
+			return TableDataType.MESSAGE;
+		}
+		if (cls.equals(Boolean.class)) {
+			return TableDataType.BOOL;
+		}
+		if (cls.equals(String.class)) {
+			return TableDataType.STRING;
+		}
+		return null;
+	}
+	public static DBCommonData.Builder toBuider(Object t) {
+		return getTableDataType(t.getClass()).convertPB(t);
 	}
 }

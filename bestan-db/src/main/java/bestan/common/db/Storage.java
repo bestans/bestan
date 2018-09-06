@@ -10,6 +10,7 @@ import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
 
 import bestan.common.db.RocksDBConfig.TableStruct;
+import bestan.common.db.TableDataType.DataProcess;
 import bestan.common.logic.FormatException;
 
 public class Storage implements Comparable<Object> {
@@ -20,8 +21,8 @@ public class Storage implements Comparable<Object> {
 	private ReadOptions rOptions;
 	private RocksDB db;
 
-	private TableDataProcess keyProcess;
-	private TableDataProcess valueProcess;
+	private DataProcess keyProcess;
+	private DataProcess valueProcess;
 	
 	public Storage(String tableName, TableStruct tableStruct, ColumnFamilyHandle handle, RocksDB db) throws FormatException {
 		this.handle = handle;
