@@ -5,6 +5,7 @@ import com.google.protobuf.Message;
 import bestan.common.guid.Guid;
 import bestan.common.logic.FormatException;
 import bestan.common.message.IMessageHandler;
+import bestan.common.message.IObjectHandler;
 import bestan.common.message.MessageFactory;
 import bestan.common.protobuf.Proto;
 import bestan.common.protobuf.Proto.BaseObjectProto;
@@ -24,6 +25,10 @@ public class ObjectProtocol extends AbstractProtocol {
 		this.guid = new Guid(guid);
 	}
 
+	public Guid getGuid() {
+		return guid;
+	}
+	
 	public ObjectProtocol() {
 		super(null, 0, null);
 	}
@@ -56,8 +61,16 @@ public class ObjectProtocol extends AbstractProtocol {
 	
 	@Override
 	protected void runProtocol(IMessageHandler handler) throws Exception {
-		if (!handler.isObjectHandler()) {
-			throws
+		if (handler.isObjectHandler()) {
+			var objectHandler = (IObjectHandler)handler;
+			objectHandler.runObjectProcess(guid, messageId, message);
+		} else {
+			super.runProtocol(handler);
 		}
+	}
+	
+	@Override
+	public long getGuidValue() {
+		return guid.getValue();
 	}
 }

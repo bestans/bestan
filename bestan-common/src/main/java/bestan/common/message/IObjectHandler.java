@@ -3,8 +3,8 @@ package bestan.common.message;
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
-import bestan.common.logic.BasePlayer;
 import bestan.common.logic.FormatException;
+import bestan.common.logic.IObject;
 import bestan.common.logic.ObjectManager;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.protobuf.Proto.BaseObjectProto;
@@ -19,29 +19,10 @@ public interface IObjectHandler extends IMessageHandler {
 	default boolean isObjectHandler() {
 		return true;
 	}
+
 	@Override
 	default void processProtocol(AbstractProtocol protocol) throws Exception {
-		var baseMessage = (BaseObjectProto)protocol.getMessage();
-		var messageId = protocol.getMessageId();
-		var handler = MessageFactory.getMessageHandle(messageId);
-		if (handler == null) {
-			throw new FormatException("IObjectHandler:cannot find message handler:messageId=%s,guid=%s", messageId, baseMessage.getGuid());
-		}
-		var object = ObjectManager.getInstance().getObject(new Guid(baseMessage.getGuid()));
-		if (object == null) {
-			throw new FormatException("IObjectHandler:cannot find object:messageId=%s,guid=%s", messageId, baseMessage.getGuid());
-		}
-		var messageInstance = MessageFactory.getMessageInstance(messageId);
-		if (messageInstance == null) {
-			throw new FormatException("IObjectHandler:cannot find message instance:messageId=%s,guid=%s", messageId, baseMessage.getGuid());
-		}
-		var message = messageInstance.newBuilderForType().mergeFrom(baseMessage.getMessageData()).build();
-		object.lockObject();
-		try {
-			process(object, message);
-		} finally {
-			object.unlockObject();
-		}
+		throw new FormatException("cannot run processProtocol:it's IObjectHandler.");
 	}
 	
 	/**
@@ -49,7 +30,21 @@ public interface IObjectHandler extends IMessageHandler {
 	 * @param object 处理协议的对象
 	 * @param message 协议内容
 	 */
-	void process(BasePlayer player, Message message);
+	default void runObjectProcess(Guid guid, int messageId, Message message) throws Exception {
+		var object = ObjectManager.getInstance().getObject(guid);
+		if (object == null) {
+			throw new FormatException("%s cannot find object:messageId=%s,guid=%s", getClass().getSimpleName(), messageId, guid);
+		}
+		object.lockObject();
+		try
+		{
+			process(object, messageId, message);
+		} finally {
+			object.unlockObject();
+		}
+	}
+	
+	void process(IObject object, int messageId, Message message) throws Exception;
 	
 	@Override
 	default long getThreadIndex(Message message) {

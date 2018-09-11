@@ -56,4 +56,11 @@ public interface IObject {
 	default void callbackReply(boolean success, Throwable t, AbstractProtocol arg, AbstractProtocol res) {
 		
 	}
+	
+	OBJECT_TYPE getObjectType();
+	
+	public enum OBJECT_TYPE {
+		PLAYER,
+		MANAGER,
+	}
 }

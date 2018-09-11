@@ -15,6 +15,11 @@ public class ObjectMessagePack extends MessagePack {
 		super(message);
 		this.guid = guid;
 	}
+
+	public ObjectMessagePack(Message message, long guid) {
+		super(message);
+		this.guid = new Guid(guid);
+	}
 	
 	public Guid getGuid() {
 		return guid;

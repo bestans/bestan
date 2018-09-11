@@ -5,6 +5,11 @@ package bestan.common.logic;
  *
  */
 public class FormatException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5416430845387238273L;
+
 	public FormatException(String format, Object... args) {
 		super(getMessage(format, args));
 	}

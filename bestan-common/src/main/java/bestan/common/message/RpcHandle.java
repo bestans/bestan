@@ -4,6 +4,7 @@ import com.google.protobuf.Message;
 
 import bestan.common.logic.FormatException;
 import bestan.common.net.AbstractProtocol;
+import bestan.common.net.ObjectMessagePack;
 import bestan.common.net.RpcManager;
 import bestan.common.protobuf.Proto;
 
@@ -38,7 +39,7 @@ public class RpcHandle implements IMessageHandler {
 			//将结果返回给client
 			message.setIsRequest(false);
 			message.setMessageData(resBuilder.build().toByteString());
-			protocol.getChannelHandlerContext().writeAndFlush((Message)message.build());
+			protocol.getChannelHandlerContext().writeAndFlush(new ObjectMessagePack((Message)message.build(), protocol.getGuidValue()));
 		} else {
 			var rpcObject = RpcManager.getInstance().get(message.getRpcIndex());
 			if (rpcObject == null) {

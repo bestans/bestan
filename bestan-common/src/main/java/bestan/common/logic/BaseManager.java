@@ -14,4 +14,9 @@ public abstract class BaseManager extends BaseObject {
 				GuidFixedType.MANAGER.GetGUIDType(), uniqueId);
 		return guid;
 	}
+	
+	@Override
+	public OBJECT_TYPE getObjectType() {
+		return OBJECT_TYPE.MANAGER;
+	}
 }

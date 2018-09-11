@@ -50,4 +50,10 @@ public abstract class BaseObject implements IObject, ITimer {
 			unlockObject();
 		}
 	}
+	
+	@Override
+	public OBJECT_TYPE getObjectType() {
+		// TODO Auto-generated method stub
+		return OBJECT_TYPE.PLAYER;
+	}
 }

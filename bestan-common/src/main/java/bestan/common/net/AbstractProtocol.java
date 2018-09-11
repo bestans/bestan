@@ -26,6 +26,9 @@ public abstract class AbstractProtocol implements IProtocol {
 		return messageId;
 	}
 	
+	public long getGuidValue() {
+		return 0;
+	}
 	public ChannelHandlerContext getChannelHandlerContext() {
 		return ctx;
 	}
