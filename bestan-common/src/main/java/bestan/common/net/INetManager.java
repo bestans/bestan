@@ -68,4 +68,5 @@ public interface INetManager {
 		ctx.writeAndFlush(rpc.getRpcMessage());
 		RpcManager.getInstance().put(rpc);
 	}
+	
 }

@@ -3,6 +3,7 @@ package bestan.common.net;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
+import bestan.common.message.IMessageHandler;
 import bestan.common.message.MessageFactory;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -15,11 +16,6 @@ public abstract class AbstractProtocol implements IProtocol {
 		this.ctx = ctx;
 		this.messageId = messageId;
 		this.message = message;
-	}
-	
-	@Override
-	public long getThreadIndex() {
-		return 0;
 	}
 	
 	public Message getMessage() {
@@ -38,16 +34,20 @@ public abstract class AbstractProtocol implements IProtocol {
 	public void run() {
 		try
 		{
-			var handle = MessageFactory.getMessageHandle(messageId);
-			if (handle == null) {
+			var handler = MessageFactory.getMessageHandle(messageId);
+			if (handler == null) {
 				Glog.error("{} cannot find message handle:messageID={},message={}", getClass().getSimpleName(), messageId, message);
 				return;
 			}
 		
-			handle.processProtocol(this);
+			runProtocol(handler);
 		} catch (Exception e) {
 			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}, StackTrace={}",
 					getClass().getSimpleName(), messageId, e.getMessage(), e.getStackTrace());
 		}
+	}
+	
+	protected void runProtocol(IMessageHandler handler) throws Exception {
+		handler.processProtocol(this);
 	}
 }

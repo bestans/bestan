@@ -9,6 +9,7 @@ import bestan.common.log.Glog;
 import bestan.common.module.IModule;
 import bestan.common.net.INetManager;
 import bestan.common.net.IProtocol;
+import bestan.common.net.MessagePack;
 import bestan.common.thread.BExecutor;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -111,7 +112,7 @@ public class BaseNetClientManager implements INetManager, IModule {
 	}
 	
 	public void sendMessage(Message message) {
-		this.channel.writeAndFlush(baseProtocol.encode(message));
+		this.channel.writeAndFlush(baseProtocol.encode(new MessagePack(message)));
 	}
 
 	@Override

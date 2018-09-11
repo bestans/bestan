@@ -2,45 +2,57 @@ package bestan.common.message;
 
 import com.google.protobuf.Message;
 
-import bestan.common.log.Glog;
+import bestan.common.guid.Guid;
+import bestan.common.logic.BasePlayer;
 import bestan.common.logic.FormatException;
-import bestan.common.logic.IObject;
 import bestan.common.logic.ObjectManager;
 import bestan.common.net.AbstractProtocol;
-import bestan.common.net.NetConst;
+import bestan.common.protobuf.Proto.BaseObjectProto;
 
 /**
  * @author yeyouhuan
  *
  */
 public interface IObjectHandler extends IMessageHandler {
+
 	@Override
-	default void processProtocol(AbstractProtocol protocol) throws Exception{
-		var channel = protocol.getChannelHandlerContext().channel();
-		if (!channel.hasAttr(NetConst.GUID_ATTR_INDEX)) {
-			var exception = new FormatException("processProtocol failed:can't find channel guid,handler=%s", getClass().getSimpleName());
-			protocol.getChannelHandlerContext().fireExceptionCaught(exception);
-			return;
+	default boolean isObjectHandler() {
+		return true;
+	}
+	@Override
+	default void processProtocol(AbstractProtocol protocol) throws Exception {
+		var baseMessage = (BaseObjectProto)protocol.getMessage();
+		var messageId = protocol.getMessageId();
+		var handler = MessageFactory.getMessageHandle(messageId);
+		if (handler == null) {
+			throw new FormatException("IObjectHandler:cannot find message handler:messageId=%s,guid=%s", messageId, baseMessage.getGuid());
 		}
-		var guid = channel.attr(NetConst.GUID_ATTR_INDEX).get();
-		var object = ObjectManager.getInstance().getObject(guid);
-		if (null == object) {
-			Glog.error("processProtocol failed:can't find object,handler={},guid={}",
-					getClass().getSimpleName(), guid);
-			return;
+		var object = ObjectManager.getInstance().getObject(new Guid(baseMessage.getGuid()));
+		if (object == null) {
+			throw new FormatException("IObjectHandler:cannot find object:messageId=%s,guid=%s", messageId, baseMessage.getGuid());
 		}
+		var messageInstance = MessageFactory.getMessageInstance(messageId);
+		if (messageInstance == null) {
+			throw new FormatException("IObjectHandler:cannot find message instance:messageId=%s,guid=%s", messageId, baseMessage.getGuid());
+		}
+		var message = messageInstance.newBuilderForType().mergeFrom(baseMessage.getMessageData()).build();
 		object.lockObject();
 		try {
-			process(object, protocol.getMessage(), protocol);
+			process(object, message);
 		} finally {
 			object.unlockObject();
 		}
 	}
 	
 	/**
-	 * @param object 非空对象，已经加锁了
-	 * @param message 待处理的消息
-	 * @param protocol 解析过来的协议
+	 * 处理协议，已经在上层加锁/解锁
+	 * @param object 处理协议的对象
+	 * @param message 协议内容
 	 */
-	void process(IObject object, Message message, AbstractProtocol protocol);
+	void process(BasePlayer player, Message message);
+	
+	@Override
+	default long getThreadIndex(Message message) {
+		return ((BaseObjectProto)message).getGuid();
+	}
 }

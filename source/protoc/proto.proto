@@ -8,6 +8,13 @@ message BaseProto
 	bytes messageData			= 2;
 }
 
+message BaseObjectProto
+{
+	int32 messageId				= 1;
+	bytes messageData			= 2;
+	int64 guid					= 3;
+}
+
 message RpcMessage
 {
 	int32 resMessageId			= 1;

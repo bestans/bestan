@@ -24,10 +24,10 @@ public class CommonProtocol extends AbstractProtocol {
 	}
 	
 	@Override
-	public Message encode(Message message) {
+	public Message encode(MessagePack message) {
 		var builder = baseMessageInstance.newBuilderForType();
-		builder.setMessageId(MessageFactory.getMessageIndex(message));
-		builder.setMessageData(message.toByteString());
+		builder.setMessageId(MessageFactory.getMessageIndex(message.getMessage()));
+		builder.setMessageData(message.getMessage().toByteString());
 		return builder.build();
 	}
 
