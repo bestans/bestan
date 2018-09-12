@@ -9,7 +9,8 @@ package bestan.common.guid;
  * [服务器ZoneID]  [OBJECT_TYPE_ID]     [1级子类型]           [唯一id]
  */
 public final class Guid {
-
+	public static Guid ZERO = new Guid(0);
+	
 	/**
 	 * the value, 0~0xFFFFFFFFFFFFFFFF
 	 */

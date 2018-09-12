@@ -3,34 +3,24 @@ package bestan.common.logic;
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
-import bestan.common.message.pack.CommonSaveRetcode;
+import bestan.common.log.Glog;
 import bestan.common.net.AbstractProtocol;
+import bestan.common.net.BaseNetManager;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
+import bestan.common.protobuf.Proto.RpcCommonSaveOpRes;
+import io.netty.channel.ChannelHandlerContext;
 
 public interface IObject {
 	Guid getGuid();
 	void lockObject();
 	void unlockObject();
-
+	
 	/**
-	 * 通用保存操作结果，已经在上层加锁了
-	 * @param arg
-	 * @param res
-	 * @param opType
-	 */
-	default void commonSaveReply(RpcCommonSaveOp arg, int opType, CommonSaveRetcode retcode) {
-		
-	}
-
-	/**
-	 * 处理消息，已经加锁了
-	 * @param messageId
-	 * @param message
+	 * 处理消息，已经在上层加锁/解锁了
+	 * @param messageId 消息索引
+	 * @param message 消息内容
 	 */
 	default void processMessage(int messageId, Message message) {
-	}
-	
-	default void executeMessage(Message message) {
 	}
 	
 	default void Tick() {
@@ -62,5 +52,16 @@ public interface IObject {
 	public enum OBJECT_TYPE {
 		PLAYER,
 		MANAGER,
+	}
+	
+	default void writeAndFlush(ChannelHandlerContext ctx, BaseNetManager netManager, Message message) {
+		netManager.writeAndFlush(ctx, this, message);
+	}
+
+	default void rpcCommonSaveClient(RpcCommonSaveOp arg, RpcCommonSaveOpRes res, int opType) {
+		Glog.debug("{} rpcCommonSaveClient:client:res={},opType={}", getClass().getSimpleName(), res.getRetcode(), opType);
+	}
+	default void rpcCommonSaveTimeout(RpcCommonSaveOp arg, int opType) {
+		Glog.debug("{} rpcCommonSaveClient:Timeout:opType={}", getClass().getSimpleName(), opType);
 	}
 }

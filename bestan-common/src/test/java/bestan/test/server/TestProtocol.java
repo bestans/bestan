@@ -4,7 +4,7 @@ import com.google.protobuf.Message;
 
 import bestan.common.logic.FormatException;
 import bestan.common.message.MessageFactory;
-import bestan.common.net.AbstractProtocol;
+import bestan.common.net.CommonProtocol;
 import bestan.common.net.IProtocol;
 import bestan.common.net.MessagePack;
 import bestan.common.protobuf.Proto;
@@ -15,7 +15,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @author yeyouhuan
  *
  */
-public class TestProtocol extends AbstractProtocol {
+public class TestProtocol extends CommonProtocol {
 	private static final Proto.BaseProto baseMessageInstance = Proto.BaseProto.getDefaultInstance();
 	
 	public TestProtocol(ChannelHandlerContext ctx, int messageId, Message message) {

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
-import bestan.common.message.pack.MessagePack;
+import bestan.common.message.MessageEvent;
 import bestan.common.thread.BExecutor;
 
 public class ObjectManager {
@@ -37,10 +37,10 @@ public class ObjectManager {
 	}
 	
 	public void sendMessage(IObject object, Message message) {
-		executor.execute(new MessagePack(object, message));
+		executor.execute(new MessageEvent(object.getGuid(), message));
 	}
 	
 	public void sendMessage(Guid guid, Message message) {
-		executor.execute(new MessagePack(guid, message));
+		executor.execute(new MessageEvent(guid, message));
 	}
 }

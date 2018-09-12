@@ -11,12 +11,12 @@ import bestan.common.guid.Guid;
 public class ObjectMessagePack extends MessagePack {
 	private Guid guid;
 	
-	public ObjectMessagePack(Message message, Guid guid) {
+	public ObjectMessagePack(Guid guid, Message message) {
 		super(message);
 		this.guid = guid;
 	}
 
-	public ObjectMessagePack(Message message, long guid) {
+	public ObjectMessagePack(long guid, Message message) {
 		super(message);
 		this.guid = new Guid(guid);
 	}

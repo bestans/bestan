@@ -6,8 +6,8 @@ import com.google.protobuf.Message;
 import com.google.protobuf.Message.Builder;
 
 import bestan.common.log.Glog;
-import bestan.common.message.IRpcServerHandler;
 import bestan.common.net.AbstractProtocol;
+import bestan.common.net.handler.IRpcServerHandler;
 
 /**
  * @author yeyouhuan
@@ -19,18 +19,20 @@ public interface IDBRpcServerHandler extends IRpcServerHandler {
 		Transaction txn = null;
 		try {
 			txn = StorageEnv.start();
-			handleServer(txn, protocol, arg, res);
+			handleServer(txn, arg, res);
 			txn.commit();
-		} catch (DBException e) {
-			Glog.debug("IDBRpcServerHandler:{}:DBException:errcode={},message={}", getClass().getSimpleName(), e.getErrorCodeMessage(), e.getMessage());
-			StorageEnv.rollback(txn);
 		} catch (Exception e) {
-			Glog.debug("IDBRpcServerHandler:{}:Exception:message={}", getClass().getSimpleName(), e.getMessage());
 			StorageEnv.rollback(txn);
+			exceptionCatch(arg, res, e);
 		} finally {
 			StorageEnv.end();
 		}
 	}
 	
-	void handleServer(Transaction txn, AbstractProtocol protocol, Message arg, Builder res);
+	void handleServer(Transaction txn, Message arg, Builder res) throws Exception;
+	
+	default void exceptionCatch(Message arg, Builder res, Throwable e) {
+		Glog.debug("IDBRpcServerHandler:{}:Exception:message={},exceptio{}",
+				getClass().getSimpleName(), e.getMessage().getClass().getSimpleName(), e);
+	}
 }

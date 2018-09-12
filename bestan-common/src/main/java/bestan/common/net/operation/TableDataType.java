@@ -33,7 +33,7 @@ public enum TableDataType {
 	public DBCommonData.Builder convertPB(Object t) {
 		return process.convertPB(t);
 	}
-	
+
 	public static abstract class DataProcess {
 		protected Class<?> dataClass;
 		public DataProcess(Class<?> dataClass) {

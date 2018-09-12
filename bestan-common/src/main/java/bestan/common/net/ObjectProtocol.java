@@ -4,9 +4,10 @@ import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
 import bestan.common.logic.FormatException;
-import bestan.common.message.IMessageHandler;
-import bestan.common.message.IObjectHandler;
+import bestan.common.logic.IObject;
 import bestan.common.message.MessageFactory;
+import bestan.common.net.handler.IMessageHandler;
+import bestan.common.net.handler.IObjectHandler;
 import bestan.common.protobuf.Proto;
 import bestan.common.protobuf.Proto.BaseObjectProto;
 import io.netty.channel.ChannelHandlerContext;
@@ -72,5 +73,15 @@ public class ObjectProtocol extends AbstractProtocol {
 	@Override
 	public long getGuidValue() {
 		return guid.getValue();
+	}
+
+	@Override
+	public MessagePack packMessage(IObject object, Message message) {
+		return new ObjectMessagePack(object.getGuid(), message);
+	}
+	
+	@Override
+	public MessagePack packMessage(Message message) {
+		return new ObjectMessagePack(Guid.ZERO, message);
 	}
 }

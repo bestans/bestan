@@ -36,7 +36,7 @@ public class TestClient {
 		while (true) {
 			try {
 				Thread.sleep(1000);
-				client.sendMessage(msg.build());
+				client.writeAndFlush(msg.build());
 				Thread.sleep(1000);
 				break;
 			} catch (InterruptedException e) {

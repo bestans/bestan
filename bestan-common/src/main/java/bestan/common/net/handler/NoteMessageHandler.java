@@ -1,11 +1,11 @@
-package bestan.common.message;
+package bestan.common.net.handler;
 
 /**
- * messageHandle注解
+ * messageHandler注解
  * @author yeyouhuan
  *
  */
-public @interface NoteMessageHandle {
+public @interface NoteMessageHandler {
 	/**
 	 * @return 如果是true，表示该handle废弃不使用
 	 */

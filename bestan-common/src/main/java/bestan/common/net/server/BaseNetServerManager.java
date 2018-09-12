@@ -3,7 +3,7 @@ package bestan.common.net.server;
 import java.net.InetSocketAddress;
 
 import bestan.common.module.IModule;
-import bestan.common.net.INetManager;
+import bestan.common.net.BaseNetManager;
 import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 import io.netty.bootstrap.ServerBootstrap;
@@ -32,7 +32,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author yeyouhuan
  *
  */
-public class BaseNetServerManager implements INetManager, IModule {
+public class BaseNetServerManager extends BaseNetManager implements IModule {
 	private NetServerConfig config;
 	protected ServerBootstrap serverBootstrap;
 	protected EventLoopGroup bossGroup;
@@ -45,6 +45,7 @@ public class BaseNetServerManager implements INetManager, IModule {
 	 * @param protocol 解析/编码消息的方式
 	 */
 	public BaseNetServerManager(NetServerConfig config, BExecutor executor, IProtocol protocol) {
+		super(protocol);
 		this.config = config;
 		this.config.workdExecutor = executor;
 		this.config.baseProtocol = protocol;

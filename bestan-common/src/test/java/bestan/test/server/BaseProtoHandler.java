@@ -1,8 +1,8 @@
 package bestan.test.server;
 
 import bestan.common.log.Glog;
-import bestan.common.message.IMessageHandler;
 import bestan.common.net.AbstractProtocol;
+import bestan.common.net.handler.IMessageHandler;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 

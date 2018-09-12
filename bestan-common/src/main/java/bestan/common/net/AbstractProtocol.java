@@ -3,8 +3,8 @@ package bestan.common.net;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
-import bestan.common.message.IMessageHandler;
 import bestan.common.message.MessageFactory;
+import bestan.common.net.handler.IMessageHandler;
 import io.netty.channel.ChannelHandlerContext;
 
 public abstract class AbstractProtocol implements IProtocol {

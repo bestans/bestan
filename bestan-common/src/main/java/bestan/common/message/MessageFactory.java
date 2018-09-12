@@ -15,6 +15,10 @@ import com.google.protobuf.Message;
 import bestan.common.log.Glog;
 import bestan.common.module.IModule;
 import bestan.common.module.StartupException;
+import bestan.common.net.handler.IMessageHandler;
+import bestan.common.net.handler.IRpcClientHandler;
+import bestan.common.net.handler.IRpcServerHandler;
+import bestan.common.net.handler.NoteMessageHandler;
 import bestan.common.protobuf.MessageFixedEnum;
 
 /**
@@ -79,7 +83,7 @@ public class MessageFactory {
 	}
 	
 	private static boolean registerMessagehandler(Class<? extends IMessageHandler> cls) {
-		var note = cls.getAnnotation(NoteMessageHandle.class);
+		var note = cls.getAnnotation(NoteMessageHandler.class);
 		if (note != null && note.discard()) {
 			//废弃的handle
 			return true;
@@ -187,6 +191,7 @@ public class MessageFactory {
 	public static boolean loadMessageHandle(String packageName) {
 		Reflections.log = null;
 		Reflections reflections = new Reflections(packageName);
+		Glog.debug("loadMessageHandle=packageName={},class={}", packageName, reflections.getSubTypesOf(Object.class));
 		Set<Class<? extends IMessageHandler>> classes = reflections.getSubTypesOf(IMessageHandler.class);
 		Glog.debug("loadMessageHandle:packageName={},size={},{}", packageName, classes.size(), classes);
 		for (var cls : classes) {
@@ -239,7 +244,8 @@ public class MessageFactory {
 			if (!register(it.getMessageClass(), it.getMessageId())) {
 				return false;
 			}
-			if (!registerMessagehandler(it.getMessageHandleClass(), it.getMessageId())) {
+			var handlerCls = it.getMessageHandleClass();
+			if (handlerCls != null && !registerMessagehandler(handlerCls, it.getMessageId())) {
 				return false;
 			}
 		}

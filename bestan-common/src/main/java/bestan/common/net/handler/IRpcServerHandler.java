@@ -1,4 +1,4 @@
-package bestan.common.message;
+package bestan.common.net.handler;
 
 import com.google.protobuf.Message;
 

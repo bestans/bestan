@@ -6,10 +6,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
+import bestan.common.logic.IObject;
 import bestan.common.module.IModule;
-import bestan.common.net.INetManager;
+import bestan.common.net.BaseNetManager;
 import bestan.common.net.IProtocol;
-import bestan.common.net.MessagePack;
+import bestan.common.net.RpcManager.RpcObject;
 import bestan.common.thread.BExecutor;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -25,7 +26,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @author yeyouhuan
  *
  */
-public class BaseNetClientManager implements INetManager, IModule {
+public class BaseNetClientManager extends BaseNetManager implements IModule {
 	private AtomicBoolean connecting = new AtomicBoolean(false);
 	private Channel channel;
 	private ChannelHandlerContext ctx;
@@ -34,7 +35,6 @@ public class BaseNetClientManager implements INetManager, IModule {
 	protected EventLoopGroup bossGroup;
 	protected EventLoopGroup workerGroup;
 	protected Bootstrap bootStrap;
-	protected IProtocol baseProtocol;
 
 	/**
 	 * @param config client配置
@@ -42,10 +42,10 @@ public class BaseNetClientManager implements INetManager, IModule {
 	 * @param protocol 解析/编码消息的方式
 	 */
 	public BaseNetClientManager(NetClientConfig config, BExecutor executor, IProtocol protocol) {
+		super(protocol);
 		this.config = config;
 		this.config.baseProtocol = protocol;
 		this.config.workdExecutor = executor;
-		this.baseProtocol = config.baseProtocol;
 		workerGroup = new NioEventLoopGroup(1);
 		bootStrap = new Bootstrap().group(workerGroup)
 		    	      .channel(NioSocketChannel.class)
@@ -111,10 +111,14 @@ public class BaseNetClientManager implements INetManager, IModule {
 		bootStrap = null;
 	}
 	
-	public void sendMessage(Message message) {
-		this.channel.writeAndFlush(baseProtocol.encode(new MessagePack(message)));
+	public void writeAndFlush(Message message) {
+		writeAndFlush(ctx, message);
 	}
 
+	public void writeAndFlush(IObject object, Message message) {
+		writeAndFlush(ctx, object, message);
+	}
+	
 	@Override
 	public void startup() {
 		start();
@@ -127,5 +131,25 @@ public class BaseNetClientManager implements INetManager, IModule {
 	
 	public ChannelHandlerContext GetChannel() {
 		return ctx;
+	}
+
+	public void sendRpc(Message arg, Class<? extends Message> resCls, Object param) {
+		sendRpc(ctx, arg, resCls, 10, param);
+	}
+	
+	public void sendRpc(Message arg, Class<? extends Message> resCls) {
+		sendRpc(ctx, arg, resCls, 10, null);
+	}
+	
+	public void sendRpc(Message arg, Class<? extends Message> resCls, int timeout) {
+		sendRpc(ctx, arg, resCls, timeout, null);
+	}
+	
+	public void sendRpc(Message arg, Class<? extends Message> resCls, int timeout, Object param) {
+		sendRpc(ctx, arg, resCls, timeout, param);
+	}
+	
+	public void sendRpc(RpcObject rpc) {
+		sendRpc(ctx, rpc);
 	}
 }

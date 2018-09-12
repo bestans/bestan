@@ -10,7 +10,6 @@ import bestan.common.logic.IObject;
 public class CommonSaveParam {
 	public int opType;
 	public Guid guid;
-	public IObject object;
 	
 	public CommonSaveParam(int opType, Guid guid) {
 		this.opType = opType;
@@ -18,6 +17,14 @@ public class CommonSaveParam {
 	}
 	public CommonSaveParam(int opType, IObject object) {
 		this.opType = opType;
-		this.object = object;
+		this.guid = object.getGuid();
+	}
+	
+	public Guid getGuid() {
+		return guid;
+	}
+	
+	public int getOpType() {
+		return opType;
 	}
 }

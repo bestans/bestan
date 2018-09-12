@@ -2,8 +2,9 @@ package bestan.common.protobuf;
 
 import com.google.protobuf.Message;
 
-import bestan.common.message.IMessageHandler;
-import bestan.common.message.RpcHandle;
+import bestan.common.net.handler.IMessageHandler;
+import bestan.common.net.handler.RpcHandle;
+import bestan.common.net.operation.RpcCommonSaveClientHandler;
 
 /**
  * 消息固定映射，系统使用的消息，按照-1、-2...的顺序编号
@@ -12,7 +13,9 @@ import bestan.common.message.RpcHandle;
  */
 public enum MessageFixedEnum {
 	INVALID(null, null),
-	BASE_RPC(Proto.RpcMessage.class, RpcHandle.class);	//基础rpc
+	BASE_RPC(Proto.RpcMessage.class, RpcHandle.class),	//基础rpc
+	RPC_COMMON_SAVE(Proto.RpcCommonSaveOp.class, null),	//通用db保存rpc
+	RPC_COMMON_SAVE_RES(Proto.RpcCommonSaveOpRes.class, RpcCommonSaveClientHandler.class);	//通用db保存rpc返回结果
 	
 	private int messageId;
 	private Class<? extends Message> messageCls;

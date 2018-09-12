@@ -3,8 +3,8 @@ package bestan.common.db;
 import org.rocksdb.Transaction;
 
 import bestan.common.log.Glog;
-import bestan.common.message.IMessageHandler;
 import bestan.common.net.AbstractProtocol;
+import bestan.common.net.handler.IMessageHandler;
 
 /**
  * @author yeyouhuan

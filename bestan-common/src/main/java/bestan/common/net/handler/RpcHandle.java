@@ -1,8 +1,9 @@
-package bestan.common.message;
+package bestan.common.net.handler;
 
 import com.google.protobuf.Message;
 
 import bestan.common.logic.FormatException;
+import bestan.common.message.MessageFactory;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.ObjectMessagePack;
 import bestan.common.net.RpcManager;
@@ -39,7 +40,7 @@ public class RpcHandle implements IMessageHandler {
 			//将结果返回给client
 			message.setIsRequest(false);
 			message.setMessageData(resBuilder.build().toByteString());
-			protocol.getChannelHandlerContext().writeAndFlush(new ObjectMessagePack((Message)message.build(), protocol.getGuidValue()));
+			protocol.getChannelHandlerContext().writeAndFlush(new ObjectMessagePack(protocol.getGuidValue(), (Message)message.build()));
 		} else {
 			var rpcObject = RpcManager.getInstance().get(message.getRpcIndex());
 			if (rpcObject == null) {
@@ -47,9 +48,9 @@ public class RpcHandle implements IMessageHandler {
 			}
 			resBuilder.mergeFrom(message.getMessageData());
 
-			var clientHandler = MessageFactory.getRpcClientHandler(message.getArgMessageId());
+			var clientHandler = MessageFactory.getRpcClientHandler(message.getResMessageId());
 			if (clientHandler == null) {
-				throw new FormatException("RpcHandle:ProcessProtocol failed:cannot find clientHandler:argMessageId=%s,", message.getArgMessageId());
+				throw new FormatException("RpcHandle:ProcessProtocol failed:cannot find clientHandler:argMessageId=%s,", message.getResMessageId());
 			}
 			clientHandler.client(protocol, rpcObject.getArgMessage(), resBuilder.build(), rpcObject.getParam());
 		}

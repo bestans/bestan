@@ -3,6 +3,7 @@ package bestan.common.net;
 import com.google.protobuf.Message;
 
 import bestan.common.logic.FormatException;
+import bestan.common.logic.IObject;
 import bestan.common.message.MessageFactory;
 import bestan.common.protobuf.Proto;
 import bestan.common.protobuf.Proto.BaseProto;
@@ -46,5 +47,15 @@ public class CommonProtocol extends AbstractProtocol {
 		}
 		var messageBuilder = messageInstance.newBuilderForType().mergeFrom(base.getMessageData());
 		return new CommonProtocol(ctx, messageId, messageBuilder.build());
+	}
+
+	@Override
+	public MessagePack packMessage(IObject object, Message message) {
+		return packMessage(message);
+	}
+
+	@Override
+	public MessagePack packMessage(Message message) {
+		return new MessagePack(message);
 	}
 }
