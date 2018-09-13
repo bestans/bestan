@@ -23,7 +23,7 @@ import bestan.common.protobuf.Proto.RpcCommonSaveOpRes.RETCODE;
  * @author yeyouhuan
  *
  */
-@NoteMessageHandler(messageName = "RpcCommonSaveOp")
+@NoteMessageHandler(messageName = "RpcCommonSaveOpRes")
 public class RpcCommonSaveOpServerHandler implements IDBRpcServerHandler{
 	@Override
 	public void handleServer(Transaction txn, Message arg, Builder res) throws Exception {

@@ -125,8 +125,8 @@ public class BaseNetClientManager extends BaseNetManager implements IModule {
 	}
 	
 	@Override
-	public void close() {
-		close();
+	public void close() throws Exception {
+		stop();
 	}
 	
 	public ChannelHandlerContext GetChannel() {

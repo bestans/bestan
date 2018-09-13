@@ -106,7 +106,10 @@ public class MessageFactory {
 			messageName = handleName.substring(0, handleName.length() - 7);
 		}
 		var messageIndex = messageNameIndexMap.get(messageName);
-		Glog.debug("registerMessagehandler:messageName={},messageNameIndexMap={}", messageName, messageNameIndexMap);
+		if (messageIndex == null) {
+			Glog.error("registerMessagehandler:handler={},messageName={},messageNameIndexMap={}", cls.getSimpleName(), messageName, messageNameIndexMap);
+			return false;
+		}
 		return registerMessagehandler(cls, messageIndex);
 	}
 	private static boolean registerMessagehandler(Class<? extends IMessageHandler> cls, Integer messageIndex) {
@@ -188,7 +191,6 @@ public class MessageFactory {
 	}
 	
 	private static boolean isSubInterface(Class<?> cls, String superName) {
-		Glog.debug("isSubInterface:{},{}", cls, cls.getGenericInterfaces());
 		if (cls.equals(Object.class)) {
 			return false;
 		}
@@ -212,12 +214,6 @@ public class MessageFactory {
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean loadMessageHandle(String packageName) {
-//		Reflections.log = null;
-//		Reflections reflections = new Reflections(packageName);
-//		Glog.debug("loadMessageHandle=packageName={},class={}", packageName, reflections.getSubTypesOf(Object.class));
-//		Set<Class<? extends IMessageHandler>> classes = reflections.getSubTypesOf(IMessageHandler.class);
-//		Glog.debug("loadMessageHandle:packageName={},size={},{}", packageName, classes.size(), classes);
-		
 		ScanResult scanResult =
 		        new ClassGraph()
 		            .enableAllInfo()
@@ -230,7 +226,7 @@ public class MessageFactory {
         			&& isSubInterface(classInfo.loadClass(), "bestan.common.net.handler.IMessageHandler");
         });
 	    var classes = filtered.loadClasses();
-	    Glog.debug("loadMessageHandle:packageName={},size={},{},all={}", packageName, classes.size(), classes, allCls);
+	    Glog.debug("loadMessageHandle:packageName={},size={}", packageName, classes.size());
 		for (var cls : classes) {
 			if (Modifier.isAbstract(cls.getModifiers())) {
 				//抽象类
@@ -278,7 +274,9 @@ public class MessageFactory {
 				//跳过无效的枚举
 				continue;
 			}
-			if (!register(it.getMessageClass(), it.getMessageId())) {
+			var cls = it.getMessageClass();
+			messageNameIndexMap.put(cls.getSimpleName(), it.getMessageId());
+			if (!register(cls, it.getMessageId())) {
 				return false;
 			}
 			var handlerCls = it.getMessageHandleClass();

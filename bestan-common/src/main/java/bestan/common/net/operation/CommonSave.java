@@ -30,7 +30,7 @@ public class CommonSave {
 		if (cls.equals(Long.class)) {
 			return TableDataType.LONG;
 		}
-		if (cls.equals(Message.class)) {
+		if (Message.class.isAssignableFrom(cls)) {
 			return TableDataType.MESSAGE;
 		}
 		if (cls.equals(Boolean.class)) {

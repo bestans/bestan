@@ -1,10 +1,14 @@
 package bestan.common.net.handler;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * messageHandler注解
  * @author yeyouhuan
  *
  */
+@Retention(RetentionPolicy.RUNTIME)
 public @interface NoteMessageHandler {
 	/**
 	 * @return 如果是true，表示该handle废弃不使用
