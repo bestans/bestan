@@ -59,16 +59,21 @@ public class ModuleManager {
 		
 		//按照指定的关闭顺序，逐一关闭各个模块
 		for (var module : closeModules) {
-			if (openMap.get(module)) {
+			var isOpen = openMap.get(module);
+			if (isOpen == null || !isOpen) {
 				//没有开过
 				continue;
 			}
 			try {
+				Glog.debug("start close module({})", module.getClass().getSimpleName());
 				module.close();
+				Glog.debug("finish close module({})", module.getClass().getSimpleName());
 			} catch (Exception e) {
 				Glog.error("close module failed:module={},error_clas={},error={}",
 						module.getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage());
 			}
 		}
+
+		Glog.debug("finish close all modules");
 	}
 }

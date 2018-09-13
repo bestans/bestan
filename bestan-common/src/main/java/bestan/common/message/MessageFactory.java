@@ -20,6 +20,9 @@ import bestan.common.net.handler.IRpcClientHandler;
 import bestan.common.net.handler.IRpcServerHandler;
 import bestan.common.net.handler.NoteMessageHandler;
 import bestan.common.protobuf.MessageFixedEnum;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfoList;
+import io.github.classgraph.ScanResult;
 
 /**
  * message索引是生成的，按照messageName编号<p>
@@ -89,12 +92,12 @@ public class MessageFactory {
 			return true;
 		}
 		String messageName = null;
-		if (note != null && !Strings.isNullOrEmpty(note.messageName())) {
+		if (note != null) {
 			//采用制定messageName
 			messageName = note.messageName();
 		}
 		var handleName = cls.getSimpleName();
-		if (messageName == null) {
+		if (Strings.isNullOrEmpty(messageName)) {
 			//根据handler名解析出messageName
 			if (handleName.length() <= 7) {
 				Glog.error("loadMessageHandle erorr:invalid handle name({}), valid e.g xxxxHandle", handleName);
@@ -103,7 +106,7 @@ public class MessageFactory {
 			messageName = handleName.substring(0, handleName.length() - 7);
 		}
 		var messageIndex = messageNameIndexMap.get(messageName);
-		Glog.debug("messageName={},messageNameIndexMap={}", messageName, messageNameIndexMap);
+		Glog.debug("registerMessagehandler:messageName={},messageNameIndexMap={}", messageName, messageNameIndexMap);
 		return registerMessagehandler(cls, messageIndex);
 	}
 	private static boolean registerMessagehandler(Class<? extends IMessageHandler> cls, Integer messageIndex) {
@@ -183,23 +186,57 @@ public class MessageFactory {
 	public static IRpcServerHandler getRpcServerHandler(int messageIndex) {
 		return rpcserverHandleMap.get(messageIndex);
 	}
-
+	
+	private static boolean isSubInterface(Class<?> cls, String superName) {
+		Glog.debug("isSubInterface:{},{}", cls, cls.getGenericInterfaces());
+		if (cls.equals(Object.class)) {
+			return false;
+		}
+		for (var it : cls.getGenericInterfaces()) {
+			if (it.getTypeName().equals(superName)) {
+				return true;
+			}
+			try {
+				if (isSubInterface(Class.forName(it.getTypeName()), superName)) {
+					return true;
+				}
+			} catch (ClassNotFoundException e) {
+				return false;
+			}
+		}
+		return false;
+	}
 	/**
 	 * 载入message handle类，message handle命名必须为xxxxHandle
 	 * @param packageName
 	 */
+	@SuppressWarnings("unchecked")
 	public static boolean loadMessageHandle(String packageName) {
-		Reflections.log = null;
-		Reflections reflections = new Reflections(packageName);
-		Glog.debug("loadMessageHandle=packageName={},class={}", packageName, reflections.getSubTypesOf(Object.class));
-		Set<Class<? extends IMessageHandler>> classes = reflections.getSubTypesOf(IMessageHandler.class);
-		Glog.debug("loadMessageHandle:packageName={},size={},{}", packageName, classes.size(), classes);
+//		Reflections.log = null;
+//		Reflections reflections = new Reflections(packageName);
+//		Glog.debug("loadMessageHandle=packageName={},class={}", packageName, reflections.getSubTypesOf(Object.class));
+//		Set<Class<? extends IMessageHandler>> classes = reflections.getSubTypesOf(IMessageHandler.class);
+//		Glog.debug("loadMessageHandle:packageName={},size={},{}", packageName, classes.size(), classes);
+		
+		ScanResult scanResult =
+		        new ClassGraph()
+		            .enableAllInfo()
+		            .whitelistPackages(packageName)
+		            .scan();
+		var allCls = scanResult.getAllClasses();
+	    ClassInfoList filtered = allCls
+        .filter(classInfo -> {
+        	return !(classInfo.isInterface() || classInfo.isAbstract())
+        			&& isSubInterface(classInfo.loadClass(), "bestan.common.net.handler.IMessageHandler");
+        });
+	    var classes = filtered.loadClasses();
+	    Glog.debug("loadMessageHandle:packageName={},size={},{},all={}", packageName, classes.size(), classes, allCls);
 		for (var cls : classes) {
 			if (Modifier.isAbstract(cls.getModifiers())) {
 				//抽象类
 				continue;
 			}
-			if (!registerMessagehandler(cls)) {
+			if (!registerMessagehandler((Class<? extends IMessageHandler>) cls)) {
 				return false;
 			}
 		}

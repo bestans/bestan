@@ -194,7 +194,6 @@ public class BTimer {
 							Thread.sleep(timerIickInterval);
 						} catch (InterruptedException e) {
 							Glog.info("timeExecutor run error, maybe close({})", e.getMessage());
-							timeExecutor.execute(this);
 							break;
 						}
 					}
