@@ -51,23 +51,31 @@ message DBCommonData
 	int32 dataMessageID	= 3;
 }
 
-//通用保存操作key
-message DBCommonKey
-{
-	enum KEY_TYPE {
-		INT			= 0;
-		LONG		= 1;
-		MESSAGE		= 2;
-	}
-	
-	KEY_TYPE keyType		= 1;
-	bytes tableName			= 2;	//指定是哪个表
-	int32 valueMessageId	= 3;	//指定是保存数据消息ID
-	int32 intKey			= 4;	//int索引
-	int64 longKey			= 5;	//long索引
-	bytes messagekey		= 6;	//message索引
-	
+enum COMMON_DB_RETCODE {
+	SUCCESS				= 0;
+	FAILED				= 1;
+	TIMEOUT				= 2;
+	DATA_EXCEPTION		= 3;
+	DATA_SIZE_EXCEPTION = 4;
 }
+
+//通用保存操作key
+//message DBCommonKey
+//{
+//	enum KEY_TYPE {
+//		INT			= 0;
+//		LONG		= 1;
+//		MESSAGE		= 2;
+//	}
+//	
+//	KEY_TYPE keyType		= 1;
+//	bytes tableName			= 2;	//指定是哪个表
+//	int32 valueMessageId	= 3;	//指定是保存数据消息ID
+//	int32 intKey			= 4;	//int索引
+//	int64 longKey			= 5;	//long索引
+//	bytes messagekey		= 6;	//message索引
+//	
+//}
 
 //一个保存操作，key和value
 message CommonSave
@@ -86,12 +94,7 @@ message RpcCommonSaveOp
 
 message RpcCommonSaveOpRes
 {
-	enum RETCODE
-	{
-		SUCCESS		= 0;
-		FAILED		= 1;
-	}
-	RETCODE retcode	= 1;
+	COMMON_DB_RETCODE retcode	= 1;
 }
 
 //普通保存协议
@@ -100,18 +103,26 @@ message CommonSaveOp
 	repeated CommonSave saveOps	= 1;	//保存操作列表
 }
 
-message CommonLoadRes
+message CommonLoad
 {
 	DBCommonData key	= 1;
-	DBCommonData value	= 2;
+	bytes tableName		= 2;
+}
+
+message CommonLoadRes
+{
+	DBCommonData value	= 1;
+	bool valid			= 2;
 }
 
 message RpcCommonLoadOp
 {
-	repeated DBCommonKey keys	= 1;
+	int32 opType				= 1;	//操作类型
+	repeated CommonLoad loadOps	= 2;
 }
 
 message RpcCommonLoadOpRes
 {
-	repeated CommonLoadRes res	= 2;
+	COMMON_DB_RETCODE retcode		= 1;
+	repeated CommonLoadRes values	= 2;
 }

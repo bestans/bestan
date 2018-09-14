@@ -11,7 +11,7 @@ import bestan.common.message.MessageFactory;
  * @author yeyouhuan
  *
  */
-public enum TableDataType {
+public enum TableDataTypeOld {
 	BOOL(new BooleanProcess()),
 	INT(new IntProcess()),
 	LONG(new LongProcess()),
@@ -19,7 +19,7 @@ public enum TableDataType {
 	MESSAGE(new MessageProcess());
 	
 	private DataProcess process;
-	TableDataType(DataProcess process) {
+	TableDataTypeOld(DataProcess process) {
 		this.process = process;
 	}
 	

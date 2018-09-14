@@ -46,6 +46,8 @@ public class RpcHandle implements IMessageHandler {
 			if (rpcObject == null) {
 				return;
 			}
+			RpcManager.getInstance().remove(message.getRpcIndex());
+			
 			resBuilder.mergeFrom(message.getMessageData());
 
 			var clientHandler = MessageFactory.getRpcClientHandler(message.getResMessageId());

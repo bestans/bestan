@@ -1,6 +1,9 @@
 package bestan.common.net;
 
+import java.io.IOException;
+
 import bestan.common.log.Glog;
+import bestan.common.util.ExceptionUtil;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -24,7 +27,14 @@ public interface INetManager {
 		
 	}
 	
-	public default void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		Glog.debug("exceptionCaught:cause={}", cause);
+	public default void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+		String causeLog;
+		if (cause instanceof IOException) {
+			causeLog = "IOException";
+		} else {
+			causeLog = ExceptionUtil.getLog(cause);
+		}
+		Glog.debug("{} exceptionCaught:exception={},cause={}", getClass().getSimpleName(), cause.getClass(), causeLog);
+		ctx.close();
 	}
 }

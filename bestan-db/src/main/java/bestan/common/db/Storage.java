@@ -10,8 +10,8 @@ import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
 
 import bestan.common.db.RocksDBConfig.TableStruct;
-import bestan.common.db.TableDataType.DataProcess;
 import bestan.common.logic.FormatException;
+import bestan.common.net.operation.TableDataType.DataProcess;
 
 public class Storage implements Comparable<Object> {
 	private ReentrantLock lock = new ReentrantLock();
@@ -86,6 +86,10 @@ public class Storage implements Comparable<Object> {
 	
 	public Object getValueObject(byte[] bytes) throws RocksDBException {
 		return valueProcess.convert(bytes);
+	}
+	
+	public DataProcess getValueProcess() {
+		return valueProcess;
 	}
 	
 	@Override

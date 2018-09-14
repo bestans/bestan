@@ -7,10 +7,14 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 
+import bestan.common.log.Glog;
 import bestan.common.logic.BaseManager;
+import bestan.common.message.MessageFactory;
+import bestan.common.net.handler.IRpcClientHandler;
 import bestan.common.protobuf.Proto;
 import bestan.common.timer.BTimer;
 import bestan.common.timer.ITimer;
+import bestan.common.util.ExceptionUtil;
 
 /**
  * @author yeyouhuan
@@ -61,6 +65,15 @@ public class RpcManager extends BaseManager implements ITimer {
 		}
 	}
 	
+	public void remove(int index) {
+		lock.lock();
+		try {
+			map.remove(index);
+		} finally {
+			lock.unlock();
+		}
+	}
+	
 	@Override
 	public void Tick() {
 		lock.lock();
@@ -69,7 +82,9 @@ public class RpcManager extends BaseManager implements ITimer {
 			var it = map.entrySet().iterator();
 			while (it.hasNext()) {
 				var entry = it.next();
-				if (curTime >= entry.getValue().getEndTime()) {
+				var object = entry.getValue();
+				if (curTime >= object.getEndTime()) {
+					object.onTimeout();
 					it.remove();
 				}
 			}
@@ -105,6 +120,32 @@ public class RpcManager extends BaseManager implements ITimer {
 		}
 		public Message getArgMessage() {
 			return arg;
+		}
+		
+		public void onTimeout() {
+			IRpcClientHandler clientHandler = null;
+			try {
+				clientHandler = MessageFactory.getRpcClientHandler(rpc.getResMessageId());
+				if (clientHandler == null) {
+					Glog.error("rpc ontimeout failed:cannot find clientHandler:arg_message={},resMessageId={}",
+							arg.getClass().getSimpleName(), rpc.getResMessageId());
+					return;
+				}
+				clientHandler.OnTimeout(this, arg, param);
+			} catch (Exception e) {
+				Glog.error("{}:rpc ontimeout failed:has exception:arg_message={},resMessageId={},statck={}",
+						clientHandler.getClass().getSimpleName(), arg.getClass().getSimpleName(), rpc.getResMessageId(), ExceptionUtil.getLog(e));
+			}
+		}
+		
+		@Override
+		public String toString() {
+			var builder = new StringBuilder();
+			builder.append("[endTime=").append(endTime)
+				.append(",param=").append(param)
+				.append(",timeout=").append(timeout)
+				.append(",message=").append(arg).append("]");
+			return builder.toString();
 		}
 	}
 }

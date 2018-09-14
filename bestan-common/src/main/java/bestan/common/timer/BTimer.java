@@ -72,6 +72,10 @@ public class BTimer {
 		}
 	}
 	
+	/**
+	 * @param event 延迟执行的事件
+	 * @param delay 延迟时间（毫秒）
+	 */
 	public static void schedule(IEvent event, int delay) {
 		if (delay < 0) return;
 		
@@ -172,7 +176,7 @@ public class BTimer {
 		
 		/**
 		 * @param executor 工作线程
-		 * @param timerIickInterval timer更新间隔时间（微秒）
+		 * @param timerIickInterval timer更新间隔时间（毫秒）
 		 */
 		public TimerModule(BExecutor executor, int timerIickInterval) {
 			this.executor = executor;

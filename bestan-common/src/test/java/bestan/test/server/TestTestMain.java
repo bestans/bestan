@@ -2,9 +2,14 @@ package bestan.test.server;
 
 import java.util.concurrent.Executors;
 
+import bestan.common.event.IEvent;
 import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.protobuf.MessageFixedEnum;
+import bestan.common.thread.BThreadPoolExecutors;
+import bestan.common.timer.BTimer;
+import bestan.common.timer.BTimer.TimerModule;
+import bestan.common.timer.ITimer;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -109,9 +114,36 @@ public class TestTestMain {
 		    System.out.println(filtered);
 		}
 	}
+	
+	public static void test6() {
+		var timer = new TimerModule(BThreadPoolExecutors.newMutipleSingleThreadPool("timer", 1), 100);
+		timer.startup();
+		Glog.debug("start");
+		BTimer.schedule(new IEvent() {
+			@Override
+			public void run() {
+				Glog.debug("aaaa");
+			}
+		}, 1000);
+		
+		BTimer.attach(new ITimer() {
+			@Override
+			public void executeTick() {
+				Glog.debug("timer timer");
+			}
+		}, 1000);
+		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		timer.close();
+	}
 	public static void main(String[] args) {
 		try {
-			test5();
+			test6();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

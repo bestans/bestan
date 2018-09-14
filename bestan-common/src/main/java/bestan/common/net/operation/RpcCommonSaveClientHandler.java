@@ -7,6 +7,7 @@ import bestan.common.logic.ObjectManager;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.RpcManager.RpcObject;
 import bestan.common.net.handler.IRpcClientHandler;
+import bestan.common.protobuf.Proto.COMMON_DB_RETCODE;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOpRes;
 
@@ -28,14 +29,18 @@ public class RpcCommonSaveClientHandler implements IRpcClientHandler {
 		}
 		object.lockObject();
 		try {
-			object.rpcCommonSaveClient(saveArg, saveRes, saveParam.getOpType());
+			if (saveRes.getRetcode() == COMMON_DB_RETCODE.SUCCESS) {
+				object.rpcCommonSaveSuccess(saveArg, saveRes, saveParam.getOpType());
+			} else {
+				object.rpcCommonSaveFailed(saveArg, saveParam.getOpType(), saveRes.getRetcode());
+			}
 		} finally {
 			object.unlockObject();
 		}
 	}
 	
 	@Override
-	public void OnTimeout(AbstractProtocol protocol, RpcObject rpc, Message arg, Object param) {
+	public void OnTimeout(RpcObject rpc, Message arg, Object param) {
 		var saveArg = (RpcCommonSaveOp)arg;
 		var saveParam = (CommonSaveParam)param;
 
@@ -46,7 +51,7 @@ public class RpcCommonSaveClientHandler implements IRpcClientHandler {
 		}
 		object.lockObject();
 		try {
-			object.rpcCommonSaveTimeout(saveArg, saveParam.getOpType());
+			object.rpcCommonSaveFailed(saveArg, saveParam.getOpType(), COMMON_DB_RETCODE.TIMEOUT);
 		} finally {
 			object.unlockObject();
 		}

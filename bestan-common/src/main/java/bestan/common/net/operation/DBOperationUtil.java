@@ -4,6 +4,8 @@ import java.util.List;
 
 import bestan.common.net.BaseNetManager;
 import bestan.common.protobuf.Proto.CommonSaveOp;
+import bestan.common.protobuf.Proto.RpcCommonLoadOp;
+import bestan.common.protobuf.Proto.RpcCommonLoadOpRes;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOpRes;
 import io.netty.channel.ChannelHandlerContext;
@@ -31,15 +33,16 @@ public class DBOperationUtil {
 		}
 		netManager.writeAndFlush(ctx, message.build());
 	}
-	public static void RpcCommonSave(BaseNetManager netManager, ChannelHandlerContext ctx, String tableName, Object key, Object value, CommonSaveParam param) {
-		RpcCommonSave(netManager, ctx, new CommonSave(tableName, key, value), param);
+	public static void rpcCommonSave(BaseNetManager netManager, ChannelHandlerContext ctx, String tableName, Object key, Object value, CommonSaveParam param) {
+		rpcCommonSave(netManager, ctx, new CommonSave(tableName, key, value), param);
 	}
-	public static void RpcCommonSave(BaseNetManager netManager, ChannelHandlerContext ctx, CommonSave op, CommonSaveParam param) {
+	public static void rpcCommonSave(BaseNetManager netManager, ChannelHandlerContext ctx, CommonSave op, CommonSaveParam param) {
 		var message = RpcCommonSaveOp.newBuilder();
 		message.addSaveOps(op.getBuilder());
+		message.setOpType(param.getOpType());
 		netManager.sendRpc(ctx, message.build(), RpcCommonSaveOpRes.class, param);
 	}
-	public static void RpcCommonSave(BaseNetManager netManager, ChannelHandlerContext ctx, List<CommonSave> ops, CommonSaveParam param) {
+	public static void rpcCommonSave(BaseNetManager netManager, ChannelHandlerContext ctx, List<CommonSave> ops, CommonSaveParam param) {
 		if (ops.size() <= 0) {
 			return;
 		}
@@ -47,6 +50,27 @@ public class DBOperationUtil {
 		for (var op : ops) {
 			message.addSaveOps(op.getBuilder());
 		}
+		message.setOpType(param.getOpType());
 		netManager.sendRpc(ctx, message.build(), RpcCommonSaveOpRes.class, param);
+	}
+	public static void rpcCommonLoad(BaseNetManager netManager, ChannelHandlerContext ctx, String tableName, Object key, CommonLoadParam param) {
+		rpcCommonLoad(netManager, ctx, new CommonLoad(tableName, key), param);
+	}
+	public static void rpcCommonLoad(BaseNetManager netManager, ChannelHandlerContext ctx, CommonLoad op, CommonLoadParam param) {
+		var message = RpcCommonLoadOp.newBuilder();
+		message.addLoadOps(op.getBuilder());
+		message.setOpType(param.getOpType());
+		netManager.sendRpc(ctx, message.build(), RpcCommonLoadOpRes.class, param);
+	}
+	public static void rpcCommonLoad(BaseNetManager netManager, ChannelHandlerContext ctx, List<CommonLoad> ops, CommonLoadParam param) {
+		if (ops.size() <= 0) {
+			return;
+		}
+		var message = RpcCommonLoadOp.newBuilder();
+		for (var op : ops) {
+			message.addLoadOps(op.getBuilder());
+		}
+		message.setOpType(param.getOpType());
+		netManager.sendRpc(ctx, message.build(), RpcCommonLoadOpRes.class, param);
 	}
 }

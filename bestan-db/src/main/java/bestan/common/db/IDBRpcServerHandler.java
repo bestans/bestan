@@ -8,6 +8,7 @@ import com.google.protobuf.Message.Builder;
 import bestan.common.log.Glog;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.handler.IRpcServerHandler;
+import bestan.common.util.ExceptionUtil;
 
 /**
  * @author yeyouhuan
@@ -32,7 +33,7 @@ public interface IDBRpcServerHandler extends IRpcServerHandler {
 	void handleServer(Transaction txn, Message arg, Builder res) throws Exception;
 	
 	default void exceptionCatch(Message arg, Builder res, Throwable e) {
-		Glog.debug("IDBRpcServerHandler:{}:Exception:message={},exceptio{}",
-				getClass().getSimpleName(), e.getMessage().getClass().getSimpleName(), e);
+		Glog.debug("IDBRpcServerHandler:{}:Exception:message={},exception={},trace={}",
+				getClass().getSimpleName(), e.getMessage().getClass().getSimpleName(), ExceptionUtil.getLog(e));
 	}
 }

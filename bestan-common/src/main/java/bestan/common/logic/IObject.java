@@ -1,11 +1,16 @@
 package bestan.common.logic;
 
+import java.util.List;
+
 import com.google.protobuf.Message;
 
 import bestan.common.guid.Guid;
 import bestan.common.log.Glog;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.BaseNetManager;
+import bestan.common.net.operation.CommonDBRetcode;
+import bestan.common.protobuf.Proto.COMMON_DB_RETCODE;
+import bestan.common.protobuf.Proto.RpcCommonLoadOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOpRes;
 import io.netty.channel.ChannelHandlerContext;
@@ -58,10 +63,19 @@ public interface IObject {
 		netManager.writeAndFlush(ctx, this, message);
 	}
 
-	default void rpcCommonSaveClient(RpcCommonSaveOp arg, RpcCommonSaveOpRes res, int opType) {
-		Glog.debug("{} rpcCommonSaveClient:client:res={},opType={}", getClass().getSimpleName(), res.getRetcode(), opType);
+	default void rpcCommonSaveSuccess(RpcCommonSaveOp arg, RpcCommonSaveOpRes res, int opType) {
+		Glog.debug("{} rpcCommonSaveSuccess:client:opType={}", getClass().getSimpleName(), opType);
 	}
-	default void rpcCommonSaveTimeout(RpcCommonSaveOp arg, int opType) {
-		Glog.debug("{} rpcCommonSaveClient:Timeout:opType={}", getClass().getSimpleName(), opType);
+	
+	default void rpcCommonSaveFailed(RpcCommonSaveOp arg, int opType, COMMON_DB_RETCODE retcode) {
+		Glog.debug("{} rpcCommonSaveFailed:Timeout:opType={},retcode={}", getClass().getSimpleName(), opType, retcode);
+	}
+	
+	default void rpcCommonLoadSuccess(RpcCommonLoadOp arg, Object value, List<Object> values, int opType) {
+		Glog.debug("{} rpcCommonLoadSuccess:client:opType={},res={}", getClass().getSimpleName(), opType, values);
+	}
+	
+	default void rpcCommonLoadFailed(RpcCommonLoadOp arg, int opType, CommonDBRetcode retcode) {
+		Glog.debug("{} rpcCommonLoadFailed:opType={},retcode={}", getClass().getSimpleName(), opType, retcode);
 	}
 }

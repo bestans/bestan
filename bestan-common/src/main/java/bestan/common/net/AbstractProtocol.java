@@ -5,6 +5,7 @@ import com.google.protobuf.Message;
 import bestan.common.log.Glog;
 import bestan.common.message.MessageFactory;
 import bestan.common.net.handler.IMessageHandler;
+import bestan.common.util.ExceptionUtil;
 import io.netty.channel.ChannelHandlerContext;
 
 public abstract class AbstractProtocol implements IProtocol {
@@ -46,7 +47,7 @@ public abstract class AbstractProtocol implements IProtocol {
 			runProtocol(handler);
 		} catch (Exception e) {
 			Glog.error("{} ProcessProtocol Exception:messageID={}, Exception={}, StackTrace={}",
-					getClass().getSimpleName(), messageId, e.getMessage(), e.getStackTrace());
+					getClass().getSimpleName(), messageId, e.getMessage(), ExceptionUtil.getLog(e));
 		}
 	}
 	

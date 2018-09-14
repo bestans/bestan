@@ -2,7 +2,6 @@ package bestan.common.net.server;
 
 import com.google.protobuf.Message;
 
-import bestan.common.log.Glog;
 import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 import io.netty.channel.ChannelHandlerContext;
@@ -32,8 +31,7 @@ public class NetServerHandler extends SimpleChannelInboundHandler<Message> {
 	
 	@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-    	Glog.error("{} NetServerHandler exceptionCaught.error={}", config.serverName, cause);
-        ctx.close();
+    	serverManager.exceptionCaught(ctx, cause);
     }
 	
 	@Override 

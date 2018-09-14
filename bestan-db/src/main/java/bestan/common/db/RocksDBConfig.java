@@ -8,7 +8,6 @@ import org.rocksdb.util.SizeUnit;
 import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 
-import bestan.common.db.TableDataType.DataProcess;
 import bestan.common.logic.FormatException;
 import bestan.common.lua.BaseLuaConfig;
 import bestan.common.lua.LuaAnnotation;
@@ -17,6 +16,8 @@ import bestan.common.lua.LuaParamAnnotation;
 import bestan.common.lua.LuaParamAnnotation.LuaParamPolicy;
 import bestan.common.message.IMessageLoadFinishCallback;
 import bestan.common.message.MessageFactory;
+import bestan.common.net.operation.TableDataType;
+import bestan.common.net.operation.TableDataType.DataProcess;
 
 @LuaAnnotation(load = false, optional = true)
 public class RocksDBConfig extends BaseLuaConfig {

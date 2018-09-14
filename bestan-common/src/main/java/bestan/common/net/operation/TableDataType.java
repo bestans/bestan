@@ -33,6 +33,55 @@ public enum TableDataType {
 	public DBCommonData.Builder convertPB(Object t) {
 		return process.convertPB(t);
 	}
+	
+	public Object convert(byte[] data, int messageId) {
+		return process.convert(data, messageId);
+	}
+
+	public static Object convertObject(DBCommonData data) {
+		var dataType = getTableDataType(data.getDataType());
+		if (null == dataType) {
+			return null;
+		}
+		return dataType.convert(data.getData().toByteArray(), data.getDataMessageID());
+	}
+	
+	public static TableDataType getTableDataType(Class<?> cls) {
+		if (cls.equals(Integer.class)) {
+			return TableDataType.INT;
+		}
+		if (cls.equals(Long.class)) {
+			return TableDataType.LONG;
+		}
+		if (Message.class.isAssignableFrom(cls)) {
+			return TableDataType.MESSAGE;
+		}
+		if (cls.equals(Boolean.class)) {
+			return TableDataType.BOOL;
+		}
+		if (cls.equals(String.class)) {
+			return TableDataType.STRING;
+		}
+		return null;
+	}
+	
+	public static TableDataType getTableDataType(DATA_TYPE dataType) {
+		switch (dataType) {
+		case BOOL:
+			return TableDataType.BOOL;
+		case INT:
+			return TableDataType.INT;
+		case LONG:
+			return TableDataType.LONG;
+		case MESSAGE:
+			return TableDataType.MESSAGE;
+		case STRING:
+			return TableDataType.STRING;
+		default:
+			break;
+		}
+		return null;
+	}
 
 	public static abstract class DataProcess {
 		protected Class<?> dataClass;
@@ -50,6 +99,9 @@ public enum TableDataType {
 		protected abstract byte[] decode(Object t);
 		public abstract Object convert(byte[] data);
 		public Object convert(byte[] data, Class<? extends Message> cls) {
+			return convert(data);
+		}
+		public Object convert(byte[] data, int messageId) {
 			return convert(data);
 		}
 		
@@ -194,6 +246,18 @@ public enum TableDataType {
 		@Override
 		public Object convert(byte[] data, Class<? extends Message> cls) {
 			var instance = MessageFactory.getMessageInstance(cls);
+
+			try {
+				return instance.newBuilderForType().mergeFrom(data).build();
+			} catch (InvalidProtocolBufferException e) {
+				// TODO Auto-generated catch block
+				throw new RuntimeException("parse message failed:error=" + e.getMessage() + ",message=" + instance.getClass().getSimpleName());
+			}
+		}
+		
+		@Override
+		public Object convert(byte[] data, int messageId) {
+			var instance = MessageFactory.getMessageInstance(messageId);
 
 			try {
 				return instance.newBuilderForType().mergeFrom(data).build();
