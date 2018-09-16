@@ -10,6 +10,7 @@ import bestan.common.logic.ObjectManager;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.RpcManager.RpcObject;
 import bestan.common.net.handler.IRpcClientHandler;
+import bestan.common.protobuf.Proto.COMMON_DB_RETCODE;
 import bestan.common.protobuf.Proto.RpcCommonLoadOp;
 import bestan.common.protobuf.Proto.RpcCommonLoadOpRes;
 
@@ -31,7 +32,7 @@ public class RpcCommonLoadClientHandler implements IRpcClientHandler {
 			return;
 		}
 		List<Object> values = Lists.newArrayList();
-		CommonDBRetcode retcode = CommonDBRetcode.SUCCESS;
+		COMMON_DB_RETCODE retcode = COMMON_DB_RETCODE.SUCCESS;
 		for (var it : loadRes.getValuesList()) {
 			if (!it.getValid()) {
 				values.add(null);
@@ -39,17 +40,17 @@ public class RpcCommonLoadClientHandler implements IRpcClientHandler {
 			}
 			var tempValue = TableDataType.convertObject(it.getValue());
 			if (null == tempValue) {
-				retcode = CommonDBRetcode.DATA_EXCEPTION;
+				retcode = COMMON_DB_RETCODE.DATA_EXCEPTION;
 				break;
 			}
 			values.add(tempValue);
 		}
 		if (values.size() != loadArg.getLoadOpsCount() || values.size() <= 0) {
-			retcode = CommonDBRetcode.DATA_SIZE_EXCEPTION;
+			retcode = COMMON_DB_RETCODE.DATA_SIZE_EXCEPTION;
 		}
 		object.lockObject();
 		try {
-			if (retcode == CommonDBRetcode.SUCCESS) {
+			if (retcode == COMMON_DB_RETCODE.SUCCESS) {
 				object.rpcCommonLoadSuccess(loadArg, values.get(0), values, loadParam.getOpType());	
 			} else {
 				object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), retcode);
@@ -71,7 +72,7 @@ public class RpcCommonLoadClientHandler implements IRpcClientHandler {
 		}
 		object.lockObject();
 		try {
-			object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), CommonDBRetcode.TIMEOUT);
+			object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), COMMON_DB_RETCODE.TIMEOUT);
 		} finally {
 			object.unlockObject();
 		}

@@ -8,7 +8,6 @@ import bestan.common.guid.Guid;
 import bestan.common.log.Glog;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.BaseNetManager;
-import bestan.common.net.operation.CommonDBRetcode;
 import bestan.common.protobuf.Proto.COMMON_DB_RETCODE;
 import bestan.common.protobuf.Proto.RpcCommonLoadOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOp;
@@ -75,7 +74,7 @@ public interface IObject {
 		Glog.debug("{} rpcCommonLoadSuccess:client:opType={},res={}", getClass().getSimpleName(), opType, values);
 	}
 	
-	default void rpcCommonLoadFailed(RpcCommonLoadOp arg, int opType, CommonDBRetcode retcode) {
+	default void rpcCommonLoadFailed(RpcCommonLoadOp arg, int opType, COMMON_DB_RETCODE retcode) {
 		Glog.debug("{} rpcCommonLoadFailed:opType={},retcode={}", getClass().getSimpleName(), opType, retcode);
 	}
 }

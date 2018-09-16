@@ -21,6 +21,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 
 /**
  * @author yeyouhuan
@@ -46,6 +47,7 @@ public class BaseNetClientManager extends BaseNetManager implements IModule {
 		this.config = config;
 		this.config.baseProtocol = protocol;
 		this.config.workdExecutor = executor;
+        InternalLoggerFactory.setDefaultFactory(LOGGER_FACTORY);
 		workerGroup = new NioEventLoopGroup(1);
 		bootStrap = new Bootstrap().group(workerGroup)
 		    	      .channel(NioSocketChannel.class)
@@ -72,7 +74,7 @@ public class BaseNetClientManager extends BaseNetManager implements IModule {
 	                	Glog.debug("{} Connected success", config.clientName);
 	                } else {
 	                	setChannel(null);
-                        Glog.error("{} Connect Exception:Success: "
+                        Glog.error("{} Connect failed: "
                                 + future.isSuccess() + "  Done: "
                                 + future.isDone() + "  Cause: "
                                 + future.cause().toString(), config.clientName);

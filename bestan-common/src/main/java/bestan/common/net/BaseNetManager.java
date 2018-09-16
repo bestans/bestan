@@ -7,12 +7,15 @@ import bestan.common.message.MessageFactory;
 import bestan.common.net.RpcManager.RpcObject;
 import bestan.common.protobuf.Proto;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 
 /**
  * @author yeyouhuan
  *
  */
 public abstract class BaseNetManager implements INetManager {
+	protected static InternalLoggerFactory LOGGER_FACTORY = new NettyInternalLoggerFactory();
+	
 	protected IProtocol baseProtocol;
 
 	public BaseNetManager(IProtocol baseProtocol) {

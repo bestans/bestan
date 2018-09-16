@@ -13,6 +13,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 
 /**
  * option 和childoption 的区别：<p>
@@ -52,6 +53,7 @@ public class BaseNetServerManager extends BaseNetManager implements IModule {
 		bossGroup = new NioEventLoopGroup(config.bossGroupThreadCount);
         workerGroup = new NioEventLoopGroup(config.workerGroupThreadCount);
         
+        InternalLoggerFactory.setDefaultFactory(LOGGER_FACTORY);
         serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
          			   .channel(NioServerSocketChannel.class)
                        .childHandler(new NetServerInitializer(this))
