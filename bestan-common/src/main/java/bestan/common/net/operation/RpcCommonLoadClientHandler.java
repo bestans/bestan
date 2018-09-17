@@ -25,35 +25,37 @@ public class RpcCommonLoadClientHandler implements IRpcClientHandler {
 		// TODO Auto-generated method stub
 		var loadArg = (RpcCommonLoadOp)arg;
 		var loadRes = (RpcCommonLoadOpRes)res;
-		var loadParam = (CommonLoadParam)param;
+		var loadParam = (CommonDBParam)param;
 		var object = ObjectManager.getInstance().getObject(loadParam.getGuid());
 		if (object == null) {
 			Glog.debug("RpcCommonLoadOpClientHandler:client:cannot find object:op={},guid={}", loadParam.getOpType(), loadParam.getGuid());
 			return;
 		}
 		List<Object> values = Lists.newArrayList();
-		COMMON_DB_RETCODE retcode = COMMON_DB_RETCODE.SUCCESS;
-		for (var it : loadRes.getValuesList()) {
-			if (!it.getValid()) {
-				values.add(null);
-				continue;
+		var retcode = loadRes.getRetcode();
+		if (retcode == COMMON_DB_RETCODE.SUCCESS) {
+			for (var it : loadRes.getValuesList()) {
+				if (!it.getValid()) {
+					values.add(null);
+					continue;
+				}
+				var tempValue = TableDataType.convertObject(it.getValue());
+				if (null == tempValue) {
+					retcode = COMMON_DB_RETCODE.DATA_EXCEPTION;
+					break;
+				}
+				values.add(tempValue);
 			}
-			var tempValue = TableDataType.convertObject(it.getValue());
-			if (null == tempValue) {
-				retcode = COMMON_DB_RETCODE.DATA_EXCEPTION;
-				break;
+			if (values.size() != loadArg.getLoadOpsCount() || values.size() <= 0) {
+				retcode = COMMON_DB_RETCODE.DATA_SIZE_EXCEPTION;
 			}
-			values.add(tempValue);
-		}
-		if (values.size() != loadArg.getLoadOpsCount() || values.size() <= 0) {
-			retcode = COMMON_DB_RETCODE.DATA_SIZE_EXCEPTION;
 		}
 		object.lockObject();
 		try {
 			if (retcode == COMMON_DB_RETCODE.SUCCESS) {
-				object.rpcCommonLoadSuccess(loadArg, values.get(0), values, loadParam.getOpType());	
+				object.rpcCommonLoadSuccess(loadArg, values.get(0), values, loadParam.getOpType(), loadParam.getParam());	
 			} else {
-				object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), retcode);
+				object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), retcode, loadParam.getParam());
 			}
 		} finally {
 			object.unlockObject();
@@ -63,7 +65,7 @@ public class RpcCommonLoadClientHandler implements IRpcClientHandler {
 	@Override
 	public void OnTimeout(RpcObject rpc, Message arg, Object param) {
 		var loadArg = (RpcCommonLoadOp)arg;
-		var loadParam = (CommonLoadParam)param;
+		var loadParam = (CommonDBParam)param;
 
 		var object = ObjectManager.getInstance().getObject(loadParam.getGuid());
 		if (object == null) {
@@ -72,7 +74,7 @@ public class RpcCommonLoadClientHandler implements IRpcClientHandler {
 		}
 		object.lockObject();
 		try {
-			object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), COMMON_DB_RETCODE.TIMEOUT);
+			object.rpcCommonLoadFailed(loadArg, loadParam.getOpType(), COMMON_DB_RETCODE.TIMEOUT, loadParam.getParam());
 		} finally {
 			object.unlockObject();
 		}

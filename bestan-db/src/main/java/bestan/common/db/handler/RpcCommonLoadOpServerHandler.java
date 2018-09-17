@@ -25,13 +25,11 @@ import bestan.common.protobuf.Proto.RpcCommonLoadOpRes;
  */
 @NoteMessageHandler(messageName = "RpcCommonLoadOp")
 public class RpcCommonLoadOpServerHandler implements IDBRpcServerHandler {
-
 	@Override
 	public void handleServer(Transaction txn, Message arg, Builder res) throws Exception {
 		var loadArg = (RpcCommonLoadOp)arg;
 		var loadRes = (RpcCommonLoadOpRes.Builder)res;
 		
-		loadRes.setRetcode(COMMON_DB_RETCODE.FAILED);
 		List<String> tables = Lists.newArrayList();
 		List<LoadOperation> ops = Lists.newArrayList();
 		for (var it : loadArg.getLoadOpsList()) {

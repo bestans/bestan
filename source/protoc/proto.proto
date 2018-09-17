@@ -52,8 +52,8 @@ message DBCommonData
 }
 
 enum COMMON_DB_RETCODE {
-	SUCCESS				= 0;
-	FAILED				= 1;
+	FAILED				= 0;
+	SUCCESS				= 1;
 	TIMEOUT				= 2;
 	DATA_EXCEPTION		= 3;
 	DATA_SIZE_EXCEPTION = 4;

@@ -32,7 +32,6 @@ public class RpcCommonSaveOpServerHandler implements IDBRpcServerHandler{
 		var saveArg = (RpcCommonSaveOp)arg;
 		var saveRes = (RpcCommonSaveOpRes.Builder)res;
 
-		saveRes.setRetcode(COMMON_DB_RETCODE.FAILED);
 		List<SaveOperation> ops = Lists.newArrayList();
 		List<String> tables = Lists.newArrayList();
 		for (var it : saveArg.getSaveOpsList()) {

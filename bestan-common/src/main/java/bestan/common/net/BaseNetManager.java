@@ -1,11 +1,21 @@
 package bestan.common.net;
 
+import java.util.List;
+
 import com.google.protobuf.Message;
 
+import bestan.common.guid.Guid;
 import bestan.common.logic.IObject;
 import bestan.common.message.MessageFactory;
 import bestan.common.net.RpcManager.RpcObject;
+import bestan.common.net.operation.CommonDBParam;
+import bestan.common.net.operation.CommonLoad;
+import bestan.common.net.operation.CommonSave;
 import bestan.common.protobuf.Proto;
+import bestan.common.protobuf.Proto.RpcCommonLoadOp;
+import bestan.common.protobuf.Proto.RpcCommonLoadOpRes;
+import bestan.common.protobuf.Proto.RpcCommonSaveOp;
+import bestan.common.protobuf.Proto.RpcCommonSaveOpRes;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 
@@ -31,11 +41,11 @@ public abstract class BaseNetManager implements INetManager {
 	}
 	
 	public void sendRpc(ChannelHandlerContext ctx, Message arg, Class<? extends Message> resCls, Object param) {
-		sendRpc(ctx, arg, resCls, 10, param);
+		sendRpc(ctx, arg, resCls, NetConst.RPC_TIMEOUT, param);
 	}
 	
 	public void sendRpc(ChannelHandlerContext ctx, Message arg, Class<? extends Message> resCls) {
-		sendRpc(ctx, arg, resCls, 10, null);
+		sendRpc(ctx, arg, resCls, NetConst.RPC_TIMEOUT, null);
 	}
 	
 	public void sendRpc(ChannelHandlerContext ctx, Message arg, Class<? extends Message> resCls, int timeout) {
@@ -64,5 +74,59 @@ public abstract class BaseNetManager implements INetManager {
 	public void sendRpc(ChannelHandlerContext ctx, RpcObject rpc) {
 		writeAndFlush(ctx, rpc.getRpcMessage().build());
 		RpcManager.getInstance().put(rpc);
+	}
+
+	public void rpcCommonSave(ChannelHandlerContext ctx, String tableName, Object key, Object value, int opType, IObject object) {
+		rpcCommonSave(ctx, tableName, key, value, new CommonDBParam(opType, object));
+	}
+	public void rpcCommonSave(ChannelHandlerContext ctx, String tableName, Object key, Object value, int opType, Guid guid) {
+		rpcCommonSave(ctx, tableName, key, value, new CommonDBParam(opType, guid));
+	}
+	public void rpcCommonSave(ChannelHandlerContext ctx, String tableName, Object key, Object value, CommonDBParam param) {
+		rpcCommonSave(ctx, new CommonSave(tableName, key, value), param);
+	}
+	public void rpcCommonSave(ChannelHandlerContext ctx, CommonSave op, CommonDBParam param) {
+		var message = RpcCommonSaveOp.newBuilder();
+		message.addSaveOps(op.getBuilder());
+		message.setOpType(param.getOpType());
+		sendRpc(ctx, message.build(), RpcCommonSaveOpRes.class, param.getTimeout(), param);
+	}
+	public void rpcCommonSave(ChannelHandlerContext ctx, List<CommonSave> ops, CommonDBParam param) {
+		if (ops.size() <= 0) {
+			return;
+		}
+		var message = RpcCommonSaveOp.newBuilder();
+		for (var op : ops) {
+			message.addSaveOps(op.getBuilder());
+		}
+		message.setOpType(param.getOpType());
+		sendRpc(ctx, message.build(), RpcCommonSaveOpRes.class, param.getTimeout(), param);
+	}
+
+	public void rpcCommonLoad(ChannelHandlerContext ctx, String tableName, Object key, int opType, Guid guid) {
+		rpcCommonLoad(ctx, new CommonLoad(tableName, key), new CommonDBParam(opType, guid));
+	}
+	public void rpcCommonLoad(ChannelHandlerContext ctx, String tableName, Object key, int opType, IObject object) {
+		rpcCommonLoad(ctx, new CommonLoad(tableName, key), new CommonDBParam(opType, object));
+	}
+	public void rpcCommonLoad(ChannelHandlerContext ctx, String tableName, Object key, CommonDBParam param) {
+		rpcCommonLoad(ctx, new CommonLoad(tableName, key), param);
+	}
+	public void rpcCommonLoad(ChannelHandlerContext ctx, CommonLoad op, CommonDBParam param) {
+		var message = RpcCommonLoadOp.newBuilder();
+		message.addLoadOps(op.getBuilder());
+		message.setOpType(param.getOpType());
+		sendRpc(ctx, message.build(), RpcCommonLoadOpRes.class, param.getTimeout(), param);
+	}
+	public void rpcCommonLoad(ChannelHandlerContext ctx, List<CommonLoad> ops, CommonDBParam param) {
+		if (ops.size() <= 0) {
+			return;
+		}
+		var message = RpcCommonLoadOp.newBuilder();
+		for (var op : ops) {
+			message.addLoadOps(op.getBuilder());
+		}
+		message.setOpType(param.getOpType());
+		sendRpc(ctx, message.build(), RpcCommonLoadOpRes.class, param.getTimeout(), param);
 	}
 }

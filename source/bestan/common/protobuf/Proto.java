@@ -20,13 +20,13 @@ public final class Proto {
   public enum COMMON_DB_RETCODE
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>SUCCESS = 0;</code>
+     * <code>FAILED = 0;</code>
      */
-    SUCCESS(0),
+    FAILED(0),
     /**
-     * <code>FAILED = 1;</code>
+     * <code>SUCCESS = 1;</code>
      */
-    FAILED(1),
+    SUCCESS(1),
     /**
      * <code>TIMEOUT = 2;</code>
      */
@@ -43,13 +43,13 @@ public final class Proto {
     ;
 
     /**
-     * <code>SUCCESS = 0;</code>
+     * <code>FAILED = 0;</code>
      */
-    public static final int SUCCESS_VALUE = 0;
+    public static final int FAILED_VALUE = 0;
     /**
-     * <code>FAILED = 1;</code>
+     * <code>SUCCESS = 1;</code>
      */
-    public static final int FAILED_VALUE = 1;
+    public static final int SUCCESS_VALUE = 1;
     /**
      * <code>TIMEOUT = 2;</code>
      */
@@ -82,8 +82,8 @@ public final class Proto {
 
     public static COMMON_DB_RETCODE forNumber(int value) {
       switch (value) {
-        case 0: return SUCCESS;
-        case 1: return FAILED;
+        case 0: return FAILED;
+        case 1: return SUCCESS;
         case 2: return TIMEOUT;
         case 3: return DATA_EXCEPTION;
         case 4: return DATA_SIZE_EXCEPTION;
@@ -6074,7 +6074,7 @@ public final class Proto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.SUCCESS.getNumber()) {
+      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.FAILED.getNumber()) {
         output.writeEnum(1, retcode_);
       }
       unknownFields.writeTo(output);
@@ -6085,7 +6085,7 @@ public final class Proto {
       if (size != -1) return size;
 
       size = 0;
-      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.SUCCESS.getNumber()) {
+      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.FAILED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, retcode_);
       }
@@ -9641,7 +9641,7 @@ public final class Proto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.SUCCESS.getNumber()) {
+      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.FAILED.getNumber()) {
         output.writeEnum(1, retcode_);
       }
       for (int i = 0; i < values_.size(); i++) {
@@ -9655,7 +9655,7 @@ public final class Proto {
       if (size != -1) return size;
 
       size = 0;
-      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.SUCCESS.getNumber()) {
+      if (retcode_ != bestan.common.protobuf.Proto.COMMON_DB_RETCODE.FAILED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, retcode_);
       }
@@ -10416,7 +10416,7 @@ public final class Proto {
       "\030\001 \001(\0162).bestan.common.protobuf.COMMON_D" +
       "B_RETCODE\0225\n\006values\030\002 \003(\0132%.bestan.commo" +
       "n.protobuf.CommonLoadRes*f\n\021COMMON_DB_RE" +
-      "TCODE\022\013\n\007SUCCESS\020\000\022\n\n\006FAILED\020\001\022\013\n\007TIMEOU" +
+      "TCODE\022\n\n\006FAILED\020\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOU" +
       "T\020\002\022\022\n\016DATA_EXCEPTION\020\003\022\027\n\023DATA_SIZE_EXC" +
       "EPTION\020\004b\006proto3"
     };

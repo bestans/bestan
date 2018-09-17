@@ -62,19 +62,19 @@ public interface IObject {
 		netManager.writeAndFlush(ctx, this, message);
 	}
 
-	default void rpcCommonSaveSuccess(RpcCommonSaveOp arg, RpcCommonSaveOpRes res, int opType) {
+	default void rpcCommonSaveSuccess(RpcCommonSaveOp arg, RpcCommonSaveOpRes res, int opType, Object param) {
 		Glog.debug("{} rpcCommonSaveSuccess:client:opType={}", getClass().getSimpleName(), opType);
 	}
 	
-	default void rpcCommonSaveFailed(RpcCommonSaveOp arg, int opType, COMMON_DB_RETCODE retcode) {
+	default void rpcCommonSaveFailed(RpcCommonSaveOp arg, int opType, COMMON_DB_RETCODE retcode, Object param) {
 		Glog.debug("{} rpcCommonSaveFailed:Timeout:opType={},retcode={}", getClass().getSimpleName(), opType, retcode);
 	}
 	
-	default void rpcCommonLoadSuccess(RpcCommonLoadOp arg, Object value, List<Object> values, int opType) {
+	default void rpcCommonLoadSuccess(RpcCommonLoadOp arg, Object value, List<Object> values, int opType, Object param) {
 		Glog.debug("{} rpcCommonLoadSuccess:client:opType={},res={}", getClass().getSimpleName(), opType, values);
 	}
 	
-	default void rpcCommonLoadFailed(RpcCommonLoadOp arg, int opType, COMMON_DB_RETCODE retcode) {
+	default void rpcCommonLoadFailed(RpcCommonLoadOp arg, int opType, COMMON_DB_RETCODE retcode, Object param) {
 		Glog.debug("{} rpcCommonLoadFailed:opType={},retcode={}", getClass().getSimpleName(), opType, retcode);
 	}
 }

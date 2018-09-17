@@ -92,4 +92,9 @@ public class BaseNetServerManager extends BaseNetManager implements IModule {
 	public void startup() throws Exception {
 		start();
 	}
+	
+	@Override
+	public void close() throws Exception {
+		stop();
+	}
 }

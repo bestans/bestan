@@ -20,7 +20,7 @@ public class RpcCommonSaveClientHandler implements IRpcClientHandler {
 	public void client(AbstractProtocol protocol, Message arg, Message res, Object param) {
 		var saveArg = (RpcCommonSaveOp)arg;
 		var saveRes = (RpcCommonSaveOpRes)res;
-		var saveParam = (CommonSaveParam)param;
+		var saveParam = (CommonDBParam)param;
 		
 		var object = ObjectManager.getInstance().getObject(saveParam.getGuid());
 		if (object == null) {
@@ -30,9 +30,9 @@ public class RpcCommonSaveClientHandler implements IRpcClientHandler {
 		object.lockObject();
 		try {
 			if (saveRes.getRetcode() == COMMON_DB_RETCODE.SUCCESS) {
-				object.rpcCommonSaveSuccess(saveArg, saveRes, saveParam.getOpType());
+				object.rpcCommonSaveSuccess(saveArg, saveRes, saveParam.getOpType(), saveParam.getParam());
 			} else {
-				object.rpcCommonSaveFailed(saveArg, saveParam.getOpType(), saveRes.getRetcode());
+				object.rpcCommonSaveFailed(saveArg, saveParam.getOpType(), saveRes.getRetcode(), saveParam.getParam());
 			}
 		} finally {
 			object.unlockObject();
@@ -42,7 +42,7 @@ public class RpcCommonSaveClientHandler implements IRpcClientHandler {
 	@Override
 	public void OnTimeout(RpcObject rpc, Message arg, Object param) {
 		var saveArg = (RpcCommonSaveOp)arg;
-		var saveParam = (CommonSaveParam)param;
+		var saveParam = (CommonDBParam)param;
 
 		var object = ObjectManager.getInstance().getObject(saveParam.getGuid());
 		if (object == null) {
@@ -51,7 +51,7 @@ public class RpcCommonSaveClientHandler implements IRpcClientHandler {
 		}
 		object.lockObject();
 		try {
-			object.rpcCommonSaveFailed(saveArg, saveParam.getOpType(), COMMON_DB_RETCODE.TIMEOUT);
+			object.rpcCommonSaveFailed(saveArg, saveParam.getOpType(), COMMON_DB_RETCODE.TIMEOUT, saveParam.getParam());
 		} finally {
 			object.unlockObject();
 		}
