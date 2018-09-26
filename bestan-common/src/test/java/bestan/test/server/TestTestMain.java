@@ -2,6 +2,8 @@ package bestan.test.server;
 
 import java.util.concurrent.Executors;
 
+import com.google.common.util.concurrent.RateLimiter;
+
 import bestan.common.event.IEvent;
 import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
@@ -10,7 +12,6 @@ import bestan.common.thread.BThreadPoolExecutors;
 import bestan.common.timer.BTimer;
 import bestan.common.timer.BTimer.TimerModule;
 import bestan.common.timer.ITimer;
-import bestan.common.util.ExceptionUtil;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -143,11 +144,28 @@ public class TestTestMain {
 		timer.close();
 	}
 
-
+	public static void test7() throws InterruptedException {
+    	Long start = System.currentTimeMillis();
+        RateLimiter limiter = RateLimiter.create(10.0); // 每秒不超过10个任务被提交
+        Thread.sleep(1000);
+        for (int i = 0; i < 20; i++) {
+        	if (limiter.tryAcquire(11)) {
+                Long end = System.currentTimeMillis();
+                System.out.println(end - start);
+        	} else {
+        		--i;
+        		Thread.sleep(1000);
+        	}
+        }
+        Long end = System.currentTimeMillis();
+        
+        System.out.println(end - start);
+	}
 	
 	public static void main(String[] args) {
 		try {
-			ExceptionUtil.sendEmail("632469297@qq.com", "100");
+			//ExceptionUtil.sendEmail("632469297@qq.com", "100");
+			test7();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
