@@ -16,9 +16,9 @@ public enum MessageEnum {
 	CommonLoadRes,		//11
 	RpcCommonLoadOp,		//12
 	RpcCommonLoadOpRes,		//13
-	FileBaseInfo,		//14
-	FileInfo,		//15
-	NullMessage,		//16
+	NullMessage,		//14
+	FileBaseInfo,		//15
+	FileInfo,		//16
 	UpdateFileReq,		//17
 	UpdateFileRes,		//18
 }
