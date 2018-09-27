@@ -126,3 +126,39 @@ message RpcCommonLoadOpRes
 	COMMON_DB_RETCODE retcode		= 1;
 	repeated CommonLoadRes values	= 2;
 }
+
+message FileBaseInfo
+{
+	bytes fileName	= 1;	//文件目录加名字
+	bytes fileCode	= 2;	//文件编码
+}
+
+message FileInfo
+{
+	FileBaseInfo baseInfo	= 1;	//文件信息
+	int32 size				= 2;	//文件大小（字节）
+}
+
+message NullMessage
+{
+
+}
+
+//请求在线更新
+message UpdateFileReq
+{
+	repeated FileBaseInfo files	= 1;
+}
+
+//在线更新结果
+message UpdateFileRes
+{
+	enum RESULT
+	{
+		NO_CHANGE		= 0;	//没有变化
+		START_DOWNLOAD	= 1;	//开始下载
+		FINISH_DOWNLOAD	= 2;	//下载全部完成
+	}
+	RESULT retcode				= 1;	//结果
+	FileInfo allChangeFiles		= 2;	//所有变化文件
+}

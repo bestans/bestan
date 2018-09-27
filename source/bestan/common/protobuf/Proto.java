@@ -10302,6 +10302,3352 @@ public final class Proto {
 
   }
 
+  public interface FileBaseInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.FileBaseInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *文件目录加名字
+     * </pre>
+     *
+     * <code>bytes fileName = 1;</code>
+     */
+    com.google.protobuf.ByteString getFileName();
+
+    /**
+     * <pre>
+     *文件编码
+     * </pre>
+     *
+     * <code>bytes fileCode = 2;</code>
+     */
+    com.google.protobuf.ByteString getFileCode();
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.FileBaseInfo}
+   */
+  public  static final class FileBaseInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.FileBaseInfo)
+      FileBaseInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FileBaseInfo.newBuilder() to construct.
+    private FileBaseInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FileBaseInfo() {
+      fileName_ = com.google.protobuf.ByteString.EMPTY;
+      fileCode_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FileBaseInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+
+              fileName_ = input.readBytes();
+              break;
+            }
+            case 18: {
+
+              fileCode_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileBaseInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileBaseInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.FileBaseInfo.class, bestan.common.protobuf.Proto.FileBaseInfo.Builder.class);
+    }
+
+    public static final int FILENAME_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString fileName_;
+    /**
+     * <pre>
+     *文件目录加名字
+     * </pre>
+     *
+     * <code>bytes fileName = 1;</code>
+     */
+    public com.google.protobuf.ByteString getFileName() {
+      return fileName_;
+    }
+
+    public static final int FILECODE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString fileCode_;
+    /**
+     * <pre>
+     *文件编码
+     * </pre>
+     *
+     * <code>bytes fileCode = 2;</code>
+     */
+    public com.google.protobuf.ByteString getFileCode() {
+      return fileCode_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!fileName_.isEmpty()) {
+        output.writeBytes(1, fileName_);
+      }
+      if (!fileCode_.isEmpty()) {
+        output.writeBytes(2, fileCode_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!fileName_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, fileName_);
+      }
+      if (!fileCode_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, fileCode_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.FileBaseInfo)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.FileBaseInfo other = (bestan.common.protobuf.Proto.FileBaseInfo) obj;
+
+      boolean result = true;
+      result = result && getFileName()
+          .equals(other.getFileName());
+      result = result && getFileCode()
+          .equals(other.getFileCode());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FILENAME_FIELD_NUMBER;
+      hash = (53 * hash) + getFileName().hashCode();
+      hash = (37 * hash) + FILECODE_FIELD_NUMBER;
+      hash = (53 * hash) + getFileCode().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.FileBaseInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.FileBaseInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.FileBaseInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.FileBaseInfo)
+        bestan.common.protobuf.Proto.FileBaseInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileBaseInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileBaseInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.FileBaseInfo.class, bestan.common.protobuf.Proto.FileBaseInfo.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.FileBaseInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        fileName_ = com.google.protobuf.ByteString.EMPTY;
+
+        fileCode_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileBaseInfo_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.FileBaseInfo getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.FileBaseInfo build() {
+        bestan.common.protobuf.Proto.FileBaseInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.FileBaseInfo buildPartial() {
+        bestan.common.protobuf.Proto.FileBaseInfo result = new bestan.common.protobuf.Proto.FileBaseInfo(this);
+        result.fileName_ = fileName_;
+        result.fileCode_ = fileCode_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.FileBaseInfo) {
+          return mergeFrom((bestan.common.protobuf.Proto.FileBaseInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.FileBaseInfo other) {
+        if (other == bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance()) return this;
+        if (other.getFileName() != com.google.protobuf.ByteString.EMPTY) {
+          setFileName(other.getFileName());
+        }
+        if (other.getFileCode() != com.google.protobuf.ByteString.EMPTY) {
+          setFileCode(other.getFileCode());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.FileBaseInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.FileBaseInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString fileName_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       *文件目录加名字
+       * </pre>
+       *
+       * <code>bytes fileName = 1;</code>
+       */
+      public com.google.protobuf.ByteString getFileName() {
+        return fileName_;
+      }
+      /**
+       * <pre>
+       *文件目录加名字
+       * </pre>
+       *
+       * <code>bytes fileName = 1;</code>
+       */
+      public Builder setFileName(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        fileName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *文件目录加名字
+       * </pre>
+       *
+       * <code>bytes fileName = 1;</code>
+       */
+      public Builder clearFileName() {
+        
+        fileName_ = getDefaultInstance().getFileName();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString fileCode_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       *文件编码
+       * </pre>
+       *
+       * <code>bytes fileCode = 2;</code>
+       */
+      public com.google.protobuf.ByteString getFileCode() {
+        return fileCode_;
+      }
+      /**
+       * <pre>
+       *文件编码
+       * </pre>
+       *
+       * <code>bytes fileCode = 2;</code>
+       */
+      public Builder setFileCode(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        fileCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *文件编码
+       * </pre>
+       *
+       * <code>bytes fileCode = 2;</code>
+       */
+      public Builder clearFileCode() {
+        
+        fileCode_ = getDefaultInstance().getFileCode();
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.FileBaseInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.FileBaseInfo)
+    private static final bestan.common.protobuf.Proto.FileBaseInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.FileBaseInfo();
+    }
+
+    public static bestan.common.protobuf.Proto.FileBaseInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FileBaseInfo>
+        PARSER = new com.google.protobuf.AbstractParser<FileBaseInfo>() {
+      public FileBaseInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FileBaseInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FileBaseInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FileBaseInfo> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.FileBaseInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface FileInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.FileInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *文件信息
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+     */
+    boolean hasBaseInfo();
+    /**
+     * <pre>
+     *文件信息
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+     */
+    bestan.common.protobuf.Proto.FileBaseInfo getBaseInfo();
+    /**
+     * <pre>
+     *文件信息
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+     */
+    bestan.common.protobuf.Proto.FileBaseInfoOrBuilder getBaseInfoOrBuilder();
+
+    /**
+     * <pre>
+     *文件大小（字节）
+     * </pre>
+     *
+     * <code>int32 size = 2;</code>
+     */
+    int getSize();
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.FileInfo}
+   */
+  public  static final class FileInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.FileInfo)
+      FileInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FileInfo.newBuilder() to construct.
+    private FileInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FileInfo() {
+      size_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FileInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bestan.common.protobuf.Proto.FileBaseInfo.Builder subBuilder = null;
+              if (baseInfo_ != null) {
+                subBuilder = baseInfo_.toBuilder();
+              }
+              baseInfo_ = input.readMessage(bestan.common.protobuf.Proto.FileBaseInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(baseInfo_);
+                baseInfo_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 16: {
+
+              size_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.FileInfo.class, bestan.common.protobuf.Proto.FileInfo.Builder.class);
+    }
+
+    public static final int BASEINFO_FIELD_NUMBER = 1;
+    private bestan.common.protobuf.Proto.FileBaseInfo baseInfo_;
+    /**
+     * <pre>
+     *文件信息
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+     */
+    public boolean hasBaseInfo() {
+      return baseInfo_ != null;
+    }
+    /**
+     * <pre>
+     *文件信息
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.FileBaseInfo getBaseInfo() {
+      return baseInfo_ == null ? bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance() : baseInfo_;
+    }
+    /**
+     * <pre>
+     *文件信息
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.FileBaseInfoOrBuilder getBaseInfoOrBuilder() {
+      return getBaseInfo();
+    }
+
+    public static final int SIZE_FIELD_NUMBER = 2;
+    private int size_;
+    /**
+     * <pre>
+     *文件大小（字节）
+     * </pre>
+     *
+     * <code>int32 size = 2;</code>
+     */
+    public int getSize() {
+      return size_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (baseInfo_ != null) {
+        output.writeMessage(1, getBaseInfo());
+      }
+      if (size_ != 0) {
+        output.writeInt32(2, size_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (baseInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getBaseInfo());
+      }
+      if (size_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, size_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.FileInfo)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.FileInfo other = (bestan.common.protobuf.Proto.FileInfo) obj;
+
+      boolean result = true;
+      result = result && (hasBaseInfo() == other.hasBaseInfo());
+      if (hasBaseInfo()) {
+        result = result && getBaseInfo()
+            .equals(other.getBaseInfo());
+      }
+      result = result && (getSize()
+          == other.getSize());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasBaseInfo()) {
+        hash = (37 * hash) + BASEINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getBaseInfo().hashCode();
+      }
+      hash = (37 * hash) + SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getSize();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.FileInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.FileInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.FileInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.FileInfo)
+        bestan.common.protobuf.Proto.FileInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.FileInfo.class, bestan.common.protobuf.Proto.FileInfo.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.FileInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (baseInfoBuilder_ == null) {
+          baseInfo_ = null;
+        } else {
+          baseInfo_ = null;
+          baseInfoBuilder_ = null;
+        }
+        size_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_FileInfo_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.FileInfo getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.FileInfo.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.FileInfo build() {
+        bestan.common.protobuf.Proto.FileInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.FileInfo buildPartial() {
+        bestan.common.protobuf.Proto.FileInfo result = new bestan.common.protobuf.Proto.FileInfo(this);
+        if (baseInfoBuilder_ == null) {
+          result.baseInfo_ = baseInfo_;
+        } else {
+          result.baseInfo_ = baseInfoBuilder_.build();
+        }
+        result.size_ = size_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.FileInfo) {
+          return mergeFrom((bestan.common.protobuf.Proto.FileInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.FileInfo other) {
+        if (other == bestan.common.protobuf.Proto.FileInfo.getDefaultInstance()) return this;
+        if (other.hasBaseInfo()) {
+          mergeBaseInfo(other.getBaseInfo());
+        }
+        if (other.getSize() != 0) {
+          setSize(other.getSize());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.FileInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.FileInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private bestan.common.protobuf.Proto.FileBaseInfo baseInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileBaseInfo, bestan.common.protobuf.Proto.FileBaseInfo.Builder, bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> baseInfoBuilder_;
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public boolean hasBaseInfo() {
+        return baseInfoBuilder_ != null || baseInfo_ != null;
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfo getBaseInfo() {
+        if (baseInfoBuilder_ == null) {
+          return baseInfo_ == null ? bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance() : baseInfo_;
+        } else {
+          return baseInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public Builder setBaseInfo(bestan.common.protobuf.Proto.FileBaseInfo value) {
+        if (baseInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          baseInfo_ = value;
+          onChanged();
+        } else {
+          baseInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public Builder setBaseInfo(
+          bestan.common.protobuf.Proto.FileBaseInfo.Builder builderForValue) {
+        if (baseInfoBuilder_ == null) {
+          baseInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          baseInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public Builder mergeBaseInfo(bestan.common.protobuf.Proto.FileBaseInfo value) {
+        if (baseInfoBuilder_ == null) {
+          if (baseInfo_ != null) {
+            baseInfo_ =
+              bestan.common.protobuf.Proto.FileBaseInfo.newBuilder(baseInfo_).mergeFrom(value).buildPartial();
+          } else {
+            baseInfo_ = value;
+          }
+          onChanged();
+        } else {
+          baseInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public Builder clearBaseInfo() {
+        if (baseInfoBuilder_ == null) {
+          baseInfo_ = null;
+          onChanged();
+        } else {
+          baseInfo_ = null;
+          baseInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfo.Builder getBaseInfoBuilder() {
+        
+        onChanged();
+        return getBaseInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfoOrBuilder getBaseInfoOrBuilder() {
+        if (baseInfoBuilder_ != null) {
+          return baseInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return baseInfo_ == null ?
+              bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance() : baseInfo_;
+        }
+      }
+      /**
+       * <pre>
+       *文件信息
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileBaseInfo baseInfo = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileBaseInfo, bestan.common.protobuf.Proto.FileBaseInfo.Builder, bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> 
+          getBaseInfoFieldBuilder() {
+        if (baseInfoBuilder_ == null) {
+          baseInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              bestan.common.protobuf.Proto.FileBaseInfo, bestan.common.protobuf.Proto.FileBaseInfo.Builder, bestan.common.protobuf.Proto.FileBaseInfoOrBuilder>(
+                  getBaseInfo(),
+                  getParentForChildren(),
+                  isClean());
+          baseInfo_ = null;
+        }
+        return baseInfoBuilder_;
+      }
+
+      private int size_ ;
+      /**
+       * <pre>
+       *文件大小（字节）
+       * </pre>
+       *
+       * <code>int32 size = 2;</code>
+       */
+      public int getSize() {
+        return size_;
+      }
+      /**
+       * <pre>
+       *文件大小（字节）
+       * </pre>
+       *
+       * <code>int32 size = 2;</code>
+       */
+      public Builder setSize(int value) {
+        
+        size_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *文件大小（字节）
+       * </pre>
+       *
+       * <code>int32 size = 2;</code>
+       */
+      public Builder clearSize() {
+        
+        size_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.FileInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.FileInfo)
+    private static final bestan.common.protobuf.Proto.FileInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.FileInfo();
+    }
+
+    public static bestan.common.protobuf.Proto.FileInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FileInfo>
+        PARSER = new com.google.protobuf.AbstractParser<FileInfo>() {
+      public FileInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FileInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FileInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FileInfo> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.FileInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface NullMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.NullMessage)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.NullMessage}
+   */
+  public  static final class NullMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.NullMessage)
+      NullMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use NullMessage.newBuilder() to construct.
+    private NullMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private NullMessage() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private NullMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_NullMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_NullMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.NullMessage.class, bestan.common.protobuf.Proto.NullMessage.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.NullMessage)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.NullMessage other = (bestan.common.protobuf.Proto.NullMessage) obj;
+
+      boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.NullMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.NullMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.NullMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.NullMessage)
+        bestan.common.protobuf.Proto.NullMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_NullMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_NullMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.NullMessage.class, bestan.common.protobuf.Proto.NullMessage.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.NullMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_NullMessage_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.NullMessage getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.NullMessage.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.NullMessage build() {
+        bestan.common.protobuf.Proto.NullMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.NullMessage buildPartial() {
+        bestan.common.protobuf.Proto.NullMessage result = new bestan.common.protobuf.Proto.NullMessage(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.NullMessage) {
+          return mergeFrom((bestan.common.protobuf.Proto.NullMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.NullMessage other) {
+        if (other == bestan.common.protobuf.Proto.NullMessage.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.NullMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.NullMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.NullMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.NullMessage)
+    private static final bestan.common.protobuf.Proto.NullMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.NullMessage();
+    }
+
+    public static bestan.common.protobuf.Proto.NullMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NullMessage>
+        PARSER = new com.google.protobuf.AbstractParser<NullMessage>() {
+      public NullMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new NullMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NullMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NullMessage> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.NullMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UpdateFileReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.UpdateFileReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    java.util.List<bestan.common.protobuf.Proto.FileBaseInfo> 
+        getFilesList();
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    bestan.common.protobuf.Proto.FileBaseInfo getFiles(int index);
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    int getFilesCount();
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    java.util.List<? extends bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> 
+        getFilesOrBuilderList();
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    bestan.common.protobuf.Proto.FileBaseInfoOrBuilder getFilesOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   *请求在线更新
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.UpdateFileReq}
+   */
+  public  static final class UpdateFileReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.UpdateFileReq)
+      UpdateFileReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UpdateFileReq.newBuilder() to construct.
+    private UpdateFileReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UpdateFileReq() {
+      files_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UpdateFileReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                files_ = new java.util.ArrayList<bestan.common.protobuf.Proto.FileBaseInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              files_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.FileBaseInfo.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          files_ = java.util.Collections.unmodifiableList(files_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.UpdateFileReq.class, bestan.common.protobuf.Proto.UpdateFileReq.Builder.class);
+    }
+
+    public static final int FILES_FIELD_NUMBER = 1;
+    private java.util.List<bestan.common.protobuf.Proto.FileBaseInfo> files_;
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    public java.util.List<bestan.common.protobuf.Proto.FileBaseInfo> getFilesList() {
+      return files_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    public java.util.List<? extends bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> 
+        getFilesOrBuilderList() {
+      return files_;
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    public int getFilesCount() {
+      return files_.size();
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.FileBaseInfo getFiles(int index) {
+      return files_.get(index);
+    }
+    /**
+     * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.FileBaseInfoOrBuilder getFilesOrBuilder(
+        int index) {
+      return files_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < files_.size(); i++) {
+        output.writeMessage(1, files_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < files_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, files_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.UpdateFileReq)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.UpdateFileReq other = (bestan.common.protobuf.Proto.UpdateFileReq) obj;
+
+      boolean result = true;
+      result = result && getFilesList()
+          .equals(other.getFilesList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getFilesCount() > 0) {
+        hash = (37 * hash) + FILES_FIELD_NUMBER;
+        hash = (53 * hash) + getFilesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.UpdateFileReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *请求在线更新
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.UpdateFileReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.UpdateFileReq)
+        bestan.common.protobuf.Proto.UpdateFileReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.UpdateFileReq.class, bestan.common.protobuf.Proto.UpdateFileReq.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.UpdateFileReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getFilesFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (filesBuilder_ == null) {
+          files_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          filesBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileReq_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.UpdateFileReq getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.UpdateFileReq.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.UpdateFileReq build() {
+        bestan.common.protobuf.Proto.UpdateFileReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.UpdateFileReq buildPartial() {
+        bestan.common.protobuf.Proto.UpdateFileReq result = new bestan.common.protobuf.Proto.UpdateFileReq(this);
+        int from_bitField0_ = bitField0_;
+        if (filesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            files_ = java.util.Collections.unmodifiableList(files_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.files_ = files_;
+        } else {
+          result.files_ = filesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.UpdateFileReq) {
+          return mergeFrom((bestan.common.protobuf.Proto.UpdateFileReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.UpdateFileReq other) {
+        if (other == bestan.common.protobuf.Proto.UpdateFileReq.getDefaultInstance()) return this;
+        if (filesBuilder_ == null) {
+          if (!other.files_.isEmpty()) {
+            if (files_.isEmpty()) {
+              files_ = other.files_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureFilesIsMutable();
+              files_.addAll(other.files_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.files_.isEmpty()) {
+            if (filesBuilder_.isEmpty()) {
+              filesBuilder_.dispose();
+              filesBuilder_ = null;
+              files_ = other.files_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              filesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getFilesFieldBuilder() : null;
+            } else {
+              filesBuilder_.addAllMessages(other.files_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.UpdateFileReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.UpdateFileReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<bestan.common.protobuf.Proto.FileBaseInfo> files_ =
+        java.util.Collections.emptyList();
+      private void ensureFilesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          files_ = new java.util.ArrayList<bestan.common.protobuf.Proto.FileBaseInfo>(files_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileBaseInfo, bestan.common.protobuf.Proto.FileBaseInfo.Builder, bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> filesBuilder_;
+
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.FileBaseInfo> getFilesList() {
+        if (filesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(files_);
+        } else {
+          return filesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public int getFilesCount() {
+        if (filesBuilder_ == null) {
+          return files_.size();
+        } else {
+          return filesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfo getFiles(int index) {
+        if (filesBuilder_ == null) {
+          return files_.get(index);
+        } else {
+          return filesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder setFiles(
+          int index, bestan.common.protobuf.Proto.FileBaseInfo value) {
+        if (filesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFilesIsMutable();
+          files_.set(index, value);
+          onChanged();
+        } else {
+          filesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder setFiles(
+          int index, bestan.common.protobuf.Proto.FileBaseInfo.Builder builderForValue) {
+        if (filesBuilder_ == null) {
+          ensureFilesIsMutable();
+          files_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          filesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder addFiles(bestan.common.protobuf.Proto.FileBaseInfo value) {
+        if (filesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFilesIsMutable();
+          files_.add(value);
+          onChanged();
+        } else {
+          filesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder addFiles(
+          int index, bestan.common.protobuf.Proto.FileBaseInfo value) {
+        if (filesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFilesIsMutable();
+          files_.add(index, value);
+          onChanged();
+        } else {
+          filesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder addFiles(
+          bestan.common.protobuf.Proto.FileBaseInfo.Builder builderForValue) {
+        if (filesBuilder_ == null) {
+          ensureFilesIsMutable();
+          files_.add(builderForValue.build());
+          onChanged();
+        } else {
+          filesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder addFiles(
+          int index, bestan.common.protobuf.Proto.FileBaseInfo.Builder builderForValue) {
+        if (filesBuilder_ == null) {
+          ensureFilesIsMutable();
+          files_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          filesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder addAllFiles(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.FileBaseInfo> values) {
+        if (filesBuilder_ == null) {
+          ensureFilesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, files_);
+          onChanged();
+        } else {
+          filesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder clearFiles() {
+        if (filesBuilder_ == null) {
+          files_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          filesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public Builder removeFiles(int index) {
+        if (filesBuilder_ == null) {
+          ensureFilesIsMutable();
+          files_.remove(index);
+          onChanged();
+        } else {
+          filesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfo.Builder getFilesBuilder(
+          int index) {
+        return getFilesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfoOrBuilder getFilesOrBuilder(
+          int index) {
+        if (filesBuilder_ == null) {
+          return files_.get(index);  } else {
+          return filesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public java.util.List<? extends bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> 
+           getFilesOrBuilderList() {
+        if (filesBuilder_ != null) {
+          return filesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(files_);
+        }
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfo.Builder addFilesBuilder() {
+        return getFilesFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.FileBaseInfo.Builder addFilesBuilder(
+          int index) {
+        return getFilesFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.FileBaseInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bestan.common.protobuf.FileBaseInfo files = 1;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.FileBaseInfo.Builder> 
+           getFilesBuilderList() {
+        return getFilesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileBaseInfo, bestan.common.protobuf.Proto.FileBaseInfo.Builder, bestan.common.protobuf.Proto.FileBaseInfoOrBuilder> 
+          getFilesFieldBuilder() {
+        if (filesBuilder_ == null) {
+          filesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              bestan.common.protobuf.Proto.FileBaseInfo, bestan.common.protobuf.Proto.FileBaseInfo.Builder, bestan.common.protobuf.Proto.FileBaseInfoOrBuilder>(
+                  files_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          files_ = null;
+        }
+        return filesBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.UpdateFileReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.UpdateFileReq)
+    private static final bestan.common.protobuf.Proto.UpdateFileReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.UpdateFileReq();
+    }
+
+    public static bestan.common.protobuf.Proto.UpdateFileReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UpdateFileReq>
+        PARSER = new com.google.protobuf.AbstractParser<UpdateFileReq>() {
+      public UpdateFileReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UpdateFileReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UpdateFileReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateFileReq> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.UpdateFileReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UpdateFileResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.UpdateFileRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *结果
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+     */
+    int getRetcodeValue();
+    /**
+     * <pre>
+     *结果
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+     */
+    bestan.common.protobuf.Proto.UpdateFileRes.RESULT getRetcode();
+
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    boolean hasAllChangeFiles();
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    bestan.common.protobuf.Proto.FileInfo getAllChangeFiles();
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder();
+  }
+  /**
+   * <pre>
+   *在线更新结果
+   * </pre>
+   *
+   * Protobuf type {@code bestan.common.protobuf.UpdateFileRes}
+   */
+  public  static final class UpdateFileRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.UpdateFileRes)
+      UpdateFileResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UpdateFileRes.newBuilder() to construct.
+    private UpdateFileRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UpdateFileRes() {
+      retcode_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UpdateFileRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+
+              retcode_ = rawValue;
+              break;
+            }
+            case 18: {
+              bestan.common.protobuf.Proto.FileInfo.Builder subBuilder = null;
+              if (allChangeFiles_ != null) {
+                subBuilder = allChangeFiles_.toBuilder();
+              }
+              allChangeFiles_ = input.readMessage(bestan.common.protobuf.Proto.FileInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(allChangeFiles_);
+                allChangeFiles_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.UpdateFileRes.class, bestan.common.protobuf.Proto.UpdateFileRes.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code bestan.common.protobuf.UpdateFileRes.RESULT}
+     */
+    public enum RESULT
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <pre>
+       *没有变化
+       * </pre>
+       *
+       * <code>NO_CHANGE = 0;</code>
+       */
+      NO_CHANGE(0),
+      /**
+       * <pre>
+       *开始下载
+       * </pre>
+       *
+       * <code>START_DOWNLOAD = 1;</code>
+       */
+      START_DOWNLOAD(1),
+      /**
+       * <pre>
+       *下载全部完成
+       * </pre>
+       *
+       * <code>FINISH_DOWNLOAD = 2;</code>
+       */
+      FINISH_DOWNLOAD(2),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <pre>
+       *没有变化
+       * </pre>
+       *
+       * <code>NO_CHANGE = 0;</code>
+       */
+      public static final int NO_CHANGE_VALUE = 0;
+      /**
+       * <pre>
+       *开始下载
+       * </pre>
+       *
+       * <code>START_DOWNLOAD = 1;</code>
+       */
+      public static final int START_DOWNLOAD_VALUE = 1;
+      /**
+       * <pre>
+       *下载全部完成
+       * </pre>
+       *
+       * <code>FINISH_DOWNLOAD = 2;</code>
+       */
+      public static final int FINISH_DOWNLOAD_VALUE = 2;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static RESULT valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static RESULT forNumber(int value) {
+        switch (value) {
+          case 0: return NO_CHANGE;
+          case 1: return START_DOWNLOAD;
+          case 2: return FINISH_DOWNLOAD;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<RESULT>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          RESULT> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<RESULT>() {
+              public RESULT findValueByNumber(int number) {
+                return RESULT.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.UpdateFileRes.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final RESULT[] VALUES = values();
+
+      public static RESULT valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private RESULT(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:bestan.common.protobuf.UpdateFileRes.RESULT)
+    }
+
+    public static final int RETCODE_FIELD_NUMBER = 1;
+    private int retcode_;
+    /**
+     * <pre>
+     *结果
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+     */
+    public int getRetcodeValue() {
+      return retcode_;
+    }
+    /**
+     * <pre>
+     *结果
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.UpdateFileRes.RESULT getRetcode() {
+      bestan.common.protobuf.Proto.UpdateFileRes.RESULT result = bestan.common.protobuf.Proto.UpdateFileRes.RESULT.valueOf(retcode_);
+      return result == null ? bestan.common.protobuf.Proto.UpdateFileRes.RESULT.UNRECOGNIZED : result;
+    }
+
+    public static final int ALLCHANGEFILES_FIELD_NUMBER = 2;
+    private bestan.common.protobuf.Proto.FileInfo allChangeFiles_;
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    public boolean hasAllChangeFiles() {
+      return allChangeFiles_ != null;
+    }
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    public bestan.common.protobuf.Proto.FileInfo getAllChangeFiles() {
+      return allChangeFiles_ == null ? bestan.common.protobuf.Proto.FileInfo.getDefaultInstance() : allChangeFiles_;
+    }
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    public bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder() {
+      return getAllChangeFiles();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (retcode_ != bestan.common.protobuf.Proto.UpdateFileRes.RESULT.NO_CHANGE.getNumber()) {
+        output.writeEnum(1, retcode_);
+      }
+      if (allChangeFiles_ != null) {
+        output.writeMessage(2, getAllChangeFiles());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (retcode_ != bestan.common.protobuf.Proto.UpdateFileRes.RESULT.NO_CHANGE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, retcode_);
+      }
+      if (allChangeFiles_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getAllChangeFiles());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.UpdateFileRes)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.UpdateFileRes other = (bestan.common.protobuf.Proto.UpdateFileRes) obj;
+
+      boolean result = true;
+      result = result && retcode_ == other.retcode_;
+      result = result && (hasAllChangeFiles() == other.hasAllChangeFiles());
+      if (hasAllChangeFiles()) {
+        result = result && getAllChangeFiles()
+            .equals(other.getAllChangeFiles());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RETCODE_FIELD_NUMBER;
+      hash = (53 * hash) + retcode_;
+      if (hasAllChangeFiles()) {
+        hash = (37 * hash) + ALLCHANGEFILES_FIELD_NUMBER;
+        hash = (53 * hash) + getAllChangeFiles().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.UpdateFileRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.UpdateFileRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *在线更新结果
+     * </pre>
+     *
+     * Protobuf type {@code bestan.common.protobuf.UpdateFileRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.UpdateFileRes)
+        bestan.common.protobuf.Proto.UpdateFileResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.UpdateFileRes.class, bestan.common.protobuf.Proto.UpdateFileRes.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.UpdateFileRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        retcode_ = 0;
+
+        if (allChangeFilesBuilder_ == null) {
+          allChangeFiles_ = null;
+        } else {
+          allChangeFiles_ = null;
+          allChangeFilesBuilder_ = null;
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_UpdateFileRes_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.UpdateFileRes getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.UpdateFileRes.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.UpdateFileRes build() {
+        bestan.common.protobuf.Proto.UpdateFileRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.UpdateFileRes buildPartial() {
+        bestan.common.protobuf.Proto.UpdateFileRes result = new bestan.common.protobuf.Proto.UpdateFileRes(this);
+        result.retcode_ = retcode_;
+        if (allChangeFilesBuilder_ == null) {
+          result.allChangeFiles_ = allChangeFiles_;
+        } else {
+          result.allChangeFiles_ = allChangeFilesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.UpdateFileRes) {
+          return mergeFrom((bestan.common.protobuf.Proto.UpdateFileRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.UpdateFileRes other) {
+        if (other == bestan.common.protobuf.Proto.UpdateFileRes.getDefaultInstance()) return this;
+        if (other.retcode_ != 0) {
+          setRetcodeValue(other.getRetcodeValue());
+        }
+        if (other.hasAllChangeFiles()) {
+          mergeAllChangeFiles(other.getAllChangeFiles());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.UpdateFileRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.UpdateFileRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int retcode_ = 0;
+      /**
+       * <pre>
+       *结果
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+       */
+      public int getRetcodeValue() {
+        return retcode_;
+      }
+      /**
+       * <pre>
+       *结果
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+       */
+      public Builder setRetcodeValue(int value) {
+        retcode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *结果
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.UpdateFileRes.RESULT getRetcode() {
+        bestan.common.protobuf.Proto.UpdateFileRes.RESULT result = bestan.common.protobuf.Proto.UpdateFileRes.RESULT.valueOf(retcode_);
+        return result == null ? bestan.common.protobuf.Proto.UpdateFileRes.RESULT.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       *结果
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+       */
+      public Builder setRetcode(bestan.common.protobuf.Proto.UpdateFileRes.RESULT value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        retcode_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *结果
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.UpdateFileRes.RESULT retcode = 1;</code>
+       */
+      public Builder clearRetcode() {
+        
+        retcode_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private bestan.common.protobuf.Proto.FileInfo allChangeFiles_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder> allChangeFilesBuilder_;
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public boolean hasAllChangeFiles() {
+        return allChangeFilesBuilder_ != null || allChangeFiles_ != null;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfo getAllChangeFiles() {
+        if (allChangeFilesBuilder_ == null) {
+          return allChangeFiles_ == null ? bestan.common.protobuf.Proto.FileInfo.getDefaultInstance() : allChangeFiles_;
+        } else {
+          return allChangeFilesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder setAllChangeFiles(bestan.common.protobuf.Proto.FileInfo value) {
+        if (allChangeFilesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          allChangeFiles_ = value;
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder setAllChangeFiles(
+          bestan.common.protobuf.Proto.FileInfo.Builder builderForValue) {
+        if (allChangeFilesBuilder_ == null) {
+          allChangeFiles_ = builderForValue.build();
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder mergeAllChangeFiles(bestan.common.protobuf.Proto.FileInfo value) {
+        if (allChangeFilesBuilder_ == null) {
+          if (allChangeFiles_ != null) {
+            allChangeFiles_ =
+              bestan.common.protobuf.Proto.FileInfo.newBuilder(allChangeFiles_).mergeFrom(value).buildPartial();
+          } else {
+            allChangeFiles_ = value;
+          }
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder clearAllChangeFiles() {
+        if (allChangeFilesBuilder_ == null) {
+          allChangeFiles_ = null;
+          onChanged();
+        } else {
+          allChangeFiles_ = null;
+          allChangeFilesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfo.Builder getAllChangeFilesBuilder() {
+        
+        onChanged();
+        return getAllChangeFilesFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder() {
+        if (allChangeFilesBuilder_ != null) {
+          return allChangeFilesBuilder_.getMessageOrBuilder();
+        } else {
+          return allChangeFiles_ == null ?
+              bestan.common.protobuf.Proto.FileInfo.getDefaultInstance() : allChangeFiles_;
+        }
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder> 
+          getAllChangeFilesFieldBuilder() {
+        if (allChangeFilesBuilder_ == null) {
+          allChangeFilesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder>(
+                  getAllChangeFiles(),
+                  getParentForChildren(),
+                  isClean());
+          allChangeFiles_ = null;
+        }
+        return allChangeFilesBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.UpdateFileRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.UpdateFileRes)
+    private static final bestan.common.protobuf.Proto.UpdateFileRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.UpdateFileRes();
+    }
+
+    public static bestan.common.protobuf.Proto.UpdateFileRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UpdateFileRes>
+        PARSER = new com.google.protobuf.AbstractParser<UpdateFileRes>() {
+      public UpdateFileRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UpdateFileRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UpdateFileRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateFileRes> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.UpdateFileRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bestan_common_protobuf_BaseProto_descriptor;
   private static final 
@@ -10372,6 +13718,31 @@ public final class Proto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_FileBaseInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_FileBaseInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_FileInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_FileInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_NullMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_NullMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_UpdateFileReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_UpdateFileReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_UpdateFileRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_UpdateFileRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -10415,10 +13786,20 @@ public final class Proto {
       "onLoad\"\207\001\n\022RpcCommonLoadOpRes\022:\n\007retcode" +
       "\030\001 \001(\0162).bestan.common.protobuf.COMMON_D" +
       "B_RETCODE\0225\n\006values\030\002 \003(\0132%.bestan.commo" +
-      "n.protobuf.CommonLoadRes*f\n\021COMMON_DB_RE" +
-      "TCODE\022\n\n\006FAILED\020\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOU" +
-      "T\020\002\022\022\n\016DATA_EXCEPTION\020\003\022\027\n\023DATA_SIZE_EXC" +
-      "EPTION\020\004b\006proto3"
+      "n.protobuf.CommonLoadRes\"2\n\014FileBaseInfo" +
+      "\022\020\n\010fileName\030\001 \001(\014\022\020\n\010fileCode\030\002 \001(\014\"P\n\010" +
+      "FileInfo\0226\n\010baseInfo\030\001 \001(\0132$.bestan.comm" +
+      "on.protobuf.FileBaseInfo\022\014\n\004size\030\002 \001(\005\"\r" +
+      "\n\013NullMessage\"D\n\rUpdateFileReq\0223\n\005files\030" +
+      "\001 \003(\0132$.bestan.common.protobuf.FileBaseI" +
+      "nfo\"\312\001\n\rUpdateFileRes\022=\n\007retcode\030\001 \001(\0162," +
+      ".bestan.common.protobuf.UpdateFileRes.RE" +
+      "SULT\0228\n\016allChangeFiles\030\002 \001(\0132 .bestan.co" +
+      "mmon.protobuf.FileInfo\"@\n\006RESULT\022\r\n\tNO_C" +
+      "HANGE\020\000\022\022\n\016START_DOWNLOAD\020\001\022\023\n\017FINISH_DO" +
+      "WNLOAD\020\002*f\n\021COMMON_DB_RETCODE\022\n\n\006FAILED\020" +
+      "\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOUT\020\002\022\022\n\016DATA_EXCE" +
+      "PTION\020\003\022\027\n\023DATA_SIZE_EXCEPTION\020\004b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10516,6 +13897,36 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_RpcCommonLoadOpRes_descriptor,
         new java.lang.String[] { "Retcode", "Values", });
+    internal_static_bestan_common_protobuf_FileBaseInfo_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_bestan_common_protobuf_FileBaseInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_FileBaseInfo_descriptor,
+        new java.lang.String[] { "FileName", "FileCode", });
+    internal_static_bestan_common_protobuf_FileInfo_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_bestan_common_protobuf_FileInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_FileInfo_descriptor,
+        new java.lang.String[] { "BaseInfo", "Size", });
+    internal_static_bestan_common_protobuf_NullMessage_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_bestan_common_protobuf_NullMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_NullMessage_descriptor,
+        new java.lang.String[] { });
+    internal_static_bestan_common_protobuf_UpdateFileReq_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_bestan_common_protobuf_UpdateFileReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_UpdateFileReq_descriptor,
+        new java.lang.String[] { "Files", });
+    internal_static_bestan_common_protobuf_UpdateFileRes_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_bestan_common_protobuf_UpdateFileRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_UpdateFileRes_descriptor,
+        new java.lang.String[] { "Retcode", "AllChangeFiles", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
