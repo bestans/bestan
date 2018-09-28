@@ -19,10 +19,33 @@ public enum FileManager {
 	INSTANCE;
 	
 	protected Map<String, FileInfo> allFiles;
+	protected FileInfo versionFileInfo;
+	protected FileResourceConfig config;
+	
 	protected ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 	
-	public void checkLoad() {
+	private void loadFiles() {
 		
+	}
+	
+	public void checkLoad() {
+		var newVersionFile = new File(config.versionFilePath);
+		if (newVersionFile == null || !newVersionFile.exists()) {
+			return;
+		}
+		var info = getFileInfo(newVersionFile);
+		if (info == null) {
+			return;
+		}
+		if (isEqual(info.getBaseInfo(), versionFileInfo.getBaseInfo())) {
+			return;
+		}
+		
+		loadFiles();
+	}
+	
+	private FileInfo getFileInfo(File file) {
+		return null;
 	}
 	private static void addFile(File file, String partName) {
 		Glog.trace("file:path={},part={}", file.getAbsolutePath(), partName);

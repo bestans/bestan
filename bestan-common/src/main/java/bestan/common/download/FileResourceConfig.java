@@ -7,5 +7,5 @@ import bestan.common.lua.BaseLuaConfig;
  *
  */
 public class FileResourceConfig extends BaseLuaConfig {
-
+	public String versionFilePath;
 }
