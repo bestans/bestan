@@ -1,5 +1,8 @@
 package bestan.test.server;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.concurrent.Executors;
 
 import com.google.common.util.concurrent.RateLimiter;
@@ -12,6 +15,9 @@ import bestan.common.thread.BThreadPoolExecutors;
 import bestan.common.timer.BTimer;
 import bestan.common.timer.BTimer.TimerModule;
 import bestan.common.timer.ITimer;
+import bestan.test.thread.ReadWrite;
+import bestan.test.thread.ThreadEventFactory;
+import bestan.test.thread.ThreadUnit;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -162,10 +168,76 @@ public class TestTestMain {
         System.out.println(end - start);
 	}
 	
+	private static void addFile(File file, String partName) {
+		var temp = new File(partName);
+		Glog.trace("file:path={},part={},temp={}", file.getAbsolutePath(), partName, temp.length());
+	}
+	public static void traverseFolder(File file, String partName) {
+        if (file == null || !file.exists()) {
+        	return;
+        }
+
+        partName += "/" + file.getName();
+        if (!file.isDirectory()) {
+        	addFile(file, partName);
+        	return;
+        }
+        for (var it : file.listFiles()) {
+        	traverseFolder(it, partName);
+        }
+    }
+	public static void test8() {
+		traverseFolder(new File("testfolder"), ".");
+	}
+	public static void test9() throws IOException {
+		var rf = new RandomAccessFile("testfolder/test1.txt", "r");
+		var rf2 = new RandomAccessFile("testfolder/test1.txt", "r");
+		System.out.println(rf.readByte());
+		System.out.println(rf.readByte());
+		System.out.println(rf2.readByte());
+	}
+	public static void test10() {
+		var factory = new ThreadEventFactory() {
+			@Override
+			public void commonRun() {
+				try {
+					var rf = new RandomAccessFile("testfolder/test1.txt", "r");
+					while (true)
+					{
+						rf.seek(0);
+						Glog.debug("name={},run={}", Thread.currentThread().getName(), rf.readByte());
+						Thread.sleep(1000);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		ThreadUnit.createUnit(factory, 10);
+	}
+	public static void test11() {
+		var data = new ReadWrite();
+		var factory = new ThreadEventFactory() {
+			@Override
+			public void commonRun() {
+				Glog.debug("id={},read_data={}", Thread.currentThread().getId(), data.read());
+			}
+		};
+		var wfactory = new ThreadEventFactory() {
+			@Override
+			public void commonRun() {
+				data.write();
+				Glog.debug("id={},write", Thread.currentThread().getId());
+			}
+		};
+		ThreadUnit.createUnit(factory, 10);
+		ThreadUnit.createUnit(wfactory, 5);
+	}
 	public static void main(String[] args) {
 		try {
 			//ExceptionUtil.sendEmail("632469297@qq.com", "100");
-			test7();
+			test11();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

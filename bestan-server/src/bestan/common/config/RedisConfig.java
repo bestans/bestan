@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 
+import bestan.common.log.Glog;
 import bestan.common.reload.IHotdeploy;
 import bestan.common.reload.ReloadResult;
 import bestan.common.util.Global;
-import bestan.log.GLog;
 
 public class RedisConfig implements IHotdeploy {
-	private static Logger logger = GLog.log;
+	private static Logger logger = Glog.log;
 	
 	private static RedisConfig instance;
 	
