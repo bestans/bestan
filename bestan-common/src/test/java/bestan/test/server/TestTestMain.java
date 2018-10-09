@@ -16,6 +16,7 @@ import bestan.common.timer.BTimer;
 import bestan.common.timer.BTimer.TimerModule;
 import bestan.common.timer.ITimer;
 import bestan.test.thread.ReadWrite;
+import bestan.test.thread.TestMap;
 import bestan.test.thread.ThreadEventFactory;
 import bestan.test.thread.ThreadUnit;
 import io.github.classgraph.ClassGraph;
@@ -234,10 +235,21 @@ public class TestTestMain {
 		ThreadUnit.createUnit(factory, 10);
 		ThreadUnit.createUnit(wfactory, 5);
 	}
+	public static void test12() {
+		for (int i = 0; i < 10; ++i) {
+			TestMap.add(i, i * 10);
+		}
+		var it = TestMap.testm.entrySet().iterator();
+		while (it.hasNext()) {
+			var entry = it.next();
+			System.out.println("key=" + entry.getKey() + ",value=" + entry.getValue());
+			TestMap.remove(entry.getKey());
+		}
+	}
 	public static void main(String[] args) {
 		try {
 			//ExceptionUtil.sendEmail("632469297@qq.com", "100");
-			test11();
+			test12();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

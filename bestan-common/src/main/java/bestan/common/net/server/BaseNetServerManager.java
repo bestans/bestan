@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 
 import bestan.common.module.IModule;
 import bestan.common.net.BaseNetManager;
+import bestan.common.net.ICloseChannelChecker;
 import bestan.common.net.IProtocol;
 import bestan.common.thread.BExecutor;
 import io.netty.bootstrap.ServerBootstrap;
@@ -39,7 +40,9 @@ public class BaseNetServerManager extends BaseNetManager implements IModule {
 	protected EventLoopGroup bossGroup;
 	protected EventLoopGroup workerGroup;
 	protected Channel serverChannel;
-
+	
+	protected ConnectionCollector connectionCollector;
+	
 	/**
 	 * @param config 服务器配置
 	 * @param executor 消息处理的工作线程池
@@ -96,5 +99,9 @@ public class BaseNetServerManager extends BaseNetManager implements IModule {
 	@Override
 	public void close() throws Exception {
 		stop();
+	}
+	
+	public void closeChannels(ICloseChannelChecker handler) {
+		connectionCollector.closeChannels(handler);
 	}
 }

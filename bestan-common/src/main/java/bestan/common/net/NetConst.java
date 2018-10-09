@@ -12,7 +12,7 @@ public class NetConst {
 	/**
 	 * channel属性guid的索引
 	 */
-	public static final AttributeKey<Guid> UPDATE_ATTR_INDEX = AttributeKey.newInstance("update_file_key");
+	public static final AttributeKey<Integer> UPDATE_ATTR_INDEX = AttributeKey.newInstance("update_file_key");
 	
 	/**
 	 * rpc默认超时时间（秒）

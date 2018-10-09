@@ -18,6 +18,11 @@ import bestan.common.protobuf.Proto.FileInfo;
 public enum FileManager {
 	INSTANCE;
 	
+	private FileResource curResource;
+	private FileResource lastResource;
+	private long lastChangeTime;
+	private int version;
+	
 	protected Map<String, FileInfo> allFiles;
 	protected FileInfo versionFileInfo;
 	protected FileResourceConfig config;

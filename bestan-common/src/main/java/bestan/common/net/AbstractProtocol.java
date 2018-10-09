@@ -5,6 +5,7 @@ import com.google.protobuf.Message;
 import bestan.common.log.Glog;
 import bestan.common.message.MessageFactory;
 import bestan.common.net.handler.IMessageHandler;
+import bestan.common.net.server.BaseNetServerManager;
 import bestan.common.util.ExceptionUtil;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -32,6 +33,9 @@ public abstract class AbstractProtocol implements IProtocol {
 	}
 	public ChannelHandlerContext getChannelHandlerContext() {
 		return ctx;
+	}
+	public BaseNetServerManager getNetServer() {
+		return null;
 	}
 	
 	@Override
