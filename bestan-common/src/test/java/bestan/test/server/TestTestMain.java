@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.io.FileUtils;
+
 import com.google.common.util.concurrent.RateLimiter;
 
 import bestan.common.event.IEvent;
@@ -34,6 +36,22 @@ public class TestTestMain {
 		
 		public String value;
 	}
+
+	public static void main(String[] args) {
+		try {
+			//ExceptionUtil.sendEmail("632469297@qq.com", "100");
+			test13();
+			System.out.println("finish");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void test14() {
+		
+	}
+	
 	public static void test1() throws FormatException {
 		throw new FormatException("aaaa%s,%s", "aa");
 	}
@@ -246,13 +264,11 @@ public class TestTestMain {
 			TestMap.remove(entry.getKey());
 		}
 	}
-	public static void main(String[] args) {
-		try {
-			//ExceptionUtil.sendEmail("632469297@qq.com", "100");
-			test12();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void test13() throws IOException {
+		var src = new File("testsrc");
+		var dest = new File("dest1/dest");
+		System.out.println(src.exists());
+		FileUtils.copyDirectory(src, dest, true);
+		FileUtils.forceDelete(dest);
 	}
 }

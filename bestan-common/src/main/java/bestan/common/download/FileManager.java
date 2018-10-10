@@ -1,15 +1,23 @@
 package bestan.common.download;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.commons.io.FileUtils;
+
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import bestan.common.log.Glog;
+import bestan.common.net.server.BaseNetServerManager;
 import bestan.common.protobuf.Proto.FileBaseInfo;
 import bestan.common.protobuf.Proto.FileInfo;
+import bestan.common.timer.BTimer;
+import bestan.common.util.ExceptionUtil;
 
 /**
  * @author yeyouhuan
@@ -19,7 +27,6 @@ public enum FileManager {
 	INSTANCE;
 	
 	private FileResource curResource;
-	private FileResource lastResource;
 	private long lastChangeTime;
 	private int version;
 	
@@ -27,22 +34,75 @@ public enum FileManager {
 	protected FileInfo versionFileInfo;
 	protected FileResourceConfig config;
 	
-	protected ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+	protected ReentrantReadWriteLock lock1 = new ReentrantReadWriteLock();
+	private ReentrantLock lock = new ReentrantLock();
+	private Map<Integer, Long> resourceTimeMap = Maps.newHashMap();
+	private BaseNetServerManager netServerManager;
+	private Long lastLoadResourceTime;
 	
-	private void loadFiles() {
-		
+	public static void deleteDirectory(String path) throws IOException {
+		var file = new File(path);
+		FileUtils.deleteDirectory(file);
 	}
 	
-	public void checkLoad() {
-		var newVersionFile = new File(config.versionFilePath);
-		if (newVersionFile == null || !newVersionFile.exists()) {
+	private String getResourcePath(int version) {
+		return config.versionFilePath + config.resourceDir + version;
+	}
+	
+	private void checkExpiredResource() throws IOException {
+		if (resourceTimeMap.size() <= 1) {
 			return;
 		}
-		var info = getFileInfo(newVersionFile);
-		if (info == null) {
+		var curTime = BTimer.getTime();
+		if (curTime - lastChangeTime <= config.resourceExpiredTime) {
+			//尚未过期
 			return;
 		}
-		if (isEqual(info.getBaseInfo(), versionFileInfo.getBaseInfo())) {
+		//关闭所有非当前资源的连接（假如不关闭，那么）
+		netServerManager.closeChannels(new CloseChannelChecker(version));
+		var it = resourceTimeMap.entrySet().iterator();
+		while (it.hasNext()) {
+			var entry = it.next();
+			if (version == entry.getKey()) {
+				//跳过当前资源目录
+				continue;
+			}
+			//清理过期资源
+			FileUtils.deleteDirectory(new File(getResourcePath(entry.getKey())));
+			it.remove();
+		}
+	}
+	
+	//载入资源到内存
+	private void loadFiles() {
+		lock.lock();
+		try {
+			var curTime = BTimer.getTime();
+			if (curTime - lastChangeTime <= config.updateChangeMinInterval) {
+				return;
+			}
+
+			//记录变化时间
+			lastChangeTime = BTimer.getTime();
+			
+			String path = config.versionFilePath + config.resourceDir + version;
+			//清理目录
+			FileUtils.deleteDirectory(new File(path));
+			//将资源从更新目录拷贝到下载目录
+			FileUtils.copyDirectory(new File(config.updatePath), new File(path));
+			//载入资源
+			var tempResource = new FileResource(path);
+			curResource = tempResource;
+		} catch (Exception e) {
+			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
+		} finally {
+			lock.unlock();
+		}
+	}
+	
+	public void checkLoad() throws IOException {
+		checkExpiredResource();
+		if (BTimer.getTime() - lastChangeTime <= config.updateChangeMinInterval) {
 			return;
 		}
 		
@@ -77,6 +137,10 @@ public enum FileManager {
 	public static boolean isEqual(FileBaseInfo file1, FileBaseInfo file2) {
 		return file1.getFileName().equals(file2.getFileName()) && 
 				file1.getFileCode().equals(file2.getFileCode());
+	}
+	
+	public FileResource getResource() {
+		return curResource;
 	}
 	
 	public List<FileInfo> getUpdateList(Map<String, FileBaseInfo> req) {

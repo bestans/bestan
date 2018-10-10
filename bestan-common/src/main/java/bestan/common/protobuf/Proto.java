@@ -12153,11 +12153,20 @@ public final class Proto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+     */
+    int getReqValue();
+    /**
+     * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+     */
+    bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE getReq();
+
+    /**
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
     int getFilesCount();
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
     boolean containsFiles(
         java.lang.String key);
@@ -12168,19 +12177,19 @@ public final class Proto {
     java.util.Map<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo>
     getFiles();
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
     java.util.Map<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo>
     getFilesMap();
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
 
     bestan.common.protobuf.Proto.FileBaseInfo getFilesOrDefault(
         java.lang.String key,
         bestan.common.protobuf.Proto.FileBaseInfo defaultValue);
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
 
     bestan.common.protobuf.Proto.FileBaseInfo getFilesOrThrow(
@@ -12203,6 +12212,7 @@ public final class Proto {
       super(builder);
     }
     private UpdateFileReq() {
+      req_ = 0;
     }
 
     @java.lang.Override
@@ -12236,11 +12246,17 @@ public final class Proto {
               }
               break;
             }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            case 8: {
+              int rawValue = input.readEnum();
+
+              req_ = rawValue;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                 files_ = com.google.protobuf.MapField.newMapField(
                     FilesDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000001;
+                mutable_bitField0_ |= 0x00000002;
               }
               com.google.protobuf.MapEntry<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo>
               files__ = input.readMessage(
@@ -12270,7 +12286,7 @@ public final class Proto {
     protected com.google.protobuf.MapField internalGetMapField(
         int number) {
       switch (number) {
-        case 1:
+        case 2:
           return internalGetFiles();
         default:
           throw new RuntimeException(
@@ -12284,7 +12300,122 @@ public final class Proto {
               bestan.common.protobuf.Proto.UpdateFileReq.class, bestan.common.protobuf.Proto.UpdateFileReq.Builder.class);
     }
 
-    public static final int FILES_FIELD_NUMBER = 1;
+    /**
+     * Protobuf enum {@code bestan.common.protobuf.UpdateFileReq.REQ_TYPE}
+     */
+    public enum REQ_TYPE
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>REQUEST = 0;</code>
+       */
+      REQUEST(0),
+      /**
+       * <code>PREPARE = 1;</code>
+       */
+      PREPARE(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>REQUEST = 0;</code>
+       */
+      public static final int REQUEST_VALUE = 0;
+      /**
+       * <code>PREPARE = 1;</code>
+       */
+      public static final int PREPARE_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static REQ_TYPE valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static REQ_TYPE forNumber(int value) {
+        switch (value) {
+          case 0: return REQUEST;
+          case 1: return PREPARE;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<REQ_TYPE>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          REQ_TYPE> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<REQ_TYPE>() {
+              public REQ_TYPE findValueByNumber(int number) {
+                return REQ_TYPE.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.UpdateFileReq.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final REQ_TYPE[] VALUES = values();
+
+      public static REQ_TYPE valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private REQ_TYPE(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:bestan.common.protobuf.UpdateFileReq.REQ_TYPE)
+    }
+
+    private int bitField0_;
+    public static final int REQ_FIELD_NUMBER = 1;
+    private int req_;
+    /**
+     * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+     */
+    public int getReqValue() {
+      return req_;
+    }
+    /**
+     * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+     */
+    public bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE getReq() {
+      bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE result = bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE.valueOf(req_);
+      return result == null ? bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE.UNRECOGNIZED : result;
+    }
+
+    public static final int FILES_FIELD_NUMBER = 2;
     private static final class FilesDefaultEntryHolder {
       static final com.google.protobuf.MapEntry<
           java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo> defaultEntry =
@@ -12311,7 +12442,7 @@ public final class Proto {
       return internalGetFiles().getMap().size();
     }
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
 
     public boolean containsFiles(
@@ -12327,14 +12458,14 @@ public final class Proto {
       return getFilesMap();
     }
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
 
     public java.util.Map<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo> getFilesMap() {
       return internalGetFiles().getMap();
     }
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
 
     public bestan.common.protobuf.Proto.FileBaseInfo getFilesOrDefault(
@@ -12346,7 +12477,7 @@ public final class Proto {
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
-     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+     * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
      */
 
     public bestan.common.protobuf.Proto.FileBaseInfo getFilesOrThrow(
@@ -12372,12 +12503,15 @@ public final class Proto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (req_ != bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE.REQUEST.getNumber()) {
+        output.writeEnum(1, req_);
+      }
       com.google.protobuf.GeneratedMessageV3
         .serializeStringMapTo(
           output,
           internalGetFiles(),
           FilesDefaultEntryHolder.defaultEntry,
-          1);
+          2);
       unknownFields.writeTo(output);
     }
 
@@ -12386,6 +12520,10 @@ public final class Proto {
       if (size != -1) return size;
 
       size = 0;
+      if (req_ != bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE.REQUEST.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, req_);
+      }
       for (java.util.Map.Entry<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo> entry
            : internalGetFiles().getMap().entrySet()) {
         com.google.protobuf.MapEntry<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo>
@@ -12394,7 +12532,7 @@ public final class Proto {
             .setValue(entry.getValue())
             .build();
         size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, files__);
+            .computeMessageSize(2, files__);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -12412,6 +12550,7 @@ public final class Proto {
       bestan.common.protobuf.Proto.UpdateFileReq other = (bestan.common.protobuf.Proto.UpdateFileReq) obj;
 
       boolean result = true;
+      result = result && req_ == other.req_;
       result = result && internalGetFiles().equals(
           other.internalGetFiles());
       result = result && unknownFields.equals(other.unknownFields);
@@ -12425,6 +12564,8 @@ public final class Proto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REQ_FIELD_NUMBER;
+      hash = (53 * hash) + req_;
       if (!internalGetFiles().getMap().isEmpty()) {
         hash = (37 * hash) + FILES_FIELD_NUMBER;
         hash = (53 * hash) + internalGetFiles().hashCode();
@@ -12542,7 +12683,7 @@ public final class Proto {
       protected com.google.protobuf.MapField internalGetMapField(
           int number) {
         switch (number) {
-          case 1:
+          case 2:
             return internalGetFiles();
           default:
             throw new RuntimeException(
@@ -12553,7 +12694,7 @@ public final class Proto {
       protected com.google.protobuf.MapField internalGetMutableMapField(
           int number) {
         switch (number) {
-          case 1:
+          case 2:
             return internalGetMutableFiles();
           default:
             throw new RuntimeException(
@@ -12584,6 +12725,8 @@ public final class Proto {
       }
       public Builder clear() {
         super.clear();
+        req_ = 0;
+
         internalGetMutableFiles().clear();
         return this;
       }
@@ -12608,8 +12751,11 @@ public final class Proto {
       public bestan.common.protobuf.Proto.UpdateFileReq buildPartial() {
         bestan.common.protobuf.Proto.UpdateFileReq result = new bestan.common.protobuf.Proto.UpdateFileReq(this);
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.req_ = req_;
         result.files_ = internalGetFiles();
         result.files_.makeImmutable();
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -12651,6 +12797,9 @@ public final class Proto {
 
       public Builder mergeFrom(bestan.common.protobuf.Proto.UpdateFileReq other) {
         if (other == bestan.common.protobuf.Proto.UpdateFileReq.getDefaultInstance()) return this;
+        if (other.req_ != 0) {
+          setReqValue(other.getReqValue());
+        }
         internalGetMutableFiles().mergeFrom(
             other.internalGetFiles());
         this.mergeUnknownFields(other.unknownFields);
@@ -12681,6 +12830,50 @@ public final class Proto {
       }
       private int bitField0_;
 
+      private int req_ = 0;
+      /**
+       * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+       */
+      public int getReqValue() {
+        return req_;
+      }
+      /**
+       * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+       */
+      public Builder setReqValue(int value) {
+        req_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+       */
+      public bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE getReq() {
+        bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE result = bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE.valueOf(req_);
+        return result == null ? bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+       */
+      public Builder setReq(bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        req_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bestan.common.protobuf.UpdateFileReq.REQ_TYPE req = 1;</code>
+       */
+      public Builder clearReq() {
+        
+        req_ = 0;
+        onChanged();
+        return this;
+      }
+
       private com.google.protobuf.MapField<
           java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo> files_;
       private com.google.protobuf.MapField<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo>
@@ -12708,7 +12901,7 @@ public final class Proto {
         return internalGetFiles().getMap().size();
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
 
       public boolean containsFiles(
@@ -12724,14 +12917,14 @@ public final class Proto {
         return getFilesMap();
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
 
       public java.util.Map<java.lang.String, bestan.common.protobuf.Proto.FileBaseInfo> getFilesMap() {
         return internalGetFiles().getMap();
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
 
       public bestan.common.protobuf.Proto.FileBaseInfo getFilesOrDefault(
@@ -12743,7 +12936,7 @@ public final class Proto {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
 
       public bestan.common.protobuf.Proto.FileBaseInfo getFilesOrThrow(
@@ -12763,7 +12956,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
 
       public Builder removeFiles(
@@ -12782,7 +12975,7 @@ public final class Proto {
         return internalGetMutableFiles().getMutableMap();
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
       public Builder putFiles(
           java.lang.String key,
@@ -12794,7 +12987,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 1;</code>
+       * <code>map&lt;string, .bestan.common.protobuf.FileBaseInfo&gt; files = 2;</code>
        */
 
       public Builder putAllFiles(
@@ -13992,19 +14185,22 @@ public final class Proto {
       "2\n\014FileBaseInfo\022\020\n\010fileName\030\001 \001(\t\022\020\n\010fil" +
       "eCode\030\002 \001(\t\"P\n\010FileInfo\0226\n\010baseInfo\030\001 \001(" +
       "\0132$.bestan.common.protobuf.FileBaseInfo\022" +
-      "\014\n\004size\030\002 \001(\005\"\244\001\n\rUpdateFileReq\022?\n\005files" +
-      "\030\001 \003(\01320.bestan.common.protobuf.UpdateFi" +
-      "leReq.FilesEntry\032R\n\nFilesEntry\022\013\n\003key\030\001 " +
-      "\001(\t\0223\n\005value\030\002 \001(\0132$.bestan.common.proto" +
-      "buf.FileBaseInfo:\0028\001\"\334\001\n\rUpdateFileRes\022=" +
-      "\n\007retcode\030\001 \001(\0162,.bestan.common.protobuf" +
-      ".UpdateFileRes.RESULT\0228\n\016allChangeFiles\030" +
-      "\002 \001(\0132 .bestan.common.protobuf.FileInfo\022" +
-      "\020\n\010noChange\030\003 \001(\010\"@\n\006RESULT\022\r\n\tNO_CHANGE" +
-      "\020\000\022\022\n\016START_DOWNLOAD\020\001\022\023\n\017FINISH_DOWNLOA" +
-      "D\020\002*f\n\021COMMON_DB_RETCODE\022\n\n\006FAILED\020\000\022\013\n\007" +
-      "SUCCESS\020\001\022\013\n\007TIMEOUT\020\002\022\022\n\016DATA_EXCEPTION" +
-      "\020\003\022\027\n\023DATA_SIZE_EXCEPTION\020\004b\006proto3"
+      "\014\n\004size\030\002 \001(\005\"\207\002\n\rUpdateFileReq\022;\n\003req\030\001" +
+      " \001(\0162..bestan.common.protobuf.UpdateFile" +
+      "Req.REQ_TYPE\022?\n\005files\030\002 \003(\01320.bestan.com" +
+      "mon.protobuf.UpdateFileReq.FilesEntry\032R\n" +
+      "\nFilesEntry\022\013\n\003key\030\001 \001(\t\0223\n\005value\030\002 \001(\0132" +
+      "$.bestan.common.protobuf.FileBaseInfo:\0028" +
+      "\001\"$\n\010REQ_TYPE\022\013\n\007REQUEST\020\000\022\013\n\007PREPARE\020\001\"" +
+      "\334\001\n\rUpdateFileRes\022=\n\007retcode\030\001 \001(\0162,.bes" +
+      "tan.common.protobuf.UpdateFileRes.RESULT" +
+      "\0228\n\016allChangeFiles\030\002 \001(\0132 .bestan.common" +
+      ".protobuf.FileInfo\022\020\n\010noChange\030\003 \001(\010\"@\n\006" +
+      "RESULT\022\r\n\tNO_CHANGE\020\000\022\022\n\016START_DOWNLOAD\020" +
+      "\001\022\023\n\017FINISH_DOWNLOAD\020\002*f\n\021COMMON_DB_RETC" +
+      "ODE\022\n\n\006FAILED\020\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOUT\020" +
+      "\002\022\022\n\016DATA_EXCEPTION\020\003\022\027\n\023DATA_SIZE_EXCEP" +
+      "TION\020\004b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -14125,7 +14321,7 @@ public final class Proto {
     internal_static_bestan_common_protobuf_UpdateFileReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_UpdateFileReq_descriptor,
-        new java.lang.String[] { "Files", });
+        new java.lang.String[] { "Req", "Files", });
     internal_static_bestan_common_protobuf_UpdateFileReq_FilesEntry_descriptor =
       internal_static_bestan_common_protobuf_UpdateFileReq_descriptor.getNestedTypes().get(0);
     internal_static_bestan_common_protobuf_UpdateFileReq_FilesEntry_fieldAccessorTable = new

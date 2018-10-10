@@ -10,7 +10,8 @@ public class ExceptionUtil {
 	public static String getLog(Throwable e) {
 		StringBuilder stringBuilder = new StringBuilder();
 
-		stringBuilder.append("[[message=").append(e.getMessage());
+		stringBuilder.append("[[exception=").append(e.getClass().getSimpleName())
+			.append(",message=").append(e.getMessage());
 		stringBuilder.append(",trace=");
         StackTraceElement[] trace = e.getStackTrace();
         for (StackTraceElement traceElement : trace)

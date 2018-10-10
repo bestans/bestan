@@ -147,7 +147,13 @@ message FileInfo
 //请求在线更新
 message UpdateFileReq
 {
-	map <string, FileBaseInfo> files	= 1;
+	enum REQ_TYPE
+	{
+		REQUEST		= 0;
+		PREPARE		= 1;
+	}
+	REQ_TYPE req						= 1;
+	map <string, FileBaseInfo> files	= 2;
 }
 
 //在线更新结果
