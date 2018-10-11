@@ -10713,21 +10713,12 @@ public final class Proto {
 
     /**
      * <pre>
-     *文件编码
+     *上次修改时间
      * </pre>
      *
-     * <code>string fileCode = 2;</code>
+     * <code>int64 lastModified = 2;</code>
      */
-    java.lang.String getFileCode();
-    /**
-     * <pre>
-     *文件编码
-     * </pre>
-     *
-     * <code>string fileCode = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getFileCodeBytes();
+    long getLastModified();
   }
   /**
    * Protobuf type {@code bestan.common.protobuf.FileBaseInfo}
@@ -10743,7 +10734,7 @@ public final class Proto {
     }
     private FileBaseInfo() {
       fileName_ = "";
-      fileCode_ = "";
+      lastModified_ = 0L;
     }
 
     @java.lang.Override
@@ -10783,10 +10774,9 @@ public final class Proto {
               fileName_ = s;
               break;
             }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 16: {
 
-              fileCode_ = s;
+              lastModified_ = input.readInt64();
               break;
             }
           }
@@ -10855,46 +10845,17 @@ public final class Proto {
       }
     }
 
-    public static final int FILECODE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object fileCode_;
+    public static final int LASTMODIFIED_FIELD_NUMBER = 2;
+    private long lastModified_;
     /**
      * <pre>
-     *文件编码
+     *上次修改时间
      * </pre>
      *
-     * <code>string fileCode = 2;</code>
+     * <code>int64 lastModified = 2;</code>
      */
-    public java.lang.String getFileCode() {
-      java.lang.Object ref = fileCode_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fileCode_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *文件编码
-     * </pre>
-     *
-     * <code>string fileCode = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFileCodeBytes() {
-      java.lang.Object ref = fileCode_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fileCode_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getLastModified() {
+      return lastModified_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -10912,8 +10873,8 @@ public final class Proto {
       if (!getFileNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fileName_);
       }
-      if (!getFileCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, fileCode_);
+      if (lastModified_ != 0L) {
+        output.writeInt64(2, lastModified_);
       }
       unknownFields.writeTo(output);
     }
@@ -10926,8 +10887,9 @@ public final class Proto {
       if (!getFileNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fileName_);
       }
-      if (!getFileCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, fileCode_);
+      if (lastModified_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, lastModified_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10947,8 +10909,8 @@ public final class Proto {
       boolean result = true;
       result = result && getFileName()
           .equals(other.getFileName());
-      result = result && getFileCode()
-          .equals(other.getFileCode());
+      result = result && (getLastModified()
+          == other.getLastModified());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -10962,8 +10924,9 @@ public final class Proto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + FILENAME_FIELD_NUMBER;
       hash = (53 * hash) + getFileName().hashCode();
-      hash = (37 * hash) + FILECODE_FIELD_NUMBER;
-      hash = (53 * hash) + getFileCode().hashCode();
+      hash = (37 * hash) + LASTMODIFIED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastModified());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11095,7 +11058,7 @@ public final class Proto {
         super.clear();
         fileName_ = "";
 
-        fileCode_ = "";
+        lastModified_ = 0L;
 
         return this;
       }
@@ -11120,7 +11083,7 @@ public final class Proto {
       public bestan.common.protobuf.Proto.FileBaseInfo buildPartial() {
         bestan.common.protobuf.Proto.FileBaseInfo result = new bestan.common.protobuf.Proto.FileBaseInfo(this);
         result.fileName_ = fileName_;
-        result.fileCode_ = fileCode_;
+        result.lastModified_ = lastModified_;
         onBuilt();
         return result;
       }
@@ -11166,9 +11129,8 @@ public final class Proto {
           fileName_ = other.fileName_;
           onChanged();
         }
-        if (!other.getFileCode().isEmpty()) {
-          fileCode_ = other.fileCode_;
-          onChanged();
+        if (other.getLastModified() != 0L) {
+          setLastModified(other.getLastModified());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -11286,91 +11248,40 @@ public final class Proto {
         return this;
       }
 
-      private java.lang.Object fileCode_ = "";
+      private long lastModified_ ;
       /**
        * <pre>
-       *文件编码
+       *上次修改时间
        * </pre>
        *
-       * <code>string fileCode = 2;</code>
+       * <code>int64 lastModified = 2;</code>
        */
-      public java.lang.String getFileCode() {
-        java.lang.Object ref = fileCode_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fileCode_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getLastModified() {
+        return lastModified_;
       }
       /**
        * <pre>
-       *文件编码
+       *上次修改时间
        * </pre>
        *
-       * <code>string fileCode = 2;</code>
+       * <code>int64 lastModified = 2;</code>
        */
-      public com.google.protobuf.ByteString
-          getFileCodeBytes() {
-        java.lang.Object ref = fileCode_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fileCode_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *文件编码
-       * </pre>
-       *
-       * <code>string fileCode = 2;</code>
-       */
-      public Builder setFileCode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        fileCode_ = value;
+      public Builder setLastModified(long value) {
+        
+        lastModified_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       *文件编码
+       *上次修改时间
        * </pre>
        *
-       * <code>string fileCode = 2;</code>
+       * <code>int64 lastModified = 2;</code>
        */
-      public Builder clearFileCode() {
+      public Builder clearLastModified() {
         
-        fileCode_ = getDefaultInstance().getFileCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *文件编码
-       * </pre>
-       *
-       * <code>string fileCode = 2;</code>
-       */
-      public Builder setFileCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        fileCode_ = value;
+        lastModified_ = 0L;
         onChanged();
         return this;
       }
@@ -11457,9 +11368,9 @@ public final class Proto {
      *文件大小（字节）
      * </pre>
      *
-     * <code>int32 size = 2;</code>
+     * <code>int64 size = 2;</code>
      */
-    int getSize();
+    long getSize();
   }
   /**
    * Protobuf type {@code bestan.common.protobuf.FileInfo}
@@ -11474,7 +11385,7 @@ public final class Proto {
       super(builder);
     }
     private FileInfo() {
-      size_ = 0;
+      size_ = 0L;
     }
 
     @java.lang.Override
@@ -11523,7 +11434,7 @@ public final class Proto {
             }
             case 16: {
 
-              size_ = input.readInt32();
+              size_ = input.readInt64();
               break;
             }
           }
@@ -11584,15 +11495,15 @@ public final class Proto {
     }
 
     public static final int SIZE_FIELD_NUMBER = 2;
-    private int size_;
+    private long size_;
     /**
      * <pre>
      *文件大小（字节）
      * </pre>
      *
-     * <code>int32 size = 2;</code>
+     * <code>int64 size = 2;</code>
      */
-    public int getSize() {
+    public long getSize() {
       return size_;
     }
 
@@ -11611,8 +11522,8 @@ public final class Proto {
       if (baseInfo_ != null) {
         output.writeMessage(1, getBaseInfo());
       }
-      if (size_ != 0) {
-        output.writeInt32(2, size_);
+      if (size_ != 0L) {
+        output.writeInt64(2, size_);
       }
       unknownFields.writeTo(output);
     }
@@ -11626,9 +11537,9 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getBaseInfo());
       }
-      if (size_ != 0) {
+      if (size_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, size_);
+          .computeInt64Size(2, size_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -11669,7 +11580,8 @@ public final class Proto {
         hash = (53 * hash) + getBaseInfo().hashCode();
       }
       hash = (37 * hash) + SIZE_FIELD_NUMBER;
-      hash = (53 * hash) + getSize();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSize());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11805,7 +11717,7 @@ public final class Proto {
           baseInfo_ = null;
           baseInfoBuilder_ = null;
         }
-        size_ = 0;
+        size_ = 0L;
 
         return this;
       }
@@ -11879,7 +11791,7 @@ public final class Proto {
         if (other.hasBaseInfo()) {
           mergeBaseInfo(other.getBaseInfo());
         }
-        if (other.getSize() != 0) {
+        if (other.getSize() != 0L) {
           setSize(other.getSize());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -12062,15 +11974,15 @@ public final class Proto {
         return baseInfoBuilder_;
       }
 
-      private int size_ ;
+      private long size_ ;
       /**
        * <pre>
        *文件大小（字节）
        * </pre>
        *
-       * <code>int32 size = 2;</code>
+       * <code>int64 size = 2;</code>
        */
-      public int getSize() {
+      public long getSize() {
         return size_;
       }
       /**
@@ -12078,9 +11990,9 @@ public final class Proto {
        *文件大小（字节）
        * </pre>
        *
-       * <code>int32 size = 2;</code>
+       * <code>int64 size = 2;</code>
        */
-      public Builder setSize(int value) {
+      public Builder setSize(long value) {
         
         size_ = value;
         onChanged();
@@ -12091,11 +12003,11 @@ public final class Proto {
        *文件大小（字节）
        * </pre>
        *
-       * <code>int32 size = 2;</code>
+       * <code>int64 size = 2;</code>
        */
       public Builder clearSize() {
         
-        size_ = 0;
+        size_ = 0L;
         onChanged();
         return this;
       }
@@ -12313,6 +12225,10 @@ public final class Proto {
        * <code>PREPARE = 1;</code>
        */
       PREPARE(1),
+      /**
+       * <code>ACCEPT_FINISH = 2;</code>
+       */
+      ACCEPT_FINISH(2),
       UNRECOGNIZED(-1),
       ;
 
@@ -12324,6 +12240,10 @@ public final class Proto {
        * <code>PREPARE = 1;</code>
        */
       public static final int PREPARE_VALUE = 1;
+      /**
+       * <code>ACCEPT_FINISH = 2;</code>
+       */
+      public static final int ACCEPT_FINISH_VALUE = 2;
 
 
       public final int getNumber() {
@@ -12346,6 +12266,7 @@ public final class Proto {
         switch (value) {
           case 0: return REQUEST;
           case 1: return PREPARE;
+          case 2: return ACCEPT_FINISH;
           default: return null;
         }
       }
@@ -14038,6 +13959,524 @@ public final class Proto {
 
   }
 
+  public interface ChunkedDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bestan.common.protobuf.ChunkedData)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes chunk = 1;</code>
+     */
+    com.google.protobuf.ByteString getChunk();
+
+    /**
+     * <code>bool end = 2;</code>
+     */
+    boolean getEnd();
+  }
+  /**
+   * Protobuf type {@code bestan.common.protobuf.ChunkedData}
+   */
+  public  static final class ChunkedData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bestan.common.protobuf.ChunkedData)
+      ChunkedDataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ChunkedData.newBuilder() to construct.
+    private ChunkedData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ChunkedData() {
+      chunk_ = com.google.protobuf.ByteString.EMPTY;
+      end_ = false;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ChunkedData(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+
+              chunk_ = input.readBytes();
+              break;
+            }
+            case 16: {
+
+              end_ = input.readBool();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ChunkedData_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ChunkedData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              bestan.common.protobuf.Proto.ChunkedData.class, bestan.common.protobuf.Proto.ChunkedData.Builder.class);
+    }
+
+    public static final int CHUNK_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString chunk_;
+    /**
+     * <code>bytes chunk = 1;</code>
+     */
+    public com.google.protobuf.ByteString getChunk() {
+      return chunk_;
+    }
+
+    public static final int END_FIELD_NUMBER = 2;
+    private boolean end_;
+    /**
+     * <code>bool end = 2;</code>
+     */
+    public boolean getEnd() {
+      return end_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!chunk_.isEmpty()) {
+        output.writeBytes(1, chunk_);
+      }
+      if (end_ != false) {
+        output.writeBool(2, end_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!chunk_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, chunk_);
+      }
+      if (end_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, end_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof bestan.common.protobuf.Proto.ChunkedData)) {
+        return super.equals(obj);
+      }
+      bestan.common.protobuf.Proto.ChunkedData other = (bestan.common.protobuf.Proto.ChunkedData) obj;
+
+      boolean result = true;
+      result = result && getChunk()
+          .equals(other.getChunk());
+      result = result && (getEnd()
+          == other.getEnd());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CHUNK_FIELD_NUMBER;
+      hash = (53 * hash) + getChunk().hashCode();
+      hash = (37 * hash) + END_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getEnd());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static bestan.common.protobuf.Proto.ChunkedData parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(bestan.common.protobuf.Proto.ChunkedData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bestan.common.protobuf.ChunkedData}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bestan.common.protobuf.ChunkedData)
+        bestan.common.protobuf.Proto.ChunkedDataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ChunkedData_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ChunkedData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                bestan.common.protobuf.Proto.ChunkedData.class, bestan.common.protobuf.Proto.ChunkedData.Builder.class);
+      }
+
+      // Construct using bestan.common.protobuf.Proto.ChunkedData.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        chunk_ = com.google.protobuf.ByteString.EMPTY;
+
+        end_ = false;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return bestan.common.protobuf.Proto.internal_static_bestan_common_protobuf_ChunkedData_descriptor;
+      }
+
+      public bestan.common.protobuf.Proto.ChunkedData getDefaultInstanceForType() {
+        return bestan.common.protobuf.Proto.ChunkedData.getDefaultInstance();
+      }
+
+      public bestan.common.protobuf.Proto.ChunkedData build() {
+        bestan.common.protobuf.Proto.ChunkedData result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public bestan.common.protobuf.Proto.ChunkedData buildPartial() {
+        bestan.common.protobuf.Proto.ChunkedData result = new bestan.common.protobuf.Proto.ChunkedData(this);
+        result.chunk_ = chunk_;
+        result.end_ = end_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof bestan.common.protobuf.Proto.ChunkedData) {
+          return mergeFrom((bestan.common.protobuf.Proto.ChunkedData)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(bestan.common.protobuf.Proto.ChunkedData other) {
+        if (other == bestan.common.protobuf.Proto.ChunkedData.getDefaultInstance()) return this;
+        if (other.getChunk() != com.google.protobuf.ByteString.EMPTY) {
+          setChunk(other.getChunk());
+        }
+        if (other.getEnd() != false) {
+          setEnd(other.getEnd());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        bestan.common.protobuf.Proto.ChunkedData parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (bestan.common.protobuf.Proto.ChunkedData) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString chunk_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes chunk = 1;</code>
+       */
+      public com.google.protobuf.ByteString getChunk() {
+        return chunk_;
+      }
+      /**
+       * <code>bytes chunk = 1;</code>
+       */
+      public Builder setChunk(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        chunk_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes chunk = 1;</code>
+       */
+      public Builder clearChunk() {
+        
+        chunk_ = getDefaultInstance().getChunk();
+        onChanged();
+        return this;
+      }
+
+      private boolean end_ ;
+      /**
+       * <code>bool end = 2;</code>
+       */
+      public boolean getEnd() {
+        return end_;
+      }
+      /**
+       * <code>bool end = 2;</code>
+       */
+      public Builder setEnd(boolean value) {
+        
+        end_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool end = 2;</code>
+       */
+      public Builder clearEnd() {
+        
+        end_ = false;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bestan.common.protobuf.ChunkedData)
+    }
+
+    // @@protoc_insertion_point(class_scope:bestan.common.protobuf.ChunkedData)
+    private static final bestan.common.protobuf.Proto.ChunkedData DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new bestan.common.protobuf.Proto.ChunkedData();
+    }
+
+    public static bestan.common.protobuf.Proto.ChunkedData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ChunkedData>
+        PARSER = new com.google.protobuf.AbstractParser<ChunkedData>() {
+      public ChunkedData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ChunkedData(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ChunkedData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ChunkedData> getParserForType() {
+      return PARSER;
+    }
+
+    public bestan.common.protobuf.Proto.ChunkedData getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bestan_common_protobuf_BaseProto_descriptor;
   private static final 
@@ -14138,6 +14577,11 @@ public final class Proto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bestan_common_protobuf_UpdateFileRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bestan_common_protobuf_ChunkedData_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bestan_common_protobuf_ChunkedData_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -14182,25 +14626,26 @@ public final class Proto {
       "\030\001 \001(\0162).bestan.common.protobuf.COMMON_D" +
       "B_RETCODE\0225\n\006values\030\002 \003(\0132%.bestan.commo" +
       "n.protobuf.CommonLoadRes\"\r\n\013NullMessage\"" +
-      "2\n\014FileBaseInfo\022\020\n\010fileName\030\001 \001(\t\022\020\n\010fil" +
-      "eCode\030\002 \001(\t\"P\n\010FileInfo\0226\n\010baseInfo\030\001 \001(" +
-      "\0132$.bestan.common.protobuf.FileBaseInfo\022" +
-      "\014\n\004size\030\002 \001(\005\"\207\002\n\rUpdateFileReq\022;\n\003req\030\001" +
-      " \001(\0162..bestan.common.protobuf.UpdateFile" +
-      "Req.REQ_TYPE\022?\n\005files\030\002 \003(\01320.bestan.com" +
-      "mon.protobuf.UpdateFileReq.FilesEntry\032R\n" +
-      "\nFilesEntry\022\013\n\003key\030\001 \001(\t\0223\n\005value\030\002 \001(\0132" +
-      "$.bestan.common.protobuf.FileBaseInfo:\0028" +
-      "\001\"$\n\010REQ_TYPE\022\013\n\007REQUEST\020\000\022\013\n\007PREPARE\020\001\"" +
-      "\334\001\n\rUpdateFileRes\022=\n\007retcode\030\001 \001(\0162,.bes" +
-      "tan.common.protobuf.UpdateFileRes.RESULT" +
-      "\0228\n\016allChangeFiles\030\002 \001(\0132 .bestan.common" +
-      ".protobuf.FileInfo\022\020\n\010noChange\030\003 \001(\010\"@\n\006" +
-      "RESULT\022\r\n\tNO_CHANGE\020\000\022\022\n\016START_DOWNLOAD\020" +
-      "\001\022\023\n\017FINISH_DOWNLOAD\020\002*f\n\021COMMON_DB_RETC" +
-      "ODE\022\n\n\006FAILED\020\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOUT\020" +
-      "\002\022\022\n\016DATA_EXCEPTION\020\003\022\027\n\023DATA_SIZE_EXCEP" +
-      "TION\020\004b\006proto3"
+      "6\n\014FileBaseInfo\022\020\n\010fileName\030\001 \001(\t\022\024\n\014las" +
+      "tModified\030\002 \001(\003\"P\n\010FileInfo\0226\n\010baseInfo\030" +
+      "\001 \001(\0132$.bestan.common.protobuf.FileBaseI" +
+      "nfo\022\014\n\004size\030\002 \001(\003\"\232\002\n\rUpdateFileReq\022;\n\003r" +
+      "eq\030\001 \001(\0162..bestan.common.protobuf.Update" +
+      "FileReq.REQ_TYPE\022?\n\005files\030\002 \003(\01320.bestan" +
+      ".common.protobuf.UpdateFileReq.FilesEntr" +
+      "y\032R\n\nFilesEntry\022\013\n\003key\030\001 \001(\t\0223\n\005value\030\002 " +
+      "\001(\0132$.bestan.common.protobuf.FileBaseInf" +
+      "o:\0028\001\"7\n\010REQ_TYPE\022\013\n\007REQUEST\020\000\022\013\n\007PREPAR" +
+      "E\020\001\022\021\n\rACCEPT_FINISH\020\002\"\334\001\n\rUpdateFileRes" +
+      "\022=\n\007retcode\030\001 \001(\0162,.bestan.common.protob" +
+      "uf.UpdateFileRes.RESULT\0228\n\016allChangeFile" +
+      "s\030\002 \001(\0132 .bestan.common.protobuf.FileInf" +
+      "o\022\020\n\010noChange\030\003 \001(\010\"@\n\006RESULT\022\r\n\tNO_CHAN" +
+      "GE\020\000\022\022\n\016START_DOWNLOAD\020\001\022\023\n\017FINISH_DOWNL" +
+      "OAD\020\002\")\n\013ChunkedData\022\r\n\005chunk\030\001 \001(\014\022\013\n\003e" +
+      "nd\030\002 \001(\010*f\n\021COMMON_DB_RETCODE\022\n\n\006FAILED\020" +
+      "\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOUT\020\002\022\022\n\016DATA_EXCE" +
+      "PTION\020\003\022\027\n\023DATA_SIZE_EXCEPTION\020\004b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -14309,7 +14754,7 @@ public final class Proto {
     internal_static_bestan_common_protobuf_FileBaseInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_FileBaseInfo_descriptor,
-        new java.lang.String[] { "FileName", "FileCode", });
+        new java.lang.String[] { "FileName", "LastModified", });
     internal_static_bestan_common_protobuf_FileInfo_descriptor =
       getDescriptor().getMessageTypes().get(15);
     internal_static_bestan_common_protobuf_FileInfo_fieldAccessorTable = new
@@ -14334,6 +14779,12 @@ public final class Proto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_UpdateFileRes_descriptor,
         new java.lang.String[] { "Retcode", "AllChangeFiles", "NoChange", });
+    internal_static_bestan_common_protobuf_ChunkedData_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_bestan_common_protobuf_ChunkedData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bestan_common_protobuf_ChunkedData_descriptor,
+        new java.lang.String[] { "Chunk", "End", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

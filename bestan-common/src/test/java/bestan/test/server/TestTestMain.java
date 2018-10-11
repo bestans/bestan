@@ -2,6 +2,7 @@ package bestan.test.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PushbackInputStream;
 import java.io.RandomAccessFile;
 import java.util.concurrent.Executors;
 
@@ -49,7 +50,7 @@ public class TestTestMain {
 	}
 	
 	public static void test14() {
-		
+		PushbackInputStream v;
 	}
 	
 	public static void test1() throws FormatException {

@@ -2,8 +2,6 @@ package bestan.common.download;
 
 import java.util.List;
 
-import bestan.common.protobuf.Proto.FileInfo;
-
 /**
  * @author yeyouhuan
  *
@@ -13,12 +11,13 @@ public class UpdateState {
 		REQ,			//请求下载
 		WAIT_PREPARE,	//等待客户端准备好下载
 		IN_DOWNLOAD,	//正在下载
+		WAIT_FINISH,	//等待客户端下载完成
 		FINISH,
 	}
 	
 	private STATE state = STATE.REQ;
 	private int version;
-	private List<FileInfo> updateList = null;
+	private List<FileResourceUnit> updateList = null;
 	private FileResource resource = null;
 	
 	public UpdateState(int version) {
@@ -45,11 +44,11 @@ public class UpdateState {
 		return resource;
 	}
 	
-	public void setUpdateList(List<FileInfo> updateList) {
+	public void setUpdateList(List<FileResourceUnit> updateList) {
 		this.updateList = updateList;
 	}
 	
-	public List<FileInfo> getUpdateList() {
+	public List<FileResourceUnit> getUpdateList() {
 		return updateList;
 	}
 }

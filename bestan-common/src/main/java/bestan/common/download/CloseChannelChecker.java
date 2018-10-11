@@ -17,9 +17,10 @@ public class CloseChannelChecker implements ICloseChannelChecker {
 	
 	@Override
 	public boolean checkCanClose(Channel ctx) {
-		// TODO Auto-generated method stub
-		var curVersion = ctx.attr(NetConst.UPDATE_ATTR_INDEX);
-		if (curVersion == null || curVersion.get() != version) {
+		if (!ctx.hasAttr(NetConst.UPDATE_ATTR_INDEX)) {
+			return true;
+		}
+		if (ctx.attr(NetConst.UPDATE_ATTR_INDEX).get().getVersion() != version) {
 			return true;
 		}
 		return false;

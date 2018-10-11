@@ -45,7 +45,7 @@ public enum FileManager {
 		FileUtils.deleteDirectory(file);
 	}
 	
-	private String getResourcePath(int version) {
+	private String getResourcePath() {
 		return config.versionFilePath + config.resourceDir + version;
 	}
 	
@@ -67,8 +67,6 @@ public enum FileManager {
 				//跳过当前资源目录
 				continue;
 			}
-			//清理过期资源
-			FileUtils.deleteDirectory(new File(getResourcePath(entry.getKey())));
 			it.remove();
 		}
 	}
@@ -77,22 +75,11 @@ public enum FileManager {
 	private void loadFiles() {
 		lock.lock();
 		try {
-			var curTime = BTimer.getTime();
-			if (curTime - lastChangeTime <= config.updateChangeMinInterval) {
-				return;
-			}
-
 			//记录变化时间
 			lastChangeTime = BTimer.getTime();
-			
-			String path = config.versionFilePath + config.resourceDir + version;
-			//清理目录
-			FileUtils.deleteDirectory(new File(path));
-			//将资源从更新目录拷贝到下载目录
-			FileUtils.copyDirectory(new File(config.updatePath), new File(path));
-			//载入资源
-			var tempResource = new FileResource(path);
-			curResource = tempResource;
+			++version;
+			curResource.loadResource(getResourcePath(), version);
+			resourceTimeMap.put(version, BTimer.getTime());
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
 		} finally {
@@ -102,10 +89,6 @@ public enum FileManager {
 	
 	public void checkLoad() throws IOException {
 		checkExpiredResource();
-		if (BTimer.getTime() - lastChangeTime <= config.updateChangeMinInterval) {
-			return;
-		}
-		
 		loadFiles();
 	}
 	
@@ -136,7 +119,7 @@ public enum FileManager {
 	
 	public static boolean isEqual(FileBaseInfo file1, FileBaseInfo file2) {
 		return file1.getFileName().equals(file2.getFileName()) && 
-				file1.getFileCode().equals(file2.getFileCode());
+				file1.getLastModified() == file2.getLastModified();
 	}
 	
 	public FileResource getResource() {

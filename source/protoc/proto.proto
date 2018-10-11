@@ -134,14 +134,14 @@ message NullMessage
 
 message FileBaseInfo
 {
-	string fileName	= 1;	//文件目录加名字
-	string fileCode	= 2;	//文件编码
+	string fileName		= 1;	//文件目录加名字
+	int64 lastModified	= 2;	//上次修改时间
 }
 
 message FileInfo
 {
 	FileBaseInfo baseInfo	= 1;	//文件信息
-	int32 size				= 2;	//文件大小（字节）
+	int64 size				= 2;	//文件大小（字节）
 }
 
 //请求在线更新
@@ -151,6 +151,7 @@ message UpdateFileReq
 	{
 		REQUEST		= 0;
 		PREPARE		= 1;
+		ACCEPT_FINISH	= 2;
 	}
 	REQ_TYPE req						= 1;
 	map <string, FileBaseInfo> files	= 2;
@@ -168,4 +169,10 @@ message UpdateFileRes
 	RESULT retcode				= 1;	//结果
 	FileInfo allChangeFiles		= 2;	//所有变化文件
 	bool noChange				= 3;	//没有变化
+}
+
+message ChunkedData
+{
+	bytes chunk		= 1;
+	bool end		= 2;
 }

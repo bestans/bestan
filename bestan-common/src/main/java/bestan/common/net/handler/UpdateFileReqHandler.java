@@ -7,7 +7,9 @@ import bestan.common.download.UpdateState.STATE;
 import bestan.common.log.Glog;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.NetConst;
+import bestan.common.net.chunk.MessageChunkedInput;
 import bestan.common.protobuf.Proto.UpdateFileReq;
+import bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE;
 import bestan.common.protobuf.Proto.UpdateFileRes;
 import bestan.common.protobuf.Proto.UpdateFileRes.RESULT;
 import io.netty.channel.ChannelFuture;
@@ -20,7 +22,8 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  *
  */
 public class UpdateFileReqHandler implements IMessageHandler {
-
+	private static UpdateFuture updateFuture = new UpdateFuture();
+	
 	@Override
 	public void processProtocol(AbstractProtocol protocol) throws Exception {
 		var req = (UpdateFileReq)protocol.getMessage();
@@ -28,6 +31,10 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		var resource = FileManager.INSTANCE.getResource();
 		//初始化下载状态
 		if (!ctx.channel().hasAttr(NetConst.UPDATE_ATTR_INDEX)) {
+			if (req.getReq() != REQ_TYPE.REQUEST) {
+				ctx.close();
+				return;
+			}
 			ctx.channel().attr(NetConst.UPDATE_ATTR_INDEX).set(new UpdateState(resource.getVersion()));
 		}
 		var state = ctx.channel().attr(NetConst.UPDATE_ATTR_INDEX).get();
@@ -64,7 +71,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 			var res = resBuilder.build();
 			//TODO
 			var futhure = ctx.writeAndFlush(res);
-			futhure.addListener(new UpdateFuture(res));
+			futhure.addListener(updateFuture);
 			return;
 		}
 
@@ -84,23 +91,31 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		
 		ctx.pipeline().remove("encoder");
 		ctx.pipeline().addBefore("serverHandler", "chunk", new ChunkedWriteHandler());
-		
+	
+		var f = new ChannelFutureListener() {
+			@Override
+			public void operationComplete(ChannelFuture future) throws Exception {
+				if (!future.isSuccess()) {
+					future.channel().close();
+				}
+			}
+		};
 		for (var it : updateList) {
-			ctx.write(it);
+			ctx.write(new MessageChunkedInput(it.getFileData())).addListener(f);
 		}
-	}
 
-	class UpdateFuture implements ChannelFutureListener {
-		private UpdateFileRes res;
-		
-		UpdateFuture(UpdateFileRes res) {
-			this.res = res;
-		}
+		//结束
+		var resBuilder = UpdateFileRes.newBuilder();
+		resBuilder.setRetcode(RESULT.FINISH_DOWNLOAD);
+		ctx.writeAndFlush(resBuilder.build()).addListener(updateFuture);
+	}
+	
+	static class UpdateFuture implements ChannelFutureListener {
 
 		@Override
 		public void operationComplete(ChannelFuture future) throws Exception {
-			Glog.debug("UpdateFileReqHandler:operationComplete:res={},futureResult={}", res, future.isSuccess());
-			
+			Glog.debug("UpdateFileReqHandler:operationComplete:result={}", future.isSuccess());
 		}
 	}
+	
 }

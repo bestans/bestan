@@ -4,7 +4,7 @@ package bestan.common.logic;
  * @author yeyouhuan
  *
  */
-public class FormatException extends Exception {
+public class FormatException extends RuntimeException {
 	/**
 	 * 
 	 */

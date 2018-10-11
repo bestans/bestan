@@ -21,4 +21,5 @@ public enum MessageEnum {
 	FileInfo,		//16
 	UpdateFileReq,		//17
 	UpdateFileRes,		//18
+	ChunkedData,		//19
 }
