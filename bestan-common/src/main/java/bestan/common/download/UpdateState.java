@@ -2,6 +2,8 @@ package bestan.common.download;
 
 import java.util.List;
 
+import bestan.common.util.PairData;
+
 /**
  * @author yeyouhuan
  *
@@ -16,12 +18,11 @@ public class UpdateState {
 	}
 	
 	private STATE state = STATE.REQ;
-	private int version;
-	private List<FileResourceUnit> updateList = null;
+	private PairData<List<FileResourceUnit>, Integer> updateList;
 	private FileResource resource = null;
 	
-	public UpdateState(int version) {
-		this.version = version;
+	public UpdateState(PairData<List<FileResourceUnit>, Integer> updateList) {
+		this.updateList = updateList;
 	}
 	
 	public STATE getState() {
@@ -33,22 +34,10 @@ public class UpdateState {
 	}
 	
 	public int getVersion() {
-		return version;
-	}
-	
-	public void setResource(FileResource resource) {
-		this.resource = resource;
-	}
-	
-	public FileResource getResource() {
-		return resource;
-	}
-	
-	public void setUpdateList(List<FileResourceUnit> updateList) {
-		this.updateList = updateList;
+		return updateList.second;
 	}
 	
 	public List<FileResourceUnit> getUpdateList() {
-		return updateList;
+		return updateList.first;
 	}
 }

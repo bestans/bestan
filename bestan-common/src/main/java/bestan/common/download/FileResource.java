@@ -7,14 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import bestan.common.logic.FormatException;
 import bestan.common.protobuf.Proto.FileBaseInfo;
 import bestan.common.protobuf.Proto.FileInfo;
+import bestan.common.util.PairData;
 
 /**
  * @author yeyouhuan
@@ -71,7 +70,7 @@ public class FileResource {
 		}
 	}
 	
-	public List<FileResourceUnit> getUpdateList(Map<String, FileBaseInfo> req) {
+	public PairData<List<FileResourceUnit>, Integer> getUpdateList(Map<String, FileBaseInfo> req) {
 		lock.lock();
 		try {
 			List<FileResourceUnit> ret = null;
@@ -86,15 +85,9 @@ public class FileResource {
 				}
 				ret.add(it.getValue());
 			}
+			return PairData.newPair(ret, curVersion);
 		} finally {
 			lock.unlock();
 		}
-	}
-	
-	public static class UpdateListResult() { 
-		public List<FileResourceUnit> updateList;
-		public int version;
-		
-		public UpdateListResult(List<FileResourceUnit>)
 	}
 }

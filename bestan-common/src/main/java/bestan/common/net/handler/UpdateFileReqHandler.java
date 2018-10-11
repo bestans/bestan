@@ -1,7 +1,6 @@
 package bestan.common.net.handler;
 
 import bestan.common.download.FileManager;
-import bestan.common.download.FileResource;
 import bestan.common.download.UpdateState;
 import bestan.common.download.UpdateState.STATE;
 import bestan.common.log.Glog;
@@ -35,7 +34,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 				ctx.close();
 				return;
 			}
-			ctx.channel().attr(NetConst.UPDATE_ATTR_INDEX).set(new UpdateState(resource.getVersion()));
+			ctx.channel().attr(NetConst.UPDATE_ATTR_INDEX).set(new UpdateState(resource.getUpdateList(req.getFilesMap())));
 		}
 		var state = ctx.channel().attr(NetConst.UPDATE_ATTR_INDEX).get();
 		switch (req.getReq()) {
@@ -43,7 +42,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 			if (state.getState() != STATE.REQ) {
 				return;
 			}
-			onRequest(req, ctx, resource, state);
+			onRequest(req, ctx, state);
 			break;
 		case PREPARE:	//对方准备好了，开始下载
 			if (state.getState() != STATE.WAIT_PREPARE) {
@@ -58,8 +57,8 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		}
 	}
 	
-	public void onRequest(UpdateFileReq req, ChannelHandlerContext ctx, FileResource resource, UpdateState state) {
-		var updateList = resource.getUpdateList(req.getFilesMap());
+	public void onRequest(UpdateFileReq req, ChannelHandlerContext ctx, UpdateState state) {
+		var updateList = state.getUpdateList();
 		if (updateList == null) {
 			//设置已下载完成
 			state.setState(STATE.FINISH);
@@ -79,14 +78,11 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		var resBuilder = UpdateFileRes.newBuilder();
 		resBuilder.setRetcode(RESULT.START_DOWNLOAD);
 		ctx.writeAndFlush(resBuilder.build());
-
-		state.setResource(resource);
-		state.setUpdateList(updateList);
+		
 		state.setState(STATE.WAIT_PREPARE);
 	}
 
 	public void onDownload(ChannelHandlerContext ctx, UpdateState state) {
-		var resource = state.getResource();
 		var updateList = state.getUpdateList();
 		
 		ctx.pipeline().remove("encoder");

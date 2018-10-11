@@ -10,7 +10,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import bestan.common.log.Glog;
 import bestan.common.net.server.BaseNetServerManager;
@@ -36,9 +35,7 @@ public enum FileManager {
 	
 	protected ReentrantReadWriteLock lock1 = new ReentrantReadWriteLock();
 	private ReentrantLock lock = new ReentrantLock();
-	private Map<Integer, Long> resourceTimeMap = Maps.newHashMap();
 	private BaseNetServerManager netServerManager;
-	private Long lastLoadResourceTime;
 	
 	public static void deleteDirectory(String path) throws IOException {
 		var file = new File(path);
@@ -50,7 +47,7 @@ public enum FileManager {
 	}
 	
 	private void checkExpiredResource() throws IOException {
-		if (resourceTimeMap.size() <= 1) {
+		if (lastChangeTime == 0) {
 			return;
 		}
 		var curTime = BTimer.getTime();
@@ -58,17 +55,9 @@ public enum FileManager {
 			//尚未过期
 			return;
 		}
+		lastChangeTime = 0;
 		//关闭所有非当前资源的连接（假如不关闭，那么）
 		netServerManager.closeChannels(new CloseChannelChecker(version));
-		var it = resourceTimeMap.entrySet().iterator();
-		while (it.hasNext()) {
-			var entry = it.next();
-			if (version == entry.getKey()) {
-				//跳过当前资源目录
-				continue;
-			}
-			it.remove();
-		}
 	}
 	
 	//载入资源到内存
@@ -79,7 +68,6 @@ public enum FileManager {
 			lastChangeTime = BTimer.getTime();
 			++version;
 			curResource.loadResource(getResourcePath(), version);
-			resourceTimeMap.put(version, BTimer.getTime());
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
 		} finally {
@@ -92,9 +80,6 @@ public enum FileManager {
 		loadFiles();
 	}
 	
-	private FileInfo getFileInfo(File file) {
-		return null;
-	}
 	private static void addFile(File file, String partName) {
 		Glog.trace("file:path={},part={}", file.getAbsolutePath(), partName);
 	}
