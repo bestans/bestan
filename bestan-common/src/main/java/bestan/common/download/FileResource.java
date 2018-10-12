@@ -10,9 +10,11 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.protobuf.Proto.FileBaseInfo;
 import bestan.common.protobuf.Proto.FileInfo;
+import bestan.common.util.ExceptionUtil;
 import bestan.common.util.PairData;
 
 /**
@@ -36,8 +38,10 @@ public class FileResource {
 		lock.lock();
 		try {
 			curVersion = version;
-			FileManager.traverseFolder(filePath);
+			FileManager.traverseFolder(filePath, this);
 			versionFile = allResource.get(versionPath);
+		} catch (Exception e) {
+			Glog.error("FileResource load failed.path={},exception={}", path, ExceptionUtil.getLog(e));
 		} finally {
 			lock.unlock();
 		}
@@ -59,6 +63,8 @@ public class FileResource {
 			access.close();
 		}
 		allResource.put(path, new FileResourceUnit(fileInfo.build(), data));
+		
+		Glog.debug("addFile path={}", path);
 	}
 
 	public boolean checkIsSameResource(long lastModified) {

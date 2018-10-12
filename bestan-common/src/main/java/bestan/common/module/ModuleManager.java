@@ -28,6 +28,14 @@ public class ModuleManager {
 		closeModules = Lists.newArrayList(closeModulesArg);
 	}
 	
+	public static void registerStartup(IModule... args) {
+		modules = Lists.newArrayList(args);
+	}
+
+	public static void registerClose(IModule... args) {
+		closeModules = Lists.newArrayList(args);
+	}
+	
 	/**
 	 * 按照注册顺序依次启动各个模块
 	 */

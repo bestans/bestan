@@ -2,16 +2,10 @@ package bestan.common.download;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import org.apache.commons.io.FileUtils;
-
-import com.google.common.collect.Lists;
 
 import bestan.common.log.Glog;
+import bestan.common.logic.BaseManager;
+import bestan.common.module.IModule;
 import bestan.common.net.server.BaseNetServerManager;
 import bestan.common.protobuf.Proto.FileBaseInfo;
 import bestan.common.protobuf.Proto.FileInfo;
@@ -22,31 +16,41 @@ import bestan.common.util.ExceptionUtil;
  * @author yeyouhuan
  *
  */
-public enum FileManager {
-	INSTANCE;
+public class FileManager extends BaseManager {
+	private static class FileManagerHolder {
+		private static FileManager INSTANCE = new FileManager();
+	}
+	
+	public static FileManager getInstance() {
+		return FileManagerHolder.INSTANCE;
+	}
 	
 	private FileResource curResource;
-	private long lastChangeTime;
-	private int version;
-	
-	protected Map<String, FileInfo> allFiles;
+	private long lastChangeTime = 0;
+	private int version = 0;
+
 	protected FileInfo versionFileInfo;
 	protected FileResourceConfig config;
-	
-	protected ReentrantReadWriteLock lock1 = new ReentrantReadWriteLock();
-	private ReentrantLock lock = new ReentrantLock();
 	private BaseNetServerManager netServerManager;
 	
-	public static void deleteDirectory(String path) throws IOException {
-		var file = new File(path);
-		FileUtils.deleteDirectory(file);
+	public void startUp(FileResourceConfig config, BaseNetServerManager netServerManager) {
+		this.config = config;
+		this.netServerManager = netServerManager;
+
+		BTimer.attach(this, 1000);
+		loadFiles();
+	}
+
+	@Override
+	public void Tick() {
+		checkExpiredResource();
 	}
 	
 	private String getResourcePath() {
-		return config.versionFilePath + config.resourceDir + version;
+		return config.resourceDir;
 	}
 	
-	private void checkExpiredResource() throws IOException {
+	private void checkExpiredResource() {
 		if (lastChangeTime == 0) {
 			return;
 		}
@@ -62,7 +66,7 @@ public enum FileManager {
 	
 	//载入资源到内存
 	private void loadFiles() {
-		lock.lock();
+		lockObject();
 		try {
 			//记录变化时间
 			lastChangeTime = BTimer.getTime();
@@ -71,7 +75,7 @@ public enum FileManager {
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
 		} finally {
-			lock.unlock();
+			unlockObject();
 		}
 	}
 	
@@ -79,29 +83,25 @@ public enum FileManager {
 		checkExpiredResource();
 		loadFiles();
 	}
-	
-	private static void addFile(File file, String partName) {
-		Glog.trace("file:path={},part={}", file.getAbsolutePath(), partName);
-	}
-	private static void traverseFolder(File file, String partName) {
+
+	private static void traverseFolder(File file, String partName, FileResource resource) throws IOException {
         if (file == null || !file.exists()) {
         	return;
         }
 
         partName += "/" + file.getName();
         if (!file.isDirectory()) {
-        	addFile(file, partName);
+        	resource.addFile(file, partName);
         	return;
         }
         for (var it : file.listFiles()) {
-        	traverseFolder(it, partName);
+        	traverseFolder(it, partName, resource);
         }
     }
-	public static void traverseFolder(String filePath)
+	public static void traverseFolder(String filePath, FileResource resource) throws IOException
 	{
-		traverseFolder(new File(filePath), ".");
+		traverseFolder(new File(filePath), ".", resource);
 	}
-	
 	public static boolean isEqual(FileBaseInfo file1, FileBaseInfo file2) {
 		return file1.getFileName().equals(file2.getFileName()) && 
 				file1.getLastModified() == file2.getLastModified();
@@ -110,20 +110,19 @@ public enum FileManager {
 	public FileResource getResource() {
 		return curResource;
 	}
-	
-	public List<FileInfo> getUpdateList(Map<String, FileBaseInfo> req) {
-		List<FileInfo> ret = null;
-		for (var it : allFiles.entrySet()) {
-			var reqInfo = req.get(it.getKey());
-			if (reqInfo != null && isEqual(it.getValue().getBaseInfo(), reqInfo)) {
-				//已经是一致的
-				continue;
-			}
-			if (ret == null) {
-				ret = Lists.newArrayList();
-			}
-			ret.add(it.getValue());
+
+	public static class FileManagerModule implements IModule {
+		private FileResourceConfig config;
+		private BaseNetServerManager netServerManager;
+		
+		public FileManagerModule(FileResourceConfig config, BaseNetServerManager netServerManager) {
+			this.config = config;
+			this.netServerManager = netServerManager;
 		}
-		return ret;
+
+		@Override
+		public void startup() throws Exception {
+			FileManager.getInstance().startUp(config, netServerManager);
+		}
 	}
 }

@@ -27,7 +27,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 	public void processProtocol(AbstractProtocol protocol) throws Exception {
 		var req = (UpdateFileReq)protocol.getMessage();
 		var ctx = protocol.getChannelHandlerContext();
-		var resource = FileManager.INSTANCE.getResource();
+		var resource = FileManager.getInstance().getResource();
 		//初始化下载状态
 		if (!ctx.channel().hasAttr(NetConst.UPDATE_ATTR_INDEX)) {
 			if (req.getReq() != REQ_TYPE.REQUEST) {

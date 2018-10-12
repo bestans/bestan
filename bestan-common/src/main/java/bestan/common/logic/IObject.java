@@ -27,6 +27,9 @@ public interface IObject {
 	default void processMessage(int messageId, Message message) {
 	}
 	
+	/**
+	 * 已经加锁处理了
+	 */
 	default void Tick() {
 		
 	}

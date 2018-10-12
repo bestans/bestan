@@ -19,7 +19,6 @@ public class UpdateState {
 	
 	private STATE state = STATE.REQ;
 	private PairData<List<FileResourceUnit>, Integer> updateList;
-	private FileResource resource = null;
 	
 	public UpdateState(PairData<List<FileResourceUnit>, Integer> updateList) {
 		this.updateList = updateList;

@@ -21,6 +21,10 @@ public class BTimer {
 	private static ReentrantLock lock = new ReentrantLock();
 	private static ExecutorService timeExecutor;
 	private static boolean stop = false;
+	
+	/**
+	 * 当前时间（毫秒）
+	 */
 	private static AtomicLong timeNow = new AtomicLong();
 	
 	private static void attachObserver(Observer ob) {
@@ -97,6 +101,10 @@ public class BTimer {
 		return timeNow.get();
 	}
 	
+	/**
+	 * @param timerObject 执行tick的ITimer对象
+	 * @param delay 间隔时间（毫秒）
+	 */
 	public static void attach(ITimer timerObject, int delay) {
 		attach(new TimerObserver(timerObject), delay);
 	}
