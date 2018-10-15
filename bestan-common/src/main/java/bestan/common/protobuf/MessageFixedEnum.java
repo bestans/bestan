@@ -7,6 +7,7 @@ import bestan.common.net.handler.RpcHandle;
 import bestan.common.net.handler.UpdateFileReqHandler;
 import bestan.common.net.operation.RpcCommonLoadClientHandler;
 import bestan.common.net.operation.RpcCommonSaveClientHandler;
+import bestan.common.protobuf.Proto.ChunkedData;
 import bestan.common.protobuf.Proto.NullMessage;
 import bestan.common.protobuf.Proto.RpcCommonLoadOp;
 import bestan.common.protobuf.Proto.RpcCommonLoadOpRes;
@@ -14,6 +15,7 @@ import bestan.common.protobuf.Proto.RpcCommonSaveOp;
 import bestan.common.protobuf.Proto.RpcCommonSaveOpRes;
 import bestan.common.protobuf.Proto.RpcMessage;
 import bestan.common.protobuf.Proto.UpdateFileReq;
+import bestan.common.protobuf.Proto.UpdateFileRes;
 
 /**
  * 消息固定映射，系统使用的消息，按照-1、-2...的顺序编号
@@ -28,6 +30,8 @@ public enum MessageFixedEnum {
 	RPC_COMMON_SAVE(RpcCommonSaveOp.class, null),	//通用db保存rpc
 	RPC_COMMON_SAVE_RES(RpcCommonSaveOpRes.class, RpcCommonSaveClientHandler.class),	//通用db保存rpc返回结果
 	UPDATE_FILE_REQ(UpdateFileReq.class, UpdateFileReqHandler.class),	//在线更新文件
+	UPDATE_FILE_RES(UpdateFileRes.class, null),		//在线更新回复
+	CHUNKED_DATA(ChunkedData.class, null),		//分块传输
 	
 	//在此项之前添加
 	NULL_MESSAGE(NullMessage.class, null);

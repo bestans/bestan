@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import bestan.common.log.Glog;
-import bestan.common.logic.ServerConfig;
 
 /**
  * 模块管理器，管理所有模块的启动和关闭
@@ -29,7 +28,14 @@ public class ModuleManager {
 	}
 	
 	public static void registerStartup(IModule... args) {
+		registerModule(false, args);
+	}
+	
+	public static void registerModule(boolean includeClose, IModule... args) {
 		modules = Lists.newArrayList(args);
+		if (includeClose) {
+			closeModules = Lists.reverse(modules);
+		}
 	}
 
 	public static void registerClose(IModule... args) {
@@ -39,7 +45,7 @@ public class ModuleManager {
 	/**
 	 * 按照注册顺序依次启动各个模块
 	 */
-	public static boolean startup(ServerConfig config) {
+	public static boolean startup() {
 		if (modules == null)
 			return false;
 		

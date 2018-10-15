@@ -11,12 +11,12 @@ public class FileResourceConfig extends BaseLuaConfig {
 	public String resourceDir;
 	
 	/**
-	 * 资源过期时间（秒）
+	 * 旧资源链接过期时间（秒）
 	 */
-	public int resourceExpiredTime;
+	public int oldConnectionExpiredTime;
 
 	/**
-	 * 资源更新最小变化时间（秒）
+	 * 资源管理器tick间隔时间（毫秒）
 	 */
-	public int updateChangeMinInterval;
+	public int tickInterval;
 }

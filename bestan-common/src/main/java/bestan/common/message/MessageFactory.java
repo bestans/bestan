@@ -300,8 +300,15 @@ public class MessageFactory {
 		@SuppressWarnings("rawtypes")
 		public MessageModule(Class<? extends Enum> messageIndex, List<String> messagePackages, List<String> messageHandlerPackages) {
 			this.messageIndex = messageIndex;
-			this.messagePackages = messagePackages;
-			this.messageHandlerPackages = messageHandlerPackages;
+			this.messagePackages = messagePackages != null ? messagePackages : Lists.newArrayList();
+			this.messageHandlerPackages = messageHandlerPackages != null ? messageHandlerPackages : Lists.newArrayList();
+		}
+
+		@SuppressWarnings("rawtypes")
+		public MessageModule(Class<? extends Enum> messageIndex, String[] messagePackages, String[] messageHandlerPackages) {
+			this.messageIndex = messageIndex;
+			this.messagePackages = messagePackages != null ? Lists.newArrayList(messagePackages) : Lists.newArrayList();
+			this.messageHandlerPackages = messageHandlerPackages != null ? Lists.newArrayList(messageHandlerPackages) : Lists.newArrayList();
 		}
 		
 		@Override
@@ -310,7 +317,9 @@ public class MessageFactory {
 				throw new StartupException(this, "loadFixedMessage failed");
 			}
 			//载入messageName->index映射关系
-			loadMessageIndex(messageIndex);
+			if (messageIndex != null) {
+				loadMessageIndex(messageIndex);
+			}
 			//载入message
 			for (var it : messagePackages) {
 				if (!loadMessage(it)) {

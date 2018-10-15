@@ -37,7 +37,7 @@ public class FileManager extends BaseManager {
 		this.config = config;
 		this.netServerManager = netServerManager;
 
-		BTimer.attach(this, 1000);
+		BTimer.attach(this, config.tickInterval);
 		loadFiles();
 	}
 
@@ -55,7 +55,7 @@ public class FileManager extends BaseManager {
 			return;
 		}
 		var curTime = BTimer.getTime();
-		if (curTime - lastChangeTime <= config.resourceExpiredTime) {
+		if (curTime - lastChangeTime <= config.oldConnectionExpiredTime) {
 			//尚未过期
 			return;
 		}
