@@ -2,7 +2,6 @@ package bestan.test.server;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PushbackInputStream;
 import java.io.RandomAccessFile;
 import java.util.concurrent.Executors;
 
@@ -13,11 +12,13 @@ import com.google.common.util.concurrent.RateLimiter;
 import bestan.common.event.IEvent;
 import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
+import bestan.common.lua.BaseLuaConfig;
 import bestan.common.protobuf.MessageFixedEnum;
 import bestan.common.thread.BThreadPoolExecutors;
 import bestan.common.timer.BTimer;
 import bestan.common.timer.BTimer.TimerModule;
 import bestan.common.timer.ITimer;
+import bestan.test.download.TestServerConfig;
 import bestan.test.thread.ReadWrite;
 import bestan.test.thread.TestMap;
 import bestan.test.thread.ThreadEventFactory;
@@ -41,7 +42,7 @@ public class TestTestMain {
 	public static void main(String[] args) {
 		try {
 			//ExceptionUtil.sendEmail("632469297@qq.com", "100");
-			test13();
+			test14();
 			System.out.println("finish");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -49,8 +50,13 @@ public class TestTestMain {
 		}
 	}
 	
+	public static class NewTestServerConfig extends TestServerConfig {
+		
+	}
 	public static void test14() {
-		PushbackInputStream v;
+		NewTestServerConfig vConfig = new NewTestServerConfig();
+		Integer vInteger = Integer.decode("19");
+		Glog.debug("xx={},{}", BaseLuaConfig.class.isAssignableFrom(vConfig.getClass()), vInteger.getClass().getGenericSuperclass());
 	}
 	
 	public static void test1() throws FormatException {

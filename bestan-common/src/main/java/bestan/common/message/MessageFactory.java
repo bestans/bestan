@@ -208,6 +208,51 @@ public class MessageFactory {
 		}
 		return false;
 	}
+	
+	public static List<Class<?>> loadClasses(String packageName) {
+		ScanResult scanResult =
+		        new ClassGraph()
+		            .enableAllInfo()
+		            .whitelistPackages(packageName)
+		            .scan();
+		var allCls = scanResult.getAllClasses();
+	    ClassInfoList filtered = allCls
+        .filter(classInfo -> {
+        	return !(classInfo.isInterface() || classInfo.isAbstract());
+        });
+		return filtered.loadClasses();
+	}
+
+	public static List<Class<?>> loadClasses(String packageName, String interfaceName) {
+		ScanResult scanResult =
+		        new ClassGraph()
+		            .enableAllInfo()
+		            .whitelistPackages(packageName)
+		            .scan();
+		var allCls = scanResult.getAllClasses();
+	    ClassInfoList filtered = allCls
+        .filter(classInfo -> {
+        	return !(classInfo.isInterface() || classInfo.isAbstract())
+        			&& isSubInterface(classInfo.loadClass(), interfaceName);
+        });
+		return filtered.loadClasses();
+	}
+
+	public static List<Class<?>> loadClasses(String packageName, Class<?> baseClass) {
+		ScanResult scanResult =
+		        new ClassGraph()
+		            .enableAllInfo()
+		            .whitelistPackages(packageName)
+		            .scan();
+		var allCls = scanResult.getAllClasses();
+	    ClassInfoList filtered = allCls
+        .filter(classInfo -> {
+        	return !(classInfo.isInterface() || classInfo.isAbstract())
+        			&& baseClass.isAssignableFrom(classInfo.loadClass());
+        });
+		return filtered.loadClasses();
+	}
+	
 	/**
 	 * 载入message handle类，message handle命名必须为xxxxHandle
 	 * @param packageName

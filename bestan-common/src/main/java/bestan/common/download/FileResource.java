@@ -22,26 +22,25 @@ import bestan.common.util.PairData;
  *
  */
 public class FileResource {
-	private int curVersion;
+	private int curVersion = 0;
 	private ReentrantLock lock = new ReentrantLock();
 	private Map<String, FileResourceUnit> allResource = Maps.newHashMap();
-	private String filePath;
-	private String versionPath;
-	private FileResourceUnit versionFile = null;
+	private FileResourceUnit versionFile;
+	private FileResourceConfig config;
 	
-	public FileResource(String path) {
-		filePath = path;
-		curVersion = -1;
+	public FileResource(FileResourceConfig config) {
+		this.config = config;
 	}
 	
-	public void loadResource(String path, int version) {
+	public void loadResource(int version) {
 		lock.lock();
 		try {
 			curVersion = version;
-			FileManager.traverseFolder(filePath, this);
-			versionFile = allResource.get(versionPath);
+			FileManager.traverseFolder(config.resourceDir, this);
+			versionFile = allResource.get(config.versionFile);
+			allResource.remove(config.versionFile);
 		} catch (Exception e) {
-			Glog.error("FileResource load failed.path={},exception={}", path, ExceptionUtil.getLog(e));
+			Glog.error("FileResource load failed.path={},exception={}", config.resourceDir, ExceptionUtil.getLog(e));
 		} finally {
 			lock.unlock();
 		}

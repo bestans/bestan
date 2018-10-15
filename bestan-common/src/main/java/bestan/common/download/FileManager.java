@@ -36,6 +36,7 @@ public class FileManager extends BaseManager {
 	public void startUp(FileResourceConfig config, BaseNetServerManager netServerManager) {
 		this.config = config;
 		this.netServerManager = netServerManager;
+		curResource = new FileResource(config);
 
 		BTimer.attach(this, config.tickInterval);
 		loadFiles();
@@ -44,10 +45,6 @@ public class FileManager extends BaseManager {
 	@Override
 	public void Tick() {
 		checkExpiredResource();
-	}
-	
-	private String getResourcePath() {
-		return config.resourceDir;
 	}
 	
 	private void checkExpiredResource() {
@@ -71,7 +68,7 @@ public class FileManager extends BaseManager {
 			//记录变化时间
 			lastChangeTime = BTimer.getTime();
 			++version;
-			curResource.loadResource(getResourcePath(), version);
+			curResource.loadResource(version);
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
 		} finally {

@@ -11,6 +11,7 @@ import org.reflections.Reflections;
 import com.google.common.base.Strings;
 
 import bestan.common.log.Glog;
+import bestan.common.message.MessageFactory;
 
 /**
  * lua配置管理器，启动时调用loadConfig载入所有lua配置，
@@ -42,7 +43,7 @@ public class LuaConfigs {
 	 * @param packageNames lua配置java文件所在包列表
 	 * @return 成功或失败
 	 */
-	public static boolean loadConfig(String rootPath, String[] packageNames) {
+	public static boolean loadConfigOld(String rootPath, String[] packageNames) {
 		try {
 			for (var pName : packageNames) {
 				Glog.debug("loadConfig rootPath={},package={}", rootPath, pName);
@@ -56,6 +57,37 @@ public class LuaConfigs {
 						continue;
 					}
 					if (!loadConfig(rootPath, cls))
+						return false;
+				}
+			}
+		} catch (Exception e) {
+			Glog.trace("LuaConfigs init failed.error={}", e.getMessage());
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * 载入所有lua配置
+	 * 
+	 * @param rootPath lua配置根目录
+	 * @param packageNames lua配置java文件所在包列表
+	 * @return 成功或失败
+	 */
+	@SuppressWarnings("unchecked")
+	public static boolean loadConfig(String rootPath, String[] packageNames) {
+		try {
+			for (var pName : packageNames) {
+				Glog.debug("loadConfig rootPath={},package={}", rootPath, pName);
+				var classes = MessageFactory.loadClasses(pName, BaseLuaConfig.class);
+				Glog.trace("loadConfig={}", classes.size());
+				for (var cls : classes) {
+					if (cls.isMemberClass()) {
+						//嵌套类 不处理
+						continue;
+					}
+					if (!loadConfig(rootPath, (Class<? extends BaseLuaConfig>)cls))
 						return false;
 				}
 			}
