@@ -26,7 +26,7 @@ public class TestDownloadClient {
 			return;
 		}
 		var cfg = LuaConfigs.get(TestNetClientConfig.class);
-		cfg.workdExecutor = BThreadPoolExecutors.newMutipleSingleThreadPool(5);
+		cfg.workdExecutor = BThreadPoolExecutors.newMutipleSingleThreadPool(1);
 		cfg.baseProtocol = new TestProtocol();
 		Glog.debug("TestNetClientConfig={}",cfg);
 		

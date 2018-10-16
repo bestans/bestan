@@ -108,7 +108,8 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		for (var it : updateList) {
 			ctx.write(new MessageChunkedInput(protocol, it.getFileData(), true)).addListener(f);
 		}
-
+		ctx.flush();
+		
 //		//结束
 //		var resBuilder = UpdateFileRes.newBuilder();
 //		resBuilder.setRetcode(RESULT.FINISH_DOWNLOAD);
