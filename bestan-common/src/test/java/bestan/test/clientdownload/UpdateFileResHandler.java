@@ -35,6 +35,7 @@ public class UpdateFileResHandler implements IMessageHandler {
 	public static class UpdateFile {
 		private List<FileInfo> fileList;
 		private int index = 0;
+		private boolean newFile = true;
 		
 		private static UpdateFile INSTANCE = new UpdateFile();
 		public static UpdateFile getInstance() {
@@ -55,6 +56,7 @@ public class UpdateFileResHandler implements IMessageHandler {
 			case START_DOWNLOAD:
 				fileList = res.getAllChangeFilesList();
 				index = 0;
+				newFile = true;
 				
 				var req = UpdateFileReq.newBuilder();
 				req.setReq(REQ_TYPE.PREPARE);
@@ -71,11 +73,13 @@ public class UpdateFileResHandler implements IMessageHandler {
 			Glog.debug("onRecvData filepath={}, data={}",filepath, data);
 			if (data.getEnd()) {
 				++index;
+				newFile = true;
 				return;
 			}
 			var file = new File(filepath);
 			try {
-				org.apache.commons.io.FileUtils.writeByteArrayToFile(file, data.getChunk().toByteArray(), true);
+				org.apache.commons.io.FileUtils.writeByteArrayToFile(file, data.getChunk().toByteArray(), !newFile);
+				newFile = false;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
