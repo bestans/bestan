@@ -52,6 +52,7 @@ public class FileResource {
 		}
 		var fileInfo = FileInfo.newBuilder();
 		fileInfo.getBaseInfoBuilder().setLastModified(file.lastModified());
+		fileInfo.getBaseInfoBuilder().setFileName(path);
 		var size = (int)file.length();
 		fileInfo.setSize(size);
 		var data = new byte[size];
@@ -63,7 +64,7 @@ public class FileResource {
 		}
 		allResource.put(path, new FileResourceUnit(fileInfo.build(), data));
 		
-		Glog.debug("addFile path={}", path);
+		Glog.debug("addFile path={},lastModified={}", path, file.lastModified());
 	}
 
 	public boolean checkIsSameResource(long lastModified) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import bestan.common.log.Glog;
 import bestan.common.logic.BaseManager;
+import bestan.common.logic.FormatException;
 import bestan.common.module.IModule;
 import bestan.common.net.server.BaseNetServerManager;
 import bestan.common.protobuf.Proto.FileBaseInfo;
@@ -38,8 +39,11 @@ public class FileManager extends BaseManager {
 		this.netServerManager = netServerManager;
 		curResource = new FileResource(config);
 
+		Glog.debug("FileManager config={}", config);
 		BTimer.attach(this, config.tickInterval);
-		loadFiles();
+		if (!loadFiles()) {
+			throw new FormatException("FileManager loadFiles failed.");
+		}
 	}
 
 	@Override
@@ -62,18 +66,20 @@ public class FileManager extends BaseManager {
 	}
 	
 	//载入资源到内存
-	private void loadFiles() {
+	private boolean loadFiles() {
 		lockObject();
 		try {
 			//记录变化时间
 			lastChangeTime = BTimer.getTime();
 			++version;
 			curResource.loadResource(version);
+			return true;
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
 		} finally {
 			unlockObject();
 		}
+		return false;
 	}
 	
 	public void checkLoad() throws IOException {
@@ -81,23 +87,26 @@ public class FileManager extends BaseManager {
 		loadFiles();
 	}
 
-	private static void traverseFolder(File file, String partName, FileResource resource) throws IOException {
+	private static void traverseFolder(File file, String partName, boolean isFirst, FileResource resource) throws IOException {
         if (file == null || !file.exists()) {
-        	return;
+        	throw new FormatException("file {} doesn't exist", file.getPath());
         }
 
-        partName += "/" + file.getName();
+        if (!isFirst) {
+        	partName += "/" + file.getName();
+        }
         if (!file.isDirectory()) {
         	resource.addFile(file, partName);
         	return;
         }
         for (var it : file.listFiles()) {
-        	traverseFolder(it, partName, resource);
+        	traverseFolder(it, partName, false, resource);
         }
     }
 	public static void traverseFolder(String filePath, FileResource resource) throws IOException
 	{
-		traverseFolder(new File(filePath), ".", resource);
+		Glog.debug("traverseFolder {}", filePath);
+		traverseFolder(new File(filePath), "", true, resource);
 	}
 	public static boolean isEqual(FileBaseInfo file1, FileBaseInfo file2) {
 		return file1.getFileName().equals(file2.getFileName()) && 

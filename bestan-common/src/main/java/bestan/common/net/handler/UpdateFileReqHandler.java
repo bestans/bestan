@@ -28,10 +28,12 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		var req = (UpdateFileReq)protocol.getMessage();
 		var ctx = protocol.getChannelHandlerContext();
 		var resource = FileManager.getInstance().getResource();
+		Glog.debug("UpdateFileReqHandler req={}", req);
 		//初始化下载状态
 		if (!ctx.channel().hasAttr(NetConst.UPDATE_ATTR_INDEX)) {
 			if (req.getReq() != REQ_TYPE.REQUEST) {
 				ctx.close();
+				Glog.error("UpdateFileReqHandler error unexpected req={}", req.getReq());
 				return;
 			}
 			ctx.channel().attr(NetConst.UPDATE_ATTR_INDEX).set(new UpdateState(resource.getUpdateList(req.getFilesMap())));
@@ -40,16 +42,18 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		switch (req.getReq()) {
 		case REQUEST:	//请求下载
 			if (state.getState() != STATE.REQ) {
+				Glog.error("UpdateFileReqHandler error unexpected req={},state={}", req.getReq(), state.getState());
 				return;
 			}
-			onRequest(req, ctx, state);
+			onRequest(req, ctx, protocol, state);
 			break;
 		case PREPARE:	//对方准备好了，开始下载
 			if (state.getState() != STATE.WAIT_PREPARE) {
+				Glog.error("UpdateFileReqHandler error unexpected req={},state={}", req.getReq(), state.getState());
 				return;
 			}
 			state.setState(STATE.IN_DOWNLOAD);
-			onDownload(ctx, state);
+			onDownload(ctx, protocol, state);
 			break;
 		default:
 			ctx.close();
@@ -57,7 +61,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		}
 	}
 	
-	public void onRequest(UpdateFileReq req, ChannelHandlerContext ctx, UpdateState state) {
+	public void onRequest(UpdateFileReq req, ChannelHandlerContext ctx, AbstractProtocol protocol, UpdateState state) {
 		var updateList = state.getUpdateList();
 		if (updateList == null) {
 			//设置已下载完成
@@ -69,23 +73,28 @@ public class UpdateFileReqHandler implements IMessageHandler {
 			resBuilder.setNoChange(true);
 			var res = resBuilder.build();
 			//TODO
-			var futhure = ctx.writeAndFlush(res);
+			var futhure = ctx.writeAndFlush(protocol.packMessage(res));
 			futhure.addListener(updateFuture);
+			Glog.debug("11111111111111111");
 			return;
 		}
 
 		//通知客户端准备下载了
 		var resBuilder = UpdateFileRes.newBuilder();
 		resBuilder.setRetcode(RESULT.START_DOWNLOAD);
-		ctx.writeAndFlush(resBuilder.build());
+		for (var it : updateList) {
+			resBuilder.addAllChangeFiles(it.getFileInfo());
+		}
+		ctx.writeAndFlush(protocol.packMessage(resBuilder.build()));
 		
 		state.setState(STATE.WAIT_PREPARE);
+		Glog.debug("222222222222222222222");
 	}
 
-	public void onDownload(ChannelHandlerContext ctx, UpdateState state) {
+	public void onDownload(ChannelHandlerContext ctx, AbstractProtocol protocol, UpdateState state) {
 		var updateList = state.getUpdateList();
 		
-		ctx.pipeline().remove("encoder");
+		//ctx.pipeline().remove("encode");
 		ctx.pipeline().addBefore("serverHandler", "chunk", new ChunkedWriteHandler());
 	
 		var f = new ChannelFutureListener() {
@@ -97,13 +106,13 @@ public class UpdateFileReqHandler implements IMessageHandler {
 			}
 		};
 		for (var it : updateList) {
-			ctx.write(new MessageChunkedInput(it.getFileData())).addListener(f);
+			ctx.write(new MessageChunkedInput(protocol, it.getFileData(), true)).addListener(f);
 		}
 
-		//结束
-		var resBuilder = UpdateFileRes.newBuilder();
-		resBuilder.setRetcode(RESULT.FINISH_DOWNLOAD);
-		ctx.writeAndFlush(resBuilder.build()).addListener(updateFuture);
+//		//结束
+//		var resBuilder = UpdateFileRes.newBuilder();
+//		resBuilder.setRetcode(RESULT.FINISH_DOWNLOAD);
+//		ctx.writeAndFlush(protocol.packMessage(resBuilder.build())).addListener(updateFuture);
 	}
 	
 	static class UpdateFuture implements ChannelFutureListener {

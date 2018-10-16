@@ -41,7 +41,7 @@ public class BaseNetServerManager extends BaseNetManager implements IModule {
 	protected EventLoopGroup workerGroup;
 	protected Channel serverChannel;
 	
-	protected ConnectionCollector connectionCollector;
+	protected ConnectionCollector connectionCollector = new ConnectionCollector();
 	
 	/**
 	 * @param config 服务器配置

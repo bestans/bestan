@@ -1,5 +1,6 @@
 package bestan.common.net;
 
+import bestan.common.log.Glog;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -20,5 +21,7 @@ public class NetEncodeHandler extends MessageToByteEncoder<MessagePack> {
 		var data = baseProtocol.encode(msg).toByteArray();
 		out.writeInt(data.length);
 		out.writeBytes(data);
+
+        Glog.debug("encodexxxxxxxxxxxxxxxxxxxxxxxxxxx size={}", data.length);
 	}
 }

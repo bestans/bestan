@@ -167,7 +167,7 @@ message UpdateFileRes
 		FINISH_DOWNLOAD	= 2;	//下载全部完成
 	}
 	RESULT retcode				= 1;	//结果
-	FileInfo allChangeFiles		= 2;	//所有变化文件
+	repeated FileInfo allChangeFiles		= 2;	//所有变化文件
 	bool noChange				= 3;	//没有变化
 }
 

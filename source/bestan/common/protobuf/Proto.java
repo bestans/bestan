@@ -12992,25 +12992,44 @@ public final class Proto {
      *所有变化文件
      * </pre>
      *
-     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
      */
-    boolean hasAllChangeFiles();
+    java.util.List<bestan.common.protobuf.Proto.FileInfo> 
+        getAllChangeFilesList();
     /**
      * <pre>
      *所有变化文件
      * </pre>
      *
-     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
      */
-    bestan.common.protobuf.Proto.FileInfo getAllChangeFiles();
+    bestan.common.protobuf.Proto.FileInfo getAllChangeFiles(int index);
     /**
      * <pre>
      *所有变化文件
      * </pre>
      *
-     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
      */
-    bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder();
+    int getAllChangeFilesCount();
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    java.util.List<? extends bestan.common.protobuf.Proto.FileInfoOrBuilder> 
+        getAllChangeFilesOrBuilderList();
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder(
+        int index);
 
     /**
      * <pre>
@@ -13039,6 +13058,7 @@ public final class Proto {
     }
     private UpdateFileRes() {
       retcode_ = 0;
+      allChangeFiles_ = java.util.Collections.emptyList();
       noChange_ = false;
     }
 
@@ -13080,16 +13100,12 @@ public final class Proto {
               break;
             }
             case 18: {
-              bestan.common.protobuf.Proto.FileInfo.Builder subBuilder = null;
-              if (allChangeFiles_ != null) {
-                subBuilder = allChangeFiles_.toBuilder();
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                allChangeFiles_ = new java.util.ArrayList<bestan.common.protobuf.Proto.FileInfo>();
+                mutable_bitField0_ |= 0x00000002;
               }
-              allChangeFiles_ = input.readMessage(bestan.common.protobuf.Proto.FileInfo.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(allChangeFiles_);
-                allChangeFiles_ = subBuilder.buildPartial();
-              }
-
+              allChangeFiles_.add(
+                  input.readMessage(bestan.common.protobuf.Proto.FileInfo.parser(), extensionRegistry));
               break;
             }
             case 24: {
@@ -13105,6 +13121,9 @@ public final class Proto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          allChangeFiles_ = java.util.Collections.unmodifiableList(allChangeFiles_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -13252,6 +13271,7 @@ public final class Proto {
       // @@protoc_insertion_point(enum_scope:bestan.common.protobuf.UpdateFileRes.RESULT)
     }
 
+    private int bitField0_;
     public static final int RETCODE_FIELD_NUMBER = 1;
     private int retcode_;
     /**
@@ -13277,36 +13297,58 @@ public final class Proto {
     }
 
     public static final int ALLCHANGEFILES_FIELD_NUMBER = 2;
-    private bestan.common.protobuf.Proto.FileInfo allChangeFiles_;
+    private java.util.List<bestan.common.protobuf.Proto.FileInfo> allChangeFiles_;
     /**
      * <pre>
      *所有变化文件
      * </pre>
      *
-     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
      */
-    public boolean hasAllChangeFiles() {
-      return allChangeFiles_ != null;
+    public java.util.List<bestan.common.protobuf.Proto.FileInfo> getAllChangeFilesList() {
+      return allChangeFiles_;
     }
     /**
      * <pre>
      *所有变化文件
      * </pre>
      *
-     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
      */
-    public bestan.common.protobuf.Proto.FileInfo getAllChangeFiles() {
-      return allChangeFiles_ == null ? bestan.common.protobuf.Proto.FileInfo.getDefaultInstance() : allChangeFiles_;
+    public java.util.List<? extends bestan.common.protobuf.Proto.FileInfoOrBuilder> 
+        getAllChangeFilesOrBuilderList() {
+      return allChangeFiles_;
     }
     /**
      * <pre>
      *所有变化文件
      * </pre>
      *
-     * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
      */
-    public bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder() {
-      return getAllChangeFiles();
+    public int getAllChangeFilesCount() {
+      return allChangeFiles_.size();
+    }
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    public bestan.common.protobuf.Proto.FileInfo getAllChangeFiles(int index) {
+      return allChangeFiles_.get(index);
+    }
+    /**
+     * <pre>
+     *所有变化文件
+     * </pre>
+     *
+     * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+     */
+    public bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder(
+        int index) {
+      return allChangeFiles_.get(index);
     }
 
     public static final int NOCHANGE_FIELD_NUMBER = 3;
@@ -13337,8 +13379,8 @@ public final class Proto {
       if (retcode_ != bestan.common.protobuf.Proto.UpdateFileRes.RESULT.NO_CHANGE.getNumber()) {
         output.writeEnum(1, retcode_);
       }
-      if (allChangeFiles_ != null) {
-        output.writeMessage(2, getAllChangeFiles());
+      for (int i = 0; i < allChangeFiles_.size(); i++) {
+        output.writeMessage(2, allChangeFiles_.get(i));
       }
       if (noChange_ != false) {
         output.writeBool(3, noChange_);
@@ -13355,9 +13397,9 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, retcode_);
       }
-      if (allChangeFiles_ != null) {
+      for (int i = 0; i < allChangeFiles_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getAllChangeFiles());
+          .computeMessageSize(2, allChangeFiles_.get(i));
       }
       if (noChange_ != false) {
         size += com.google.protobuf.CodedOutputStream
@@ -13380,11 +13422,8 @@ public final class Proto {
 
       boolean result = true;
       result = result && retcode_ == other.retcode_;
-      result = result && (hasAllChangeFiles() == other.hasAllChangeFiles());
-      if (hasAllChangeFiles()) {
-        result = result && getAllChangeFiles()
-            .equals(other.getAllChangeFiles());
-      }
+      result = result && getAllChangeFilesList()
+          .equals(other.getAllChangeFilesList());
       result = result && (getNoChange()
           == other.getNoChange());
       result = result && unknownFields.equals(other.unknownFields);
@@ -13400,9 +13439,9 @@ public final class Proto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + RETCODE_FIELD_NUMBER;
       hash = (53 * hash) + retcode_;
-      if (hasAllChangeFiles()) {
+      if (getAllChangeFilesCount() > 0) {
         hash = (37 * hash) + ALLCHANGEFILES_FIELD_NUMBER;
-        hash = (53 * hash) + getAllChangeFiles().hashCode();
+        hash = (53 * hash) + getAllChangeFilesList().hashCode();
       }
       hash = (37 * hash) + NOCHANGE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
@@ -13536,6 +13575,7 @@ public final class Proto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getAllChangeFilesFieldBuilder();
         }
       }
       public Builder clear() {
@@ -13543,10 +13583,10 @@ public final class Proto {
         retcode_ = 0;
 
         if (allChangeFilesBuilder_ == null) {
-          allChangeFiles_ = null;
+          allChangeFiles_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
-          allChangeFiles_ = null;
-          allChangeFilesBuilder_ = null;
+          allChangeFilesBuilder_.clear();
         }
         noChange_ = false;
 
@@ -13572,13 +13612,20 @@ public final class Proto {
 
       public bestan.common.protobuf.Proto.UpdateFileRes buildPartial() {
         bestan.common.protobuf.Proto.UpdateFileRes result = new bestan.common.protobuf.Proto.UpdateFileRes(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         result.retcode_ = retcode_;
         if (allChangeFilesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            allChangeFiles_ = java.util.Collections.unmodifiableList(allChangeFiles_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
           result.allChangeFiles_ = allChangeFiles_;
         } else {
           result.allChangeFiles_ = allChangeFilesBuilder_.build();
         }
         result.noChange_ = noChange_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -13623,8 +13670,31 @@ public final class Proto {
         if (other.retcode_ != 0) {
           setRetcodeValue(other.getRetcodeValue());
         }
-        if (other.hasAllChangeFiles()) {
-          mergeAllChangeFiles(other.getAllChangeFiles());
+        if (allChangeFilesBuilder_ == null) {
+          if (!other.allChangeFiles_.isEmpty()) {
+            if (allChangeFiles_.isEmpty()) {
+              allChangeFiles_ = other.allChangeFiles_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureAllChangeFilesIsMutable();
+              allChangeFiles_.addAll(other.allChangeFiles_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.allChangeFiles_.isEmpty()) {
+            if (allChangeFilesBuilder_.isEmpty()) {
+              allChangeFilesBuilder_.dispose();
+              allChangeFilesBuilder_ = null;
+              allChangeFiles_ = other.allChangeFiles_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              allChangeFilesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getAllChangeFilesFieldBuilder() : null;
+            } else {
+              allChangeFilesBuilder_.addAllMessages(other.allChangeFiles_);
+            }
+          }
         }
         if (other.getNoChange() != false) {
           setNoChange(other.getNoChange());
@@ -13655,6 +13725,7 @@ public final class Proto {
         }
         return this;
       }
+      private int bitField0_;
 
       private int retcode_ = 0;
       /**
@@ -13720,31 +13791,30 @@ public final class Proto {
         return this;
       }
 
-      private bestan.common.protobuf.Proto.FileInfo allChangeFiles_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder> allChangeFilesBuilder_;
-      /**
-       * <pre>
-       *所有变化文件
-       * </pre>
-       *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
-       */
-      public boolean hasAllChangeFiles() {
-        return allChangeFilesBuilder_ != null || allChangeFiles_ != null;
+      private java.util.List<bestan.common.protobuf.Proto.FileInfo> allChangeFiles_ =
+        java.util.Collections.emptyList();
+      private void ensureAllChangeFilesIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          allChangeFiles_ = new java.util.ArrayList<bestan.common.protobuf.Proto.FileInfo>(allChangeFiles_);
+          bitField0_ |= 0x00000002;
+         }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder> allChangeFilesBuilder_;
+
       /**
        * <pre>
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
-      public bestan.common.protobuf.Proto.FileInfo getAllChangeFiles() {
+      public java.util.List<bestan.common.protobuf.Proto.FileInfo> getAllChangeFilesList() {
         if (allChangeFilesBuilder_ == null) {
-          return allChangeFiles_ == null ? bestan.common.protobuf.Proto.FileInfo.getDefaultInstance() : allChangeFiles_;
+          return java.util.Collections.unmodifiableList(allChangeFiles_);
         } else {
-          return allChangeFilesBuilder_.getMessage();
+          return allChangeFilesBuilder_.getMessageList();
         }
       }
       /**
@@ -13752,19 +13822,48 @@ public final class Proto {
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
-      public Builder setAllChangeFiles(bestan.common.protobuf.Proto.FileInfo value) {
+      public int getAllChangeFilesCount() {
+        if (allChangeFilesBuilder_ == null) {
+          return allChangeFiles_.size();
+        } else {
+          return allChangeFilesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfo getAllChangeFiles(int index) {
+        if (allChangeFilesBuilder_ == null) {
+          return allChangeFiles_.get(index);
+        } else {
+          return allChangeFilesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder setAllChangeFiles(
+          int index, bestan.common.protobuf.Proto.FileInfo value) {
         if (allChangeFilesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          allChangeFiles_ = value;
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.set(index, value);
           onChanged();
         } else {
-          allChangeFilesBuilder_.setMessage(value);
+          allChangeFilesBuilder_.setMessage(index, value);
         }
-
         return this;
       }
       /**
@@ -13772,17 +13871,76 @@ public final class Proto {
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
       public Builder setAllChangeFiles(
+          int index, bestan.common.protobuf.Proto.FileInfo.Builder builderForValue) {
+        if (allChangeFilesBuilder_ == null) {
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder addAllChangeFiles(bestan.common.protobuf.Proto.FileInfo value) {
+        if (allChangeFilesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.add(value);
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder addAllChangeFiles(
+          int index, bestan.common.protobuf.Proto.FileInfo value) {
+        if (allChangeFilesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.add(index, value);
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder addAllChangeFiles(
           bestan.common.protobuf.Proto.FileInfo.Builder builderForValue) {
         if (allChangeFilesBuilder_ == null) {
-          allChangeFiles_ = builderForValue.build();
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.add(builderForValue.build());
           onChanged();
         } else {
-          allChangeFilesBuilder_.setMessage(builderForValue.build());
+          allChangeFilesBuilder_.addMessage(builderForValue.build());
         }
-
         return this;
       }
       /**
@@ -13790,21 +13948,17 @@ public final class Proto {
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
-      public Builder mergeAllChangeFiles(bestan.common.protobuf.Proto.FileInfo value) {
+      public Builder addAllChangeFiles(
+          int index, bestan.common.protobuf.Proto.FileInfo.Builder builderForValue) {
         if (allChangeFilesBuilder_ == null) {
-          if (allChangeFiles_ != null) {
-            allChangeFiles_ =
-              bestan.common.protobuf.Proto.FileInfo.newBuilder(allChangeFiles_).mergeFrom(value).buildPartial();
-          } else {
-            allChangeFiles_ = value;
-          }
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.add(index, builderForValue.build());
           onChanged();
         } else {
-          allChangeFilesBuilder_.mergeFrom(value);
+          allChangeFilesBuilder_.addMessage(index, builderForValue.build());
         }
-
         return this;
       }
       /**
@@ -13812,17 +13966,35 @@ public final class Proto {
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public Builder addAllAllChangeFiles(
+          java.lang.Iterable<? extends bestan.common.protobuf.Proto.FileInfo> values) {
+        if (allChangeFilesBuilder_ == null) {
+          ensureAllChangeFilesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, allChangeFiles_);
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
       public Builder clearAllChangeFiles() {
         if (allChangeFilesBuilder_ == null) {
-          allChangeFiles_ = null;
+          allChangeFiles_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
-          allChangeFiles_ = null;
-          allChangeFilesBuilder_ = null;
+          allChangeFilesBuilder_.clear();
         }
-
         return this;
       }
       /**
@@ -13830,26 +14002,41 @@ public final class Proto {
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
-      public bestan.common.protobuf.Proto.FileInfo.Builder getAllChangeFilesBuilder() {
-        
-        onChanged();
-        return getAllChangeFilesFieldBuilder().getBuilder();
+      public Builder removeAllChangeFiles(int index) {
+        if (allChangeFilesBuilder_ == null) {
+          ensureAllChangeFilesIsMutable();
+          allChangeFiles_.remove(index);
+          onChanged();
+        } else {
+          allChangeFilesBuilder_.remove(index);
+        }
+        return this;
       }
       /**
        * <pre>
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
-      public bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder() {
-        if (allChangeFilesBuilder_ != null) {
-          return allChangeFilesBuilder_.getMessageOrBuilder();
-        } else {
-          return allChangeFiles_ == null ?
-              bestan.common.protobuf.Proto.FileInfo.getDefaultInstance() : allChangeFiles_;
+      public bestan.common.protobuf.Proto.FileInfo.Builder getAllChangeFilesBuilder(
+          int index) {
+        return getAllChangeFilesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfoOrBuilder getAllChangeFilesOrBuilder(
+          int index) {
+        if (allChangeFilesBuilder_ == null) {
+          return allChangeFiles_.get(index);  } else {
+          return allChangeFilesBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
@@ -13857,15 +14044,58 @@ public final class Proto {
        *所有变化文件
        * </pre>
        *
-       * <code>.bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
+      public java.util.List<? extends bestan.common.protobuf.Proto.FileInfoOrBuilder> 
+           getAllChangeFilesOrBuilderList() {
+        if (allChangeFilesBuilder_ != null) {
+          return allChangeFilesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(allChangeFiles_);
+        }
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfo.Builder addAllChangeFilesBuilder() {
+        return getAllChangeFilesFieldBuilder().addBuilder(
+            bestan.common.protobuf.Proto.FileInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public bestan.common.protobuf.Proto.FileInfo.Builder addAllChangeFilesBuilder(
+          int index) {
+        return getAllChangeFilesFieldBuilder().addBuilder(
+            index, bestan.common.protobuf.Proto.FileInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *所有变化文件
+       * </pre>
+       *
+       * <code>repeated .bestan.common.protobuf.FileInfo allChangeFiles = 2;</code>
+       */
+      public java.util.List<bestan.common.protobuf.Proto.FileInfo.Builder> 
+           getAllChangeFilesBuilderList() {
+        return getAllChangeFilesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder> 
           getAllChangeFilesFieldBuilder() {
         if (allChangeFilesBuilder_ == null) {
-          allChangeFilesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+          allChangeFilesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               bestan.common.protobuf.Proto.FileInfo, bestan.common.protobuf.Proto.FileInfo.Builder, bestan.common.protobuf.Proto.FileInfoOrBuilder>(
-                  getAllChangeFiles(),
+                  allChangeFiles_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
                   isClean());
           allChangeFiles_ = null;
@@ -14639,7 +14869,7 @@ public final class Proto {
       "E\020\001\022\021\n\rACCEPT_FINISH\020\002\"\334\001\n\rUpdateFileRes" +
       "\022=\n\007retcode\030\001 \001(\0162,.bestan.common.protob" +
       "uf.UpdateFileRes.RESULT\0228\n\016allChangeFile" +
-      "s\030\002 \001(\0132 .bestan.common.protobuf.FileInf" +
+      "s\030\002 \003(\0132 .bestan.common.protobuf.FileInf" +
       "o\022\020\n\010noChange\030\003 \001(\010\"@\n\006RESULT\022\r\n\tNO_CHAN" +
       "GE\020\000\022\022\n\016START_DOWNLOAD\020\001\022\023\n\017FINISH_DOWNL" +
       "OAD\020\002\")\n\013ChunkedData\022\r\n\005chunk\030\001 \001(\014\022\013\n\003e" +

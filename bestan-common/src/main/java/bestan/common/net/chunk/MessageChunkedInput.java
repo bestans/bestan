@@ -1,7 +1,8 @@
 package bestan.common.net.chunk;
 
-import com.google.protobuf.Message;
-
+import bestan.common.log.Glog;
+import bestan.common.net.IProtocol;
+import bestan.common.net.MessagePack;
 import bestan.common.protobuf.Proto.ChunkedData;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelHandlerContext;
@@ -14,26 +15,27 @@ import io.netty.handler.stream.ChunkedInput;
  * @author yeyouhuan
  *
  */
-public class MessageChunkedInput implements ChunkedInput<Message> {
+public class MessageChunkedInput implements ChunkedInput<MessagePack> {
 
     private final ChunkedBuffer input;
-    private final Message lastMessage;
+    private final MessagePack lastMessage;
     private boolean sendLastChunk;
+    private IProtocol protocol;
 
-    public MessageChunkedInput(byte[] in) {
-    	this(new ChunkedBuffer(in));
+    public MessageChunkedInput(IProtocol protocol, byte[] in) {
+    	this(protocol, new ChunkedBuffer(in));
     }
 
-    public MessageChunkedInput(byte[] in, boolean sendLastChunk) {
-    	this(new ChunkedBuffer(in), sendLastChunk);
+    public MessageChunkedInput(IProtocol protocol, byte[] in, boolean sendLastChunk) {
+    	this(new ChunkedBuffer(in), protocol, sendLastChunk);
     }
     
     /**
      * Creates a new instance using the specified input.
      * @param input {@link ChunkedInput} containing data to write
      */
-    public MessageChunkedInput(ChunkedBuffer input) {
-    	this(input, false);
+    public MessageChunkedInput(IProtocol protocol, ChunkedBuffer input) {
+    	this(input, protocol, false);
     }
 
     /**
@@ -43,27 +45,28 @@ public class MessageChunkedInput implements ChunkedInput<Message> {
      * @param lastHttpContent {@link LastHttpContent} that will be written as the terminating chunk. Use this for
      *            training headers.
      */
-    public MessageChunkedInput(ChunkedBuffer input, boolean sendLastChunk) {
+    public MessageChunkedInput(ChunkedBuffer input, IProtocol protocol, boolean sendLastChunk) {
         this.input = input;
         this.sendLastChunk = sendLastChunk;
-        this.lastMessage = getLastMessage(sendLastChunk);
+        this.lastMessage = getLastMessage(protocol, sendLastChunk);
+        this.protocol = protocol;
     }
 
-    private static Message getLastMessage(boolean sentLastChunk) {
+    private static MessagePack getLastMessage(IProtocol protocol, boolean sentLastChunk) {
     	if (!sentLastChunk) { 
     		return null;
     	}
     	
         var data = ChunkedData.newBuilder();
         data.setEnd(true);
-        return data.build();
+        return protocol.packMessage(data.build());
     }
     
     @Override
     public boolean isEndOfInput() throws Exception {
         if (input.isEndOfInput()) {
             // Only end of input after last HTTP chunk has been sent
-            return sendLastChunk;
+            return !sendLastChunk;
         } else {
             return false;
         }
@@ -76,18 +79,20 @@ public class MessageChunkedInput implements ChunkedInput<Message> {
 
     @Deprecated
     @Override
-    public Message readChunk(ChannelHandlerContext ctx) throws Exception {
+    public MessagePack readChunk(ChannelHandlerContext ctx) throws Exception {
         return readChunk(ctx.alloc());
     }
 
     @Override
-    public Message readChunk(ByteBufAllocator allocator) throws Exception {
+    public MessagePack readChunk(ByteBufAllocator allocator) throws Exception {
+    	Glog.debug("readChunk11 sendLastChunk={},lastMessage={}",sendLastChunk, lastMessage);
         if (input.isEndOfInput()) {
-            if (sendLastChunk) {
+        	Glog.debug("readChunk22 sendLastChunk={},lastMessage={}",sendLastChunk, lastMessage);
+            if (!sendLastChunk) {
                 return null;
             } else {
                 // Send last chunk for this input
-                sendLastChunk = true;
+                sendLastChunk = false;
                 return lastMessage;
             }
         } else {
@@ -97,7 +102,7 @@ public class MessageChunkedInput implements ChunkedInput<Message> {
             }
             var data = ChunkedData.newBuilder();
             data.setChunk(buf);
-            return data.build();
+            return protocol.packMessage(data.build());
         }
     }
 
