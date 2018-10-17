@@ -55,6 +55,11 @@ public class FileResource {
 		if (!file.exists()) {
 			throw new FormatException("file doesn't exist.path=%s", path);
 		}
+		var oldFile = allResource.get(path);
+		if (oldFile != null && oldFile.getLastModified() == file.lastModified()) {
+			//Glog.debug("addFile {} ignore because file not change", path);
+			return;
+		}
 		var fileInfo = FileInfo.newBuilder();
 		fileInfo.getBaseInfoBuilder().setLastModified(file.lastModified());
 		fileInfo.getBaseInfoBuilder().setFileName(path);

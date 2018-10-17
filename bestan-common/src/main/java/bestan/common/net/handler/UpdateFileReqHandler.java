@@ -111,7 +111,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		for (var it : updateList) {
 			updateData.add(it.getFileData());
 		}
-		ctx.writeAndFlush(new MessageChunkedListInput(protocol, updateData, true)).addListener(f);
+		ctx.writeAndFlush(new MessageChunkedListInput(protocol, updateData, true)).addListener(new UpdateFuture());
 	}
 	
 	static class UpdateFuture implements ChannelFutureListener {
@@ -119,6 +119,7 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		@Override
 		public void operationComplete(ChannelFuture future) throws Exception {
 			Glog.debug("UpdateFileReqHandler:operationComplete:result={}", future.isSuccess());
+			future.channel().close();
 		}
 	}
 	

@@ -83,6 +83,7 @@ public class FileManager extends BaseManager {
 			//记录变化时间
 			lastChangeTime = BTimer.getTime();
 			++version;
+			Glog.debug("FileManager:start load files version={}", version);
 			return curResource.loadResource(version);
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
@@ -118,7 +119,6 @@ public class FileManager extends BaseManager {
     }
 	public static void traverseFolder(String filePath, FileResource resource) throws IOException
 	{
-		Glog.debug("traverseFolder {}", filePath);
 		traverseFolder(new File(filePath), "", true, resource);
 	}
 	public static boolean isEqual(FileBaseInfo file1, FileBaseInfo file2) {
