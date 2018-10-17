@@ -22,7 +22,7 @@ import io.netty.channel.ChannelHandlerContext;
  */
 @NoteMessageHandler(messageName="UpdateFileRes")
 public class UpdateFileResHandler implements IMessageHandler {
-	public static String path = "E:/bestan/config/downloadres";
+	public static String path = "E:/bestan/config/downloadres/";
 	
 	@Override
 	public void processProtocol(AbstractProtocol protocol) throws Exception {
@@ -68,14 +68,13 @@ public class UpdateFileResHandler implements IMessageHandler {
 		}
 		
 		public void onRecvData(ChunkedData data) {
+			if (data.getEnd()) {
+				Glog.debug("onRecvData finish.");
+				return;
+			}
 			var fileInfo = fileList.get(index);
 			String filepath = path + fileInfo.getBaseInfo().getFileName();
 			Glog.debug("onRecvData filepath={}, data={}",filepath, data);
-			if (data.getEnd()) {
-				++index;
-				newFile = true;
-				return;
-			}
 			var file = new File(filepath);
 			try {
 				org.apache.commons.io.FileUtils.writeByteArrayToFile(file, data.getChunk().toByteArray(), !newFile);
@@ -83,6 +82,11 @@ public class UpdateFileResHandler implements IMessageHandler {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+
+			if (data.getSectionEnd()) {
+				++index;
+				newFile = true;
 			}
 		}
 	}

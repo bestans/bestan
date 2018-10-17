@@ -14202,6 +14202,11 @@ public final class Proto {
      * <code>bool end = 2;</code>
      */
     boolean getEnd();
+
+    /**
+     * <code>bool sectionEnd = 3;</code>
+     */
+    boolean getSectionEnd();
   }
   /**
    * Protobuf type {@code bestan.common.protobuf.ChunkedData}
@@ -14218,6 +14223,7 @@ public final class Proto {
     private ChunkedData() {
       chunk_ = com.google.protobuf.ByteString.EMPTY;
       end_ = false;
+      sectionEnd_ = false;
     }
 
     @java.lang.Override
@@ -14259,6 +14265,11 @@ public final class Proto {
             case 16: {
 
               end_ = input.readBool();
+              break;
+            }
+            case 24: {
+
+              sectionEnd_ = input.readBool();
               break;
             }
           }
@@ -14303,6 +14314,15 @@ public final class Proto {
       return end_;
     }
 
+    public static final int SECTIONEND_FIELD_NUMBER = 3;
+    private boolean sectionEnd_;
+    /**
+     * <code>bool sectionEnd = 3;</code>
+     */
+    public boolean getSectionEnd() {
+      return sectionEnd_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -14321,6 +14341,9 @@ public final class Proto {
       if (end_ != false) {
         output.writeBool(2, end_);
       }
+      if (sectionEnd_ != false) {
+        output.writeBool(3, sectionEnd_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -14336,6 +14359,10 @@ public final class Proto {
       if (end_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, end_);
+      }
+      if (sectionEnd_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, sectionEnd_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -14357,6 +14384,8 @@ public final class Proto {
           .equals(other.getChunk());
       result = result && (getEnd()
           == other.getEnd());
+      result = result && (getSectionEnd()
+          == other.getSectionEnd());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -14373,6 +14402,9 @@ public final class Proto {
       hash = (37 * hash) + END_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getEnd());
+      hash = (37 * hash) + SECTIONEND_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSectionEnd());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -14506,6 +14538,8 @@ public final class Proto {
 
         end_ = false;
 
+        sectionEnd_ = false;
+
         return this;
       }
 
@@ -14530,6 +14564,7 @@ public final class Proto {
         bestan.common.protobuf.Proto.ChunkedData result = new bestan.common.protobuf.Proto.ChunkedData(this);
         result.chunk_ = chunk_;
         result.end_ = end_;
+        result.sectionEnd_ = sectionEnd_;
         onBuilt();
         return result;
       }
@@ -14576,6 +14611,9 @@ public final class Proto {
         }
         if (other.getEnd() != false) {
           setEnd(other.getEnd());
+        }
+        if (other.getSectionEnd() != false) {
+          setSectionEnd(other.getSectionEnd());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -14655,6 +14693,32 @@ public final class Proto {
       public Builder clearEnd() {
         
         end_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean sectionEnd_ ;
+      /**
+       * <code>bool sectionEnd = 3;</code>
+       */
+      public boolean getSectionEnd() {
+        return sectionEnd_;
+      }
+      /**
+       * <code>bool sectionEnd = 3;</code>
+       */
+      public Builder setSectionEnd(boolean value) {
+        
+        sectionEnd_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool sectionEnd = 3;</code>
+       */
+      public Builder clearSectionEnd() {
+        
+        sectionEnd_ = false;
         onChanged();
         return this;
       }
@@ -14872,10 +14936,11 @@ public final class Proto {
       "s\030\002 \003(\0132 .bestan.common.protobuf.FileInf" +
       "o\022\020\n\010noChange\030\003 \001(\010\"@\n\006RESULT\022\r\n\tNO_CHAN" +
       "GE\020\000\022\022\n\016START_DOWNLOAD\020\001\022\023\n\017FINISH_DOWNL" +
-      "OAD\020\002\")\n\013ChunkedData\022\r\n\005chunk\030\001 \001(\014\022\013\n\003e" +
-      "nd\030\002 \001(\010*f\n\021COMMON_DB_RETCODE\022\n\n\006FAILED\020" +
-      "\000\022\013\n\007SUCCESS\020\001\022\013\n\007TIMEOUT\020\002\022\022\n\016DATA_EXCE" +
-      "PTION\020\003\022\027\n\023DATA_SIZE_EXCEPTION\020\004b\006proto3"
+      "OAD\020\002\"=\n\013ChunkedData\022\r\n\005chunk\030\001 \001(\014\022\013\n\003e" +
+      "nd\030\002 \001(\010\022\022\n\nsectionEnd\030\003 \001(\010*f\n\021COMMON_D" +
+      "B_RETCODE\022\n\n\006FAILED\020\000\022\013\n\007SUCCESS\020\001\022\013\n\007TI" +
+      "MEOUT\020\002\022\022\n\016DATA_EXCEPTION\020\003\022\027\n\023DATA_SIZE" +
+      "_EXCEPTION\020\004b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -15014,7 +15079,7 @@ public final class Proto {
     internal_static_bestan_common_protobuf_ChunkedData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bestan_common_protobuf_ChunkedData_descriptor,
-        new java.lang.String[] { "Chunk", "End", });
+        new java.lang.String[] { "Chunk", "End", "SectionEnd", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

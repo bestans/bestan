@@ -1,12 +1,16 @@
 package bestan.common.net.handler;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import bestan.common.download.FileManager;
 import bestan.common.download.UpdateState;
 import bestan.common.download.UpdateState.STATE;
 import bestan.common.log.Glog;
 import bestan.common.net.AbstractProtocol;
 import bestan.common.net.NetConst;
-import bestan.common.net.chunk.MessageChunkedInput;
+import bestan.common.net.chunk.MessageChunkedListInput;
 import bestan.common.protobuf.Proto.UpdateFileReq;
 import bestan.common.protobuf.Proto.UpdateFileReq.REQ_TYPE;
 import bestan.common.protobuf.Proto.UpdateFileRes;
@@ -72,10 +76,9 @@ public class UpdateFileReqHandler implements IMessageHandler {
 			resBuilder.setRetcode(RESULT.FINISH_DOWNLOAD);
 			resBuilder.setNoChange(true);
 			var res = resBuilder.build();
-			//TODO
+			
 			var futhure = ctx.writeAndFlush(protocol.packMessage(res));
 			futhure.addListener(updateFuture);
-			Glog.debug("11111111111111111");
 			return;
 		}
 
@@ -88,7 +91,6 @@ public class UpdateFileReqHandler implements IMessageHandler {
 		ctx.writeAndFlush(protocol.packMessage(resBuilder.build()));
 		
 		state.setState(STATE.WAIT_PREPARE);
-		Glog.debug("222222222222222222222");
 	}
 
 	public void onDownload(ChannelHandlerContext ctx, AbstractProtocol protocol, UpdateState state) {
@@ -105,15 +107,11 @@ public class UpdateFileReqHandler implements IMessageHandler {
 				}
 			}
 		};
+		List<byte[]> updateData = Lists.newArrayList();
 		for (var it : updateList) {
-			ctx.write(new MessageChunkedInput(protocol, it.getFileData(), true)).addListener(f);
+			updateData.add(it.getFileData());
 		}
-		ctx.flush();
-		
-//		//结束
-//		var resBuilder = UpdateFileRes.newBuilder();
-//		resBuilder.setRetcode(RESULT.FINISH_DOWNLOAD);
-//		ctx.writeAndFlush(protocol.packMessage(resBuilder.build())).addListener(updateFuture);
+		ctx.writeAndFlush(new MessageChunkedListInput(protocol, updateData, true)).addListener(f);
 	}
 	
 	static class UpdateFuture implements ChannelFutureListener {

@@ -2,7 +2,6 @@ package bestan.common.net;
 
 import java.util.List;
 
-import bestan.common.log.Glog;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -30,7 +29,6 @@ public class NetDecodeHandler extends ByteToMessageDecoder {
 	            in.resetReaderIndex();
 	            return;
 	        }
-	        Glog.debug("decodexxxxxxxxxxxxxxxxx size={}", dataLength);
 	        byte[] data = new byte[dataLength];
 	        in.readBytes(data);
 	        out.add(baseProtocol.decode(data));

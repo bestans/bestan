@@ -49,6 +49,7 @@ public class FileManager extends BaseManager {
 	@Override
 	public void Tick() {
 		checkExpiredResource();
+		checkNewResource();
 	}
 	
 	private void checkExpiredResource() {
@@ -65,6 +66,16 @@ public class FileManager extends BaseManager {
 		netServerManager.closeChannels(new CloseChannelChecker(version));
 	}
 	
+	private void checkNewResource() {
+		var versionFile = new File(config.versionFullPath);
+		if (!versionFile.exists()) {
+			return;
+		}
+		if (curResource.checkIsSameResource(versionFile.lastModified())) {
+			return;
+		}
+		loadFiles();
+	}
 	//载入资源到内存
 	private boolean loadFiles() {
 		lockObject();
@@ -72,8 +83,7 @@ public class FileManager extends BaseManager {
 			//记录变化时间
 			lastChangeTime = BTimer.getTime();
 			++version;
-			curResource.loadResource(version);
-			return true;
+			return curResource.loadResource(version);
 		} catch (Exception e) {
 			Glog.debug("loadFiles failed:error={}", ExceptionUtil.getLog(e));
 		} finally {
@@ -93,7 +103,10 @@ public class FileManager extends BaseManager {
         }
 
         if (!isFirst) {
-        	partName += "/" + file.getName();
+        	if (partName.length() > 0) {
+        		partName += "/";
+        	}
+        	partName += file.getName();
         }
         if (!file.isDirectory()) {
         	resource.addFile(file, partName);

@@ -1,5 +1,7 @@
 package bestan.common.net.chunk;
 
+import java.util.List;
+
 import bestan.common.net.IProtocol;
 import bestan.common.net.MessagePack;
 import bestan.common.protobuf.Proto.ChunkedData;
@@ -9,31 +11,30 @@ import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.handler.stream.ChunkedInput;
 
 /**
- * 以message形式分块传输数据
- * 
  * @author yeyouhuan
  *
  */
-public class MessageChunkedInput implements ChunkedInput<MessagePack> {
+public class MessageChunkedListInput implements ChunkedInput<MessagePack>  {
 
-    private final ChunkedBuffer input;
+
+    private final ChunkedBufferList input;
     private final MessagePack lastMessage;
     private boolean sendLastChunk;
     private IProtocol protocol;
 
-    public MessageChunkedInput(IProtocol protocol, byte[] in) {
-    	this(protocol, new ChunkedBuffer(in));
+    public MessageChunkedListInput(IProtocol protocol, List<byte[]> in) {
+    	this(protocol, new ChunkedBufferList(in));
     }
 
-    public MessageChunkedInput(IProtocol protocol, byte[] in, boolean sendLastChunk) {
-    	this(new ChunkedBuffer(in), protocol, sendLastChunk);
+    public MessageChunkedListInput(IProtocol protocol, List<byte[]> in, boolean sendLastChunk) {
+    	this(new ChunkedBufferList(in), protocol, sendLastChunk);
     }
     
     /**
      * Creates a new instance using the specified input.
      * @param input {@link ChunkedInput} containing data to write
      */
-    public MessageChunkedInput(IProtocol protocol, ChunkedBuffer input) {
+    public MessageChunkedListInput(IProtocol protocol, ChunkedBufferList input) {
     	this(input, protocol, false);
     }
 
@@ -44,7 +45,7 @@ public class MessageChunkedInput implements ChunkedInput<MessagePack> {
      * @param lastHttpContent {@link LastHttpContent} that will be written as the terminating chunk. Use this for
      *            training headers.
      */
-    public MessageChunkedInput(ChunkedBuffer input, IProtocol protocol, boolean sendLastChunk) {
+    public MessageChunkedListInput(ChunkedBufferList input, IProtocol protocol, boolean sendLastChunk) {
         this.input = input;
         this.sendLastChunk = sendLastChunk;
         this.lastMessage = getLastMessage(protocol, sendLastChunk);
@@ -93,12 +94,13 @@ public class MessageChunkedInput implements ChunkedInput<MessagePack> {
                 return lastMessage;
             }
         } else {
-            var buf = input.readChunk(allocator);
-            if (buf == null) {
+            var tempChunk = input.readChunk(allocator);
+            if (tempChunk == null) {
                 return null;
             }
             var data = ChunkedData.newBuilder();
-            data.setChunk(buf);
+            data.setChunk(tempChunk.first);
+            data.setSectionEnd(tempChunk.second);
             return protocol.packMessage(data.build());
         }
     }

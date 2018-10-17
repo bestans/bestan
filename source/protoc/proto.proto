@@ -175,4 +175,5 @@ message ChunkedData
 {
 	bytes chunk		= 1;
 	bool end		= 2;
+	bool sectionEnd	= 3;
 }

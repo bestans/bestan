@@ -32,18 +32,23 @@ public class FileResource {
 		this.config = config;
 	}
 	
-	public void loadResource(int version) {
+	public boolean loadResource(int version) {
 		lock.lock();
 		try {
 			curVersion = version;
 			FileManager.traverseFolder(config.resourceDir, this);
 			versionFile = allResource.get(config.versionFile);
+			if (null == versionFile) {
+				return false;
+			}
 			allResource.remove(config.versionFile);
+			return true;
 		} catch (Exception e) {
 			Glog.error("FileResource load failed.path={},exception={}", config.resourceDir, ExceptionUtil.getLog(e));
 		} finally {
 			lock.unlock();
 		}
+		return false;
 	}
 	
 	public void addFile(File file, String path) throws IOException {
