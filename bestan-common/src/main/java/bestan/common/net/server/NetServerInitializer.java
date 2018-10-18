@@ -1,6 +1,5 @@
 package bestan.common.net.server;
 
-import bestan.common.log.Glog;
 import bestan.common.net.NetDecodeHandler;
 import bestan.common.net.NetEncodeHandler;
 import io.netty.channel.ChannelInitializer;
@@ -28,7 +27,5 @@ public class NetServerInitializer extends ChannelInitializer<SocketChannel> {
 
         // and then business logic.
         pipeline.addLast("serverHandler", new NetServerHandler(serverManager));
-        
-        Glog.debug("NetServerInitializer:pipeline={}", pipeline);
 	}
 }

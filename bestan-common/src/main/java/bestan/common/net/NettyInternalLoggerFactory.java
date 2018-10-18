@@ -15,7 +15,6 @@ public class NettyInternalLoggerFactory extends InternalLoggerFactory {
 
 	@Override
 	protected InternalLogger newInstance(String name) {
-		// TODO Auto-generated method stub
 		return new MyLogger(LoggerFactory.getLogger(name));
 	}
 

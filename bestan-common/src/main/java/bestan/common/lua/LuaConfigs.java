@@ -11,6 +11,7 @@ import org.reflections.Reflections;
 import com.google.common.base.Strings;
 
 import bestan.common.log.Glog;
+import bestan.common.logic.FormatException;
 import bestan.common.message.MessageFactory;
 
 /**
@@ -133,6 +134,45 @@ public class LuaConfigs {
 	}
 	
 	/**
+	 * @param rootPath 配置所在文件夹
+	 * @param cls 配置class
+	 * @return
+	 */
+	public static <T extends BaseLuaConfig> T loadConfigByRootPath(String rootPath, Class<T> cls) {
+		var annotation = cls.getAnnotation(LuaAnnotation.class);
+		String fileName = null;
+		if (annotation != null) {
+			fileName = annotation.fileName();
+		}
+		if (Strings.isNullOrEmpty(fileName)) {
+			//如果没有指定配置文件名，那么使用classname和.lua组合
+			fileName = cls.getSimpleName() + ".lua";
+		}
+		if (annotation == null || annotation.load()) {
+			return loadSingleConfig(rootPath + fileName, cls);
+		}
+		return null;
+	}
+	
+	/**
+	 * @param fullPath 配置的完整路径
+	 * @param cls 配置的class
+	 * @return 指定BaseLuaConfig配置
+	 */
+	public static <T extends BaseLuaConfig> T loadSingleConfig(String fullPath, Class<T> cls) {
+		T config = null;
+		try {
+			config = (T)cls.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException(String.format("loadSingleConfig exception:class=%s,info=%s", e.getClass().getSimpleName(), e.getMessage()));
+		}
+		if (!config.LoadLuaConfig(globals, fullPath)) {
+			return null;
+		}
+		return config;
+	}
+	
+	/**
 	 * 载入lua配置
 	 * 
 	 * @param rootPath lua配置根目录
@@ -142,37 +182,28 @@ public class LuaConfigs {
 	public static boolean loadConfig(String rootPath, Class<? extends BaseLuaConfig> cls) {
 		try {
 			Glog.debug("loadConfig rootPath={},class={}", rootPath, cls);
-			var annotation = cls.getAnnotation(LuaAnnotation.class);
-			String fileName = null;
-			if (annotation != null) {
-				fileName = annotation.fileName();
-			}
-			if (Strings.isNullOrEmpty(fileName)) {
-				//如果没有指定配置文件名，那么使用classname和.lua组合
-				fileName = cls.getSimpleName() + ".lua";
-			}
-			if (annotation == null || annotation.load()) {
-				BaseLuaConfig config = (BaseLuaConfig)cls.getDeclaredConstructor().newInstance();
-				if (!config.LoadLuaConfig(globals, rootPath + fileName)) {
-					return false;
+			var config = loadConfigByRootPath(rootPath, cls);
+			if (null == config) return true;
+			
+			//设置配置单例
+			try
+			{
+				var configInstance = cls.getField("instance");
+				if (configInstance.get(null) != null) {
+					throw new FormatException("instance has value, maybe have more than one config:{}", cls.getSimpleName());
 				}
-
-				//设置配置单例
-				try
-				{
-					var configInstance = cls.getField("instance");
-					if (configInstance != null) {
-						configInstance.set(null, config);	
-					}
-				} catch (NoSuchFieldException e) {
-					
+				if (configInstance != null) {
+					configInstance.set(null, config);	
 				}
-				instance.allConfigs.put(cls, config);
+			} catch (NoSuchFieldException e) {
+				
 			}
+			instance.allConfigs.put(cls, config);
+			return true;
 		} catch (Exception e) {
 			Glog.trace("LuaConfigs init failed.error={},{}", e.getClass().getSimpleName(), e.getMessage());
 		}
-		return true;
+		return false;
 	}
 	
 	/**

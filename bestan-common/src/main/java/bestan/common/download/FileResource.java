@@ -25,6 +25,7 @@ public class FileResource {
 	private int curVersion = 0;
 	private ReentrantLock lock = new ReentrantLock();
 	private Map<String, FileResourceUnit> allResource = Maps.newHashMap();
+	private Map<String, FileResourceUnit> loadResource = Maps.newHashMap();
 	private FileResourceUnit versionFile;
 	private FileResourceConfig config;
 	
@@ -36,7 +37,12 @@ public class FileResource {
 		lock.lock();
 		try {
 			curVersion = version;
+			loadResource.clear();
 			FileManager.traverseFolder(config.resourceDir, this);
+			
+			allResource = loadResource;
+			loadResource = Maps.newHashMap();
+			
 			versionFile = allResource.get(config.versionFile);
 			if (null == versionFile) {
 				return false;
@@ -58,12 +64,16 @@ public class FileResource {
 		var oldFile = allResource.get(path);
 		if (oldFile != null && oldFile.getLastModified() == file.lastModified()) {
 			//Glog.debug("addFile {} ignore because file not change", path);
+			loadResource.put(path, oldFile);
 			return;
 		}
 		var fileInfo = FileInfo.newBuilder();
 		fileInfo.getBaseInfoBuilder().setLastModified(file.lastModified());
 		fileInfo.getBaseInfoBuilder().setFileName(path);
 		var size = (int)file.length();
+		if (size <= 0) {
+			throw new FormatException("file is empty.filename=%s", path); 
+		}
 		fileInfo.setSize(size);
 		var data = new byte[size];
 		var access = new RandomAccessFile(file, "r");
@@ -72,7 +82,7 @@ public class FileResource {
 		} finally {
 			access.close();
 		}
-		allResource.put(path, new FileResourceUnit(fileInfo.build(), data));
+		loadResource.put(path, new FileResourceUnit(fileInfo.build(), data));
 		
 		Glog.debug("addFile path={},lastModified={}", path, file.lastModified());
 	}

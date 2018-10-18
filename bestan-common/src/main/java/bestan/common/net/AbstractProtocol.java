@@ -7,6 +7,7 @@ import bestan.common.message.MessageFactory;
 import bestan.common.net.handler.IMessageHandler;
 import bestan.common.net.server.BaseNetServerManager;
 import bestan.common.util.ExceptionUtil;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 
 public abstract class AbstractProtocol implements IProtocol {
@@ -36,6 +37,14 @@ public abstract class AbstractProtocol implements IProtocol {
 	}
 	public BaseNetServerManager getNetServer() {
 		return null;
+	}
+	
+	public ChannelFuture write(Message message) {
+		return ctx.write(packMessage(message));
+	}
+	
+	public ChannelFuture writeAndFlush(Message message) {
+		return ctx.writeAndFlush(packMessage(message));
 	}
 	
 	@Override

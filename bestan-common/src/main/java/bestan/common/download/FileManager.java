@@ -40,10 +40,10 @@ public class FileManager extends BaseManager {
 		curResource = new FileResource(config);
 
 		Glog.debug("FileManager config={}", config);
-		BTimer.attach(this, config.tickInterval);
 		if (!loadFiles()) {
 			throw new FormatException("FileManager loadFiles failed.");
 		}
+		BTimer.attach(this, config.tickInterval);
 	}
 
 	@Override
@@ -102,7 +102,9 @@ public class FileManager extends BaseManager {
         if (file == null || !file.exists()) {
         	throw new FormatException("file {} doesn't exist", file.getPath());
         }
-
+        if (file.isHidden()) {
+        	return;
+        }
         if (!isFirst) {
         	if (partName.length() > 0) {
         		partName += "/";

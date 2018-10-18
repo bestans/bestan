@@ -50,13 +50,13 @@ public class BaseNetServerManager extends BaseNetManager implements IModule {
 	 */
 	public BaseNetServerManager(NetServerConfig config, BExecutor executor, IProtocol protocol) {
 		super(protocol);
+        InternalLoggerFactory.setDefaultFactory(LOGGER_FACTORY);
 		this.config = config;
 		this.config.workdExecutor = executor;
 		this.config.baseProtocol = protocol;
 		bossGroup = new NioEventLoopGroup(config.bossGroupThreadCount);
         workerGroup = new NioEventLoopGroup(config.workerGroupThreadCount);
         
-        InternalLoggerFactory.setDefaultFactory(LOGGER_FACTORY);
         serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
          			   .channel(NioServerSocketChannel.class)
                        .childHandler(new NetServerInitializer(this))
