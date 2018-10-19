@@ -1,5 +1,6 @@
 package bestan.common.logic;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -42,5 +43,9 @@ public abstract class BaseObject implements IObject, ITimer {
 	public OBJECT_TYPE getObjectType() {
 		// TODO Auto-generated method stub
 		return OBJECT_TYPE.PLAYER;
+	}
+	
+	public static void mutipleLock(List<IObject> objs) {
+		
 	}
 }
