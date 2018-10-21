@@ -1,6 +1,5 @@
 package bestan.common.db;
 
-import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,39 +8,19 @@ import org.rocksdb.Transaction;
 import org.rocksdb.WriteOptions;
 
 import bestan.common.db.DBException.ErrorCode;
-import bestan.common.db.util.Utils;
 import bestan.common.log.Glog;
 
 public class StorageEnv {
 	private static RocksDBState dbState;
 	private static WriteOptions wOp;
 	
-	@SuppressWarnings("unchecked")
-	public static RocksDBState initDB(String path) {
-        var conf = new HashMap<Object, Object>();
-        conf.putAll(Utils.loadConf("conf.property"));
-        DBConst.init();
-        var state = new RocksDBState();
-        state.initEnv("test", conf, path);
-        return state;
-	}
-	
-	private static RocksDBState initDB(RocksDBConfig config) {
+	public static RocksDBState initDB(RocksDBConfig config) {
         var state = new RocksDBState(config);
         state.initEnv();
         return state;
 	}
 	public static void init(RocksDBConfig config) {
 		dbState = initDB(config);
-		wOp = new WriteOptions();
-	}
-	public static void init() {
-		dbState = initDB("d:/rocksdb_test");
-		wOp = new WriteOptions();
-	}
-	
-	public static void init(String path) {
-		dbState = initDB(path);
 		wOp = new WriteOptions();
 	}
 	
@@ -52,14 +31,6 @@ public class StorageEnv {
 			Glog.error("db close error:msg={}", e.getMessage());
 		}
 		dbState.cleanup();
-	}
-	
-	public static Storage getStorage(DBConst.EM_DB tableType) {
-		if (ThreadContext.getInstance().isLocked())
-			return null;
-		Storage storage = dbState.getStorage(tableType);
-		ThreadContext.getInstance().addStorage(storage);
-		return storage;
 	}
 	
 	public static Storage getStorage(String tableName) {

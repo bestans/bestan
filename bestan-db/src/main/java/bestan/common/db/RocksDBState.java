@@ -22,13 +22,11 @@ import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
-import org.rocksdb.WriteBatch;
 import org.rocksdb.WriteOptions;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.RocksDBConfig.TableStruct;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.db.util.Utils;
@@ -37,11 +35,9 @@ import cn.hutool.core.date.DateUtil;
 
 public class RocksDBState {
     protected static final String ROCKSDB_DATA_FILE_EXT = "sst";
-    protected static final String SST_FILE_LIST = "sstFile.list";
     protected static final String ENABLE_METRICS = "rocksdb.hdfs.state.metrics";
 
     protected String topoGlogyName;
-    protected Map conf;
     protected RocksDBConfig config = RocksDBConfig.option;
 
     protected String stateName;
@@ -72,34 +68,15 @@ public class RocksDBState {
     	//config.tables.put("player", "player");
     	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, new TableStruct());
     }
-    
-    public ColumnFamilyHandle GetHandle(EM_DB dbType) {
-    	return columnFamilyHandles.get(dbType.ordinal());
-    }
 
     public ColumnFamilyHandle GetHandle(String tableName) {
     	return columnFamilyHandles.get(tableName);
     }
     
-    public Storage getStorage(EM_DB tableType) {
-    	return storages.get(tableType.ordinal());
-    }
-    
     public Storage getStorage(String tableName) {
     	return storages.get(tableName);
     }
-    
-    public void initEnv(String topoGlogyName, Map conf, String workerDir) {
-        this.conf = conf;
 
-        // init local rocksdb even
-        this.rocksDbDir = workerDir + "/db";
-        this.rocksDbCheckpointDir = workerDir + "/checkpoint";
-        initLocalRocksDbDir();
-        initRocksDb();
-
-        Glog.info("Local: dataDir={}, checkpointDir={}", rocksDbDir, rocksDbCheckpointDir);
-    }
     public void initEnv() {
         // init local rocksdb even
         this.rocksDbDir = config.dbPath + "/db";
@@ -114,21 +91,6 @@ public class RocksDBState {
         var options = RocksDBOptionsFactory.createOptions();
         try {
         	txnDb = RocksDBOptionsFactory.createWithColumnFamily(config, rocksDbDir, columnFamilyHandles, storages);
-            Glog.info("Finish the initialization of RocksDB");
-        } catch (Exception e) {
-            Glog.error("Failed to open rocksdb located at {}, error={}", rocksDbDir, e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-
-        lastCheckpointFiles = new HashSet<String>();
-        lastCleanTime = System.currentTimeMillis();
-        lastSuccessBatchId = -1;
-    }
-
-    protected void initRocksDb2() {
-        var options = RocksDBOptionsFactory.createOptions();
-        try {
-        	//txnDb = RocksDbOptionsFactory.createWithColumnFamily2(conf, rocksDbDir, columnFamilyHandles, storages);
             Glog.info("Finish the initialization of RocksDB");
         } catch (Exception e) {
             Glog.error("Failed to open rocksdb located at {}, error={}", rocksDbDir, e.getMessage());
@@ -175,28 +137,6 @@ public class RocksDBState {
             throw new RuntimeException("Failed to retrieve existing column families.", e);
         }
     }
-    
-    public void put(EM_DB dbType, byte[] key, byte[] value) {
-        try {
-            rocksDb.put(columnFamilyHandles.get(dbType.ordinal()), key, value);
-        } catch (RocksDBException e) {
-            Glog.error("Failed to put data, key={}, value={}", key, value);
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    public void putBatch(Map<byte[], byte[]> batch) {
-        try {
-            WriteBatch writeBatch = new WriteBatch();
-            for (Map.Entry<byte[], byte[]> entry : batch.entrySet()) {
-                writeBatch.put(entry.getKey(), entry.getValue());
-            }
-            rocksDb.write(new WriteOptions(), writeBatch);
-        } catch (RocksDBException e) {
-            Glog.error("Failed to put batch={}", batch);
-            throw new RuntimeException(e.getMessage());
-        }
-    }
 
     public void cleanup() {
         if (rocksDb != null)
@@ -206,10 +146,10 @@ public class RocksDBState {
         	txnDb.close();
     }
 
-    public RocksIterator newIterator(EM_DB table_type) {
-    	return txnDb.newIterator(GetHandle(table_type));
+    public RocksIterator newIterator(String tableName) {
+    	return txnDb.newIterator(GetHandle(tableName));
     }
-
+    
     /**
      * Flush the data in memtable of RocksDB into disk, and then create checkpoint
      * 
@@ -269,8 +209,8 @@ public class RocksDBState {
         conf.putAll(Utils.loadConf("conf.property"));
         DBConst.init();
         RocksDBState state = new RocksDBState();
-        state.initEnv("test", conf, "d:/rocksdb_test");
-        ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
+        //state.initEnv("test", conf, "d:/rocksdb_test");
+        ColumnFamilyHandle handle = state.GetHandle("player");
         RocksIterator itr = state.rocksDb.newIterator(handle);
         itr.seekToFirst();
         while (itr.isValid()) {
@@ -281,7 +221,6 @@ public class RocksDBState {
         // setup checkpoint
         int batchNum = JStormUtils.parseInt(conf.get("batch.num"), 100);
         for (int i = 0; i < batchNum; i++) {
-            state.put(EM_DB.PLAYER, JStormUtils.intToBytes(i), JStormUtils.intToBytes(i));
         }
 
         state.checkpoint(DateUtil.format(DateUtil.date(), "yyyyMMddHHmmss"));
@@ -313,8 +252,8 @@ public class RocksDBState {
         conf.putAll(Utils.loadConf("conf.property"));
         DBConst.init();
         RocksDBState state = new RocksDBState();
-        state.initEnv("test", conf, "d:/rocksdb_test");
-        ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
+        //state.initEnv("test", conf, "d:/rocksdb_test");
+        ColumnFamilyHandle handle = state.GetHandle("player");
         var txnDb = state.txnDb;
         var wOp = new WriteOptions();
         var rOp = new ReadOptions();
@@ -340,8 +279,8 @@ public class RocksDBState {
       conf.putAll(Utils.loadConf("conf.property"));
       DBConst.init();
       RocksDBState state = new RocksDBState();
-      state.initEnv("test", conf, "d:/rocksdb_test");
-      ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
+      //state.initEnv("test", conf, "d:/rocksdb_test");
+      ColumnFamilyHandle handle = state.GetHandle("player");
       var txnDb = state.txnDb;
 
       try {

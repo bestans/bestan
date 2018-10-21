@@ -18,8 +18,15 @@ public class MergeTable {
 	}
 	
 	public static void merge(String dstPath, String srcPath) {
-		var dstState = StorageEnv.initDB(dstPath);
-		var srcState = StorageEnv.initDB(srcPath);
+//		var dstState = StorageEnv.initDB(dstPath);
+//		var srcState = StorageEnv.initDB(srcPath);
+//		var op = new MergeTable(dstState, srcState);
+//		op.mergeAllDB();
+	}
+
+	public static void merge(RocksDBConfig dstConfig, RocksDBConfig srcConfig) {
+		var dstState = StorageEnv.initDB(dstConfig);
+		var srcState = StorageEnv.initDB(srcConfig);
 		var op = new MergeTable(dstState, srcState);
 		op.mergeAllDB();
 	}

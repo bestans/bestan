@@ -2,7 +2,6 @@ package bestan.db.test;
 
 import org.rocksdb.Transaction;
 
-import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.DBException;
 import bestan.common.db.StorageEnv;
 import bestan.common.log.Glog;
@@ -16,8 +15,8 @@ public class Thread2 extends Thread {
 		Transaction txn = null;
 		try {
 			txn = StorageEnv.start();
-			var tb2 = StorageEnv.getStorage(EM_DB.PLAYER2);
-			var tb1 = StorageEnv.getStorage(EM_DB.PLAYER);
+			var tb2 = StorageEnv.getStorage("player2");
+			var tb1 = StorageEnv.getStorage("player");
 			for (int i = 0; i < 1; ++i) {
 				tb1.put(txn, i, tb1.getInt(txn, i) + 1000);
 				tb2.put(txn, i, tb2.getInt(txn, i) + 10000);
