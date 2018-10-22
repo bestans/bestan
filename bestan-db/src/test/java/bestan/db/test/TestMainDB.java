@@ -90,7 +90,7 @@ public class TestMainDB {
     }
     
     private static void test6() {
-        StorageEnv.init();
+        //StorageEnv.init();
         var t1 = new Thread1();
         var t2 = new Thread2();
         t1.start();
@@ -106,7 +106,7 @@ public class TestMainDB {
         System.out.println("finish");
     }
     private static void test7() {
-        StorageEnv.init();
+        //StorageEnv.init();
 		Transaction txn = null;
 		try {
 			txn = StorageEnv.start();
@@ -167,7 +167,7 @@ public class TestMainDB {
     	}
     }
     private static void initDB(String path, int key) {
-    	StorageEnv.init(path);
+    	//StorageEnv.init(path);
     	new InitDb(key).baseHandle();
     	StorageEnv.close();
     }
@@ -194,13 +194,13 @@ public class TestMainDB {
 		}
     }
     private static void test10() {
-    	StorageEnv.init("d:/rocksdb_test1");
+    	//StorageEnv.init("d:/rocksdb_test1");
     	new PrintDB().baseHandle();
 		StorageEnv.close();
     }
 
     private static void test20() {
-    	StorageEnv.init("d:/rocksdb_test2");
+    	//StorageEnv.init("d:/rocksdb_test2");
     	new SetDB().baseHandle();
 		StorageEnv.close();
     }

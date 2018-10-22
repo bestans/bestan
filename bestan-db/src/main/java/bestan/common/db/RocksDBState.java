@@ -275,9 +275,6 @@ public class RocksDBState {
 		}
     }
     public static void test3() {
-      Map conf = new HashMap<Object, Object>();
-      conf.putAll(Utils.loadConf("conf.property"));
-      DBConst.init();
       RocksDBState state = new RocksDBState();
       //state.initEnv("test", conf, "d:/rocksdb_test");
       ColumnFamilyHandle handle = state.GetHandle("player");
