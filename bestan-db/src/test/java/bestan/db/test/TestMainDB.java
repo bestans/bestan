@@ -15,7 +15,6 @@ import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Shorts;
 
-import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.DBException;
 import bestan.common.db.DBModule;
 import bestan.common.db.IDBHandle;
@@ -91,7 +90,7 @@ public class TestMainDB {
     }
     
     private static void test6() {
-        StorageEnv.init();
+        //StorageEnv.init();
         var t1 = new Thread1();
         var t2 = new Thread2();
         t1.start();
@@ -107,12 +106,12 @@ public class TestMainDB {
         System.out.println("finish");
     }
     private static void test7() {
-        StorageEnv.init();
+        //StorageEnv.init();
 		Transaction txn = null;
 		try {
 			txn = StorageEnv.start();
-			var tb2 = StorageEnv.getStorage(EM_DB.PLAYER2);
-			var tb1 = StorageEnv.getStorage(EM_DB.PLAYER);
+			var tb2 = StorageEnv.getStorage("player2");
+			var tb1 = StorageEnv.getStorage("player1");
 			Glog.debug("key={},value1={},value2={}", 1, tb1.get(txn, 1), tb2.get(txn, 1));
 			txn.commit();
 		} catch (DBException e) {
@@ -159,7 +158,7 @@ public class TestMainDB {
 
     	@Override
     	public void handle(Transaction txn) throws RocksDBException {
-			var player = StorageEnv.getStorage(EM_DB.PLAYER);
+			var player = StorageEnv.getStorage("player");
 			int key = start;
 			for (int i = 0; i < 20; ++i, ++key) {
 				Glog.debug("key={},value={}", key, player.getInt(txn, key));
@@ -168,7 +167,7 @@ public class TestMainDB {
     	}
     }
     private static void initDB(String path, int key) {
-    	StorageEnv.init(path);
+    	//StorageEnv.init(path);
     	new InitDb(key).baseHandle();
     	StorageEnv.close();
     }
@@ -195,13 +194,13 @@ public class TestMainDB {
 		}
     }
     private static void test10() {
-    	StorageEnv.init("d:/rocksdb_test1");
+    	//StorageEnv.init("d:/rocksdb_test1");
     	new PrintDB().baseHandle();
 		StorageEnv.close();
     }
 
     private static void test20() {
-    	StorageEnv.init("d:/rocksdb_test2");
+    	//StorageEnv.init("d:/rocksdb_test2");
     	new SetDB().baseHandle();
 		StorageEnv.close();
     }
