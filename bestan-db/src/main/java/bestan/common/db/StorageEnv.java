@@ -21,8 +21,8 @@ public class StorageEnv {
         var conf = new HashMap<Object, Object>();
         conf.putAll(Utils.loadConf("conf.property"));
         DBConst.init();
-        var state = new RocksDBState();
-        state.initEnv("test", conf, path);
+        var state = new RocksDBState(null);
+        //state.initEnv("test", conf, path);
         return state;
 	}
 	
@@ -52,14 +52,6 @@ public class StorageEnv {
 			Glog.error("db close error:msg={}", e.getMessage());
 		}
 		dbState.cleanup();
-	}
-	
-	public static Storage getStorage(DBConst.EM_DB tableType) {
-		if (ThreadContext.getInstance().isLocked())
-			return null;
-		Storage storage = dbState.getStorage(tableType);
-		ThreadContext.getInstance().addStorage(storage);
-		return storage;
 	}
 	
 	public static Storage getStorage(String tableName) {

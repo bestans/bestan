@@ -138,7 +138,7 @@ public class LuaConfigs {
 	 * @param cls 配置class
 	 * @return
 	 */
-	public static <T extends BaseLuaConfig> T loadConfigByRootPath(String rootPath, Class<T> cls) {
+	public static <T extends BaseLuaConfig> T loadLuaConfig(String rootPath, Class<T> cls) {
 		var annotation = cls.getAnnotation(LuaAnnotation.class);
 		String fileName = null;
 		if (annotation != null) {
@@ -182,7 +182,7 @@ public class LuaConfigs {
 	public static boolean loadConfig(String rootPath, Class<? extends BaseLuaConfig> cls) {
 		try {
 			Glog.debug("loadConfig rootPath={},class={}", rootPath, cls);
-			var config = loadConfigByRootPath(rootPath, cls);
+			var config = loadLuaConfig(rootPath, cls);
 			if (null == config) return true;
 			
 			//设置配置单例

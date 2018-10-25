@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +30,8 @@ import com.google.common.collect.Maps;
 import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.RocksDBConfig.TableStruct;
 import bestan.common.db.util.JStormUtils;
-import bestan.common.db.util.Utils;
 import bestan.common.log.Glog;
+import bestan.common.lua.LuaConfigs;
 import cn.hutool.core.date.DateUtil;
 
 public class RocksDBState {
@@ -41,7 +40,6 @@ public class RocksDBState {
     protected static final String ENABLE_METRICS = "rocksdb.hdfs.state.metrics";
 
     protected String topoGlogyName;
-    protected Map conf;
     protected RocksDBConfig config = RocksDBConfig.option;
 
     protected String stateName;
@@ -68,38 +66,14 @@ public class RocksDBState {
     	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, new TableStruct());
     }
 
-    public RocksDBState(){
-    	//config.tables.put("player", "player");
-    	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, new TableStruct());
-    }
-    
-    public ColumnFamilyHandle GetHandle(EM_DB dbType) {
-    	return columnFamilyHandles.get(dbType.ordinal());
-    }
-
     public ColumnFamilyHandle GetHandle(String tableName) {
     	return columnFamilyHandles.get(tableName);
-    }
-    
-    public Storage getStorage(EM_DB tableType) {
-    	return storages.get(tableType.ordinal());
     }
     
     public Storage getStorage(String tableName) {
     	return storages.get(tableName);
     }
-    
-    public void initEnv(String topoGlogyName, Map conf, String workerDir) {
-        this.conf = conf;
 
-        // init local rocksdb even
-        this.rocksDbDir = workerDir + "/db";
-        this.rocksDbCheckpointDir = workerDir + "/checkpoint";
-        initLocalRocksDbDir();
-        initRocksDb();
-
-        Glog.info("Local: dataDir={}, checkpointDir={}", rocksDbDir, rocksDbCheckpointDir);
-    }
     public void initEnv() {
         // init local rocksdb even
         this.rocksDbDir = config.dbPath + "/db";
@@ -206,8 +180,8 @@ public class RocksDBState {
         	txnDb.close();
     }
 
-    public RocksIterator newIterator(EM_DB table_type) {
-    	return txnDb.newIterator(GetHandle(table_type));
+    public RocksIterator newIterator(String tableName) {
+    	return txnDb.newIterator(GetHandle(tableName));
     }
 
     /**
@@ -265,12 +239,10 @@ public class RocksDBState {
     }
 
     public static void test1() {
-        Map conf = new HashMap<Object, Object>();
-        conf.putAll(Utils.loadConf("conf.property"));
-        DBConst.init();
-        RocksDBState state = new RocksDBState();
-        state.initEnv("test", conf, "d:/rocksdb_test");
-        ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
+    	var config = new RocksDBConfig();
+        RocksDBState state = new RocksDBState(config);
+        config.dbPath = "d:/rocksdb_test";
+        ColumnFamilyHandle handle = state.GetHandle("player");
         RocksIterator itr = state.rocksDb.newIterator(handle);
         itr.seekToFirst();
         while (itr.isValid()) {
@@ -279,7 +251,7 @@ public class RocksDBState {
         }
         
         // setup checkpoint
-        int batchNum = JStormUtils.parseInt(conf.get("batch.num"), 100);
+        int batchNum = 100;
         for (int i = 0; i < batchNum; i++) {
             state.put(EM_DB.PLAYER, JStormUtils.intToBytes(i), JStormUtils.intToBytes(i));
         }
@@ -301,20 +273,10 @@ public class RocksDBState {
     }
 
     public static void test2() {
-//        final Options options = new Options()
-//                .setCreateIfMissing(true);
-//    	try {
-//			var txnDb1 = OptimisticTransactionDB.open(options, "d:/rocksdb_test");
-//		} catch (RocksDBException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-        Map conf = new HashMap<Object, Object>();
-        conf.putAll(Utils.loadConf("conf.property"));
-        DBConst.init();
-        RocksDBState state = new RocksDBState();
-        state.initEnv("test", conf, "d:/rocksdb_test");
-        ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
+    	var config = LuaConfigs.loadLuaConfig("", RocksDBConfig.class);
+        RocksDBState state = new RocksDBState(config);
+        state.initEnv();
+        ColumnFamilyHandle handle = state.GetHandle("player");
         var txnDb = state.txnDb;
         var wOp = new WriteOptions();
         var rOp = new ReadOptions();
@@ -336,13 +298,11 @@ public class RocksDBState {
 		}
     }
     public static void test3() {
-      Map conf = new HashMap<Object, Object>();
-      conf.putAll(Utils.loadConf("conf.property"));
-      DBConst.init();
-      RocksDBState state = new RocksDBState();
-      state.initEnv("test", conf, "d:/rocksdb_test");
-      ColumnFamilyHandle handle = state.GetHandle(EM_DB.PLAYER);
-      var txnDb = state.txnDb;
+    	var config =  LuaConfigs.loadLuaConfig("", RocksDBConfig.class);
+    	RocksDBState state = new RocksDBState(config);
+    	state.initEnv();
+    	ColumnFamilyHandle handle = state.GetHandle("player");
+    	var txnDb = state.txnDb;
 
       try {
 		  for (int i = 100; i > 0; --i)
