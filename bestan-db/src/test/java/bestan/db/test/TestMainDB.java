@@ -178,7 +178,7 @@ public class TestMainDB {
 			var it = player.newIterator();
 			it.seekToFirst();
 			while (it.isValid()) {
-				Glog.debug("key={},value={}", player.getKeyObject(it.key()), player.getValueObject(it.value()));
+				Glog.debug("key={},value={}", it.key(), it.value());
 				it.next();
 			}
 		}
@@ -193,6 +193,7 @@ public class TestMainDB {
 			}
 		}
     }
+    
     private static void test10() {
     	//StorageEnv.init("d:/rocksdb_test1");
     	new PrintDB().baseHandle();

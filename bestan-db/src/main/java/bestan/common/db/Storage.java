@@ -10,6 +10,7 @@ import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
 
 import bestan.common.db.RocksDBConfig.TableStruct;
+import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.net.operation.TableDataType.DataProcess;
 
@@ -55,9 +56,13 @@ public class Storage implements Comparable<Object> {
 		StorageEnv.lock();
 		txn.delete(handle, key);
 	}
-	public RocksIterator newIterator() {
+	public IteratorDecorator newIterator() {
 		StorageEnv.lock();
-		return db.newIterator(handle);
+		var itr = db.newIterator(handle);
+		if (null == itr) {
+			throw new FormatException("newIterator is null,storage=%s", getTableType());
+		}
+		return new IteratorDecorator(itr, this);
 	}
 	
 	public void put(Transaction txn, Object key, Object value) throws RocksDBException {
@@ -69,6 +74,7 @@ public class Storage implements Comparable<Object> {
 	}
 	
 	public Object get(Transaction txn, Object key) throws RocksDBException {
+		Glog.debug("trace={},{},{}", txn == null, keyProcess==null, key==null);
 		var value = get(txn, keyProcess.getBytes(key));
 		if (value == null) {
 			return null;
@@ -80,14 +86,22 @@ public class Storage implements Comparable<Object> {
 		return (Integer)get(txn, key);
 	}
 	
-	public Object getKeyObject(byte[] bytes) throws RocksDBException {
+	public Object getKeyObject(byte[] bytes) {
 		return keyProcess.convert(bytes);
 	}
 	
-	public Object getValueObject(byte[] bytes) throws RocksDBException {
+	public Object getValueObject(byte[] bytes) {
 		return valueProcess.convert(bytes);
 	}
 	
+	public byte[] getKeyBytes(Object key) {
+		return keyProcess.getBytes(key);
+	}
+	
+	public byte[] getValueBytes(Object value) {
+		return valueProcess.getBytes(value);
+	}
+ 	
 	public DataProcess getValueProcess() {
 		return valueProcess;
 	}
@@ -95,5 +109,59 @@ public class Storage implements Comparable<Object> {
 	@Override
 	public int compareTo(Object arg) {
 		return getTableType().compareTo(((Storage)arg).getTableType());
+	}
+	
+	public static class IteratorDecorator{
+		private RocksIterator iterator;
+		private Storage storage;
+		
+		private IteratorDecorator(RocksIterator iterator, Storage storage) {
+			this.iterator = iterator;
+			this.storage = storage;
+		}
+		
+		public void seekToFirst() {
+			iterator.seekToFirst();
+		}
+		
+		public void seekToLast() {
+			iterator.seekToLast();
+		}
+		
+		public void seek(Object key) {
+			iterator.seek(storage.getKeyBytes(key));
+		}
+		
+		public void seekForPrev(Object key) {
+			iterator.seekForPrev(storage.getKeyBytes(key));
+		}
+		
+		public boolean isValid() {
+			return iterator.isValid();
+		}
+		
+		public void next() {
+			iterator.next();
+		}
+		
+		public void prev() {
+			iterator.prev();
+		}
+		
+		/**
+		 * Frees the underlying C++ object <p>
+		 * It is strong recommended that the developer calls this after they have finished using the object.
+		 */
+		public void close() {
+			iterator.close();
+		}
+		
+		public Object key() {
+			return storage.getKeyObject(iterator.key());
+		}
+		
+		public Object value() {
+			return storage.getValueObject(iterator.value());
+		}
 	}
 }

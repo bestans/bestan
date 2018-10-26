@@ -2,20 +2,15 @@ package bestan.common.db;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.rocksdb.Checkpoint;
-import org.rocksdb.ColumnFamilyDescriptor;
 import org.rocksdb.ColumnFamilyHandle;
-import org.rocksdb.ColumnFamilyOptions;
 import org.rocksdb.FlushOptions;
 import org.rocksdb.OptimisticTransactionDB;
-import org.rocksdb.Options;
 import org.rocksdb.ReadOptions;
 import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
@@ -24,7 +19,6 @@ import org.rocksdb.Transaction;
 import org.rocksdb.WriteBatch;
 import org.rocksdb.WriteOptions;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import bestan.common.db.DBConst.EM_DB;
@@ -32,7 +26,6 @@ import bestan.common.db.RocksDBConfig.TableStruct;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.log.Glog;
 import bestan.common.lua.LuaConfigs;
-import cn.hutool.core.date.DateUtil;
 
 public class RocksDBState {
     protected static final String ROCKSDB_DATA_FILE_EXT = "sst";
@@ -128,28 +121,6 @@ public class RocksDBState {
         }
     }
     
-    private List<ColumnFamilyDescriptor> getExistingColumnFamilyDesc(Options options) {
-        try {
-            List<byte[]> families = Lists.newArrayList();
-            List<byte[]> existingFamilies = RocksDB.listColumnFamilies(options, rocksDbDir);
-            if (existingFamilies != null) {
-                families.addAll(existingFamilies);
-            } else {
-                families.add(RocksDB.DEFAULT_COLUMN_FAMILY);
-            }
-
-            ColumnFamilyOptions familyOptions = RocksDBOptionsFactory.createColumnFamilyOptions();
-            List<ColumnFamilyDescriptor> columnFamilyDescriptors = new ArrayList<>();
-            for (byte[] bytes : families) {
-                columnFamilyDescriptors.add(new ColumnFamilyDescriptor(bytes, familyOptions));
-                Glog.info("Load column family of {}", new String(bytes));
-            }
-            return columnFamilyDescriptors;
-        } catch (RocksDBException e) {
-            throw new RuntimeException("Failed to retrieve existing column families.", e);
-        }
-    }
-    
     public void put(EM_DB dbType, byte[] key, byte[] value) {
         try {
             rocksDb.put(columnFamilyHandles.get(dbType.ordinal()), key, value);
@@ -213,13 +184,6 @@ public class RocksDBState {
         return rocksDbCheckpointDir + "/" + batchId;
     }
 
-    private Collection<String> getFileList(Collection<File> files) {
-        Collection<String> ret = new HashSet<String>();
-        for (File file : files)
-            ret.add(file.getName());
-        return ret;
-    }
-
     private void removeObsoleteLocalCheckpoints(long successBatchId) {
         File cpRootDir = new File(rocksDbCheckpointDir);
         for (String cpDir : cpRootDir.list()) {
@@ -236,27 +200,6 @@ public class RocksDBState {
                 }
             }
         }
-    }
-
-    public static void test1() {
-    	var config = new RocksDBConfig();
-        RocksDBState state = new RocksDBState(config);
-        config.dbPath = "d:/rocksdb_test";
-        ColumnFamilyHandle handle = state.GetHandle("player");
-        RocksIterator itr = state.rocksDb.newIterator(handle);
-        itr.seekToFirst();
-        while (itr.isValid()) {
-        	Glog.debug("old_value:key={},value={}", JStormUtils.bytesToInt(itr.key()), JStormUtils.bytesToInt(itr.value()));
-        	itr.next();
-        }
-        
-        // setup checkpoint
-        int batchNum = 100;
-        for (int i = 0; i < batchNum; i++) {
-            state.put(EM_DB.PLAYER, JStormUtils.intToBytes(i), JStormUtils.intToBytes(i));
-        }
-
-        state.checkpoint(DateUtil.format(DateUtil.date(), "yyyyMMddHHmmss"));
     }
 
     public static void getValue(Transaction txn, ColumnFamilyHandle handle, WriteOptions wOp, ReadOptions rOp, int key) throws RocksDBException {

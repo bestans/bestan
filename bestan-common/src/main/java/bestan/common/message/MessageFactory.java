@@ -13,6 +13,7 @@ import com.google.common.collect.Maps;
 import com.google.protobuf.Message;
 
 import bestan.common.log.Glog;
+import bestan.common.logic.FormatException;
 import bestan.common.module.IModule;
 import bestan.common.module.StartupException;
 import bestan.common.net.handler.IMessageHandler;
@@ -336,6 +337,19 @@ public class MessageFactory {
 		loadFinishCallbackList.add(object);
 	}
 	
+	//执行message载入回调操作
+	public static void executeLoadFinishCallback() {
+		//执行回调
+		for (var obj : loadFinishCallbackList) {
+			try {
+				obj.onMessageLoadFinish();
+			} catch (Exception e) {
+				throw new FormatException("loadFinishCallback failed:" + e.getMessage());
+			}
+		}
+		loadFinishCallbackList.clear();
+	}
+	
 	public static class MessageModule implements IModule {
 		@SuppressWarnings("rawtypes")
 		private Class<? extends Enum> messageIndex;
@@ -378,15 +392,7 @@ public class MessageFactory {
 				}
 			}
 			
-			//执行回调
-			for (var obj : loadFinishCallbackList) {
-				try {
-					obj.onMessageLoadFinish();
-				} catch (Exception e) {
-					throw new StartupException(this, "loadFinishCallback failed:" + e.getMessage());
-				}
-			}
-			loadFinishCallbackList.clear();
+			executeLoadFinishCallback();
 		}
 	}
 }
