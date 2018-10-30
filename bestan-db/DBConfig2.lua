@@ -6,7 +6,7 @@ local MB = KB * KB
 local config =
 {
     --数据库路径
-    dbPath = "d:/rocksdb_test",
+    dbPath = "d:/rocksdb_test2",
     
     --数据库表
     --key：表名

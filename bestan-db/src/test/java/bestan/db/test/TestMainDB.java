@@ -18,7 +18,6 @@ import com.google.common.primitives.Shorts;
 import bestan.common.db.DBException;
 import bestan.common.db.DBModule;
 import bestan.common.db.IDBHandle;
-import bestan.common.db.MergeTable;
 import bestan.common.db.StorageEnv;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.log.Glog;
@@ -213,7 +212,7 @@ public class TestMainDB {
     }
     
     private static void test11() {
-    	MergeTable.merge("d:/rocksdb_test1", "d:/rocksdb_test2");
+    	//MergeTable.merge("d:/rocksdb_test1", "d:/rocksdb_test2");
     	test10();
     	Glog.info("finish");
     }

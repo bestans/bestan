@@ -10,7 +10,6 @@ import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
 
 import bestan.common.db.RocksDBConfig.TableStruct;
-import bestan.common.log.Glog;
 import bestan.common.logic.FormatException;
 import bestan.common.net.operation.TableDataType.DataProcess;
 
@@ -44,6 +43,10 @@ public class Storage implements Comparable<Object> {
 	public void unlock() {
 		lock.unlock();
 	}
+	
+	void rawPut(byte[] key, byte[] value) throws RocksDBException {
+		db.put(key, value);
+	}
 	public void put(Transaction txn, byte[] key, byte[] value) throws RocksDBException {
 		StorageEnv.lock();
 		txn.put(handle, key, value);
@@ -56,6 +59,14 @@ public class Storage implements Comparable<Object> {
 		StorageEnv.lock();
 		txn.delete(handle, key);
 	}
+	
+	/**
+	 * @return 获取table原始的iterator
+	 */
+	RocksIterator rawNewIerator() {
+		return db.newIterator(handle);
+	}
+	
 	public IteratorDecorator newIterator() {
 		StorageEnv.lock();
 		var itr = db.newIterator(handle);
@@ -74,7 +85,6 @@ public class Storage implements Comparable<Object> {
 	}
 	
 	public Object get(Transaction txn, Object key) throws RocksDBException {
-		Glog.debug("trace={},{},{}", txn == null, keyProcess==null, key==null);
 		var value = get(txn, keyProcess.getBytes(key));
 		if (value == null) {
 			return null;
@@ -120,30 +130,56 @@ public class Storage implements Comparable<Object> {
 			this.storage = storage;
 		}
 		
+		/**
+		 * Position at the first entry in the source. The iterator is Valid() after this call if the source is not empty.
+		 */
 		public void seekToFirst() {
 			iterator.seekToFirst();
 		}
 		
+		/**
+		 * Position at the last entry in the source. The iterator is valid after this call if the source is not empty.
+		 */
 		public void seekToLast() {
 			iterator.seekToLast();
 		}
 		
+		/**
+		 * Position at the first entry in the source whose key is that or past target.<p>
+		 * The iterator is valid after this call if the source contains a key that comes at or past target.
+		 * @param key object describing a key or a key prefix to seek for.
+		 */
 		public void seek(Object key) {
 			iterator.seek(storage.getKeyBytes(key));
 		}
 		
+		/**
+		 * Position at the first entry in the source whose key is that or before target.<p>
+		 * The iterator is valid after this call if the source contains a key that comes at or before target.
+		 * @param key object describing a key or a key prefix to seek for. 
+		 */
 		public void seekForPrev(Object key) {
 			iterator.seekForPrev(storage.getKeyBytes(key));
 		}
 		
+		/**
+		 * An iterator is either positioned at an entry, or not valid. This method returns true if the iterator is valid.
+		 * @return true if iterator is valid.
+		 */
 		public boolean isValid() {
 			return iterator.isValid();
 		}
 		
+		/**
+		 * Moves to the next entry in the source. After this call, Valid() is true if the iterator was not positioned at the last entry in the source.
+		 */
 		public void next() {
 			iterator.next();
 		}
 		
+		/**
+		 * Moves to the previous entry in the source. After this call, Valid() is true if the iterator was not positioned at the first entry in source.
+		 */
 		public void prev() {
 			iterator.prev();
 		}
@@ -156,10 +192,18 @@ public class Storage implements Comparable<Object> {
 			iterator.close();
 		}
 		
+		/**
+		 * Return the key for the current entry. The underlying storage for the returned slice is valid only until the next modification of the iterator.
+		 * @return
+		 */
 		public Object key() {
 			return storage.getKeyObject(iterator.key());
 		}
 		
+		/**
+		 * Return the value for the current entry. The underlying storage for the returned slice is valid only until the next modification of the iterator.
+		 * @return
+		 */
 		public Object value() {
 			return storage.getValueObject(iterator.value());
 		}

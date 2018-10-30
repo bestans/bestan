@@ -11,7 +11,7 @@ public class DBModule implements IModule{
 	
 	@Override
 	public void startup() {
-		StorageEnv.init(dbConfig);
+		StorageEnv.initDB(dbConfig);
 	}
 	
 	@Override

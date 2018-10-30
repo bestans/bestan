@@ -11,34 +11,24 @@ import org.rocksdb.Checkpoint;
 import org.rocksdb.ColumnFamilyHandle;
 import org.rocksdb.FlushOptions;
 import org.rocksdb.OptimisticTransactionDB;
-import org.rocksdb.ReadOptions;
-import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import org.rocksdb.Transaction;
-import org.rocksdb.WriteBatch;
 import org.rocksdb.WriteOptions;
 
 import com.google.common.collect.Maps;
 
-import bestan.common.db.DBConst.EM_DB;
 import bestan.common.db.RocksDBConfig.TableStruct;
 import bestan.common.db.util.JStormUtils;
 import bestan.common.log.Glog;
-import bestan.common.lua.LuaConfigs;
 
 public class RocksDBState {
     protected static final String ROCKSDB_DATA_FILE_EXT = "sst";
     protected static final String SST_FILE_LIST = "sstFile.list";
-    protected static final String ENABLE_METRICS = "rocksdb.hdfs.state.metrics";
 
-    protected String topoGlogyName;
-    protected RocksDBConfig config = RocksDBConfig.option;
+    private RocksDBConfig config;
 
-    protected String stateName;
-
-    public RocksDB rocksDb;
-    public OptimisticTransactionDB txnDb;
+    private OptimisticTransactionDB txnDb;
     protected String rocksDbDir;
     protected String rocksDbCheckpointDir;
     protected Collection<String> lastCheckpointFiles;
@@ -55,7 +45,6 @@ public class RocksDBState {
     
     public RocksDBState(RocksDBConfig config){
     	this.config = config;
-    	//config.tables.put("player", "player");
     	config.tables.put(DBConst.DEFAULT_COLUMN_FAMILY, new TableStruct());
     }
 
@@ -68,7 +57,6 @@ public class RocksDBState {
     }
 
     public void initEnv() {
-        // init local rocksdb even
         this.rocksDbDir = config.dbPath + "/db";
         this.rocksDbCheckpointDir = config.dbPath + "/checkpoint";
         initLocalRocksDbDir();
@@ -78,24 +66,8 @@ public class RocksDBState {
     }
     
     protected void initRocksDb() {
-        var options = RocksDBOptionsFactory.createOptions();
         try {
         	txnDb = RocksDBOptionsFactory.createWithColumnFamily(config, rocksDbDir, columnFamilyHandles, storages);
-            Glog.info("Finish the initialization of RocksDB");
-        } catch (Exception e) {
-            Glog.error("Failed to open rocksdb located at {}, error={}", rocksDbDir, e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-
-        lastCheckpointFiles = new HashSet<String>();
-        lastCleanTime = System.currentTimeMillis();
-        lastSuccessBatchId = -1;
-    }
-
-    protected void initRocksDb2() {
-        var options = RocksDBOptionsFactory.createOptions();
-        try {
-        	//txnDb = RocksDbOptionsFactory.createWithColumnFamily2(conf, rocksDbDir, columnFamilyHandles, storages);
             Glog.info("Finish the initialization of RocksDB");
         } catch (Exception e) {
             Glog.error("Failed to open rocksdb located at {}, error={}", rocksDbDir, e.getMessage());
@@ -120,33 +92,8 @@ public class RocksDBState {
             throw new RuntimeException(e.getMessage());
         }
     }
-    
-    public void put(EM_DB dbType, byte[] key, byte[] value) {
-        try {
-            rocksDb.put(columnFamilyHandles.get(dbType.ordinal()), key, value);
-        } catch (RocksDBException e) {
-            Glog.error("Failed to put data, key={}, value={}", key, value);
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    public void putBatch(Map<byte[], byte[]> batch) {
-        try {
-            WriteBatch writeBatch = new WriteBatch();
-            for (Map.Entry<byte[], byte[]> entry : batch.entrySet()) {
-                writeBatch.put(entry.getKey(), entry.getValue());
-            }
-            rocksDb.write(new WriteOptions(), writeBatch);
-        } catch (RocksDBException e) {
-            Glog.error("Failed to put batch={}", batch);
-            throw new RuntimeException(e.getMessage());
-        }
-    }
 
     public void cleanup() {
-        if (rocksDb != null)
-            rocksDb.close();
-        
         if (txnDb != null)
         	txnDb.close();
     }
@@ -162,8 +109,8 @@ public class RocksDBState {
      */
     public void checkpoint(String batchId) {
         try {
-            rocksDb.flush(new FlushOptions());
-            Checkpoint cp = Checkpoint.create(rocksDb);
+            txnDb.flush(new FlushOptions());
+            Checkpoint cp = Checkpoint.create(txnDb);
             cp.createCheckpoint(getLocalCheckpointPath(batchId));
         } catch (RocksDBException e) {
             Glog.error("Failed to create checkpoint for batch-{},error={}", batchId, e.getMessage());
@@ -201,67 +148,12 @@ public class RocksDBState {
             }
         }
     }
-
-    public static void getValue(Transaction txn, ColumnFamilyHandle handle, WriteOptions wOp, ReadOptions rOp, int key) throws RocksDBException {
-    	var vBytes = txn.get(handle, rOp, JStormUtils.intToBytes(key));
-    	if (vBytes != null) {
-    		Glog.debug("getvalue:key={},value={}", key, JStormUtils.bytesToInt(vBytes));
-    	} else {
-    		Glog.debug("getvalue:key={},value=null", key);
-    	}
+    
+    void compactRange() throws RocksDBException {
+    	txnDb.compactRange();
     }
-    public static void setValue(Transaction txn, ColumnFamilyHandle handle, int key, int value) throws RocksDBException {
-    	txn.put(handle, JStormUtils.intToBytes(key), JStormUtils.intToBytes(value));
-    	Glog.debug("setvalue:key={},value={}", key, value);
-    }
-
-    public static void test2() {
-    	var config = LuaConfigs.loadLuaConfig("", RocksDBConfig.class);
-        RocksDBState state = new RocksDBState(config);
-        state.initEnv();
-        ColumnFamilyHandle handle = state.GetHandle("player");
-        var txnDb = state.txnDb;
-        var wOp = new WriteOptions();
-        var rOp = new ReadOptions();
-        try {
-        	var txn = txnDb.beginTransaction(wOp);
-        	getValue(txn, handle, wOp, rOp, 100);
-        	setValue(txn, handle, 100, 103);
-        	//getValue(txn, handle, wOp, rOp, 100);
-        	txnDb.put(handle, JStormUtils.intToBytes(100), JStormUtils.intToBytes(103));
-        	getValue(txn, handle, wOp, rOp, 100);
-        	txn.commit();
-        	//txn.rollback();
-        } catch (RocksDBException e) {
-			// TODO Auto-generated catch block
-        	//System.out.println(e.ge);
-			//e.printStackTrace();
-		} finally {
-			// TODO: handle finally clause
-		}
-    }
-    public static void test3() {
-    	var config =  LuaConfigs.loadLuaConfig("", RocksDBConfig.class);
-    	RocksDBState state = new RocksDBState(config);
-    	state.initEnv();
-    	ColumnFamilyHandle handle = state.GetHandle("player");
-    	var txnDb = state.txnDb;
-
-      try {
-		  for (int i = 100; i > 0; --i)
-		  {
-			  txnDb.put(handle, JStormUtils.intToBytes(i), JStormUtils.intToBytes(i* 3));
-		  }
-      } catch (RocksDBException e) {
-			// TODO Auto-generated catch block
-		e.printStackTrace();
-      }
-      var it = txnDb.newIterator(handle);
-      for (it.seek(JStormUtils.intToBytes(91)); it.isValid(); it.next()) {
-    	  Glog.debug("value:key={},value={}", JStormUtils.bytesToInt(it.key()), JStormUtils.bytesToInt(it.value()));
-      }
-  }
-    public static void main(String[] args) {
-    	test2();
+    
+    Transaction beginTransaction(WriteOptions writeOptions) {
+    	return txnDb.beginTransaction(writeOptions);
     }
 }
