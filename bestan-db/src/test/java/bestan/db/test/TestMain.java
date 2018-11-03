@@ -56,7 +56,7 @@ public class TestMain {
 		var storage = state.getStorage("player");
 
 		try {
-			var txn = StorageEnv.beginTransaction();
+			var txn = StorageEnv.beginTransaction(state);
 			for (int i = 1000; i > 0; i-=10) {
 				storage.put(txn, i, i * 3);
 			}
@@ -75,7 +75,7 @@ public class TestMain {
 		initPath();
 		var storage = state.getStorage("player");
 		try {
-			var txn = StorageEnv.beginTransaction();
+			var txn = StorageEnv.beginTransaction(state);
 			var value = storage.get(txn, 100);
 			Glog.debug("get value={}", value);
 			storage.put(txn, 100, 104);
