@@ -11,13 +11,15 @@ set enumExe=%CurrentDir%\protoc_message_enum.exe
 
 set SRC_DIR=%CurrentDir%
 set DST_DIR=%CurrentDir%\..\
+set DOTNET_DST_DIR=E:\dotnet\bestan\proto\
 
 set FILE_DIR=%DST_DIR%bestan\common\protobuf\
 set DEST_FILE_DIR=E:\bestan\bestan-common\src\main\java\bestan\common\protobuf
 
 :%protoExe% -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\net_common.proto
 :%protoExe% -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\proto.proto
-%protoExe% --plugin=protoc-gen-enum=%enumExe% --enum_out=%DST_DIR% --enum_opt=MessageEnum -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\proto.proto
+:%protoExe% --plugin=protoc-gen-enum=%enumExe% --enum_out=%DST_DIR% --enum_opt=MessageEnum -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\proto.proto
+%protoExe% -I=%SRC_DIR% --csharp_out=%DOTNET_DST_DIR% %SRC_DIR%\proto.proto
 :%protoExe% -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\net_base.proto
 :%protoExe% --plugin=protoc-gen-grpc-java=%enumExe% --grpc-java_out=%DST_DIR% -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\helloworld.proto
 :%protoExe% --plugin=protoc-gen-grpc-java=%enumExe% --grpc-java_out=%DST_DIR% -I=%SRC_DIR% --java_out=%DST_DIR% %SRC_DIR%\proto.proto

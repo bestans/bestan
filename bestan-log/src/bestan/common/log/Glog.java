@@ -1,11 +1,39 @@
 package bestan.common.log;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
 public class Glog {
-	public static final Logger log = LoggerFactory.getLogger("myDebug");
+	public static Logger log;
+	
+	private static boolean initSuccess = true;
+	
+	public static void setFailed() {
+		initSuccess = false;
+	}
+	
+	/**
+	 * @param loggerName 选择哪个logger
+	 * @param path log4j.properties配置路径
+	 */
+	public static void initLogger(String loggerName, String path) {
+		PropertyConfigurator.configure(path);
+		log = LoggerFactory.getLogger(loggerName);
+		if (log == null || !initSuccess) {
+			throw new RuntimeException("glog init failed");
+		}
+	}
+	
+	public static void init() {
+		initLogger("debug", "log4j.properties");
+	}
+	
+	public static void initLogger(String loggerName) {
+		initLogger(loggerName, "log4j.properties");
+	}
+	
 	public static Logger GetLog()
 	{
 		return log;

@@ -11,7 +11,6 @@ import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-import bestan.log.Glog;
 
 public class Test {
     List<String> stringList = new ArrayList<String>();
@@ -23,32 +22,19 @@ public class Test {
 		var ret = chunk.call();
 		var tvalue = ret.get("test");
 		if (tvalue != null) {
-			Glog.trace("bbbb={}", tvalue.toint());
+			System.out.println("bbbb=" + tvalue.toint());
 		}
 	}
 
 	public static void test7() {
 		LuaConfigs.loadConfig("bestan.common.lua");
 		var cfg = LuaConfigs.get(TestSon.class);
-		Glog.trace("test5={},{}", cfg.test, cfg.string);
-		for (var it : cfg.nums) {
-			System.out.println(it);
-		}
-		for (var it :cfg.map.entrySet()) {
-			Glog.trace("key={},value={},{}", it.getKey(), it.getValue().v1, it.getValue().v2);
-		}
-		for (var it : cfg.lists) {
-			Glog.trace("v={},{}", it.v1, it.v2);
-		}
-		for (var it : cfg.dmap.entrySet()) {
-			Glog.trace("key={},value={}", it.getKey(), it.getValue());
-		}
-		Glog.trace("cfg.dList={},{}", cfg.dList, cfg.lvalue);
+		System.out.println(cfg);
 	}
 	public static void test4() throws NoSuchFieldException, SecurityException {
         //Field stringListField = Test.class.getDeclaredField("stringList");
 		for (var stringListField : TestLua.class.getFields()) {
-			Glog.trace("testtttt={}", stringListField.getGenericType().getTypeName());
+			System.out.println("testtttt=" + stringListField.getGenericType().getTypeName());
 			var generic = stringListField.getGenericType();
 			if (!(generic instanceof ParameterizedType))
 				continue;

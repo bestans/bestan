@@ -28,14 +28,14 @@
 	    <version>3.0.1</version>
 	</dependency>
 	<dependency>
-	    <groupId>org.reflections</groupId>
-	    <artifactId>reflections</artifactId>
-	    <version>0.9.11</version>
-	</dependency>
-	<dependency>
 	    <groupId>com.google.guava</groupId>
 	    <artifactId>guava</artifactId>
 	    <version>24.0-jre</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.github.classgraph</groupId>
+	    <artifactId>classgraph</artifactId>
+	    <version>LATEST</version>
 	</dependency>
   </dependencies>
 </project>

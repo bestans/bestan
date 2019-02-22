@@ -21,7 +21,7 @@ public class BaseProtoHandler implements IMessageHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		var channelFuture = protocol.getChannelHandlerContext().writeAndFlush(protocol.getMessage());
+		var channelFuture = protocol.writeAndFlush(protocol.getMessage());
 		channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
 
 			@Override

@@ -1,8 +1,0 @@
-/target/
-.classpath
-.project
-.settings/
-account.json
-verifyCode.png
-logs/
-account-*.json

@@ -10,6 +10,15 @@ public class Test {
 		Glog.log.error("is customize error log {} data", 13);
 	}
 	public static void main(String[] args) {
-		test2();
+		Glog.initLogger("gs");
+		while (true) {
+			test2();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

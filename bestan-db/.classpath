@@ -28,5 +28,7 @@
 	<classpathentry kind="lib" path="E:/bestan/source/jar/slf4j-api-1.8.0-alpha2.jar"/>
 	<classpathentry kind="lib" path="E:/bestan/source/jar/slf4j-log4j12-1.8.0-alpha2.jar"/>
 	<classpathentry kind="lib" path="E:/bestan/source/jar/bestan-common.jar"/>
+	<classpathentry kind="lib" path="E:/bestan/source/jar/bestan-log.jar"/>
+	<classpathentry kind="lib" path="E:/bestan/source/jar/bestan-lua.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

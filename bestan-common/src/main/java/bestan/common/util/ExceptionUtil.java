@@ -25,8 +25,8 @@ public class ExceptionUtil {
 	public static boolean sendEmail(String emailaddress,String code){
 		try {
 			HtmlEmail email = new HtmlEmail();//不用更改
-			email.setHostName("127.0.0.1");//需要修改，126邮箱为smtp.126.com,163邮箱为163.smtp.com，QQ为smtp.qq.com
-			email.setSmtpPort(2525);
+			email.setHostName("163.smtp.com");//需要修改，126邮箱为smtp.126.com,163邮箱为163.smtp.com，QQ为smtp.qq.com
+			//email.setSmtpPort(2525);
 			email.setCharset("UTF-8");
 			email.addTo(emailaddress);// 收件地址
  
