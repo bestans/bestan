@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package protoc;
+
+message MessageData
+{
+	int32 messageId				= 1;	//消息ID
+	bytes messageContent		= 2;	//消息内容
+}
+
+//客户端发送的消息
+message ClientMessage
+{
+	MessageData messageData		= 1;	//消息内容
+}
+
+//如果guid不为0，则根据guid在对应routine中处理消息
+//如果guid为0，则根据hashKey来索引到通用的routine库中处理消息
+message BaseMessage
+{
+	MessageData messageData		= 1;
+	bool isClientMsg			= 2;	//用来区分是客户端发来的消息，还是服务器内部消息
+	int64 guid					= 3;	//如果是玩家的消息，会设置guid
+	uint32 hashKey				= 4;	//如果
+}
